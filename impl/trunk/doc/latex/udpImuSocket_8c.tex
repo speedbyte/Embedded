@@ -1,0 +1,1304 @@
+\hypertarget{udpImuSocket_8c}{\section{matlab/model/udp\+Imu\+Socket.c File Reference}
+\label{udpImuSocket_8c}\index{matlab/model/udp\+Imu\+Socket.\+c@{matlab/model/udp\+Imu\+Socket.\+c}}
+}
+{\ttfamily \#include \char`\"{}simstruc.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../udp\+Imu\+Lib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}cg\+\_\+sfun.\+h\char`\"{}}\\*
+Include dependency graph for udp\+Imu\+Socket.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{udpImuSocket_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{udpImuSocket_8c_a69fae65ca7ac6c15ada7eaee48b4ebfc_a69fae65ca7ac6c15ada7eaee48b4ebfc}{C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C}~\mbox{[}0\mbox{]}
+\item 
+\#define \hyperlink{udpImuSocket_8c_a009fe3904fbf34e23348727367e4d041_a009fe3904fbf34e23348727367e4d041}{C\+R\+E\+A\+T\+E\+\_\+\+D\+E\+B\+U\+G\+\_\+\+M\+E\+X\+F\+I\+L\+E}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a947b1d1dce4803ad2ed4bfe29f551994_a947b1d1dce4803ad2ed4bfe29f551994}{D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C}~\mbox{[}0\mbox{]}
+\item 
+\#define \hyperlink{udpImuSocket_8c_ab5b2126a17777f4a15d3cc818e2e5c29_ab5b2126a17777f4a15d3cc818e2e5c29}{I\+S\+\_\+\+P\+A\+R\+A\+M\+\_\+\+D\+O\+U\+B\+L\+E}(p\+Val)
+\item 
+\#define \hyperlink{udpImuSocket_8c_a4936bd489281a5a9b9a2e081de0f003e_a4936bd489281a5a9b9a2e081de0f003e}{M\+D\+L\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+S}
+\item 
+\#define \hyperlink{udpImuSocket_8c_a0bf730f2917893b3e38e68f6da793c2f_a0bf730f2917893b3e38e68f6da793c2f}{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E\+S}
+\item 
+\#define \hyperlink{udpImuSocket_8c_a8dec1e0cbe5fb3eab09b6ae79c64ee88_a8dec1e0cbe5fb3eab09b6ae79c64ee88}{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+O\+U\+T\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E}
+\item 
+\#define \hyperlink{udpImuSocket_8c_ac032abbf580c891fb0c11e63e9bc668a_ac032abbf580c891fb0c11e63e9bc668a}{M\+D\+L\+\_\+\+S\+T\+A\+R\+T}~/$\ast$ Change to \#undef to remove function $\ast$/
+\item 
+\#define \hyperlink{udpImuSocket_8c_ae468832efa6adf5e9a96cabd8f878b47_ae468832efa6adf5e9a96cabd8f878b47}{N\+P\+A\+R\+A\+M\+S}~2
+\item 
+\#define \hyperlink{udpImuSocket_8c_a04e55a99fdb3750375d01dd076012560_a04e55a99fdb3750375d01dd076012560}{N\+U\+M\+\_\+\+C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_ad097b7d857d72f7854d134cd3d58c8dd_ad097b7d857d72f7854d134cd3d58c8dd}{N\+U\+M\+\_\+\+D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_ad706a4e66dccbe66985b4c8785f28f3c_ad706a4e66dccbe66985b4c8785f28f3c}{N\+U\+M\+\_\+\+I\+N\+P\+U\+T\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a2b952de4620c16ca060fe9e2d3aad454_a2b952de4620c16ca060fe9e2d3aad454}{N\+U\+M\+\_\+\+O\+U\+T\+P\+U\+T\+S}~5
+\item 
+\#define \hyperlink{udpImuSocket_8c_a0f9ec0ea9596b68cfff92b44e968c4dd_a0f9ec0ea9596b68cfff92b44e968c4dd}{O\+U\+T\+\_\+0\+\_\+\+B\+I\+A\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_afa1a5d925e86bb6510da8ce1653246ed_afa1a5d925e86bb6510da8ce1653246ed}{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_ab8223c55c2886130a89fd8552b17ebfd_ab8223c55c2886130a89fd8552b17ebfd}{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}
+\item 
+\#define \hyperlink{udpImuSocket_8c_aca0eb6373c88a306ef4865fdb11e0999_aca0eb6373c88a306ef4865fdb11e0999}{O\+U\+T\+\_\+0\+\_\+\+D\+I\+M\+S}~1-\/D
+\item 
+\#define \hyperlink{udpImuSocket_8c_a4a359fb8b6695028a74ee139f85a5d28_a4a359fb8b6695028a74ee139f85a5d28}{O\+U\+T\+\_\+0\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_aecb2cd56b8d307f68427e89cc011d1c6_aecb2cd56b8d307f68427e89cc011d1c6}{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}~3
+\item 
+\#define \hyperlink{udpImuSocket_8c_ace5afa5b384ae1376b3b70c223874ce1_ace5afa5b384ae1376b3b70c223874ce1}{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}~F\+R\+A\+M\+E\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_af9b20b9d1985db7eb9c14b8782932618_af9b20b9d1985db7eb9c14b8782932618}{O\+U\+T\+\_\+0\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a8b2e033cc05dfd7ba72ebf05ccfb59da_a8b2e033cc05dfd7ba72ebf05ccfb59da}{O\+U\+T\+\_\+0\+\_\+\+S\+L\+O\+P\+E}~0.\+125
+\item 
+\#define \hyperlink{udpImuSocket_8c_a9e482e661743d7f3099b12ff39bd1ee5_a9e482e661743d7f3099b12ff39bd1ee5}{O\+U\+T\+\_\+0\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}~8
+\item 
+\#define \hyperlink{udpImuSocket_8c_a50a4eac08f45d1543f320e7a188e0085_a50a4eac08f45d1543f320e7a188e0085}{O\+U\+T\+\_\+1\+\_\+\+B\+I\+A\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a3fe304751eeaa069cc2d5d3376e03b04_a3fe304751eeaa069cc2d5d3376e03b04}{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a9bc56a3052b99f6b90430c4afffabce6_a9bc56a3052b99f6b90430c4afffabce6}{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}
+\item 
+\#define \hyperlink{udpImuSocket_8c_af5455f17c8aa71c784507c5b8cd97d39_af5455f17c8aa71c784507c5b8cd97d39}{O\+U\+T\+\_\+1\+\_\+\+D\+I\+M\+S}~1-\/D
+\item 
+\#define \hyperlink{udpImuSocket_8c_a036e870edf73d98bb52a588d46fc6f0b_a036e870edf73d98bb52a588d46fc6f0b}{O\+U\+T\+\_\+1\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a4c05e5189b99b7d6e6f9310bb16012e6_a4c05e5189b99b7d6e6f9310bb16012e6}{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}~3
+\item 
+\#define \hyperlink{udpImuSocket_8c_aff5d836e46f2a6b0ec0cb70436839868_aff5d836e46f2a6b0ec0cb70436839868}{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}~F\+R\+A\+M\+E\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_ac7808af05dc1b08656f06ed9f9716ae7_ac7808af05dc1b08656f06ed9f9716ae7}{O\+U\+T\+\_\+1\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a5704842e0639aa855afc50bbf5df01c9_a5704842e0639aa855afc50bbf5df01c9}{O\+U\+T\+\_\+1\+\_\+\+S\+L\+O\+P\+E}~0.\+125
+\item 
+\#define \hyperlink{udpImuSocket_8c_acae203ecd7814bc5405a5bedbeea5e3d_acae203ecd7814bc5405a5bedbeea5e3d}{O\+U\+T\+\_\+1\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}~8
+\item 
+\#define \hyperlink{udpImuSocket_8c_a93b63719267ddcb8c3f0dbed78bfc281_a93b63719267ddcb8c3f0dbed78bfc281}{O\+U\+T\+\_\+2\+\_\+\+B\+I\+A\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a1a5927131e77d5db9564768e2e6c0930_a1a5927131e77d5db9564768e2e6c0930}{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a8f5ff3a741572fa73a6a8782f084d7b5_a8f5ff3a741572fa73a6a8782f084d7b5}{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}
+\item 
+\#define \hyperlink{udpImuSocket_8c_a220892aba4d36ff1ea8f43adc77a7e9b_a220892aba4d36ff1ea8f43adc77a7e9b}{O\+U\+T\+\_\+2\+\_\+\+D\+I\+M\+S}~1-\/D
+\item 
+\#define \hyperlink{udpImuSocket_8c_ad6fef8f385120da84beab6a305160ab0_ad6fef8f385120da84beab6a305160ab0}{O\+U\+T\+\_\+2\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a861d91a5482147e9808a49915086c25a_a861d91a5482147e9808a49915086c25a}{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}~3
+\item 
+\#define \hyperlink{udpImuSocket_8c_ada990636dfe6ae90d96a15f085ae277b_ada990636dfe6ae90d96a15f085ae277b}{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}~F\+R\+A\+M\+E\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_a215a4593db53b6160a21535b3a06eb48_a215a4593db53b6160a21535b3a06eb48}{O\+U\+T\+\_\+2\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_ad4ab487cbcb9c2bdac66793ad5cbdff4_ad4ab487cbcb9c2bdac66793ad5cbdff4}{O\+U\+T\+\_\+2\+\_\+\+S\+L\+O\+P\+E}~0.\+125
+\item 
+\#define \hyperlink{udpImuSocket_8c_aab12787717cbc3786a9eb204cc07aa97_aab12787717cbc3786a9eb204cc07aa97}{O\+U\+T\+\_\+2\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}~8
+\item 
+\#define \hyperlink{udpImuSocket_8c_aad75531bee8d07a64d69cf4ee515a058_aad75531bee8d07a64d69cf4ee515a058}{O\+U\+T\+\_\+3\+\_\+\+B\+I\+A\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_ac02e443f27c9c259124ec18a5f747c93_ac02e443f27c9c259124ec18a5f747c93}{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a99c626f6d15899b00a1ca6d37fd2f13a_a99c626f6d15899b00a1ca6d37fd2f13a}{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}
+\item 
+\#define \hyperlink{udpImuSocket_8c_affb6d6bbce228e2fe4cf08147993a57c_affb6d6bbce228e2fe4cf08147993a57c}{O\+U\+T\+\_\+3\+\_\+\+D\+I\+M\+S}~1-\/D
+\item 
+\#define \hyperlink{udpImuSocket_8c_a1fbc951bcd8a636f197181c65403995b_a1fbc951bcd8a636f197181c65403995b}{O\+U\+T\+\_\+3\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a988fc3268d9154217173b3eb6824eb25_a988fc3268d9154217173b3eb6824eb25}{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}~3
+\item 
+\#define \hyperlink{udpImuSocket_8c_a0d10e7fbb3d303e79928fe77688aaad6_a0d10e7fbb3d303e79928fe77688aaad6}{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}~F\+R\+A\+M\+E\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_ae4ce750aea05502d9ede4aa8a4278958_ae4ce750aea05502d9ede4aa8a4278958}{O\+U\+T\+\_\+3\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_ad05547060cca6bba02ece506c0a22053_ad05547060cca6bba02ece506c0a22053}{O\+U\+T\+\_\+3\+\_\+\+S\+L\+O\+P\+E}~0.\+125
+\item 
+\#define \hyperlink{udpImuSocket_8c_abe96b579269aaeffba7ab585d0b8ad40_abe96b579269aaeffba7ab585d0b8ad40}{O\+U\+T\+\_\+3\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}~8
+\item 
+\#define \hyperlink{udpImuSocket_8c_a4cc6b46f58bf1cc4f477c6e49caa4eb6_a4cc6b46f58bf1cc4f477c6e49caa4eb6}{O\+U\+T\+\_\+4\+\_\+\+B\+I\+A\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_ae61fb4b5f0367cc50355136ffa6d4eb3_ae61fb4b5f0367cc50355136ffa6d4eb3}{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a471d56b991cddf5a5bb3f53e4f0ceae8_a471d56b991cddf5a5bb3f53e4f0ceae8}{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}
+\item 
+\#define \hyperlink{udpImuSocket_8c_a6f13f1f4d01bf05c41ab0a5dea4615b9_a6f13f1f4d01bf05c41ab0a5dea4615b9}{O\+U\+T\+\_\+4\+\_\+\+D\+I\+M\+S}~1-\/D
+\item 
+\#define \hyperlink{udpImuSocket_8c_aa414ba0546c72d1398ea5c637fc63757_aa414ba0546c72d1398ea5c637fc63757}{O\+U\+T\+\_\+4\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a88d975596bffa16ebcfa3f684cfe5661_a88d975596bffa16ebcfa3f684cfe5661}{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}~3
+\item 
+\#define \hyperlink{udpImuSocket_8c_ad2a89e94951900b926e428d71712cf0a_ad2a89e94951900b926e428d71712cf0a}{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}~F\+R\+A\+M\+E\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_a062fcea754fd5b5ae2e09eed5f7ef646_a062fcea754fd5b5ae2e09eed5f7ef646}{O\+U\+T\+\_\+4\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a2a82437181314c9eb84118dc34ec7d18_a2a82437181314c9eb84118dc34ec7d18}{O\+U\+T\+\_\+4\+\_\+\+S\+L\+O\+P\+E}~0.\+125
+\item 
+\#define \hyperlink{udpImuSocket_8c_ab35b493556d5a3cfbeca23c676da6495_ab35b493556d5a3cfbeca23c676da6495}{O\+U\+T\+\_\+4\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}~8
+\item 
+\#define \hyperlink{udpImuSocket_8c_a3506ad7503072993a35681707928b3fc_a3506ad7503072993a35681707928b3fc}{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+0\+\_\+\+N\+A\+M\+E}~Accelerometer
+\item 
+\#define \hyperlink{udpImuSocket_8c_a0b7ab122c5032bc136ceafba6bd36c12_a0b7ab122c5032bc136ceafba6bd36c12}{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+1\+\_\+\+N\+A\+M\+E}~Gyrometer
+\item 
+\#define \hyperlink{udpImuSocket_8c_a94c86560a61242a26fe7577de08f4ffa_a94c86560a61242a26fe7577de08f4ffa}{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+2\+\_\+\+N\+A\+M\+E}~Compass
+\item 
+\#define \hyperlink{udpImuSocket_8c_a455726b4e265eb22d1601c9a07dc1a9d_a455726b4e265eb22d1601c9a07dc1a9d}{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+3\+\_\+\+N\+A\+M\+E}~Barometer
+\item 
+\#define \hyperlink{udpImuSocket_8c_a64bc927231f4e4a3d906b665cf82f53f_a64bc927231f4e4a3d906b665cf82f53f}{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+4\+\_\+\+N\+A\+M\+E}~Temperature
+\item 
+\#define \hyperlink{udpImuSocket_8c_adc4a2d7e2b4989db352794a766c23b9d_adc4a2d7e2b4989db352794a766c23b9d}{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X}~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_a4a2eaf3c09c6dde51bc23bbda01123be_a4a2eaf3c09c6dde51bc23bbda01123be}{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+D\+T\+Y\+P\+E}~real\+\_\+\+T
+\item 
+\#define \hyperlink{udpImuSocket_8c_a4968c5bc67c361eedd7c804eb3a50fe3_a4968c5bc67c361eedd7c804eb3a50fe3}{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+W\+I\+D\+T\+H}~3
+\item 
+\#define \hyperlink{udpImuSocket_8c_a31ea212e0b2e38b110b69c70d92198dc_a31ea212e0b2e38b110b69c70d92198dc}{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X}~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_ae1c49e7ea16e9f7a1ed209ad8bb0d0ee_ae1c49e7ea16e9f7a1ed209ad8bb0d0ee}{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+D\+T\+Y\+P\+E}~real\+\_\+\+T
+\item 
+\#define \hyperlink{udpImuSocket_8c_af9d21007736c74a7487a42732c7883cc_af9d21007736c74a7487a42732c7883cc}{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+W\+I\+D\+T\+H}~3
+\item 
+\#define \hyperlink{udpImuSocket_8c_a21fae994debd10a3adffe06204110d9b_a21fae994debd10a3adffe06204110d9b}{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+C\+O\+M\+P\+L\+E\+X}~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_a314047a571e48731b08c5c2a01aae4be_a314047a571e48731b08c5c2a01aae4be}{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+D\+T\+Y\+P\+E}~real\+\_\+\+T
+\item 
+\#define \hyperlink{udpImuSocket_8c_adea996bf7cbbfaad67fc488dcb8346b9_adea996bf7cbbfaad67fc488dcb8346b9}{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+W\+I\+D\+T\+H}~3
+\item 
+\#define \hyperlink{udpImuSocket_8c_a9081adbbfb60b30c3c50b874e6576e98_a9081adbbfb60b30c3c50b874e6576e98}{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+C\+O\+M\+P\+L\+E\+X}~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_a9acb00c9c87eef898932578f8907c94c_a9acb00c9c87eef898932578f8907c94c}{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+D\+T\+Y\+P\+E}~real\+\_\+\+T
+\item 
+\#define \hyperlink{udpImuSocket_8c_ae1456cac3d11f611baaaf2b285673f2d_ae1456cac3d11f611baaaf2b285673f2d}{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+W\+I\+D\+T\+H}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a5e3a6ffe72aba5e75964a7f26e00ba39_a5e3a6ffe72aba5e75964a7f26e00ba39}{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+C\+O\+M\+P\+L\+E\+X}~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_a1a559e7b8703c2ec58c475853c54c886_a1a559e7b8703c2ec58c475853c54c886}{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+D\+T\+Y\+P\+E}~real\+\_\+\+T
+\item 
+\#define \hyperlink{udpImuSocket_8c_a5300534599a8ca24d9f1ef81f7fc9b2a_a5300534599a8ca24d9f1ef81f7fc9b2a}{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+W\+I\+D\+T\+H}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_af5811b760e554b401b6af7ed66a5050e_af5811b760e554b401b6af7ed66a5050e}{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+0\+\_\+\+C\+O\+L}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a53c6599b4a1e5d644bda7e6ecd6896db_a53c6599b4a1e5d644bda7e6ecd6896db}{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+1\+\_\+\+C\+O\+L}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a60d7b26be92497955aea4599b452e006_a60d7b26be92497955aea4599b452e006}{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+2\+\_\+\+C\+O\+L}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_afdb3aae273d20d36a0cb1568491d40c8_afdb3aae273d20d36a0cb1568491d40c8}{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+3\+\_\+\+C\+O\+L}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a82e390b8a1c981d3bbe2031eadb3b0d2_a82e390b8a1c981d3bbe2031eadb3b0d2}{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+4\+\_\+\+C\+O\+L}~1
+\item 
+\#define \hyperlink{udpImuSocket_8c_a72a0f9cc8bf32fbac209b30e95289dc7_a72a0f9cc8bf32fbac209b30e95289dc7}{P\+A\+N\+E\+L\+I\+N\+D\+E\+X}~6
+\item 
+\#define \hyperlink{udpImuSocket_8c_a600f6ba4b243a1f70565a58ca0c2f108_a600f6ba4b243a1f70565a58ca0c2f108}{P\+A\+R\+A\+M\+\_\+\+D\+E\+F0}(S)~ss\+Get\+S\+Fcn\+Param(S, 0)
+\item 
+\#define \hyperlink{udpImuSocket_8c_aee59d29e6cb0058f62f7d9b9e8cef251_aee59d29e6cb0058f62f7d9b9e8cef251}{P\+A\+R\+A\+M\+\_\+\+D\+E\+F1}(S)~ss\+Get\+S\+Fcn\+Param(S, 1)
+\item 
+\#define \hyperlink{udpImuSocket_8c_ae43cf901e6ff375c3788fd905e398b2c_ae43cf901e6ff375c3788fd905e398b2c}{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X}~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_a023b8a5810bf20ecc28e982ecff0d2b3_a023b8a5810bf20ecc28e982ecff0d2b3}{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+D\+T\+Y\+P\+E}~real\+\_\+\+T
+\item 
+\#define \hyperlink{udpImuSocket_8c_aefe3fd2d906dc9e7dc4edee601b8a4b7_aefe3fd2d906dc9e7dc4edee601b8a4b7}{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+N\+A\+M\+E}~sample\+Time
+\item 
+\#define \hyperlink{udpImuSocket_8c_a9378ba3d01a48b1ca6b24be0b2d495b4_a9378ba3d01a48b1ca6b24be0b2d495b4}{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X}~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O
+\item 
+\#define \hyperlink{udpImuSocket_8c_aaac0a872d19d05aa11faffbeef9ca879_aaac0a872d19d05aa11faffbeef9ca879}{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+D\+T\+Y\+P\+E}~real\+\_\+\+T
+\item 
+\#define \hyperlink{udpImuSocket_8c_a457c80fcbf64fe1670b7ea5fdbd0f8ad_a457c80fcbf64fe1670b7ea5fdbd0f8ad}{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+N\+A\+M\+E}~Listen\+Port
+\item 
+\#define \hyperlink{udpImuSocket_8c_a2cfb2dedd7e29770b6ca7946a0f212f5_a2cfb2dedd7e29770b6ca7946a0f212f5}{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+I\+P\+A\+D\+D\+R\+\_\+\+R\+G4\+U\+I8}~\{192,168,22,161\}
+\item 
+\#define \hyperlink{udpImuSocket_8c_a0a9ad38f9473776914b5e6583906f11a_a0a9ad38f9473776914b5e6583906f11a}{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I16}~5000
+\item 
+\#define \hyperlink{udpImuSocket_8c_a9a4ab27953070e39249f3fad28e93749_a9a4ab27953070e39249f3fad28e93749}{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L}~2
+\item 
+\#define \hyperlink{udpImuSocket_8c_a0f61df833e166c743295eebf43f0b142_a0f61df833e166c743295eebf43f0b142}{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+N\+A\+M\+E}~udp\+Imu\+Socket
+\item 
+\#define \hyperlink{udpImuSocket_8c_a719c01b15a125dc69aac15da6478dcea_a719c01b15a125dc69aac15da6478dcea}{S\+A\+M\+P\+L\+E\+\_\+\+T\+I\+M\+E\+\_\+0}~0.\+1
+\item 
+\#define \hyperlink{udpImuSocket_8c_ae06ff592d2a39b7429c55145004d8ecd_ae06ff592d2a39b7429c55145004d8ecd}{S\+A\+V\+E\+\_\+\+C\+O\+D\+E\+\_\+\+O\+N\+L\+Y}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a6f9a0bfd2b653d2060fc8f9c8c769109_a6f9a0bfd2b653d2060fc8f9c8c769109}{S\+F\+U\+N\+W\+I\+Z\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+T\+L\+C}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_ad4fedb330a37ab043b9fd79c6112ea1f_ad4fedb330a37ab043b9fd79c6112ea1f}{S\+F\+U\+N\+W\+I\+Z\+\_\+\+R\+E\+V\+I\+S\+I\+O\+N}~3.\+0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a8a8b1176132c5ca2fb76b0178b705b3c_a8a8b1176132c5ca2fb76b0178b705b3c}{S\+H\+O\+W\+\_\+\+C\+O\+M\+P\+I\+L\+E\+\_\+\+S\+T\+E\+P\+S}~0
+\item 
+\#define \hyperlink{udpImuSocket_8c_a6ac157a75221b1b9c5b66829993843d6_a6ac157a75221b1b9c5b66829993843d6}{S\+O\+U\+R\+C\+E\+F\+I\+L\+E\+S}~\char`\"{}\+\_\+\+\_\+\+S\+F\+B\+\_\+\+\_\+\char`\"{}
+\item 
+\#define \hyperlink{udpImuSocket_8c_abb9e20fcc412127a928d112d2aed4fcc_abb9e20fcc412127a928d112d2aed4fcc}{U\+S\+E\+\_\+\+S\+I\+M\+S\+T\+R\+U\+C\+T}~1
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{udpImuSocket_8c_a4308a5a20d9c7060391059b1dfce872e_a4308a5a20d9c7060391059b1dfce872e}{mdl\+Initialize\+Sample\+Times} (Sim\+Struct $\ast$S)
+\item 
+static void \hyperlink{udpImuSocket_8c_ab500fc17ae5e95797926ac770d903b84_ab500fc17ae5e95797926ac770d903b84}{mdl\+Initialize\+Sizes} (Sim\+Struct $\ast$S)
+\item 
+static void \hyperlink{udpImuSocket_8c_ab6c8c16502dd4374f9f36cfd58cbbd15_ab6c8c16502dd4374f9f36cfd58cbbd15}{mdl\+Outputs} (Sim\+Struct $\ast$S, int\+\_\+\+T tid)
+\item 
+static void \hyperlink{udpImuSocket_8c_a8d2ed0d73ef7b3df33c6ccca0bd4d4ae_a8d2ed0d73ef7b3df33c6ccca0bd4d4ae}{mdl\+Set\+Default\+Port\+Data\+Types} (Sim\+Struct $\ast$S)
+\item 
+static void \hyperlink{udpImuSocket_8c_a3af9a6d96c32b7ef4c6ca9bfc6dab341_a3af9a6d96c32b7ef4c6ca9bfc6dab341}{mdl\+Set\+Output\+Port\+Data\+Type} (Sim\+Struct $\ast$S, int port, D\+Type\+Id d\+Type)
+\item 
+static void \hyperlink{udpImuSocket_8c_a0dd07daf338cf84d1aee4bb8b6771720_a0dd07daf338cf84d1aee4bb8b6771720}{mdl\+Start} (Sim\+Struct $\ast$S)
+\item 
+static void \hyperlink{udpImuSocket_8c_a343acfd8b3b5308d6c94bbf40efbbac5_a343acfd8b3b5308d6c94bbf40efbbac5}{mdl\+Terminate} (Sim\+Struct $\ast$S)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{udpImuSocket_8c_ad76cddc255c0a055b7f8998f9f8ee1a6_ad76cddc255c0a055b7f8998f9f8ee1a6}{m\+\_\+sim\+Socket\+\_\+i32} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{udpImuSocket_8c_a69fae65ca7ac6c15ada7eaee48b4ebfc_a69fae65ca7ac6c15ada7eaee48b4ebfc}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C@{C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C}}
+\index{C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C@{C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C~\mbox{[}0\mbox{]}}}\label{udpImuSocket_8c_a69fae65ca7ac6c15ada7eaee48b4ebfc_a69fae65ca7ac6c15ada7eaee48b4ebfc}
+
+
+Definition at line 146 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a009fe3904fbf34e23348727367e4d041_a009fe3904fbf34e23348727367e4d041}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!C\+R\+E\+A\+T\+E\+\_\+\+D\+E\+B\+U\+G\+\_\+\+M\+E\+X\+F\+I\+L\+E@{C\+R\+E\+A\+T\+E\+\_\+\+D\+E\+B\+U\+G\+\_\+\+M\+E\+X\+F\+I\+L\+E}}
+\index{C\+R\+E\+A\+T\+E\+\_\+\+D\+E\+B\+U\+G\+\_\+\+M\+E\+X\+F\+I\+L\+E@{C\+R\+E\+A\+T\+E\+\_\+\+D\+E\+B\+U\+G\+\_\+\+M\+E\+X\+F\+I\+L\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{C\+R\+E\+A\+T\+E\+\_\+\+D\+E\+B\+U\+G\+\_\+\+M\+E\+X\+F\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+R\+E\+A\+T\+E\+\_\+\+D\+E\+B\+U\+G\+\_\+\+M\+E\+X\+F\+I\+L\+E~0}}\label{udpImuSocket_8c_a009fe3904fbf34e23348727367e4d041_a009fe3904fbf34e23348727367e4d041}
+
+
+Definition at line 153 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a947b1d1dce4803ad2ed4bfe29f551994_a947b1d1dce4803ad2ed4bfe29f551994}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C@{D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C}}
+\index{D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C@{D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S\+\_\+\+I\+C~\mbox{[}0\mbox{]}}}\label{udpImuSocket_8c_a947b1d1dce4803ad2ed4bfe29f551994_a947b1d1dce4803ad2ed4bfe29f551994}
+
+
+Definition at line 144 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ab5b2126a17777f4a15d3cc818e2e5c29_ab5b2126a17777f4a15d3cc818e2e5c29}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!I\+S\+\_\+\+P\+A\+R\+A\+M\+\_\+\+D\+O\+U\+B\+L\+E@{I\+S\+\_\+\+P\+A\+R\+A\+M\+\_\+\+D\+O\+U\+B\+L\+E}}
+\index{I\+S\+\_\+\+P\+A\+R\+A\+M\+\_\+\+D\+O\+U\+B\+L\+E@{I\+S\+\_\+\+P\+A\+R\+A\+M\+\_\+\+D\+O\+U\+B\+L\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{I\+S\+\_\+\+P\+A\+R\+A\+M\+\_\+\+D\+O\+U\+B\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+S\+\_\+\+P\+A\+R\+A\+M\+\_\+\+D\+O\+U\+B\+L\+E(
+\begin{DoxyParamCaption}
+\item[{}]{p\+Val}
+\end{DoxyParamCaption}
+)}}\label{udpImuSocket_8c_ab5b2126a17777f4a15d3cc818e2e5c29_ab5b2126a17777f4a15d3cc818e2e5c29}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(mxIsNumeric(pVal) && !mxIsLogical(pVal) &&\(\backslash\)
+!mxIsEmpty(pVal) && !mxIsSparse(pVal) && !mxIsComplex(pVal) && mxIsDouble(pVal))
+\end{DoxyCode}
+
+
+Definition at line 165 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a4936bd489281a5a9b9a2e081de0f003e_a4936bd489281a5a9b9a2e081de0f003e}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!M\+D\+L\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+S@{M\+D\+L\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+S}}
+\index{M\+D\+L\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+S@{M\+D\+L\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{M\+D\+L\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+D\+L\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+S}}\label{udpImuSocket_8c_a4936bd489281a5a9b9a2e081de0f003e_a4936bd489281a5a9b9a2e081de0f003e}
+
+
+Definition at line 176 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a0bf730f2917893b3e38e68f6da793c2f_a0bf730f2917893b3e38e68f6da793c2f}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E\+S@{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E\+S}}
+\index{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E\+S@{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E\+S}}\label{udpImuSocket_8c_a0bf730f2917893b3e38e68f6da793c2f_a0bf730f2917893b3e38e68f6da793c2f}
+
+
+Definition at line 322 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a8dec1e0cbe5fb3eab09b6ae79c64ee88_a8dec1e0cbe5fb3eab09b6ae79c64ee88}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+O\+U\+T\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E@{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+O\+U\+T\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E}}
+\index{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+O\+U\+T\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E@{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+O\+U\+T\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+O\+U\+T\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+D\+L\+\_\+\+S\+E\+T\+\_\+\+O\+U\+T\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+D\+A\+T\+A\+\_\+\+T\+Y\+P\+E}}\label{udpImuSocket_8c_a8dec1e0cbe5fb3eab09b6ae79c64ee88_a8dec1e0cbe5fb3eab09b6ae79c64ee88}
+
+
+Definition at line 316 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ac032abbf580c891fb0c11e63e9bc668a_ac032abbf580c891fb0c11e63e9bc668a}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!M\+D\+L\+\_\+\+S\+T\+A\+R\+T@{M\+D\+L\+\_\+\+S\+T\+A\+R\+T}}
+\index{M\+D\+L\+\_\+\+S\+T\+A\+R\+T@{M\+D\+L\+\_\+\+S\+T\+A\+R\+T}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{M\+D\+L\+\_\+\+S\+T\+A\+R\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+D\+L\+\_\+\+S\+T\+A\+R\+T~/$\ast$ Change to \#undef to remove function $\ast$/}}\label{udpImuSocket_8c_ac032abbf580c891fb0c11e63e9bc668a_ac032abbf580c891fb0c11e63e9bc668a}
+
+
+Definition at line 295 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ae468832efa6adf5e9a96cabd8f878b47_ae468832efa6adf5e9a96cabd8f878b47}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!N\+P\+A\+R\+A\+M\+S@{N\+P\+A\+R\+A\+M\+S}}
+\index{N\+P\+A\+R\+A\+M\+S@{N\+P\+A\+R\+A\+M\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{N\+P\+A\+R\+A\+M\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+P\+A\+R\+A\+M\+S~2}}\label{udpImuSocket_8c_ae468832efa6adf5e9a96cabd8f878b47_ae468832efa6adf5e9a96cabd8f878b47}
+
+
+Definition at line 132 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a04e55a99fdb3750375d01dd076012560_a04e55a99fdb3750375d01dd076012560}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!N\+U\+M\+\_\+\+C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S@{N\+U\+M\+\_\+\+C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S}}
+\index{N\+U\+M\+\_\+\+C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S@{N\+U\+M\+\_\+\+C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{N\+U\+M\+\_\+\+C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+C\+O\+N\+T\+\_\+\+S\+T\+A\+T\+E\+S~0}}\label{udpImuSocket_8c_a04e55a99fdb3750375d01dd076012560_a04e55a99fdb3750375d01dd076012560}
+
+
+Definition at line 145 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ad097b7d857d72f7854d134cd3d58c8dd_ad097b7d857d72f7854d134cd3d58c8dd}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!N\+U\+M\+\_\+\+D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S@{N\+U\+M\+\_\+\+D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S}}
+\index{N\+U\+M\+\_\+\+D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S@{N\+U\+M\+\_\+\+D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{N\+U\+M\+\_\+\+D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+D\+I\+S\+C\+\_\+\+S\+T\+A\+T\+E\+S~0}}\label{udpImuSocket_8c_ad097b7d857d72f7854d134cd3d58c8dd_ad097b7d857d72f7854d134cd3d58c8dd}
+
+
+Definition at line 143 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ad706a4e66dccbe66985b4c8785f28f3c_ad706a4e66dccbe66985b4c8785f28f3c}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!N\+U\+M\+\_\+\+I\+N\+P\+U\+T\+S@{N\+U\+M\+\_\+\+I\+N\+P\+U\+T\+S}}
+\index{N\+U\+M\+\_\+\+I\+N\+P\+U\+T\+S@{N\+U\+M\+\_\+\+I\+N\+P\+U\+T\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{N\+U\+M\+\_\+\+I\+N\+P\+U\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+I\+N\+P\+U\+T\+S~0}}\label{udpImuSocket_8c_ad706a4e66dccbe66985b4c8785f28f3c_ad706a4e66dccbe66985b4c8785f28f3c}
+
+
+Definition at line 48 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a2b952de4620c16ca060fe9e2d3aad454_a2b952de4620c16ca060fe9e2d3aad454}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!N\+U\+M\+\_\+\+O\+U\+T\+P\+U\+T\+S@{N\+U\+M\+\_\+\+O\+U\+T\+P\+U\+T\+S}}
+\index{N\+U\+M\+\_\+\+O\+U\+T\+P\+U\+T\+S@{N\+U\+M\+\_\+\+O\+U\+T\+P\+U\+T\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{N\+U\+M\+\_\+\+O\+U\+T\+P\+U\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+O\+U\+T\+P\+U\+T\+S~5}}\label{udpImuSocket_8c_a2b952de4620c16ca060fe9e2d3aad454_a2b952de4620c16ca060fe9e2d3aad454}
+
+
+Definition at line 50 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a0f9ec0ea9596b68cfff92b44e968c4dd_a0f9ec0ea9596b68cfff92b44e968c4dd}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+0\+\_\+\+B\+I\+A\+S}}
+\index{O\+U\+T\+\_\+0\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+0\+\_\+\+B\+I\+A\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+B\+I\+A\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+B\+I\+A\+S~0}}\label{udpImuSocket_8c_a0f9ec0ea9596b68cfff92b44e968c4dd_a0f9ec0ea9596b68cfff92b44e968c4dd}
+
+
+Definition at line 65 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_afa1a5d925e86bb6510da8ce1653246ed_afa1a5d925e86bb6510da8ce1653246ed}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D~0}}\label{udpImuSocket_8c_afa1a5d925e86bb6510da8ce1653246ed_afa1a5d925e86bb6510da8ce1653246ed}
+
+
+Definition at line 58 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ab8223c55c2886130a89fd8552b17ebfd_ab8223c55c2886130a89fd8552b17ebfd}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}\label{udpImuSocket_8c_ab8223c55c2886130a89fd8552b17ebfd_ab8223c55c2886130a89fd8552b17ebfd}
+
+
+Definition at line 59 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aca0eb6373c88a306ef4865fdb11e0999_aca0eb6373c88a306ef4865fdb11e0999}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+0\+\_\+\+D\+I\+M\+S}}
+\index{O\+U\+T\+\_\+0\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+0\+\_\+\+D\+I\+M\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+D\+I\+M\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+D\+I\+M\+S~1-\/D}}\label{udpImuSocket_8c_aca0eb6373c88a306ef4865fdb11e0999_aca0eb6373c88a306ef4865fdb11e0999}
+
+
+Definition at line 60 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a4a359fb8b6695028a74ee139f85a5d28_a4a359fb8b6695028a74ee139f85a5d28}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+0\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}}
+\index{O\+U\+T\+\_\+0\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+0\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G~1}}\label{udpImuSocket_8c_a4a359fb8b6695028a74ee139f85a5d28_a4a359fb8b6695028a74ee139f85a5d28}
+
+
+Definition at line 63 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aecb2cd56b8d307f68427e89cc011d1c6_aecb2cd56b8d307f68427e89cc011d1c6}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H~3}}\label{udpImuSocket_8c_aecb2cd56b8d307f68427e89cc011d1c6_aecb2cd56b8d307f68427e89cc011d1c6}
+
+
+Definition at line 64 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ace5afa5b384ae1376b3b70c223874ce1_ace5afa5b384ae1376b3b70c223874ce1}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D~F\+R\+A\+M\+E\+\_\+\+N\+O}}\label{udpImuSocket_8c_ace5afa5b384ae1376b3b70c223874ce1_ace5afa5b384ae1376b3b70c223874ce1}
+
+
+Definition at line 57 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_af9b20b9d1985db7eb9c14b8782932618_af9b20b9d1985db7eb9c14b8782932618}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+0\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}}
+\index{O\+U\+T\+\_\+0\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+0\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D~1}}\label{udpImuSocket_8c_af9b20b9d1985db7eb9c14b8782932618_af9b20b9d1985db7eb9c14b8782932618}
+
+
+Definition at line 61 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a8b2e033cc05dfd7ba72ebf05ccfb59da_a8b2e033cc05dfd7ba72ebf05ccfb59da}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+0\+\_\+\+S\+L\+O\+P\+E}}
+\index{O\+U\+T\+\_\+0\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+0\+\_\+\+S\+L\+O\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+S\+L\+O\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+S\+L\+O\+P\+E~0.\+125}}\label{udpImuSocket_8c_a8b2e033cc05dfd7ba72ebf05ccfb59da_a8b2e033cc05dfd7ba72ebf05ccfb59da}
+
+
+Definition at line 66 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a9e482e661743d7f3099b12ff39bd1ee5_a9e482e661743d7f3099b12ff39bd1ee5}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+0\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+0\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+0\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+0\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+0\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+0\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H~8}}\label{udpImuSocket_8c_a9e482e661743d7f3099b12ff39bd1ee5_a9e482e661743d7f3099b12ff39bd1ee5}
+
+
+Definition at line 62 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a50a4eac08f45d1543f320e7a188e0085_a50a4eac08f45d1543f320e7a188e0085}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+1\+\_\+\+B\+I\+A\+S}}
+\index{O\+U\+T\+\_\+1\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+1\+\_\+\+B\+I\+A\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+B\+I\+A\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+B\+I\+A\+S~0}}\label{udpImuSocket_8c_a50a4eac08f45d1543f320e7a188e0085_a50a4eac08f45d1543f320e7a188e0085}
+
+
+Definition at line 81 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a3fe304751eeaa069cc2d5d3376e03b04_a3fe304751eeaa069cc2d5d3376e03b04}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D~0}}\label{udpImuSocket_8c_a3fe304751eeaa069cc2d5d3376e03b04_a3fe304751eeaa069cc2d5d3376e03b04}
+
+
+Definition at line 74 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a9bc56a3052b99f6b90430c4afffabce6_a9bc56a3052b99f6b90430c4afffabce6}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}\label{udpImuSocket_8c_a9bc56a3052b99f6b90430c4afffabce6_a9bc56a3052b99f6b90430c4afffabce6}
+
+
+Definition at line 75 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_af5455f17c8aa71c784507c5b8cd97d39_af5455f17c8aa71c784507c5b8cd97d39}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+1\+\_\+\+D\+I\+M\+S}}
+\index{O\+U\+T\+\_\+1\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+1\+\_\+\+D\+I\+M\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+D\+I\+M\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+D\+I\+M\+S~1-\/D}}\label{udpImuSocket_8c_af5455f17c8aa71c784507c5b8cd97d39_af5455f17c8aa71c784507c5b8cd97d39}
+
+
+Definition at line 76 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a036e870edf73d98bb52a588d46fc6f0b_a036e870edf73d98bb52a588d46fc6f0b}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+1\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}}
+\index{O\+U\+T\+\_\+1\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+1\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G~1}}\label{udpImuSocket_8c_a036e870edf73d98bb52a588d46fc6f0b_a036e870edf73d98bb52a588d46fc6f0b}
+
+
+Definition at line 79 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a4c05e5189b99b7d6e6f9310bb16012e6_a4c05e5189b99b7d6e6f9310bb16012e6}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H~3}}\label{udpImuSocket_8c_a4c05e5189b99b7d6e6f9310bb16012e6_a4c05e5189b99b7d6e6f9310bb16012e6}
+
+
+Definition at line 80 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aff5d836e46f2a6b0ec0cb70436839868_aff5d836e46f2a6b0ec0cb70436839868}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D~F\+R\+A\+M\+E\+\_\+\+N\+O}}\label{udpImuSocket_8c_aff5d836e46f2a6b0ec0cb70436839868_aff5d836e46f2a6b0ec0cb70436839868}
+
+
+Definition at line 73 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ac7808af05dc1b08656f06ed9f9716ae7_ac7808af05dc1b08656f06ed9f9716ae7}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+1\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}}
+\index{O\+U\+T\+\_\+1\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+1\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D~1}}\label{udpImuSocket_8c_ac7808af05dc1b08656f06ed9f9716ae7_ac7808af05dc1b08656f06ed9f9716ae7}
+
+
+Definition at line 77 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a5704842e0639aa855afc50bbf5df01c9_a5704842e0639aa855afc50bbf5df01c9}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+1\+\_\+\+S\+L\+O\+P\+E}}
+\index{O\+U\+T\+\_\+1\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+1\+\_\+\+S\+L\+O\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+S\+L\+O\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+S\+L\+O\+P\+E~0.\+125}}\label{udpImuSocket_8c_a5704842e0639aa855afc50bbf5df01c9_a5704842e0639aa855afc50bbf5df01c9}
+
+
+Definition at line 82 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_acae203ecd7814bc5405a5bedbeea5e3d_acae203ecd7814bc5405a5bedbeea5e3d}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+1\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+1\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+1\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+1\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+1\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+1\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H~8}}\label{udpImuSocket_8c_acae203ecd7814bc5405a5bedbeea5e3d_acae203ecd7814bc5405a5bedbeea5e3d}
+
+
+Definition at line 78 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a93b63719267ddcb8c3f0dbed78bfc281_a93b63719267ddcb8c3f0dbed78bfc281}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+2\+\_\+\+B\+I\+A\+S}}
+\index{O\+U\+T\+\_\+2\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+2\+\_\+\+B\+I\+A\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+B\+I\+A\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+B\+I\+A\+S~0}}\label{udpImuSocket_8c_a93b63719267ddcb8c3f0dbed78bfc281_a93b63719267ddcb8c3f0dbed78bfc281}
+
+
+Definition at line 97 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a1a5927131e77d5db9564768e2e6c0930_a1a5927131e77d5db9564768e2e6c0930}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D~0}}\label{udpImuSocket_8c_a1a5927131e77d5db9564768e2e6c0930_a1a5927131e77d5db9564768e2e6c0930}
+
+
+Definition at line 90 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a8f5ff3a741572fa73a6a8782f084d7b5_a8f5ff3a741572fa73a6a8782f084d7b5}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}\label{udpImuSocket_8c_a8f5ff3a741572fa73a6a8782f084d7b5_a8f5ff3a741572fa73a6a8782f084d7b5}
+
+
+Definition at line 91 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a220892aba4d36ff1ea8f43adc77a7e9b_a220892aba4d36ff1ea8f43adc77a7e9b}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+2\+\_\+\+D\+I\+M\+S}}
+\index{O\+U\+T\+\_\+2\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+2\+\_\+\+D\+I\+M\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+D\+I\+M\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+D\+I\+M\+S~1-\/D}}\label{udpImuSocket_8c_a220892aba4d36ff1ea8f43adc77a7e9b_a220892aba4d36ff1ea8f43adc77a7e9b}
+
+
+Definition at line 92 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ad6fef8f385120da84beab6a305160ab0_ad6fef8f385120da84beab6a305160ab0}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+2\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}}
+\index{O\+U\+T\+\_\+2\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+2\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G~1}}\label{udpImuSocket_8c_ad6fef8f385120da84beab6a305160ab0_ad6fef8f385120da84beab6a305160ab0}
+
+
+Definition at line 95 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a861d91a5482147e9808a49915086c25a_a861d91a5482147e9808a49915086c25a}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H~3}}\label{udpImuSocket_8c_a861d91a5482147e9808a49915086c25a_a861d91a5482147e9808a49915086c25a}
+
+
+Definition at line 96 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ada990636dfe6ae90d96a15f085ae277b_ada990636dfe6ae90d96a15f085ae277b}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D~F\+R\+A\+M\+E\+\_\+\+N\+O}}\label{udpImuSocket_8c_ada990636dfe6ae90d96a15f085ae277b_ada990636dfe6ae90d96a15f085ae277b}
+
+
+Definition at line 89 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a215a4593db53b6160a21535b3a06eb48_a215a4593db53b6160a21535b3a06eb48}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+2\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}}
+\index{O\+U\+T\+\_\+2\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+2\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D~1}}\label{udpImuSocket_8c_a215a4593db53b6160a21535b3a06eb48_a215a4593db53b6160a21535b3a06eb48}
+
+
+Definition at line 93 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ad4ab487cbcb9c2bdac66793ad5cbdff4_ad4ab487cbcb9c2bdac66793ad5cbdff4}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+2\+\_\+\+S\+L\+O\+P\+E}}
+\index{O\+U\+T\+\_\+2\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+2\+\_\+\+S\+L\+O\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+S\+L\+O\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+S\+L\+O\+P\+E~0.\+125}}\label{udpImuSocket_8c_ad4ab487cbcb9c2bdac66793ad5cbdff4_ad4ab487cbcb9c2bdac66793ad5cbdff4}
+
+
+Definition at line 98 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aab12787717cbc3786a9eb204cc07aa97_aab12787717cbc3786a9eb204cc07aa97}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+2\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+2\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+2\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+2\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+2\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+2\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H~8}}\label{udpImuSocket_8c_aab12787717cbc3786a9eb204cc07aa97_aab12787717cbc3786a9eb204cc07aa97}
+
+
+Definition at line 94 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aad75531bee8d07a64d69cf4ee515a058_aad75531bee8d07a64d69cf4ee515a058}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+3\+\_\+\+B\+I\+A\+S}}
+\index{O\+U\+T\+\_\+3\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+3\+\_\+\+B\+I\+A\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+B\+I\+A\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+B\+I\+A\+S~0}}\label{udpImuSocket_8c_aad75531bee8d07a64d69cf4ee515a058_aad75531bee8d07a64d69cf4ee515a058}
+
+
+Definition at line 113 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ac02e443f27c9c259124ec18a5f747c93_ac02e443f27c9c259124ec18a5f747c93}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D~0}}\label{udpImuSocket_8c_ac02e443f27c9c259124ec18a5f747c93_ac02e443f27c9c259124ec18a5f747c93}
+
+
+Definition at line 106 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a99c626f6d15899b00a1ca6d37fd2f13a_a99c626f6d15899b00a1ca6d37fd2f13a}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}\label{udpImuSocket_8c_a99c626f6d15899b00a1ca6d37fd2f13a_a99c626f6d15899b00a1ca6d37fd2f13a}
+
+
+Definition at line 107 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_affb6d6bbce228e2fe4cf08147993a57c_affb6d6bbce228e2fe4cf08147993a57c}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+3\+\_\+\+D\+I\+M\+S}}
+\index{O\+U\+T\+\_\+3\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+3\+\_\+\+D\+I\+M\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+D\+I\+M\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+D\+I\+M\+S~1-\/D}}\label{udpImuSocket_8c_affb6d6bbce228e2fe4cf08147993a57c_affb6d6bbce228e2fe4cf08147993a57c}
+
+
+Definition at line 108 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a1fbc951bcd8a636f197181c65403995b_a1fbc951bcd8a636f197181c65403995b}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+3\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}}
+\index{O\+U\+T\+\_\+3\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+3\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G~1}}\label{udpImuSocket_8c_a1fbc951bcd8a636f197181c65403995b_a1fbc951bcd8a636f197181c65403995b}
+
+
+Definition at line 111 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a988fc3268d9154217173b3eb6824eb25_a988fc3268d9154217173b3eb6824eb25}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H~3}}\label{udpImuSocket_8c_a988fc3268d9154217173b3eb6824eb25_a988fc3268d9154217173b3eb6824eb25}
+
+
+Definition at line 112 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a0d10e7fbb3d303e79928fe77688aaad6_a0d10e7fbb3d303e79928fe77688aaad6}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D~F\+R\+A\+M\+E\+\_\+\+N\+O}}\label{udpImuSocket_8c_a0d10e7fbb3d303e79928fe77688aaad6_a0d10e7fbb3d303e79928fe77688aaad6}
+
+
+Definition at line 105 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ae4ce750aea05502d9ede4aa8a4278958_ae4ce750aea05502d9ede4aa8a4278958}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+3\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}}
+\index{O\+U\+T\+\_\+3\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+3\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D~1}}\label{udpImuSocket_8c_ae4ce750aea05502d9ede4aa8a4278958_ae4ce750aea05502d9ede4aa8a4278958}
+
+
+Definition at line 109 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ad05547060cca6bba02ece506c0a22053_ad05547060cca6bba02ece506c0a22053}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+3\+\_\+\+S\+L\+O\+P\+E}}
+\index{O\+U\+T\+\_\+3\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+3\+\_\+\+S\+L\+O\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+S\+L\+O\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+S\+L\+O\+P\+E~0.\+125}}\label{udpImuSocket_8c_ad05547060cca6bba02ece506c0a22053_ad05547060cca6bba02ece506c0a22053}
+
+
+Definition at line 114 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_abe96b579269aaeffba7ab585d0b8ad40_abe96b579269aaeffba7ab585d0b8ad40}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+3\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+3\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+3\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+3\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+3\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+3\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H~8}}\label{udpImuSocket_8c_abe96b579269aaeffba7ab585d0b8ad40_abe96b579269aaeffba7ab585d0b8ad40}
+
+
+Definition at line 110 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a4cc6b46f58bf1cc4f477c6e49caa4eb6_a4cc6b46f58bf1cc4f477c6e49caa4eb6}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+4\+\_\+\+B\+I\+A\+S}}
+\index{O\+U\+T\+\_\+4\+\_\+\+B\+I\+A\+S@{O\+U\+T\+\_\+4\+\_\+\+B\+I\+A\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+B\+I\+A\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+B\+I\+A\+S~0}}\label{udpImuSocket_8c_a4cc6b46f58bf1cc4f477c6e49caa4eb6_a4cc6b46f58bf1cc4f477c6e49caa4eb6}
+
+
+Definition at line 129 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ae61fb4b5f0367cc50355136ffa6d4eb3_ae61fb4b5f0367cc50355136ffa6d4eb3}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+B\+A\+S\+E\+D~0}}\label{udpImuSocket_8c_ae61fb4b5f0367cc50355136ffa6d4eb3_ae61fb4b5f0367cc50355136ffa6d4eb3}
+
+
+Definition at line 122 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a471d56b991cddf5a5bb3f53e4f0ceae8_a471d56b991cddf5a5bb3f53e4f0ceae8}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+B\+U\+S\+\_\+\+N\+A\+M\+E}}\label{udpImuSocket_8c_a471d56b991cddf5a5bb3f53e4f0ceae8_a471d56b991cddf5a5bb3f53e4f0ceae8}
+
+
+Definition at line 123 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a6f13f1f4d01bf05c41ab0a5dea4615b9_a6f13f1f4d01bf05c41ab0a5dea4615b9}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+4\+\_\+\+D\+I\+M\+S}}
+\index{O\+U\+T\+\_\+4\+\_\+\+D\+I\+M\+S@{O\+U\+T\+\_\+4\+\_\+\+D\+I\+M\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+D\+I\+M\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+D\+I\+M\+S~1-\/D}}\label{udpImuSocket_8c_a6f13f1f4d01bf05c41ab0a5dea4615b9_a6f13f1f4d01bf05c41ab0a5dea4615b9}
+
+
+Definition at line 124 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aa414ba0546c72d1398ea5c637fc63757_aa414ba0546c72d1398ea5c637fc63757}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+4\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}}
+\index{O\+U\+T\+\_\+4\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G@{O\+U\+T\+\_\+4\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+F\+I\+X\+P\+O\+I\+N\+T\+S\+C\+A\+L\+I\+N\+G~1}}\label{udpImuSocket_8c_aa414ba0546c72d1398ea5c637fc63757_aa414ba0546c72d1398ea5c637fc63757}
+
+
+Definition at line 127 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a88d975596bffa16ebcfa3f684cfe5661_a88d975596bffa16ebcfa3f684cfe5661}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+L\+E\+N\+G\+T\+H~3}}\label{udpImuSocket_8c_a88d975596bffa16ebcfa3f684cfe5661_a88d975596bffa16ebcfa3f684cfe5661}
+
+
+Definition at line 128 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ad2a89e94951900b926e428d71712cf0a_ad2a89e94951900b926e428d71712cf0a}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}}
+\index{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D@{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+F\+R\+A\+M\+E\+\_\+\+B\+A\+S\+E\+D~F\+R\+A\+M\+E\+\_\+\+N\+O}}\label{udpImuSocket_8c_ad2a89e94951900b926e428d71712cf0a_ad2a89e94951900b926e428d71712cf0a}
+
+
+Definition at line 121 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a062fcea754fd5b5ae2e09eed5f7ef646_a062fcea754fd5b5ae2e09eed5f7ef646}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+4\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}}
+\index{O\+U\+T\+\_\+4\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D@{O\+U\+T\+\_\+4\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+I\+S\+S\+I\+G\+N\+E\+D~1}}\label{udpImuSocket_8c_a062fcea754fd5b5ae2e09eed5f7ef646_a062fcea754fd5b5ae2e09eed5f7ef646}
+
+
+Definition at line 125 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a2a82437181314c9eb84118dc34ec7d18_a2a82437181314c9eb84118dc34ec7d18}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+4\+\_\+\+S\+L\+O\+P\+E}}
+\index{O\+U\+T\+\_\+4\+\_\+\+S\+L\+O\+P\+E@{O\+U\+T\+\_\+4\+\_\+\+S\+L\+O\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+S\+L\+O\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+S\+L\+O\+P\+E~0.\+125}}\label{udpImuSocket_8c_a2a82437181314c9eb84118dc34ec7d18_a2a82437181314c9eb84118dc34ec7d18}
+
+
+Definition at line 130 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ab35b493556d5a3cfbeca23c676da6495_ab35b493556d5a3cfbeca23c676da6495}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+4\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+4\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}}
+\index{O\+U\+T\+\_\+4\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H@{O\+U\+T\+\_\+4\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+4\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+4\+\_\+\+W\+O\+R\+D\+L\+E\+N\+G\+T\+H~8}}\label{udpImuSocket_8c_ab35b493556d5a3cfbeca23c676da6495_ab35b493556d5a3cfbeca23c676da6495}
+
+
+Definition at line 126 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a3506ad7503072993a35681707928b3fc_a3506ad7503072993a35681707928b3fc}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+0\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+0\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+0\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+0\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+0\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+0\+\_\+\+N\+A\+M\+E~Accelerometer}}\label{udpImuSocket_8c_a3506ad7503072993a35681707928b3fc_a3506ad7503072993a35681707928b3fc}
+
+
+Definition at line 52 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a0b7ab122c5032bc136ceafba6bd36c12_a0b7ab122c5032bc136ceafba6bd36c12}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+1\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+1\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+1\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+1\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+1\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+1\+\_\+\+N\+A\+M\+E~Gyrometer}}\label{udpImuSocket_8c_a0b7ab122c5032bc136ceafba6bd36c12_a0b7ab122c5032bc136ceafba6bd36c12}
+
+
+Definition at line 68 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a94c86560a61242a26fe7577de08f4ffa_a94c86560a61242a26fe7577de08f4ffa}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+2\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+2\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+2\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+2\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+2\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+2\+\_\+\+N\+A\+M\+E~Compass}}\label{udpImuSocket_8c_a94c86560a61242a26fe7577de08f4ffa_a94c86560a61242a26fe7577de08f4ffa}
+
+
+Definition at line 84 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a455726b4e265eb22d1601c9a07dc1a9d_a455726b4e265eb22d1601c9a07dc1a9d}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+3\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+3\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+3\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+3\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+3\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+3\+\_\+\+N\+A\+M\+E~Barometer}}\label{udpImuSocket_8c_a455726b4e265eb22d1601c9a07dc1a9d_a455726b4e265eb22d1601c9a07dc1a9d}
+
+
+Definition at line 100 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a64bc927231f4e4a3d906b665cf82f53f_a64bc927231f4e4a3d906b665cf82f53f}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+4\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+4\+\_\+\+N\+A\+M\+E}}
+\index{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+4\+\_\+\+N\+A\+M\+E@{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+4\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+4\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+4\+\_\+\+N\+A\+M\+E~Temperature}}\label{udpImuSocket_8c_a64bc927231f4e4a3d906b665cf82f53f_a64bc927231f4e4a3d906b665cf82f53f}
+
+
+Definition at line 116 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_adc4a2d7e2b4989db352794a766c23b9d_adc4a2d7e2b4989db352794a766c23b9d}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X}}
+\index{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O}}\label{udpImuSocket_8c_adc4a2d7e2b4989db352794a766c23b9d_adc4a2d7e2b4989db352794a766c23b9d}
+
+
+Definition at line 56 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a4a2eaf3c09c6dde51bc23bbda01123be_a4a2eaf3c09c6dde51bc23bbda01123be}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+D\+T\+Y\+P\+E}}
+\index{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+D\+T\+Y\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+D\+T\+Y\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+D\+T\+Y\+P\+E~real\+\_\+\+T}}\label{udpImuSocket_8c_a4a2eaf3c09c6dde51bc23bbda01123be_a4a2eaf3c09c6dde51bc23bbda01123be}
+
+
+Definition at line 55 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a4968c5bc67c361eedd7c804eb3a50fe3_a4968c5bc67c361eedd7c804eb3a50fe3}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+W\+I\+D\+T\+H}}
+\index{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+W\+I\+D\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+W\+I\+D\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+0\+\_\+\+W\+I\+D\+T\+H~3}}\label{udpImuSocket_8c_a4968c5bc67c361eedd7c804eb3a50fe3_a4968c5bc67c361eedd7c804eb3a50fe3}
+
+
+Definition at line 53 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a31ea212e0b2e38b110b69c70d92198dc_a31ea212e0b2e38b110b69c70d92198dc}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X}}
+\index{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O}}\label{udpImuSocket_8c_a31ea212e0b2e38b110b69c70d92198dc_a31ea212e0b2e38b110b69c70d92198dc}
+
+
+Definition at line 72 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ae1c49e7ea16e9f7a1ed209ad8bb0d0ee_ae1c49e7ea16e9f7a1ed209ad8bb0d0ee}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+D\+T\+Y\+P\+E}}
+\index{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+D\+T\+Y\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+D\+T\+Y\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+D\+T\+Y\+P\+E~real\+\_\+\+T}}\label{udpImuSocket_8c_ae1c49e7ea16e9f7a1ed209ad8bb0d0ee_ae1c49e7ea16e9f7a1ed209ad8bb0d0ee}
+
+
+Definition at line 71 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_af9d21007736c74a7487a42732c7883cc_af9d21007736c74a7487a42732c7883cc}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+W\+I\+D\+T\+H}}
+\index{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+W\+I\+D\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+W\+I\+D\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+1\+\_\+\+W\+I\+D\+T\+H~3}}\label{udpImuSocket_8c_af9d21007736c74a7487a42732c7883cc_af9d21007736c74a7487a42732c7883cc}
+
+
+Definition at line 69 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a21fae994debd10a3adffe06204110d9b_a21fae994debd10a3adffe06204110d9b}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+C\+O\+M\+P\+L\+E\+X}}
+\index{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+C\+O\+M\+P\+L\+E\+X}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+C\+O\+M\+P\+L\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+C\+O\+M\+P\+L\+E\+X~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O}}\label{udpImuSocket_8c_a21fae994debd10a3adffe06204110d9b_a21fae994debd10a3adffe06204110d9b}
+
+
+Definition at line 88 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a314047a571e48731b08c5c2a01aae4be_a314047a571e48731b08c5c2a01aae4be}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+D\+T\+Y\+P\+E}}
+\index{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+D\+T\+Y\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+D\+T\+Y\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+D\+T\+Y\+P\+E~real\+\_\+\+T}}\label{udpImuSocket_8c_a314047a571e48731b08c5c2a01aae4be_a314047a571e48731b08c5c2a01aae4be}
+
+
+Definition at line 87 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_adea996bf7cbbfaad67fc488dcb8346b9_adea996bf7cbbfaad67fc488dcb8346b9}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+W\+I\+D\+T\+H}}
+\index{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+W\+I\+D\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+W\+I\+D\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+2\+\_\+\+W\+I\+D\+T\+H~3}}\label{udpImuSocket_8c_adea996bf7cbbfaad67fc488dcb8346b9_adea996bf7cbbfaad67fc488dcb8346b9}
+
+
+Definition at line 85 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a9081adbbfb60b30c3c50b874e6576e98_a9081adbbfb60b30c3c50b874e6576e98}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+C\+O\+M\+P\+L\+E\+X}}
+\index{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+C\+O\+M\+P\+L\+E\+X}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+C\+O\+M\+P\+L\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+C\+O\+M\+P\+L\+E\+X~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O}}\label{udpImuSocket_8c_a9081adbbfb60b30c3c50b874e6576e98_a9081adbbfb60b30c3c50b874e6576e98}
+
+
+Definition at line 104 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a9acb00c9c87eef898932578f8907c94c_a9acb00c9c87eef898932578f8907c94c}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+D\+T\+Y\+P\+E}}
+\index{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+D\+T\+Y\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+D\+T\+Y\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+D\+T\+Y\+P\+E~real\+\_\+\+T}}\label{udpImuSocket_8c_a9acb00c9c87eef898932578f8907c94c_a9acb00c9c87eef898932578f8907c94c}
+
+
+Definition at line 103 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ae1456cac3d11f611baaaf2b285673f2d_ae1456cac3d11f611baaaf2b285673f2d}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+W\+I\+D\+T\+H}}
+\index{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+W\+I\+D\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+W\+I\+D\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+3\+\_\+\+W\+I\+D\+T\+H~1}}\label{udpImuSocket_8c_ae1456cac3d11f611baaaf2b285673f2d_ae1456cac3d11f611baaaf2b285673f2d}
+
+
+Definition at line 101 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a5e3a6ffe72aba5e75964a7f26e00ba39_a5e3a6ffe72aba5e75964a7f26e00ba39}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+C\+O\+M\+P\+L\+E\+X}}
+\index{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+C\+O\+M\+P\+L\+E\+X@{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+C\+O\+M\+P\+L\+E\+X}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+C\+O\+M\+P\+L\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+C\+O\+M\+P\+L\+E\+X~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O}}\label{udpImuSocket_8c_a5e3a6ffe72aba5e75964a7f26e00ba39_a5e3a6ffe72aba5e75964a7f26e00ba39}
+
+
+Definition at line 120 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a1a559e7b8703c2ec58c475853c54c886_a1a559e7b8703c2ec58c475853c54c886}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+D\+T\+Y\+P\+E}}
+\index{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+D\+T\+Y\+P\+E@{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+D\+T\+Y\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+D\+T\+Y\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+D\+T\+Y\+P\+E~real\+\_\+\+T}}\label{udpImuSocket_8c_a1a559e7b8703c2ec58c475853c54c886_a1a559e7b8703c2ec58c475853c54c886}
+
+
+Definition at line 119 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a5300534599a8ca24d9f1ef81f7fc9b2a_a5300534599a8ca24d9f1ef81f7fc9b2a}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+W\+I\+D\+T\+H}}
+\index{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+W\+I\+D\+T\+H@{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+W\+I\+D\+T\+H}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+W\+I\+D\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+4\+\_\+\+W\+I\+D\+T\+H~1}}\label{udpImuSocket_8c_a5300534599a8ca24d9f1ef81f7fc9b2a_a5300534599a8ca24d9f1ef81f7fc9b2a}
+
+
+Definition at line 117 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_af5811b760e554b401b6af7ed66a5050e_af5811b760e554b401b6af7ed66a5050e}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+0\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+0\+\_\+\+C\+O\+L}}
+\index{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+0\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+0\+\_\+\+C\+O\+L}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+0\+\_\+\+C\+O\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+0\+\_\+\+C\+O\+L~1}}\label{udpImuSocket_8c_af5811b760e554b401b6af7ed66a5050e_af5811b760e554b401b6af7ed66a5050e}
+
+
+Definition at line 54 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a53c6599b4a1e5d644bda7e6ecd6896db_a53c6599b4a1e5d644bda7e6ecd6896db}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+1\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+1\+\_\+\+C\+O\+L}}
+\index{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+1\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+1\+\_\+\+C\+O\+L}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+1\+\_\+\+C\+O\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+1\+\_\+\+C\+O\+L~1}}\label{udpImuSocket_8c_a53c6599b4a1e5d644bda7e6ecd6896db_a53c6599b4a1e5d644bda7e6ecd6896db}
+
+
+Definition at line 70 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a60d7b26be92497955aea4599b452e006_a60d7b26be92497955aea4599b452e006}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+2\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+2\+\_\+\+C\+O\+L}}
+\index{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+2\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+2\+\_\+\+C\+O\+L}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+2\+\_\+\+C\+O\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+2\+\_\+\+C\+O\+L~1}}\label{udpImuSocket_8c_a60d7b26be92497955aea4599b452e006_a60d7b26be92497955aea4599b452e006}
+
+
+Definition at line 86 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_afdb3aae273d20d36a0cb1568491d40c8_afdb3aae273d20d36a0cb1568491d40c8}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+3\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+3\+\_\+\+C\+O\+L}}
+\index{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+3\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+3\+\_\+\+C\+O\+L}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+3\+\_\+\+C\+O\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+3\+\_\+\+C\+O\+L~1}}\label{udpImuSocket_8c_afdb3aae273d20d36a0cb1568491d40c8_afdb3aae273d20d36a0cb1568491d40c8}
+
+
+Definition at line 102 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a82e390b8a1c981d3bbe2031eadb3b0d2_a82e390b8a1c981d3bbe2031eadb3b0d2}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+4\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+4\+\_\+\+C\+O\+L}}
+\index{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+4\+\_\+\+C\+O\+L@{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+4\+\_\+\+C\+O\+L}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+4\+\_\+\+C\+O\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+P\+U\+T\+\_\+\+D\+I\+M\+S\+\_\+4\+\_\+\+C\+O\+L~1}}\label{udpImuSocket_8c_a82e390b8a1c981d3bbe2031eadb3b0d2_a82e390b8a1c981d3bbe2031eadb3b0d2}
+
+
+Definition at line 118 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a72a0f9cc8bf32fbac209b30e95289dc7_a72a0f9cc8bf32fbac209b30e95289dc7}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+N\+E\+L\+I\+N\+D\+E\+X@{P\+A\+N\+E\+L\+I\+N\+D\+E\+X}}
+\index{P\+A\+N\+E\+L\+I\+N\+D\+E\+X@{P\+A\+N\+E\+L\+I\+N\+D\+E\+X}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+N\+E\+L\+I\+N\+D\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+N\+E\+L\+I\+N\+D\+E\+X~6}}\label{udpImuSocket_8c_a72a0f9cc8bf32fbac209b30e95289dc7_a72a0f9cc8bf32fbac209b30e95289dc7}
+
+
+Definition at line 150 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a600f6ba4b243a1f70565a58ca0c2f108_a600f6ba4b243a1f70565a58ca0c2f108}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+R\+A\+M\+\_\+\+D\+E\+F0@{P\+A\+R\+A\+M\+\_\+\+D\+E\+F0}}
+\index{P\+A\+R\+A\+M\+\_\+\+D\+E\+F0@{P\+A\+R\+A\+M\+\_\+\+D\+E\+F0}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+R\+A\+M\+\_\+\+D\+E\+F0}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+R\+A\+M\+\_\+\+D\+E\+F0(
+\begin{DoxyParamCaption}
+\item[{}]{S}
+\end{DoxyParamCaption}
+)~ss\+Get\+S\+Fcn\+Param(S, 0)}}\label{udpImuSocket_8c_a600f6ba4b243a1f70565a58ca0c2f108_a600f6ba4b243a1f70565a58ca0c2f108}
+
+
+Definition at line 162 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aee59d29e6cb0058f62f7d9b9e8cef251_aee59d29e6cb0058f62f7d9b9e8cef251}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+R\+A\+M\+\_\+\+D\+E\+F1@{P\+A\+R\+A\+M\+\_\+\+D\+E\+F1}}
+\index{P\+A\+R\+A\+M\+\_\+\+D\+E\+F1@{P\+A\+R\+A\+M\+\_\+\+D\+E\+F1}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+R\+A\+M\+\_\+\+D\+E\+F1}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+R\+A\+M\+\_\+\+D\+E\+F1(
+\begin{DoxyParamCaption}
+\item[{}]{S}
+\end{DoxyParamCaption}
+)~ss\+Get\+S\+Fcn\+Param(S, 1)}}\label{udpImuSocket_8c_aee59d29e6cb0058f62f7d9b9e8cef251_aee59d29e6cb0058f62f7d9b9e8cef251}
+
+
+Definition at line 163 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ae43cf901e6ff375c3788fd905e398b2c_ae43cf901e6ff375c3788fd905e398b2c}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X}}
+\index{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+C\+O\+M\+P\+L\+E\+X~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O}}\label{udpImuSocket_8c_ae43cf901e6ff375c3788fd905e398b2c_ae43cf901e6ff375c3788fd905e398b2c}
+
+
+Definition at line 136 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a023b8a5810bf20ecc28e982ecff0d2b3_a023b8a5810bf20ecc28e982ecff0d2b3}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+D\+T\+Y\+P\+E@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+D\+T\+Y\+P\+E}}
+\index{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+D\+T\+Y\+P\+E@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+D\+T\+Y\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+D\+T\+Y\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+D\+T\+Y\+P\+E~real\+\_\+\+T}}\label{udpImuSocket_8c_a023b8a5810bf20ecc28e982ecff0d2b3_a023b8a5810bf20ecc28e982ecff0d2b3}
+
+
+Definition at line 135 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aefe3fd2d906dc9e7dc4edee601b8a4b7_aefe3fd2d906dc9e7dc4edee601b8a4b7}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+N\+A\+M\+E@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+N\+A\+M\+E}}
+\index{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+N\+A\+M\+E@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+0\+\_\+\+N\+A\+M\+E~sample\+Time}}\label{udpImuSocket_8c_aefe3fd2d906dc9e7dc4edee601b8a4b7_aefe3fd2d906dc9e7dc4edee601b8a4b7}
+
+
+Definition at line 134 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a9378ba3d01a48b1ca6b24be0b2d495b4_a9378ba3d01a48b1ca6b24be0b2d495b4}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X}}
+\index{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+C\+O\+M\+P\+L\+E\+X~C\+O\+M\+P\+L\+E\+X\+\_\+\+N\+O}}\label{udpImuSocket_8c_a9378ba3d01a48b1ca6b24be0b2d495b4_a9378ba3d01a48b1ca6b24be0b2d495b4}
+
+
+Definition at line 140 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_aaac0a872d19d05aa11faffbeef9ca879_aaac0a872d19d05aa11faffbeef9ca879}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+D\+T\+Y\+P\+E@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+D\+T\+Y\+P\+E}}
+\index{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+D\+T\+Y\+P\+E@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+D\+T\+Y\+P\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+D\+T\+Y\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+D\+T\+Y\+P\+E~real\+\_\+\+T}}\label{udpImuSocket_8c_aaac0a872d19d05aa11faffbeef9ca879_aaac0a872d19d05aa11faffbeef9ca879}
+
+
+Definition at line 139 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a457c80fcbf64fe1670b7ea5fdbd0f8ad_a457c80fcbf64fe1670b7ea5fdbd0f8ad}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+N\+A\+M\+E@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+N\+A\+M\+E}}
+\index{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+N\+A\+M\+E@{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+1\+\_\+\+N\+A\+M\+E~Listen\+Port}}\label{udpImuSocket_8c_a457c80fcbf64fe1670b7ea5fdbd0f8ad_a457c80fcbf64fe1670b7ea5fdbd0f8ad}
+
+
+Definition at line 138 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a2cfb2dedd7e29770b6ca7946a0f212f5_a2cfb2dedd7e29770b6ca7946a0f212f5}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+I\+P\+A\+D\+D\+R\+\_\+\+R\+G4\+U\+I8@{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+I\+P\+A\+D\+D\+R\+\_\+\+R\+G4\+U\+I8}}
+\index{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+I\+P\+A\+D\+D\+R\+\_\+\+R\+G4\+U\+I8@{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+I\+P\+A\+D\+D\+R\+\_\+\+R\+G4\+U\+I8}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+I\+P\+A\+D\+D\+R\+\_\+\+R\+G4\+U\+I8}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+I\+P\+A\+D\+D\+R\+\_\+\+R\+G4\+U\+I8~\{192,168,22,161\}}}\label{udpImuSocket_8c_a2cfb2dedd7e29770b6ca7946a0f212f5_a2cfb2dedd7e29770b6ca7946a0f212f5}
+
+
+Definition at line 168 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a0a9ad38f9473776914b5e6583906f11a_a0a9ad38f9473776914b5e6583906f11a}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I16@{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I16}}
+\index{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I16@{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I16}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I16}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+E\+M\+O\+T\+E\+\_\+\+H\+O\+S\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I16~5000}}\label{udpImuSocket_8c_a0a9ad38f9473776914b5e6583906f11a_a0a9ad38f9473776914b5e6583906f11a}
+
+
+Definition at line 169 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a9a4ab27953070e39249f3fad28e93749_a9a4ab27953070e39249f3fad28e93749}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L@{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L}}
+\index{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L@{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+L\+E\+V\+E\+L~2}}\label{udpImuSocket_8c_a9a4ab27953070e39249f3fad28e93749_a9a4ab27953070e39249f3fad28e93749}
+
+
+Definition at line 44 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a0f61df833e166c743295eebf43f0b142_a0f61df833e166c743295eebf43f0b142}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+N\+A\+M\+E@{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+N\+A\+M\+E}}
+\index{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+N\+A\+M\+E@{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+N\+A\+M\+E}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+N\+A\+M\+E~udp\+Imu\+Socket}}\label{udpImuSocket_8c_a0f61df833e166c743295eebf43f0b142_a0f61df833e166c743295eebf43f0b142}
+
+
+Definition at line 45 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a719c01b15a125dc69aac15da6478dcea_a719c01b15a125dc69aac15da6478dcea}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!S\+A\+M\+P\+L\+E\+\_\+\+T\+I\+M\+E\+\_\+0@{S\+A\+M\+P\+L\+E\+\_\+\+T\+I\+M\+E\+\_\+0}}
+\index{S\+A\+M\+P\+L\+E\+\_\+\+T\+I\+M\+E\+\_\+0@{S\+A\+M\+P\+L\+E\+\_\+\+T\+I\+M\+E\+\_\+0}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{S\+A\+M\+P\+L\+E\+\_\+\+T\+I\+M\+E\+\_\+0}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+M\+P\+L\+E\+\_\+\+T\+I\+M\+E\+\_\+0~0.\+1}}\label{udpImuSocket_8c_a719c01b15a125dc69aac15da6478dcea_a719c01b15a125dc69aac15da6478dcea}
+
+
+Definition at line 142 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ae06ff592d2a39b7429c55145004d8ecd_ae06ff592d2a39b7429c55145004d8ecd}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!S\+A\+V\+E\+\_\+\+C\+O\+D\+E\+\_\+\+O\+N\+L\+Y@{S\+A\+V\+E\+\_\+\+C\+O\+D\+E\+\_\+\+O\+N\+L\+Y}}
+\index{S\+A\+V\+E\+\_\+\+C\+O\+D\+E\+\_\+\+O\+N\+L\+Y@{S\+A\+V\+E\+\_\+\+C\+O\+D\+E\+\_\+\+O\+N\+L\+Y}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{S\+A\+V\+E\+\_\+\+C\+O\+D\+E\+\_\+\+O\+N\+L\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+V\+E\+\_\+\+C\+O\+D\+E\+\_\+\+O\+N\+L\+Y~0}}\label{udpImuSocket_8c_ae06ff592d2a39b7429c55145004d8ecd_ae06ff592d2a39b7429c55145004d8ecd}
+
+
+Definition at line 154 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a6f9a0bfd2b653d2060fc8f9c8c769109_a6f9a0bfd2b653d2060fc8f9c8c769109}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!S\+F\+U\+N\+W\+I\+Z\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+T\+L\+C@{S\+F\+U\+N\+W\+I\+Z\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+T\+L\+C}}
+\index{S\+F\+U\+N\+W\+I\+Z\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+T\+L\+C@{S\+F\+U\+N\+W\+I\+Z\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+T\+L\+C}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{S\+F\+U\+N\+W\+I\+Z\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+T\+L\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+F\+U\+N\+W\+I\+Z\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+T\+L\+C~0}}\label{udpImuSocket_8c_a6f9a0bfd2b653d2060fc8f9c8c769109_a6f9a0bfd2b653d2060fc8f9c8c769109}
+
+
+Definition at line 148 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_ad4fedb330a37ab043b9fd79c6112ea1f_ad4fedb330a37ab043b9fd79c6112ea1f}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!S\+F\+U\+N\+W\+I\+Z\+\_\+\+R\+E\+V\+I\+S\+I\+O\+N@{S\+F\+U\+N\+W\+I\+Z\+\_\+\+R\+E\+V\+I\+S\+I\+O\+N}}
+\index{S\+F\+U\+N\+W\+I\+Z\+\_\+\+R\+E\+V\+I\+S\+I\+O\+N@{S\+F\+U\+N\+W\+I\+Z\+\_\+\+R\+E\+V\+I\+S\+I\+O\+N}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{S\+F\+U\+N\+W\+I\+Z\+\_\+\+R\+E\+V\+I\+S\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+F\+U\+N\+W\+I\+Z\+\_\+\+R\+E\+V\+I\+S\+I\+O\+N~3.\+0}}\label{udpImuSocket_8c_ad4fedb330a37ab043b9fd79c6112ea1f_ad4fedb330a37ab043b9fd79c6112ea1f}
+
+
+Definition at line 155 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a8a8b1176132c5ca2fb76b0178b705b3c_a8a8b1176132c5ca2fb76b0178b705b3c}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!S\+H\+O\+W\+\_\+\+C\+O\+M\+P\+I\+L\+E\+\_\+\+S\+T\+E\+P\+S@{S\+H\+O\+W\+\_\+\+C\+O\+M\+P\+I\+L\+E\+\_\+\+S\+T\+E\+P\+S}}
+\index{S\+H\+O\+W\+\_\+\+C\+O\+M\+P\+I\+L\+E\+\_\+\+S\+T\+E\+P\+S@{S\+H\+O\+W\+\_\+\+C\+O\+M\+P\+I\+L\+E\+\_\+\+S\+T\+E\+P\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{S\+H\+O\+W\+\_\+\+C\+O\+M\+P\+I\+L\+E\+\_\+\+S\+T\+E\+P\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+O\+W\+\_\+\+C\+O\+M\+P\+I\+L\+E\+\_\+\+S\+T\+E\+P\+S~0}}\label{udpImuSocket_8c_a8a8b1176132c5ca2fb76b0178b705b3c_a8a8b1176132c5ca2fb76b0178b705b3c}
+
+
+Definition at line 152 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_a6ac157a75221b1b9c5b66829993843d6_a6ac157a75221b1b9c5b66829993843d6}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!S\+O\+U\+R\+C\+E\+F\+I\+L\+E\+S@{S\+O\+U\+R\+C\+E\+F\+I\+L\+E\+S}}
+\index{S\+O\+U\+R\+C\+E\+F\+I\+L\+E\+S@{S\+O\+U\+R\+C\+E\+F\+I\+L\+E\+S}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{S\+O\+U\+R\+C\+E\+F\+I\+L\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+O\+U\+R\+C\+E\+F\+I\+L\+E\+S~\char`\"{}\+\_\+\+\_\+\+S\+F\+B\+\_\+\+\_\+\char`\"{}}}\label{udpImuSocket_8c_a6ac157a75221b1b9c5b66829993843d6_a6ac157a75221b1b9c5b66829993843d6}
+
+
+Definition at line 149 of file udp\+Imu\+Socket.\+c.
+
+\hypertarget{udpImuSocket_8c_abb9e20fcc412127a928d112d2aed4fcc_abb9e20fcc412127a928d112d2aed4fcc}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!U\+S\+E\+\_\+\+S\+I\+M\+S\+T\+R\+U\+C\+T@{U\+S\+E\+\_\+\+S\+I\+M\+S\+T\+R\+U\+C\+T}}
+\index{U\+S\+E\+\_\+\+S\+I\+M\+S\+T\+R\+U\+C\+T@{U\+S\+E\+\_\+\+S\+I\+M\+S\+T\+R\+U\+C\+T}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{U\+S\+E\+\_\+\+S\+I\+M\+S\+T\+R\+U\+C\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+S\+E\+\_\+\+S\+I\+M\+S\+T\+R\+U\+C\+T~1}}\label{udpImuSocket_8c_abb9e20fcc412127a928d112d2aed4fcc_abb9e20fcc412127a928d112d2aed4fcc}
+
+
+Definition at line 151 of file udp\+Imu\+Socket.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{udpImuSocket_8c_a4308a5a20d9c7060391059b1dfce872e_a4308a5a20d9c7060391059b1dfce872e}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!mdl\+Initialize\+Sample\+Times@{mdl\+Initialize\+Sample\+Times}}
+\index{mdl\+Initialize\+Sample\+Times@{mdl\+Initialize\+Sample\+Times}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{mdl\+Initialize\+Sample\+Times}]{\setlength{\rightskip}{0pt plus 5cm}static void mdl\+Initialize\+Sample\+Times (
+\begin{DoxyParamCaption}
+\item[{Sim\+Struct $\ast$}]{S}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{udpImuSocket_8c_a4308a5a20d9c7060391059b1dfce872e_a4308a5a20d9c7060391059b1dfce872e}
+
+
+Definition at line 282 of file udp\+Imu\+Socket.\+c.
+
+
+\begin{DoxyCode}
+283 \{
+284     \textcolor{keywordtype}{double}* l\_sampleTime\_pf64;
+285     
+286     \textcolor{comment}{//get sample time, configured in block parameters}
+287     l\_sampleTime\_pf64 = mxGetPr( ssGetSFcnParam(S, 0) );
+288     printf(\textcolor{stringliteral}{"Set sampling time to %lf\(\backslash\)n"},*l\_sampleTime\_pf64);
+289     
+290     ssSetSampleTime(S, 0, (time\_T)*l\_sampleTime\_pf64 );
+291     ssSetOffsetTime(S, 0, 0.0);
+292 \}
+\end{DoxyCode}
+\hypertarget{udpImuSocket_8c_ab500fc17ae5e95797926ac770d903b84_ab500fc17ae5e95797926ac770d903b84}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!mdl\+Initialize\+Sizes@{mdl\+Initialize\+Sizes}}
+\index{mdl\+Initialize\+Sizes@{mdl\+Initialize\+Sizes}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{mdl\+Initialize\+Sizes}]{\setlength{\rightskip}{0pt plus 5cm}static void mdl\+Initialize\+Sizes (
+\begin{DoxyParamCaption}
+\item[{Sim\+Struct $\ast$}]{S}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{udpImuSocket_8c_ab500fc17ae5e95797926ac770d903b84_ab500fc17ae5e95797926ac770d903b84}
+
+
+Definition at line 223 of file udp\+Imu\+Socket.\+c.
+
+
+\begin{DoxyCode}
+224 \{
+225 
+226     DECL\_AND\_INIT\_DIMSINFO(outputDimsInfo);
+227     ssSetNumSFcnParams(S, \hyperlink{udpImuSocket_8c_ae468832efa6adf5e9a96cabd8f878b47_ae468832efa6adf5e9a96cabd8f878b47}{NPARAMS});  \textcolor{comment}{/* Number of expected parameters */}
+228 \textcolor{preprocessor}{      #if defined(MATLAB\_MEX\_FILE)}
+229     \textcolor{keywordflow}{if} (ssGetNumSFcnParams(S) == ssGetSFcnParamsCount(S)) \{
+230       mdlCheckParameters(S);
+231       \textcolor{keywordflow}{if} (ssGetErrorStatus(S) != NULL) \{
+232         \textcolor{keywordflow}{return};
+233       \}
+234      \} \textcolor{keywordflow}{else} \{
+235        \textcolor{keywordflow}{return}; \textcolor{comment}{/* Parameter mismatch will be reported by Simulink */}
+236      \}
+237 \textcolor{preprocessor}{      #endif}
+238 
+239     ssSetNumContStates(S, \hyperlink{udpImuSocket_8c_a04e55a99fdb3750375d01dd076012560_a04e55a99fdb3750375d01dd076012560}{NUM\_CONT\_STATES});
+240     ssSetNumDiscStates(S, \hyperlink{udpImuSocket_8c_ad097b7d857d72f7854d134cd3d58c8dd_ad097b7d857d72f7854d134cd3d58c8dd}{NUM\_DISC\_STATES});
+241 
+242     \textcolor{keywordflow}{if} (!ssSetNumInputPorts(S, \hyperlink{udpImuSocket_8c_ad706a4e66dccbe66985b4c8785f28f3c_ad706a4e66dccbe66985b4c8785f28f3c}{NUM\_INPUTS})) \textcolor{keywordflow}{return};
+243 
+244     \textcolor{keywordflow}{if} (!ssSetNumOutputPorts(S, \hyperlink{udpImuSocket_8c_a2b952de4620c16ca060fe9e2d3aad454_a2b952de4620c16ca060fe9e2d3aad454}{NUM\_OUTPUTS})) \textcolor{keywordflow}{return};
+245     \textcolor{comment}{/* Output Port 0 */}
+246     ssSetOutputPortWidth(S, 0, \hyperlink{udpImuSocket_8c_a4968c5bc67c361eedd7c804eb3a50fe3_a4968c5bc67c361eedd7c804eb3a50fe3}{OUTPUT\_0\_WIDTH});
+247     ssSetOutputPortDataType(S, 0, SS\_DOUBLE);
+248     ssSetOutputPortComplexSignal(S, 0, \hyperlink{udpImuSocket_8c_adc4a2d7e2b4989db352794a766c23b9d_adc4a2d7e2b4989db352794a766c23b9d}{OUTPUT\_0\_COMPLEX});
+249     \textcolor{comment}{/* Output Port 1 */}
+250     ssSetOutputPortWidth(S, 1, \hyperlink{udpImuSocket_8c_af9d21007736c74a7487a42732c7883cc_af9d21007736c74a7487a42732c7883cc}{OUTPUT\_1\_WIDTH});
+251     ssSetOutputPortDataType(S, 1, SS\_DOUBLE);
+252     ssSetOutputPortComplexSignal(S, 1, \hyperlink{udpImuSocket_8c_a31ea212e0b2e38b110b69c70d92198dc_a31ea212e0b2e38b110b69c70d92198dc}{OUTPUT\_1\_COMPLEX});
+253     \textcolor{comment}{/* Output Port 2 */}
+254     ssSetOutputPortWidth(S, 2, \hyperlink{udpImuSocket_8c_adea996bf7cbbfaad67fc488dcb8346b9_adea996bf7cbbfaad67fc488dcb8346b9}{OUTPUT\_2\_WIDTH});
+255     ssSetOutputPortDataType(S, 2, SS\_DOUBLE);
+256     ssSetOutputPortComplexSignal(S, 2, \hyperlink{udpImuSocket_8c_a21fae994debd10a3adffe06204110d9b_a21fae994debd10a3adffe06204110d9b}{OUTPUT\_2\_COMPLEX});
+257     \textcolor{comment}{/* Output Port 3 */}
+258     ssSetOutputPortWidth(S, 3, \hyperlink{udpImuSocket_8c_ae1456cac3d11f611baaaf2b285673f2d_ae1456cac3d11f611baaaf2b285673f2d}{OUTPUT\_3\_WIDTH});
+259     ssSetOutputPortDataType(S, 3, SS\_DOUBLE);
+260     ssSetOutputPortComplexSignal(S, 3, \hyperlink{udpImuSocket_8c_a9081adbbfb60b30c3c50b874e6576e98_a9081adbbfb60b30c3c50b874e6576e98}{OUTPUT\_3\_COMPLEX});
+261     \textcolor{comment}{/* Output Port 4 */}
+262     ssSetOutputPortWidth(S, 4, \hyperlink{udpImuSocket_8c_a5300534599a8ca24d9f1ef81f7fc9b2a_a5300534599a8ca24d9f1ef81f7fc9b2a}{OUTPUT\_4\_WIDTH});
+263     ssSetOutputPortDataType(S, 4, SS\_DOUBLE);
+264     ssSetOutputPortComplexSignal(S, 4, \hyperlink{udpImuSocket_8c_a5e3a6ffe72aba5e75964a7f26e00ba39_a5e3a6ffe72aba5e75964a7f26e00ba39}{OUTPUT\_4\_COMPLEX});
+265 
+266     ssSetNumSampleTimes(S, 1);
+267     ssSetNumRWork(S, 0);
+268     ssSetNumIWork(S, 0);
+269     ssSetNumPWork(S, 0);
+270     ssSetNumModes(S, 0);
+271     ssSetNumNonsampledZCs(S, 0);
+272 
+273     \textcolor{comment}{/* Take care when specifying exception free code - see sfuntmpl\_doc.c */}
+274     ssSetOptions(S, (SS\_OPTION\_EXCEPTION\_FREE\_CODE |
+275              SS\_OPTION\_WORKS\_WITH\_CODE\_REUSE));
+276 \}
+\end{DoxyCode}
+\hypertarget{udpImuSocket_8c_ab6c8c16502dd4374f9f36cfd58cbbd15_ab6c8c16502dd4374f9f36cfd58cbbd15}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!mdl\+Outputs@{mdl\+Outputs}}
+\index{mdl\+Outputs@{mdl\+Outputs}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{mdl\+Outputs}]{\setlength{\rightskip}{0pt plus 5cm}static void mdl\+Outputs (
+\begin{DoxyParamCaption}
+\item[{Sim\+Struct $\ast$}]{S, }
+\item[{int\+\_\+\+T}]{tid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{udpImuSocket_8c_ab6c8c16502dd4374f9f36cfd58cbbd15_ab6c8c16502dd4374f9f36cfd58cbbd15}
+
+
+Definition at line 330 of file udp\+Imu\+Socket.\+c.
+
+
+\begin{DoxyCode}
+331 \{
+332     real\_T        *Accelerometer  = (real\_T *)ssGetOutputPortRealSignal(S,0);
+333     real\_T        *Gyrometer  = (real\_T *)ssGetOutputPortRealSignal(S,1);
+334     real\_T        *Compass  = (real\_T *)ssGetOutputPortRealSignal(S,2);
+335     real\_T        *Barometer  = (real\_T *)ssGetOutputPortRealSignal(S,3);
+336     real\_T        *Temperature  = (real\_T *)ssGetOutputPortRealSignal(S,4);
+337     \textcolor{keyword}{const} int\_T   p\_width0  = mxGetNumberOfElements(\hyperlink{udpImuSocket_8c_a600f6ba4b243a1f70565a58ca0c2f108_a600f6ba4b243a1f70565a58ca0c2f108}{PARAM\_DEF0}(S));
+338     \textcolor{keyword}{const} int\_T   p\_width1  = mxGetNumberOfElements(\hyperlink{udpImuSocket_8c_aee59d29e6cb0058f62f7d9b9e8cef251_aee59d29e6cb0058f62f7d9b9e8cef251}{PARAM\_DEF1}(S));
+339     \textcolor{keyword}{const} real\_T  *sampleTime  = (\textcolor{keyword}{const} real\_T *)mxGetData(\hyperlink{udpImuSocket_8c_a600f6ba4b243a1f70565a58ca0c2f108_a600f6ba4b243a1f70565a58ca0c2f108}{PARAM\_DEF0}(S));
+340     \textcolor{keyword}{const} real\_T  *ListenPort  = (\textcolor{keyword}{const} real\_T *)mxGetData(\hyperlink{udpImuSocket_8c_aee59d29e6cb0058f62f7d9b9e8cef251_aee59d29e6cb0058f62f7d9b9e8cef251}{PARAM\_DEF1}(S));
+341 
+342     \hyperlink{structhalMatlab__rtImuPayload}{halMatlab\_rtImuPayload}        l\_udpPayload\_st;
+343 
+344     l\_udpPayload\_st = \hyperlink{udpImuLib_8c_a950c3c02f670a48965dc6d6c5130ac8b_a950c3c02f670a48965dc6d6c5130ac8b}{g\_halMatlab\_recvImuState\_bl}( 
+      \hyperlink{udpImuSocket_8c_ad76cddc255c0a055b7f8998f9f8ee1a6_ad76cddc255c0a055b7f8998f9f8ee1a6}{m\_simSocket\_i32} );
+345 
+346     printf(\textcolor{stringliteral}{"Remote time: %ld.%ld\(\backslash\)n"}, l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a884897c9695ab0e4d2d0fbe9677a60cd_a884897c9695ab0e4d2d0fbe9677a60cd}{timestamp\_st}.tv\_sec,l\_udpPayload\_st.
+      \hyperlink{structhalMatlab__rtImuPayload_a884897c9695ab0e4d2d0fbe9677a60cd_a884897c9695ab0e4d2d0fbe9677a60cd}{timestamp\_st}.tv\_nsec);
+347     
+348     Accelerometer[0] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a8080616bd2a3d4f01f5334d4bf05427e_a8080616bd2a3d4f01f5334d4bf05427e}{acc}.\hyperlink{structhalAccmag__3dDoubleVector_a011646ea6f4b78400dfd2ffa8eb45eea_a011646ea6f4b78400dfd2ffa8eb45eea}{x\_f64};
+349     Accelerometer[1] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a8080616bd2a3d4f01f5334d4bf05427e_a8080616bd2a3d4f01f5334d4bf05427e}{acc}.\hyperlink{structhalAccmag__3dDoubleVector_a88f4ed3363ccaa08c00d2fc28f7b2ab4_a88f4ed3363ccaa08c00d2fc28f7b2ab4}{y\_f64};
+350     Accelerometer[2] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a8080616bd2a3d4f01f5334d4bf05427e_a8080616bd2a3d4f01f5334d4bf05427e}{acc}.\hyperlink{structhalAccmag__3dDoubleVector_a5041b0551694f5f4057a5f3454782e44_a5041b0551694f5f4057a5f3454782e44}{z\_f64};
+351 
+352     Gyrometer[0] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a386a3509066dbfd830da6b7a993b31da_a386a3509066dbfd830da6b7a993b31da}{gyro}.\hyperlink{structstrGyro_a0b8d0c0ec6e3324a403d983d67fae643_a0b8d0c0ec6e3324a403d983d67fae643}{l\_roll\_f64};
+353     Gyrometer[1] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a386a3509066dbfd830da6b7a993b31da_a386a3509066dbfd830da6b7a993b31da}{gyro}.\hyperlink{structstrGyro_a9d82fa8970135f2097dd209a74138848_a9d82fa8970135f2097dd209a74138848}{l\_pitch\_f64};
+354     Gyrometer[2] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a386a3509066dbfd830da6b7a993b31da_a386a3509066dbfd830da6b7a993b31da}{gyro}.\hyperlink{structstrGyro_a1c8ca43d350ad8ef20d2968aa29e6ce6_a1c8ca43d350ad8ef20d2968aa29e6ce6}{l\_yaw\_f64};
+355 
+356     Compass[0] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_ac0763bc025ee3aa20f167e74ecccfc3c_ac0763bc025ee3aa20f167e74ecccfc3c}{mag}.\hyperlink{structhalAccmag__3dDoubleVector_a011646ea6f4b78400dfd2ffa8eb45eea_a011646ea6f4b78400dfd2ffa8eb45eea}{x\_f64};
+357     Compass[1] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_ac0763bc025ee3aa20f167e74ecccfc3c_ac0763bc025ee3aa20f167e74ecccfc3c}{mag}.\hyperlink{structhalAccmag__3dDoubleVector_a88f4ed3363ccaa08c00d2fc28f7b2ab4_a88f4ed3363ccaa08c00d2fc28f7b2ab4}{y\_f64};
+358     Compass[2] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_ac0763bc025ee3aa20f167e74ecccfc3c_ac0763bc025ee3aa20f167e74ecccfc3c}{mag}.\hyperlink{structhalAccmag__3dDoubleVector_a5041b0551694f5f4057a5f3454782e44_a5041b0551694f5f4057a5f3454782e44}{z\_f64};
+359 
+360     Barometer[0] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a512925b63aa63c02874ce4dbb920c7f0_a512925b63aa63c02874ce4dbb920c7f0}{pressure\_f64};
+361 
+362     Temperature[0] = l\_udpPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_aeda72e72e4979977023cba31ee89cffa_aeda72e72e4979977023cba31ee89cffa}{temperature\_f64};
+363 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpImuSocket_8c_ab6c8c16502dd4374f9f36cfd58cbbd15_ab6c8c16502dd4374f9f36cfd58cbbd15_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpImuSocket_8c_a8d2ed0d73ef7b3df33c6ccca0bd4d4ae_a8d2ed0d73ef7b3df33c6ccca0bd4d4ae}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!mdl\+Set\+Default\+Port\+Data\+Types@{mdl\+Set\+Default\+Port\+Data\+Types}}
+\index{mdl\+Set\+Default\+Port\+Data\+Types@{mdl\+Set\+Default\+Port\+Data\+Types}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{mdl\+Set\+Default\+Port\+Data\+Types}]{\setlength{\rightskip}{0pt plus 5cm}static void mdl\+Set\+Default\+Port\+Data\+Types (
+\begin{DoxyParamCaption}
+\item[{Sim\+Struct $\ast$}]{S}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{udpImuSocket_8c_a8d2ed0d73ef7b3df33c6ccca0bd4d4ae_a8d2ed0d73ef7b3df33c6ccca0bd4d4ae}
+
+
+Definition at line 323 of file udp\+Imu\+Socket.\+c.
+
+
+\begin{DoxyCode}
+324 \{
+325    ssSetOutputPortDataType(S, 0, SS\_DOUBLE);
+326 \}
+\end{DoxyCode}
+\hypertarget{udpImuSocket_8c_a3af9a6d96c32b7ef4c6ca9bfc6dab341_a3af9a6d96c32b7ef4c6ca9bfc6dab341}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!mdl\+Set\+Output\+Port\+Data\+Type@{mdl\+Set\+Output\+Port\+Data\+Type}}
+\index{mdl\+Set\+Output\+Port\+Data\+Type@{mdl\+Set\+Output\+Port\+Data\+Type}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{mdl\+Set\+Output\+Port\+Data\+Type}]{\setlength{\rightskip}{0pt plus 5cm}static void mdl\+Set\+Output\+Port\+Data\+Type (
+\begin{DoxyParamCaption}
+\item[{Sim\+Struct $\ast$}]{S, }
+\item[{int}]{port, }
+\item[{D\+Type\+Id}]{d\+Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{udpImuSocket_8c_a3af9a6d96c32b7ef4c6ca9bfc6dab341_a3af9a6d96c32b7ef4c6ca9bfc6dab341}
+
+
+Definition at line 317 of file udp\+Imu\+Socket.\+c.
+
+
+\begin{DoxyCode}
+318 \{
+319     ssSetOutputPortDataType(S, 0, dType);
+320 \}
+\end{DoxyCode}
+\hypertarget{udpImuSocket_8c_a0dd07daf338cf84d1aee4bb8b6771720_a0dd07daf338cf84d1aee4bb8b6771720}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!mdl\+Start@{mdl\+Start}}
+\index{mdl\+Start@{mdl\+Start}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{mdl\+Start}]{\setlength{\rightskip}{0pt plus 5cm}static void mdl\+Start (
+\begin{DoxyParamCaption}
+\item[{Sim\+Struct $\ast$}]{S}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{udpImuSocket_8c_a0dd07daf338cf84d1aee4bb8b6771720_a0dd07daf338cf84d1aee4bb8b6771720}
+
+
+Definition at line 303 of file udp\+Imu\+Socket.\+c.
+
+
+\begin{DoxyCode}
+304   \{
+305       \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} l\_remoteIpAddr\_rg4ui8[4] = \hyperlink{udpImuSocket_8c_a2cfb2dedd7e29770b6ca7946a0f212f5_a2cfb2dedd7e29770b6ca7946a0f212f5}{REMOTE\_HOST\_IPADDR\_RG4UI8};
+306       \textcolor{keywordtype}{double}* l\_listenPort\_pf64;
+307     
+308       \textcolor{comment}{//get smaple time, configured in block parameters}
+309       l\_listenPort\_pf64 = mxGetPr( ssGetSFcnParam(S, 1) );
+310       printf(\textcolor{stringliteral}{"Listening to port %lf\(\backslash\)n"},*l\_listenPort\_pf64);
+311       
+312       \hyperlink{udpImuSocket_8c_ad76cddc255c0a055b7f8998f9f8ee1a6_ad76cddc255c0a055b7f8998f9f8ee1a6}{m\_simSocket\_i32} = \hyperlink{udpLib_8c_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d}{g\_halMatlab\_initConnection\_i32}( 
+      l\_remoteIpAddr\_rg4ui8 , (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short})*l\_listenPort\_pf64);
+313   \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpImuSocket_8c_a0dd07daf338cf84d1aee4bb8b6771720_a0dd07daf338cf84d1aee4bb8b6771720_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpImuSocket_8c_a343acfd8b3b5308d6c94bbf40efbbac5_a343acfd8b3b5308d6c94bbf40efbbac5}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!mdl\+Terminate@{mdl\+Terminate}}
+\index{mdl\+Terminate@{mdl\+Terminate}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{mdl\+Terminate}]{\setlength{\rightskip}{0pt plus 5cm}static void mdl\+Terminate (
+\begin{DoxyParamCaption}
+\item[{Sim\+Struct $\ast$}]{S}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{udpImuSocket_8c_a343acfd8b3b5308d6c94bbf40efbbac5_a343acfd8b3b5308d6c94bbf40efbbac5}
+
+
+Definition at line 373 of file udp\+Imu\+Socket.\+c.
+
+
+\begin{DoxyCode}
+374 \{
+375     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} l\_closeState\_ui32;
+376     
+377     printf(\textcolor{stringliteral}{"Closing socket\(\backslash\)n"});
+378     
+379     l\_closeState\_ui32 = \hyperlink{udpLib_8c_a7637578f6230876a656d097956087ae0_a7637578f6230876a656d097956087ae0}{g\_halMatlab\_closeSocket\_bl}(
+      \hyperlink{udpImuSocket_8c_ad76cddc255c0a055b7f8998f9f8ee1a6_ad76cddc255c0a055b7f8998f9f8ee1a6}{m\_simSocket\_i32});
+380 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpImuSocket_8c_a343acfd8b3b5308d6c94bbf40efbbac5_a343acfd8b3b5308d6c94bbf40efbbac5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{udpImuSocket_8c_ad76cddc255c0a055b7f8998f9f8ee1a6_ad76cddc255c0a055b7f8998f9f8ee1a6}{\index{udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}!m\+\_\+sim\+Socket\+\_\+i32@{m\+\_\+sim\+Socket\+\_\+i32}}
+\index{m\+\_\+sim\+Socket\+\_\+i32@{m\+\_\+sim\+Socket\+\_\+i32}!udp\+Imu\+Socket.\+c@{udp\+Imu\+Socket.\+c}}
+\subsubsection[{m\+\_\+sim\+Socket\+\_\+i32}]{\setlength{\rightskip}{0pt plus 5cm}int m\+\_\+sim\+Socket\+\_\+i32 = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{udpImuSocket_8c_ad76cddc255c0a055b7f8998f9f8ee1a6_ad76cddc255c0a055b7f8998f9f8ee1a6}
+
+
+Definition at line 171 of file udp\+Imu\+Socket.\+c.
+

@@ -1,0 +1,7 @@
+<map id="g_halMatlab_recvPacket_ui32" name="g_halMatlab_recvPacket_ui32">
+<area shape="rect" id="node2" href="$udpImuLib_8h_a950c3c02f670a48965dc6d6c5130ac8b.html#a950c3c02f670a48965dc6d6c5130ac8b" title="Receives a packet of IMU data with the current via a given UDP&#45;Socket. " alt="" coords="259,5,453,32"/>
+<area shape="rect" id="node4" href="$udpSigLib_8h_a1a7106a477c6333bc258e5631f751635.html#a1a7106a477c6333bc258e5631f751635" title="Receives a packet of SIG data with the current via a given UDP&#45;Socket. " alt="" coords="261,56,451,83"/>
+<area shape="rect" id="node5" href="$udpSigLib_8h_abf4dac6b7984656845b4c3d0d2168a7c.html#abf4dac6b7984656845b4c3d0d2168a7c" title="Receives a packet of SIG data with the current via a given UDP&#45;Socket. " alt="" coords="249,107,463,133"/>
+<area shape="rect" id="node3" href="$udpImuSocket_8c_ab6c8c16502dd4374f9f36cfd58cbbd15.html#ab6c8c16502dd4374f9f36cfd58cbbd15" title="mdlOutputs" alt="" coords="511,5,600,32"/>
+<area shape="rect" id="node6" href="$udpSigSocket_8c_ab6c8c16502dd4374f9f36cfd58cbbd15.html#ab6c8c16502dd4374f9f36cfd58cbbd15" title="mdlOutputs" alt="" coords="511,107,600,133"/>
+</map>

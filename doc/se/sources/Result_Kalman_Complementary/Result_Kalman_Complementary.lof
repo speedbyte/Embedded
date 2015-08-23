@@ -1,0 +1,20 @@
+\select@language {english}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Matlab model\relax }}{1}{figure.caption.3}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces First result Kalman filter\relax }}{7}{figure.caption.4}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Weak magnetic field strength\relax }}{8}{figure.caption.5}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Strong magnetic field strength\relax }}{9}{figure.caption.6}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces New positioning of IMU 1\relax }}{9}{figure.caption.7}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces New positioning of IMU 2\relax }}{10}{figure.caption.8}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces First result complementary filter\relax }}{12}{figure.caption.9}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Final result complementary filter\relax }}{12}{figure.caption.10}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces 3D representation of the integrated gyroscope raw values on the left and the fusion filtered on the right\relax }}{13}{figure.caption.11}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces First result Kalman filter\relax }}{15}{figure.caption.12}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Analyzing the acceleration sensor\relax }}{16}{figure.caption.13}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Analyzing the gyroscope sensor\relax }}{16}{figure.caption.14}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Analyzing the magnetic sensor\relax }}{17}{figure.caption.15}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Final result Kalman filter\relax }}{18}{figure.caption.16}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces 3D representation of the integrated gyroscope raw values on the left and the fusion filtered on the right\relax }}{18}{figure.caption.17}

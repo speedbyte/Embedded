@@ -1,0 +1,66 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Goals}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}Used Distance Measurement Sensors}{2}{chapter.2}
+\contentsline {section}{\numberline {2.1}Infrared Sensor}{2}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}First steps}{2}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}ADC Configuration}{3}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Measured Values}{4}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Conclusion}{7}{subsection.2.1.4}
+\contentsline {section}{\numberline {2.2}Ultrasonic Distance Sensor}{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}LIDAR Laser Sensor}{8}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Connecting the sensor with I$^2$C}{8}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}First steps}{9}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Measured Values}{10}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Conclusion}{11}{subsection.2.3.4}
+\contentsline {chapter}{\numberline {3}I$^2$C Configuration}{12}{chapter.3}
+\contentsline {section}{\numberline {3.1}raspi-config}{12}{section.3.1}
+\contentsline {section}{\numberline {3.2}Module File}{13}{section.3.2}
+\contentsline {section}{\numberline {3.3}I$^2$CTools}{13}{section.3.3}
+\contentsline {section}{\numberline {3.4}Test I$^2$C-1}{14}{section.3.4}
+\contentsline {section}{\numberline {3.5}Set up I$^2$C-0}{15}{section.3.5}
+\contentsline {chapter}{\numberline {4}Functions in C}{17}{chapter.4}
+\contentsline {section}{\numberline {4.1}I$^2$C}{17}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Configuration}{18}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}I$^2$C Write}{18}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}I$^2$C Read}{18}{subsection.4.1.3}
+\contentsline {section}{\numberline {4.2}Analog-Digital-Converter (ADC)}{19}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Configuration}{19}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}ADC Read}{20}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Infrared Sensor}{20}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Configuration}{20}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Read Sensor Values}{20}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}LIDAR-Lite Laser Sensor}{20}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Configuration}{21}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Read Sensor Values}{21}{subsection.4.4.2}
+\contentsline {chapter}{\numberline {5}Sensors and limits}{22}{chapter.5}
+\contentsline {section}{\numberline {5.1}Analog- Digital Converter}{22}{section.5.1}
+\contentsline {section}{\numberline {5.2}Infrared Analog Distance Sensor}{23}{section.5.2}
+\contentsline {section}{\numberline {5.3}GPS}{24}{section.5.3}
+\contentsline {section}{\numberline {5.4}Inertia Measurement Unit (IMU)}{25}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}3D accelerometer and 3D magnetometer module}{26}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}MEMS pressure sensor}{26}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {5.4.3}MEMS motion sensor: three-axis digital output gyroscope}{26}{subsection.5.4.3}
+\contentsline {section}{\numberline {5.5}LIDAR-Lite Laser Ranging Module}{27}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Technology}{30}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}possible measurement problems}{30}{subsection.5.5.2}
+\contentsline {chapter}{\numberline {6}Defined Tests for our sensors}{32}{chapter.6}
+\contentsline {section}{\numberline {6.1}Infrared Distance Sensor}{32}{section.6.1}
+\contentsline {section}{\numberline {6.2}Ultrasonic Distance Sensor}{32}{section.6.2}
+\contentsline {section}{\numberline {6.3}LIDAR-lite Laser Distance Sensor}{32}{section.6.3}
+\contentsline {section}{\numberline {6.4}Inertial Measurement Unit (IMU)}{33}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Acceleration and Magnet Sensor(Compass)}{33}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Gyroscope Sensor}{33}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.3}Pressure Sensor}{34}{subsection.6.4.3}
+\contentsline {chapter}{\numberline {7}Landing Concept}{35}{chapter.7}
+\contentsline {section}{\numberline {7.1}Challenges}{35}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Drift}{35}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Orientation}{35}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Distance}{36}{subsection.7.1.3}
+\contentsline {subsection}{\numberline {7.1.4}Landing Zone}{36}{subsection.7.1.4}
+\contentsline {section}{\numberline {7.2}Landing Mode}{37}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Activation}{37}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Abort Landing}{37}{subsection.7.2.2}
+\contentsline {chapter}{\numberline {8}Open Points}{38}{chapter.8}
+\contentsline {section}{\numberline {8.1}Connecting actuators}{38}{section.8.1}
+\contentsline {section}{\numberline {8.2}Reacting on sensor values}{38}{section.8.2}

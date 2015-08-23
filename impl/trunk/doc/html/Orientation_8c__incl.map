@@ -1,0 +1,10 @@
+<map id="sig/Orientation/Orientation.c" name="sig/Orientation/Orientation.c">
+<area shape="rect" id="node4" href="$Orientation_8h.html" title="Orientation.h" alt="" coords="199,80,295,107"/>
+<area shape="rect" id="node5" href="$OrientationDefines_8h.html" title="OrientationDefines.h" alt="" coords="319,80,461,107"/>
+<area shape="rect" id="node6" href="$imu_8h.html" title="../../hal/IMU/imu.h" alt="" coords="489,155,617,181"/>
+<area shape="rect" id="node10" href="$Imufilter_8h.html" title="../ImuFilter/Imufilter.h" alt="" coords="535,80,682,107"/>
+<area shape="rect" id="node11" href="$matrixLib_8h.html" title="../matrixLib/matrixLib.h" alt="" coords="706,80,861,107"/>
+<area shape="rect" id="node7" href="$accMag_8h.html" title="./accMag/accMag.h" alt="" coords="413,229,551,256"/>
+<area shape="rect" id="node9" href="$Gyro_8h.html" title="./gyro/Gyro.h" alt="" coords="575,229,674,256"/>
+<area shape="rect" id="node8" href="$accMag__registers_8h.html" title="accMag_registers.h" alt="" coords="414,304,550,331"/>
+</map>

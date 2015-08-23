@@ -1,0 +1,29 @@
+\select@language {english}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Wiring ADC and IR\relax }}{3}{figure.caption.4}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces IR: 16 cm to white paper\relax }}{5}{figure.caption.6}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces IR: 49 cm to white paper\relax }}{5}{figure.caption.7}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces IR: 49 cm to table\relax }}{6}{figure.caption.8}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces IR: Sensor values (voltages) on different surfaces\relax }}{6}{figure.caption.9}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces IR: Compared Voltages on two surfaces\relax }}{7}{figure.caption.10}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Wiring LIDAR\relax }}{9}{figure.caption.11}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Laser measured values\relax }}{10}{figure.caption.12}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces different measured angles\relax }}{11}{figure.caption.13}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces raspi-config\relax }}{12}{figure.caption.14}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces GPIOs \FN@sf@gobble@optonly \relax }}{15}{figure.caption.15}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Example of ADC, ADS1115\relax }}{22}{figure.caption.16}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces IR Sensor on Carrier Board\relax }}{23}{figure.caption.17}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Adafruit GPS Hat\relax }}{24}{figure.caption.18}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces GPS modul\relax }}{24}{figure.caption.19}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Inertia Measurement Unit\relax }}{25}{figure.caption.20}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces PULSEDLIGHT LIDAR Laser Sensor\relax }}{27}{figure.caption.21}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Compass, Source: Data sheet\relax }}{33}{figure.caption.22}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Gyroscope, Source: Data sheet\relax }}{34}{figure.caption.23}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Example at plane, Source: timzaman.com\relax }}{34}{figure.caption.24}
+\addvspace {10\p@ }
+\addvspace {10\p@ }

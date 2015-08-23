@@ -1,0 +1,153 @@
+\hypertarget{batteryCheck_8c}{\section{hal/battery\+Check/battery\+Check.c File Reference}
+\label{batteryCheck_8c}\index{hal/battery\+Check/battery\+Check.\+c@{hal/battery\+Check/battery\+Check.\+c}}
+}
+{\ttfamily \#include \char`\"{}../\+A\+D\+C/\+H\+A\+L\+\_\+\+A\+D\+C.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}battery\+Check.\+h\char`\"{}}\\*
+Include dependency graph for battery\+Check.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{batteryCheck_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{batteryCheck_8c_ae26cf8b824c3357eb00a815c4366b080_ae26cf8b824c3357eb00a815c4366b080}{M\+\_\+\+H\+A\+L\+\_\+\+B\+A\+T\+C\+H\+E\+C\+K\+\_\+\+A\+D\+C\+\_\+\+I\+N\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I8}~1
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{batteryCheck_8c_a51db231fd015ab0c2a168d7efdb80ca5_a51db231fd015ab0c2a168d7efdb80ca5}{g\+\_\+hal\+Bat\+Check\+\_\+get\+Battery\+Status\+\_\+f64} (void)
+\begin{DoxyCompactList}\small\item\em Get Voltage from battery watchdog. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{batteryCheck_8c_aa0c26427dd86b435991d80d33261998b_aa0c26427dd86b435991d80d33261998b}{g\+\_\+hal\+Bat\+Check\+\_\+read\+Bat\+Status\+From\+I2\+C\+\_\+bl} (void)
+\begin{DoxyCompactList}\small\item\em Trigger update of measured battery level. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static double \hyperlink{batteryCheck_8c_a14ec93dd22f873d58789403fa75531ef_a14ec93dd22f873d58789403fa75531ef}{m\+\_\+battery\+Level\+\_\+f64}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{batteryCheck_8c_ae26cf8b824c3357eb00a815c4366b080_ae26cf8b824c3357eb00a815c4366b080}{\index{battery\+Check.\+c@{battery\+Check.\+c}!M\+\_\+\+H\+A\+L\+\_\+\+B\+A\+T\+C\+H\+E\+C\+K\+\_\+\+A\+D\+C\+\_\+\+I\+N\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+B\+A\+T\+C\+H\+E\+C\+K\+\_\+\+A\+D\+C\+\_\+\+I\+N\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I8}}
+\index{M\+\_\+\+H\+A\+L\+\_\+\+B\+A\+T\+C\+H\+E\+C\+K\+\_\+\+A\+D\+C\+\_\+\+I\+N\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+B\+A\+T\+C\+H\+E\+C\+K\+\_\+\+A\+D\+C\+\_\+\+I\+N\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I8}!battery\+Check.\+c@{battery\+Check.\+c}}
+\subsubsection[{M\+\_\+\+H\+A\+L\+\_\+\+B\+A\+T\+C\+H\+E\+C\+K\+\_\+\+A\+D\+C\+\_\+\+I\+N\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I8}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+H\+A\+L\+\_\+\+B\+A\+T\+C\+H\+E\+C\+K\+\_\+\+A\+D\+C\+\_\+\+I\+N\+P\+U\+T\+\_\+\+P\+O\+R\+T\+\_\+\+U\+I8~1}}\label{batteryCheck_8c_ae26cf8b824c3357eb00a815c4366b080_ae26cf8b824c3357eb00a815c4366b080}
+
+
+Definition at line 15 of file battery\+Check.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{batteryCheck_8c_a51db231fd015ab0c2a168d7efdb80ca5_a51db231fd015ab0c2a168d7efdb80ca5}{\index{battery\+Check.\+c@{battery\+Check.\+c}!g\+\_\+hal\+Bat\+Check\+\_\+get\+Battery\+Status\+\_\+f64@{g\+\_\+hal\+Bat\+Check\+\_\+get\+Battery\+Status\+\_\+f64}}
+\index{g\+\_\+hal\+Bat\+Check\+\_\+get\+Battery\+Status\+\_\+f64@{g\+\_\+hal\+Bat\+Check\+\_\+get\+Battery\+Status\+\_\+f64}!battery\+Check.\+c@{battery\+Check.\+c}}
+\subsubsection[{g\+\_\+hal\+Bat\+Check\+\_\+get\+Battery\+Status\+\_\+f64}]{\setlength{\rightskip}{0pt plus 5cm}double g\+\_\+hal\+Bat\+Check\+\_\+get\+Battery\+Status\+\_\+f64 (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{batteryCheck_8c_a51db231fd015ab0c2a168d7efdb80ca5_a51db231fd015ab0c2a168d7efdb80ca5}
+
+
+Get Voltage from battery watchdog. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning ( olbrgs00 ) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/14
+\end{DoxyDate}
+Interface of reading voltage from battery watchdog which is connected to the A\+D\+C input pin A\+D\+C0
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em no} & parameter \\
+\hline
+\mbox{\tt out}  & {\em Voltage} & of battery as float value\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 36 of file battery\+Check.\+c.
+
+
+\begin{DoxyCode}
+37 \{
+38     \textcolor{keywordflow}{return} \hyperlink{batteryCheck_8c_a14ec93dd22f873d58789403fa75531ef_a14ec93dd22f873d58789403fa75531ef}{m\_batteryLevel\_f64};
+39 \}
+\end{DoxyCode}
+\hypertarget{batteryCheck_8c_aa0c26427dd86b435991d80d33261998b_aa0c26427dd86b435991d80d33261998b}{\index{battery\+Check.\+c@{battery\+Check.\+c}!g\+\_\+hal\+Bat\+Check\+\_\+read\+Bat\+Status\+From\+I2\+C\+\_\+bl@{g\+\_\+hal\+Bat\+Check\+\_\+read\+Bat\+Status\+From\+I2\+C\+\_\+bl}}
+\index{g\+\_\+hal\+Bat\+Check\+\_\+read\+Bat\+Status\+From\+I2\+C\+\_\+bl@{g\+\_\+hal\+Bat\+Check\+\_\+read\+Bat\+Status\+From\+I2\+C\+\_\+bl}!battery\+Check.\+c@{battery\+Check.\+c}}
+\subsubsection[{g\+\_\+hal\+Bat\+Check\+\_\+read\+Bat\+Status\+From\+I2\+C\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Bat\+Check\+\_\+read\+Bat\+Status\+From\+I2\+C\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{batteryCheck_8c_aa0c26427dd86b435991d80d33261998b_aa0c26427dd86b435991d80d33261998b}
+
+
+Trigger update of measured battery level. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning ( olbrgs00 ) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/14
+\end{DoxyDate}
+Interface of reading voltage from battery watchdog which is connected to the A\+D\+C input pin A\+D\+C0
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em no} & parameter \\
+\hline
+\mbox{\tt out}  & {\em returns} & a boolean value, indicating the occurence of failures~\newline
+ 0 .... indicates success (no errors)~\newline
+ 1 .... indicates failed (some errors)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 60 of file battery\+Check.\+c.
+
+
+\begin{DoxyCode}
+61 \{
+62     \textcolor{keywordtype}{double} l\_batteryLevel\_f64;
+63 
+64     l\_batteryLevel\_f64=\hyperlink{HAL__ADC_8c_ad4f5cd5d9c7c0a335d5c485a2fb41cb2_ad4f5cd5d9c7c0a335d5c485a2fb41cb2}{g\_halADC\_get\_ui16}(
+      \hyperlink{batteryCheck_8c_ae26cf8b824c3357eb00a815c4366b080_ae26cf8b824c3357eb00a815c4366b080}{M\_HAL\_BATCHECK\_ADC\_INPUT\_PORT\_UI8});
+65 
+66     \textcolor{keywordflow}{if}(l\_batteryLevel\_f64<=0)
+67     \{\textcolor{keywordflow}{return} \hyperlink{batteryCheck_8h_a1b855f31472c2b55288466129b8db35f_a1b855f31472c2b55288466129b8db35f}{M\_HAL\_BATCHECK\_FAILED\_BL};\}
+68 
+69     \hyperlink{batteryCheck_8c_a14ec93dd22f873d58789403fa75531ef_a14ec93dd22f873d58789403fa75531ef}{m\_batteryLevel\_f64}=l\_batteryLevel\_f64;
+70 
+71     \textcolor{keywordflow}{return} \hyperlink{batteryCheck_8h_a9ddcbb2ac2dfadb1c7f620248de6ecc9_a9ddcbb2ac2dfadb1c7f620248de6ecc9}{M\_HAL\_BATCHECK\_SUCCESS\_BL};
+72 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{batteryCheck_8c_aa0c26427dd86b435991d80d33261998b_aa0c26427dd86b435991d80d33261998b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{batteryCheck_8c_a14ec93dd22f873d58789403fa75531ef_a14ec93dd22f873d58789403fa75531ef}{\index{battery\+Check.\+c@{battery\+Check.\+c}!m\+\_\+battery\+Level\+\_\+f64@{m\+\_\+battery\+Level\+\_\+f64}}
+\index{m\+\_\+battery\+Level\+\_\+f64@{m\+\_\+battery\+Level\+\_\+f64}!battery\+Check.\+c@{battery\+Check.\+c}}
+\subsubsection[{m\+\_\+battery\+Level\+\_\+f64}]{\setlength{\rightskip}{0pt plus 5cm}double m\+\_\+battery\+Level\+\_\+f64\hspace{0.3cm}{\ttfamily [static]}}}\label{batteryCheck_8c_a14ec93dd22f873d58789403fa75531ef_a14ec93dd22f873d58789403fa75531ef}
+
+
+Definition at line 17 of file battery\+Check.\+c.
+

@@ -1,0 +1,8 @@
+<map id="matlab/model/udpImuSocket.c" name="matlab/model/udpImuSocket.c">
+<area shape="rect" id="node3" href="$udpImuLib_8h.html" title="../udpImuLib.h" alt="" coords="111,80,217,107"/>
+<area shape="rect" id="node4" href="$udpLib_8h.html" title="udpLib.h" alt="" coords="70,155,141,181"/>
+<area shape="rect" id="node5" href="$imu_8h.html" title="../hal/IMU/imu.h" alt="" coords="165,155,281,181"/>
+<area shape="rect" id="node6" href="$accMag_8h.html" title="./accMag/accMag.h" alt="" coords="83,229,221,256"/>
+<area shape="rect" id="node8" href="$Gyro_8h.html" title="./gyro/Gyro.h" alt="" coords="245,229,344,256"/>
+<area shape="rect" id="node7" href="$accMag__registers_8h.html" title="accMag_registers.h" alt="" coords="84,304,220,331"/>
+</map>

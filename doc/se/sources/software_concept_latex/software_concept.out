@@ -1,0 +1,13 @@
+\BOOKMARK [0][]{chapter.1}{1 Software Layer Concept}{}% 1
+\BOOKMARK [0][]{chapter.2}{2 Code documentation}{}% 2
+\BOOKMARK [0][]{chapter.3}{3 Coding style guide}{}% 3
+\BOOKMARK [1][-]{section.3.1}{3.1 Naming style}{chapter.3}% 4
+\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Naming structure for defines \046 macros}{section.3.1}% 5
+\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Naming structure for variables}{section.3.1}% 6
+\BOOKMARK [2][-]{subsection.3.1.3}{3.1.3 Naming structure for functions}{section.3.1}% 7
+\BOOKMARK [2][-]{subsection.3.1.4}{3.1.4 Literals of scope}{section.3.1}% 8
+\BOOKMARK [2][-]{subsection.3.1.5}{3.1.5 Literals of data types}{section.3.1}% 9
+\BOOKMARK [1][-]{section.3.2}{3.2 Comments}{chapter.3}% 10
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Type definitions and non-local variables}{section.3.2}% 11
+\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Interfaces}{section.3.2}% 12
+\BOOKMARK [2][-]{subsection.3.2.3}{3.2.3 Functions}{section.3.2}% 13

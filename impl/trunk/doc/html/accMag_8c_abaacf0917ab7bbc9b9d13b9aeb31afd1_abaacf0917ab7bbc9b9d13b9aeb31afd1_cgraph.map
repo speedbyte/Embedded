@@ -1,0 +1,4 @@
+<map id="l_readI2cByte_ui8" name="l_readI2cByte_ui8">
+<area shape="rect" id="node2" href="$LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321.html#aa6892bf4aea7f232d9b0ff2dbf8a9321" title="Write&#45;function for I2C Bus. " alt="" coords="180,5,320,32"/>
+<area shape="rect" id="node3" href="$LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e.html#a107ee9f1e4646733ac3ef6addf0def7e" title="Read&#45;function for I2C&#45;Bus. " alt="" coords="180,56,320,83"/>
+</map>

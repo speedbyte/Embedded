@@ -1,0 +1,165 @@
+\hypertarget{main_8c}{\section{main.\+c File Reference}
+\label{main_8c}\index{main.\+c@{main.\+c}}
+}
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}sig/\+Orientation/\+Orientation.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}matlab/udp\+Sig\+Lib.\+h\char`\"{}}\\*
+Include dependency graph for main.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtimedInterrupt}{timed\+Interrupt}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{main_8c_abb5658601e925e40259d2975ab4626c3_abb5658601e925e40259d2975ab4626c3}{l\+\_\+get10ms\+Tick\+\_\+i32} (void)
+\item 
+int \hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{main_8c_a2b0f2f28132358430c956cd0cb33d3aa_a2b0f2f28132358430c956cd0cb33d3aa}{l\+\_\+fd\+\_\+i32} = 0
+\item 
+static unsigned long \hyperlink{main_8c_a1f3af42df70e2487eee82f00d33f6e4f_a1f3af42df70e2487eee82f00d33f6e4f}{l\+\_\+sys\+Time\+\_\+ui32} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{main_8c_abb5658601e925e40259d2975ab4626c3_abb5658601e925e40259d2975ab4626c3}{\index{main.\+c@{main.\+c}!l\+\_\+get10ms\+Tick\+\_\+i32@{l\+\_\+get10ms\+Tick\+\_\+i32}}
+\index{l\+\_\+get10ms\+Tick\+\_\+i32@{l\+\_\+get10ms\+Tick\+\_\+i32}!main.\+c@{main.\+c}}
+\subsubsection[{l\+\_\+get10ms\+Tick\+\_\+i32}]{\setlength{\rightskip}{0pt plus 5cm}int l\+\_\+get10ms\+Tick\+\_\+i32 (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{main_8c_abb5658601e925e40259d2975ab4626c3_abb5658601e925e40259d2975ab4626c3}
+
+
+Definition at line 18 of file main.\+c.
+
+
+\begin{DoxyCode}
+19 \{
+20     \textcolor{keyword}{struct }\hyperlink{structtimedInterrupt}{timedInterrupt} timerStruct;
+21     \textcolor{keywordtype}{int} recvBytes = -1;
+22 
+23     recvBytes = read( \hyperlink{main_8c_a2b0f2f28132358430c956cd0cb33d3aa_a2b0f2f28132358430c956cd0cb33d3aa}{l\_fd\_i32}, &(timerStruct), \textcolor{keyword}{sizeof}(timerStruct) );
+24 
+25     \hyperlink{main_8c_a1f3af42df70e2487eee82f00d33f6e4f_a1f3af42df70e2487eee82f00d33f6e4f}{l\_sysTime\_ui32} = timerStruct.timer;
+26     \textcolor{keywordflow}{return} recvBytes;
+27 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{main_8c_abb5658601e925e40259d2975ab4626c3_abb5658601e925e40259d2975ab4626c3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe_a840291bc02cba5474a4cb46a9b9566fe}{\index{main.\+c@{main.\+c}!main@{main}}
+\index{main@{main}!main.\+c@{main.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+Definition at line 29 of file main.\+c.
+
+
+\begin{DoxyCode}
+30 \{
+31     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_remoteHostAddr\_rg4ui8[4]  = \{192,168,22,159\};
+32     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short}  l\_remoteHostPort\_ui16       = 5000;
+33     \textcolor{keywordtype}{int}             l\_udpSocket\_i32;
+34     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}    l\_sendState\_bl;
+35 
+36     \hyperlink{structsigOri__orientationAngles}{sigOri\_orientationAngles}    l\_kalmanAngles\_st;
+37     \hyperlink{structsigOri__orientationAngles}{sigOri\_orientationAngles}    l\_compAngles\_st;
+38     \hyperlink{structhalImu__orientationValues}{halImu\_orientationValues}    l\_imuStates\_st;
+39 
+40     \hyperlink{main_8c_a2b0f2f28132358430c956cd0cb33d3aa_a2b0f2f28132358430c956cd0cb33d3aa}{l\_fd\_i32} = open( \textcolor{stringliteral}{"/dev/timeTrigger10ms"}, O\_RDONLY );
+41     \textcolor{keywordflow}{if} (\hyperlink{main_8c_a2b0f2f28132358430c956cd0cb33d3aa_a2b0f2f28132358430c956cd0cb33d3aa}{l\_fd\_i32}<0) \{
+42         perror(\textcolor{stringliteral}{"/dev/timeTrigger10ms"});
+43         \textcolor{keywordflow}{return} -1;
+44     \}
+45 
+46     l\_udpSocket\_i32 = \hyperlink{udpLib_8c_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d}{g\_halMatlab\_initConnection\_i32}( l\_remoteHostAddr\_rg4ui8
+      , l\_remoteHostPort\_ui16 );
+47 
+48     \hyperlink{Orientation_8c_aabbbde5e48a0c9d66e8aea9072ede56a_aabbbde5e48a0c9d66e8aea9072ede56a}{g\_sigOri\_initMatrices\_bl}();
+49     \hyperlink{Orientation_8c_af279a9886973272eed577346cb68b8ac_af279a9886973272eed577346cb68b8ac}{g\_sigOri\_initImuSensors\_bl}();
+50 
+51     \textcolor{keywordflow}{while}( \hyperlink{main_8c_abb5658601e925e40259d2975ab4626c3_abb5658601e925e40259d2975ab4626c3}{l\_get10msTick\_i32}() > 0 )
+52     \{
+53         \hyperlink{Orientation_8c_a8237972b156767e835294a3b74e9f1e9_a8237972b156767e835294a3b74e9f1e9}{g\_sigOri\_calcKalmanOrientation\_bl}();
+54         \hyperlink{Orientation_8c_aef5a554f90c534b65cafd341daac7558_aef5a554f90c534b65cafd341daac7558}{g\_sigOri\_calcComplementaryOrientation\_bl}();
+55 
+56         l\_kalmanAngles\_st   = \hyperlink{Orientation_8c_ab8c049fef08e21b00cb6baa405e8f4af_ab8c049fef08e21b00cb6baa405e8f4af}{g\_sigOri\_getAnglesKalman\_bl}();
+57         l\_compAngles\_st     = \hyperlink{Orientation_8c_aa17fc7eb033a87a9797d451e4857c1d2_aa17fc7eb033a87a9797d451e4857c1d2}{g\_sigOri\_getAnglesComplementary\_bl}();
+58         l\_imuStates\_st      = \hyperlink{imu_8c_acdbd7d64a76100064cb9791a9b9d2586_acdbd7d64a76100064cb9791a9b9d2586}{g\_halImu\_getImuValues\_str}();
+59 
+60         l\_sendState\_bl = \hyperlink{udpSigLib_8c_af61d04b0beb193be3fdc57b6aad27ee4_af61d04b0beb193be3fdc57b6aad27ee4}{g\_halMatlab\_sendSigAllStates\_bl}(    l\_udpSocket\_i32
+      ,
+61                                                             l\_imuStates\_st,
+62                                                             l\_kalmanAngles\_st,
+63                                                             l\_compAngles\_st);
+64         \textcolor{keywordflow}{if} ( l\_sendState\_bl != \hyperlink{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{M\_HAL\_MATLAB\_SUCCESS\_UI8} )
+65         \{
+66             printf(\textcolor{stringliteral}{"UDP-Packet error @ %lu\(\backslash\)n"}, \hyperlink{main_8c_a1f3af42df70e2487eee82f00d33f6e4f_a1f3af42df70e2487eee82f00d33f6e4f}{l\_sysTime\_ui32});
+67         \}\textcolor{keywordflow}{else}\{
+68             printf(\textcolor{stringliteral}{"Sent packet @ %lu\(\backslash\)n"}, \hyperlink{main_8c_a1f3af42df70e2487eee82f00d33f6e4f_a1f3af42df70e2487eee82f00d33f6e4f}{l\_sysTime\_ui32});
+69         \}
+70 
+71         usleep( 40000 ); \textcolor{comment}{//20ms = 50Hz}
+72     \}
+73 
+74 
+75     \textcolor{keywordflow}{return} 0;
+76 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a840291bc02cba5474a4cb46a9b9566fe_a840291bc02cba5474a4cb46a9b9566fe_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{main_8c_a2b0f2f28132358430c956cd0cb33d3aa_a2b0f2f28132358430c956cd0cb33d3aa}{\index{main.\+c@{main.\+c}!l\+\_\+fd\+\_\+i32@{l\+\_\+fd\+\_\+i32}}
+\index{l\+\_\+fd\+\_\+i32@{l\+\_\+fd\+\_\+i32}!main.\+c@{main.\+c}}
+\subsubsection[{l\+\_\+fd\+\_\+i32}]{\setlength{\rightskip}{0pt plus 5cm}int l\+\_\+fd\+\_\+i32 = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{main_8c_a2b0f2f28132358430c956cd0cb33d3aa_a2b0f2f28132358430c956cd0cb33d3aa}
+
+
+Definition at line 10 of file main.\+c.
+
+\hypertarget{main_8c_a1f3af42df70e2487eee82f00d33f6e4f_a1f3af42df70e2487eee82f00d33f6e4f}{\index{main.\+c@{main.\+c}!l\+\_\+sys\+Time\+\_\+ui32@{l\+\_\+sys\+Time\+\_\+ui32}}
+\index{l\+\_\+sys\+Time\+\_\+ui32@{l\+\_\+sys\+Time\+\_\+ui32}!main.\+c@{main.\+c}}
+\subsubsection[{l\+\_\+sys\+Time\+\_\+ui32}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long l\+\_\+sys\+Time\+\_\+ui32 = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{main_8c_a1f3af42df70e2487eee82f00d33f6e4f_a1f3af42df70e2487eee82f00d33f6e4f}
+
+
+Definition at line 11 of file main.\+c.
+

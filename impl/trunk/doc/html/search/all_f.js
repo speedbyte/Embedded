@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['s_5ffunction_5flevel',['S_FUNCTION_LEVEL',['../udpImuSocket_8c_a9a4ab27953070e39249f3fad28e93749.html#a9a4ab27953070e39249f3fad28e93749',1,'S_FUNCTION_LEVEL():&#160;udpImuSocket.c'],['../udpSigSocket_8c_a9a4ab27953070e39249f3fad28e93749.html#a9a4ab27953070e39249f3fad28e93749',1,'S_FUNCTION_LEVEL():&#160;udpSigSocket.c']]],
+  ['s_5ffunction_5fname',['S_FUNCTION_NAME',['../udpImuSocket_8c_a0f61df833e166c743295eebf43f0b142.html#a0f61df833e166c743295eebf43f0b142',1,'S_FUNCTION_NAME():&#160;udpImuSocket.c'],['../udpSigSocket_8c_a0f61df833e166c743295eebf43f0b142.html#a0f61df833e166c743295eebf43f0b142',1,'S_FUNCTION_NAME():&#160;udpSigSocket.c']]],
+  ['sample_5ftime_5f0',['SAMPLE_TIME_0',['../udpImuSocket_8c_a719c01b15a125dc69aac15da6478dcea.html#a719c01b15a125dc69aac15da6478dcea',1,'SAMPLE_TIME_0():&#160;udpImuSocket.c'],['../udpSigSocket_8c_a719c01b15a125dc69aac15da6478dcea.html#a719c01b15a125dc69aac15da6478dcea',1,'SAMPLE_TIME_0():&#160;udpSigSocket.c']]],
+  ['save_5fcode_5fonly',['SAVE_CODE_ONLY',['../udpImuSocket_8c_ae06ff592d2a39b7429c55145004d8ecd.html#ae06ff592d2a39b7429c55145004d8ecd',1,'SAVE_CODE_ONLY():&#160;udpImuSocket.c'],['../udpSigSocket_8c_ae06ff592d2a39b7429c55145004d8ecd.html#ae06ff592d2a39b7429c55145004d8ecd',1,'SAVE_CODE_ONLY():&#160;udpSigSocket.c']]],
+  ['sensor_5facc_5fen',['SENSOR_ACC_EN',['../accMag_8h_a648cc7f506bdd006d657bf0c2fc393b8.html#a648cc7f506bdd006d657bf0c2fc393b8a785fd0a49fbb18e5a2e65b8af35d6abc',1,'accMag.h']]],
+  ['sensor_5fboth_5fen',['SENSOR_BOTH_EN',['../accMag_8h_a648cc7f506bdd006d657bf0c2fc393b8.html#a648cc7f506bdd006d657bf0c2fc393b8a2801a1fb951d195fa4c2d621bd352a79',1,'accMag.h']]],
+  ['sensor_5fmag_5fen',['SENSOR_MAG_EN',['../accMag_8h_a648cc7f506bdd006d657bf0c2fc393b8.html#a648cc7f506bdd006d657bf0c2fc393b8a2a54a90cabb4985b0bd3bcb7d5b54d28',1,'accMag.h']]],
+  ['sfunwiz_5fgenerate_5ftlc',['SFUNWIZ_GENERATE_TLC',['../udpImuSocket_8c_a6f9a0bfd2b653d2060fc8f9c8c769109.html#a6f9a0bfd2b653d2060fc8f9c8c769109',1,'SFUNWIZ_GENERATE_TLC():&#160;udpImuSocket.c'],['../udpSigSocket_8c_a6f9a0bfd2b653d2060fc8f9c8c769109.html#a6f9a0bfd2b653d2060fc8f9c8c769109',1,'SFUNWIZ_GENERATE_TLC():&#160;udpSigSocket.c']]],
+  ['sfunwiz_5frevision',['SFUNWIZ_REVISION',['../udpImuSocket_8c_ad4fedb330a37ab043b9fd79c6112ea1f.html#ad4fedb330a37ab043b9fd79c6112ea1f',1,'SFUNWIZ_REVISION():&#160;udpImuSocket.c'],['../udpSigSocket_8c_ad4fedb330a37ab043b9fd79c6112ea1f.html#ad4fedb330a37ab043b9fd79c6112ea1f',1,'SFUNWIZ_REVISION():&#160;udpSigSocket.c']]],
+  ['show_5fcompile_5fsteps',['SHOW_COMPILE_STEPS',['../udpImuSocket_8c_a8a8b1176132c5ca2fb76b0178b705b3c.html#a8a8b1176132c5ca2fb76b0178b705b3c',1,'SHOW_COMPILE_STEPS():&#160;udpImuSocket.c'],['../udpSigSocket_8c_a8a8b1176132c5ca2fb76b0178b705b3c.html#a8a8b1176132c5ca2fb76b0178b705b3c',1,'SHOW_COMPILE_STEPS():&#160;udpSigSocket.c']]],
+  ['sigori_5forientationangles',['sigOri_orientationAngles',['../structsigOri__orientationAngles.html',1,'']]],
+  ['sigstate_5fst',['sigState_st',['../structhalMatlab__rtSigPayload_acbe0c4752e7c359734effc1f17f5f494.html#acbe0c4752e7c359734effc1f17f5f494',1,'halMatlab_rtSigPayload']]],
+  ['sleeping_5ffor_5fir',['sleeping_for_ir',['../ppmDemux_8c_a56d010c3af89f77f1debec08294a7cff.html#a56d010c3af89f77f1debec08294a7cff',1,'sleeping_for_ir():&#160;ppmDemux.c'],['../timeTrigger_8c_a56d010c3af89f77f1debec08294a7cff.html#a56d010c3af89f77f1debec08294a7cff',1,'sleeping_for_ir():&#160;timeTrigger.c']]],
+  ['sockaddrlisten_5fst',['sockAddrListen_st',['../structhalMatlab__socketData_a879fc935cde2c09c6c02cf6e6ecafb86.html#a879fc935cde2c09c6c02cf6e6ecafb86',1,'halMatlab_socketData']]],
+  ['sockaddrremote_5fst',['sockAddrRemote_st',['../structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d.html#aa9b77c362396cf1fbb78dd9688da4a0d',1,'halMatlab_socketData']]],
+  ['sockethandler_5fi32',['socketHandler_i32',['../structhalMatlab__socketData_a60bb1e30d40ee435f1f9501933aba991.html#a60bb1e30d40ee435f1f9501933aba991',1,'halMatlab_socketData']]],
+  ['sourcefiles',['SOURCEFILES',['../udpImuSocket_8c_a6ac157a75221b1b9c5b66829993843d6.html#a6ac157a75221b1b9c5b66829993843d6',1,'SOURCEFILES():&#160;udpImuSocket.c'],['../udpSigSocket_8c_a6ac157a75221b1b9c5b66829993843d6.html#a6ac157a75221b1b9c5b66829993843d6',1,'SOURCEFILES():&#160;udpSigSocket.c']]],
+  ['strgyro',['strGyro',['../structstrGyro.html',1,'']]],
+  ['strposition',['strPosition',['../structstrPosition.html',1,'']]]
+];

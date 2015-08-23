@@ -1,0 +1,483 @@
+\hypertarget{imu_8c}{\section{hal/\+I\+M\+U/imu.c File Reference}
+\label{imu_8c}\index{hal/\+I\+M\+U/imu.\+c@{hal/\+I\+M\+U/imu.\+c}}
+}
+{\ttfamily \#include \char`\"{}./acc\+Mag/acc\+Mag.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}./barometer/barometer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}./gyro/\+Gyro.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}imu.\+h\char`\"{}}\\*
+Include dependency graph for imu.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{imu_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structhalImu__orientationValues}{hal\+Imu\+\_\+orientation\+Values} \hyperlink{imu_8c_acdbd7d64a76100064cb9791a9b9d2586_acdbd7d64a76100064cb9791a9b9d2586}{g\+\_\+hal\+Imu\+\_\+get\+Imu\+Values\+\_\+str} (void)
+\begin{DoxyCompactList}\small\item\em Get state of the I\+M\+U. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{imu_8c_af6233b68a4e1e91a12422028d7657328_af6233b68a4e1e91a12422028d7657328}{g\+\_\+hal\+Imu\+\_\+init\+Imu\+Sensors\+\_\+bl} (void)
+\begin{DoxyCompactList}\small\item\em Initialize all sensors. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{imu_8c_a7f84a86079215679220122a3c401e927_a7f84a86079215679220122a3c401e927}{g\+\_\+hal\+Imu\+\_\+trigger\+Acc\+Reading\+\_\+bl} (void)
+\begin{DoxyCompactList}\small\item\em Trigger Acceleration reading. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{imu_8c_a5e42cba8d797335aa8aa4725fd179feb_a5e42cba8d797335aa8aa4725fd179feb}{g\+\_\+hal\+Imu\+\_\+trigger\+Baro\+Reading\+\_\+bl} (void)
+\begin{DoxyCompactList}\small\item\em Trigger Barometer reading. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{imu_8c_a69c26a9af3dd16f6f26e0ee0014901c6_a69c26a9af3dd16f6f26e0ee0014901c6}{g\+\_\+hal\+Imu\+\_\+trigger\+Gyro\+Reading\+\_\+bl} (void)
+\begin{DoxyCompactList}\small\item\em Trigger Gyroscope reading. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{imu_8c_a561a32c02cc4322ecd90c6b1ba31c560_a561a32c02cc4322ecd90c6b1ba31c560}{g\+\_\+hal\+Imu\+\_\+trigger\+Imu\+Reading\+\_\+bl} (void)
+\begin{DoxyCompactList}\small\item\em Trigger I\+M\+U reading. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{imu_8c_a50e5767c3976aef087ea1e9d4ed784f2_a50e5767c3976aef087ea1e9d4ed784f2}{g\+\_\+hal\+Imu\+\_\+trigger\+Mag\+Reading\+\_\+bl} (void)
+\begin{DoxyCompactList}\small\item\em Trigger magnitude reading. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structhalImu__orientationValues}{hal\+Imu\+\_\+orientation\+Values} \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\+\_\+hal\+Imu\+\_\+imu\+Values\+\_\+st}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{imu_8c_acdbd7d64a76100064cb9791a9b9d2586_acdbd7d64a76100064cb9791a9b9d2586}{\index{imu.\+c@{imu.\+c}!g\+\_\+hal\+Imu\+\_\+get\+Imu\+Values\+\_\+str@{g\+\_\+hal\+Imu\+\_\+get\+Imu\+Values\+\_\+str}}
+\index{g\+\_\+hal\+Imu\+\_\+get\+Imu\+Values\+\_\+str@{g\+\_\+hal\+Imu\+\_\+get\+Imu\+Values\+\_\+str}!imu.\+c@{imu.\+c}}
+\subsubsection[{g\+\_\+hal\+Imu\+\_\+get\+Imu\+Values\+\_\+str}]{\setlength{\rightskip}{0pt plus 5cm}{\bf hal\+Imu\+\_\+orientation\+Values} g\+\_\+hal\+Imu\+\_\+get\+Imu\+Values\+\_\+str (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{imu_8c_acdbd7d64a76100064cb9791a9b9d2586_acdbd7d64a76100064cb9791a9b9d2586}
+
+
+Get state of the I\+M\+U. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning (olbrgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/14
+\end{DoxyDate}
+This function returns a struct with all measured I\+M\+U values (Barometer, Acc\+Mag, Gyro) Attention\+: Triggering of a new measurement of all chips according to their update rate has to be done before reading 1.) \hyperlink{imu_8c_a5e42cba8d797335aa8aa4725fd179feb_a5e42cba8d797335aa8aa4725fd179feb}{g\+\_\+hal\+Imu\+\_\+trigger\+Baro\+Reading\+\_\+bl()} 2.) \hyperlink{imu_8c_a69c26a9af3dd16f6f26e0ee0014901c6_a69c26a9af3dd16f6f26e0ee0014901c6}{g\+\_\+hal\+Imu\+\_\+trigger\+Gyro\+Reading\+\_\+bl()} 3.) \hyperlink{imu_8c_a7f84a86079215679220122a3c401e927_a7f84a86079215679220122a3c401e927}{g\+\_\+hal\+Imu\+\_\+trigger\+Acc\+Reading\+\_\+bl()} 4.) \hyperlink{imu_8c_a50e5767c3976aef087ea1e9d4ed784f2_a50e5767c3976aef087ea1e9d4ed784f2}{g\+\_\+hal\+Imu\+\_\+trigger\+Mag\+Reading\+\_\+bl()} or 1.) \hyperlink{imu_8c_a561a32c02cc4322ecd90c6b1ba31c560_a561a32c02cc4322ecd90c6b1ba31c560}{g\+\_\+hal\+Imu\+\_\+trigger\+Imu\+Reading\+\_\+bl()}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em returns} & the requested I\+M\+U data\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 44 of file imu.\+c.
+
+
+\begin{DoxyCode}
+45 \{
+46     \textcolor{keywordflow}{return} \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st};
+47 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_acdbd7d64a76100064cb9791a9b9d2586_acdbd7d64a76100064cb9791a9b9d2586_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{imu_8c_af6233b68a4e1e91a12422028d7657328_af6233b68a4e1e91a12422028d7657328}{\index{imu.\+c@{imu.\+c}!g\+\_\+hal\+Imu\+\_\+init\+Imu\+Sensors\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+init\+Imu\+Sensors\+\_\+bl}}
+\index{g\+\_\+hal\+Imu\+\_\+init\+Imu\+Sensors\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+init\+Imu\+Sensors\+\_\+bl}!imu.\+c@{imu.\+c}}
+\subsubsection[{g\+\_\+hal\+Imu\+\_\+init\+Imu\+Sensors\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Imu\+\_\+init\+Imu\+Sensors\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{imu_8c_af6233b68a4e1e91a12422028d7657328_af6233b68a4e1e91a12422028d7657328}
+
+
+Initialize all sensors. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning (olbrgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/13
+\end{DoxyDate}
+Calls the initialization functions of all mounted sensors. Over the I2\+C interface the acceleration, electrical compass, gyroscope and barometer sensors are initialized
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em boolean} & value indicating the success of initialization~\newline
+ 1\+: error occured 0\+: initialization succeeded\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 67 of file imu.\+c.
+
+
+\begin{DoxyCode}
+68 \{
+69     \textcolor{comment}{// initialize Acceleration and electrical Compass chip}
+70     \textcolor{keywordflow}{if}(\hyperlink{accMag_8c_ab936c0ac53ff9ba47a138e841a6ba474_ab936c0ac53ff9ba47a138e841a6ba474}{g\_halAccmag\_initSensor\_bl}()!=0)
+71     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+72 
+73     \textcolor{comment}{// initialize Barometer chip}
+74     \textcolor{keywordflow}{if}(\hyperlink{barometer_8c_ad88d1c24fdc55593e80896c8d4637f05_ad88d1c24fdc55593e80896c8d4637f05}{g\_halBaro\_initBaro\_i32}()!=0)
+75     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+76 
+77     \textcolor{comment}{// initialize Gyroscope chip}
+78     \textcolor{keywordflow}{if}(\hyperlink{Gyro_8c_a3dd13505bea06ab0684a22d8929d4831_a3dd13505bea06ab0684a22d8929d4831}{g\_halGyro\_initGyro\_i32}()!=0)
+79     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+80 
+81     \textcolor{keywordflow}{return} \hyperlink{imu_8h_ae8aa90a76f9f2d38fc4849bc00e28c17_ae8aa90a76f9f2d38fc4849bc00e28c17}{M\_HAL\_IMU\_SUCCESS\_BL};
+82 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_af6233b68a4e1e91a12422028d7657328_af6233b68a4e1e91a12422028d7657328_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_af6233b68a4e1e91a12422028d7657328_af6233b68a4e1e91a12422028d7657328_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{imu_8c_a7f84a86079215679220122a3c401e927_a7f84a86079215679220122a3c401e927}{\index{imu.\+c@{imu.\+c}!g\+\_\+hal\+Imu\+\_\+trigger\+Acc\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Acc\+Reading\+\_\+bl}}
+\index{g\+\_\+hal\+Imu\+\_\+trigger\+Acc\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Acc\+Reading\+\_\+bl}!imu.\+c@{imu.\+c}}
+\subsubsection[{g\+\_\+hal\+Imu\+\_\+trigger\+Acc\+Reading\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Imu\+\_\+trigger\+Acc\+Reading\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{imu_8c_a7f84a86079215679220122a3c401e927_a7f84a86079215679220122a3c401e927}
+
+
+Trigger Acceleration reading. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning (olbrgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/14
+\end{DoxyDate}
+Triggers the Acceleration sensor to measure new acceleration and then it is saved locally
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em boolean} & value indicating the success of initialization~\newline
+ 1\+: error occured 0\+: initialization succeeded\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 159 of file imu.\+c.
+
+
+\begin{DoxyCode}
+160 \{
+161     \textcolor{keywordflow}{if}(\hyperlink{accMag_8c_ad5f9d3a28348a9889f9afecde79606f6_ad5f9d3a28348a9889f9afecde79606f6}{g\_halAccmag\_triggerAccUpdate\_bl}()!=0)
+162     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+163 
+164     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_a8080616bd2a3d4f01f5334d4bf05427e_a8080616bd2a3d4f01f5334d4bf05427e}{acc}=
+      \hyperlink{accMag_8c_aebfdb7e3d86187e1fecee863424aa3fc_aebfdb7e3d86187e1fecee863424aa3fc}{g\_halAccmag\_getAccVector\_st}();
+165 
+166     \textcolor{keywordflow}{return} \hyperlink{imu_8h_ae8aa90a76f9f2d38fc4849bc00e28c17_ae8aa90a76f9f2d38fc4849bc00e28c17}{M\_HAL\_IMU\_SUCCESS\_BL};
+167 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_a7f84a86079215679220122a3c401e927_a7f84a86079215679220122a3c401e927_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{imu_8c_a5e42cba8d797335aa8aa4725fd179feb_a5e42cba8d797335aa8aa4725fd179feb}{\index{imu.\+c@{imu.\+c}!g\+\_\+hal\+Imu\+\_\+trigger\+Baro\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Baro\+Reading\+\_\+bl}}
+\index{g\+\_\+hal\+Imu\+\_\+trigger\+Baro\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Baro\+Reading\+\_\+bl}!imu.\+c@{imu.\+c}}
+\subsubsection[{g\+\_\+hal\+Imu\+\_\+trigger\+Baro\+Reading\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Imu\+\_\+trigger\+Baro\+Reading\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{imu_8c_a5e42cba8d797335aa8aa4725fd179feb_a5e42cba8d797335aa8aa4725fd179feb}
+
+
+Trigger Barometer reading. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning (olbrgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/14
+\end{DoxyDate}
+Triggers the Barometer to measure a new pressure and temperature value and then it is saved locally
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em boolean} & value indicating the success of initialization~\newline
+ 1\+: error occured 0\+: initialization succeeded\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 101 of file imu.\+c.
+
+
+\begin{DoxyCode}
+102 \{
+103     \textcolor{keywordflow}{if}(\hyperlink{barometer_8c_a3bf4a3afdec1c425432634d5ddc93646_a3bf4a3afdec1c425432634d5ddc93646}{g\_halBaro\_readPressureFromI2C\_i32}()!=0)
+104     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+105 
+106     \textcolor{keywordflow}{if}(\hyperlink{barometer_8c_a181cb7c38f6f196b7a0723fcd3f5926e_a181cb7c38f6f196b7a0723fcd3f5926e}{g\_halBaro\_readTemperatureFromI2C\_i32}()!=0)
+107     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+108 
+109     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_a512925b63aa63c02874ce4dbb920c7f0_a512925b63aa63c02874ce4dbb920c7f0}{pressure\_f64}=
+      \hyperlink{barometer_8c_a716b8893f8a37a48fa5903d531a0c4f5_a716b8893f8a37a48fa5903d531a0c4f5}{g\_halBaro\_getPressure\_f64}();
+110     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_aeda72e72e4979977023cba31ee89cffa_aeda72e72e4979977023cba31ee89cffa}{temperature\_f64}=
+      \hyperlink{barometer_8c_a40c5b15fd88f05b25fcc896ddef1a51f_a40c5b15fd88f05b25fcc896ddef1a51f}{g\_halBaro\_getTemperature\_f64}();
+111 
+112     \textcolor{keywordflow}{return} \hyperlink{imu_8h_ae8aa90a76f9f2d38fc4849bc00e28c17_ae8aa90a76f9f2d38fc4849bc00e28c17}{M\_HAL\_IMU\_SUCCESS\_BL};
+113 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_a5e42cba8d797335aa8aa4725fd179feb_a5e42cba8d797335aa8aa4725fd179feb_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{imu_8c_a69c26a9af3dd16f6f26e0ee0014901c6_a69c26a9af3dd16f6f26e0ee0014901c6}{\index{imu.\+c@{imu.\+c}!g\+\_\+hal\+Imu\+\_\+trigger\+Gyro\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Gyro\+Reading\+\_\+bl}}
+\index{g\+\_\+hal\+Imu\+\_\+trigger\+Gyro\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Gyro\+Reading\+\_\+bl}!imu.\+c@{imu.\+c}}
+\subsubsection[{g\+\_\+hal\+Imu\+\_\+trigger\+Gyro\+Reading\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Imu\+\_\+trigger\+Gyro\+Reading\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{imu_8c_a69c26a9af3dd16f6f26e0ee0014901c6_a69c26a9af3dd16f6f26e0ee0014901c6}
+
+
+Trigger Gyroscope reading. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning (olbrgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/14
+\end{DoxyDate}
+Triggers the Gyroscope to measure new rotation rates and then it is saved locally
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em boolean} & value indicating the success of initialization~\newline
+ 1\+: error occured 0\+: initialization succeeded\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 132 of file imu.\+c.
+
+
+\begin{DoxyCode}
+133 \{
+134     \textcolor{keywordflow}{if}(\hyperlink{Gyro_8c_a658cebd4a49cc41d09c64b5645f65239_a658cebd4a49cc41d09c64b5645f65239}{g\_halGyro\_readGyroscopeFromI2C\_i32}()!=0)
+135     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+136 
+137     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_a386a3509066dbfd830da6b7a993b31da_a386a3509066dbfd830da6b7a993b31da}{gyro}=
+      \hyperlink{Gyro_8c_a41690c80e0f291ddbdea391f0a669316_a41690c80e0f291ddbdea391f0a669316}{g\_halGyro\_getGyroscope\_st}();
+138 
+139     \textcolor{keywordflow}{return} \hyperlink{imu_8h_ae8aa90a76f9f2d38fc4849bc00e28c17_ae8aa90a76f9f2d38fc4849bc00e28c17}{M\_HAL\_IMU\_SUCCESS\_BL};
+140 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_a69c26a9af3dd16f6f26e0ee0014901c6_a69c26a9af3dd16f6f26e0ee0014901c6_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{imu_8c_a561a32c02cc4322ecd90c6b1ba31c560_a561a32c02cc4322ecd90c6b1ba31c560}{\index{imu.\+c@{imu.\+c}!g\+\_\+hal\+Imu\+\_\+trigger\+Imu\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Imu\+Reading\+\_\+bl}}
+\index{g\+\_\+hal\+Imu\+\_\+trigger\+Imu\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Imu\+Reading\+\_\+bl}!imu.\+c@{imu.\+c}}
+\subsubsection[{g\+\_\+hal\+Imu\+\_\+trigger\+Imu\+Reading\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Imu\+\_\+trigger\+Imu\+Reading\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{imu_8c_a561a32c02cc4322ecd90c6b1ba31c560_a561a32c02cc4322ecd90c6b1ba31c560}
+
+
+Trigger I\+M\+U reading. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning (olbrgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/14
+\end{DoxyDate}
+Triggers all sensors to measure new values and then it is saved locally
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em boolean} & value indicating the success of initialization~\newline
+ 1\+: error occured 0\+: initialization succeeded\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 213 of file imu.\+c.
+
+
+\begin{DoxyCode}
+214 \{
+215     \textcolor{keywordflow}{if}(\hyperlink{barometer_8c_a3bf4a3afdec1c425432634d5ddc93646_a3bf4a3afdec1c425432634d5ddc93646}{g\_halBaro\_readPressureFromI2C\_i32}()!=0)
+216     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+217 
+218     \textcolor{keywordflow}{if}(\hyperlink{barometer_8c_a181cb7c38f6f196b7a0723fcd3f5926e_a181cb7c38f6f196b7a0723fcd3f5926e}{g\_halBaro\_readTemperatureFromI2C\_i32}()!=0)
+219     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+220 
+221     \textcolor{keywordflow}{if}(\hyperlink{Gyro_8c_a658cebd4a49cc41d09c64b5645f65239_a658cebd4a49cc41d09c64b5645f65239}{g\_halGyro\_readGyroscopeFromI2C\_i32}()!=0)
+222     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+223 
+224     \textcolor{keywordflow}{if}(\hyperlink{accMag_8c_ad5f9d3a28348a9889f9afecde79606f6_ad5f9d3a28348a9889f9afecde79606f6}{g\_halAccmag\_triggerAccUpdate\_bl}()!=0)
+225     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+226 
+227     \textcolor{keywordflow}{if}(\hyperlink{accMag_8c_afdbd4ece113ff4859718b678150d069a_afdbd4ece113ff4859718b678150d069a}{g\_halAccmag\_triggerMagUpdate\_bl}()!=0)
+228     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+229 
+230     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_ac0763bc025ee3aa20f167e74ecccfc3c_ac0763bc025ee3aa20f167e74ecccfc3c}{mag}=
+      \hyperlink{accMag_8c_ad4f25c6a1f31b6eb494243aa0706986a_ad4f25c6a1f31b6eb494243aa0706986a}{g\_halAccmag\_getMagVector\_st}();
+231     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_a8080616bd2a3d4f01f5334d4bf05427e_a8080616bd2a3d4f01f5334d4bf05427e}{acc}=
+      \hyperlink{accMag_8c_aebfdb7e3d86187e1fecee863424aa3fc_aebfdb7e3d86187e1fecee863424aa3fc}{g\_halAccmag\_getAccVector\_st}();
+232     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_a386a3509066dbfd830da6b7a993b31da_a386a3509066dbfd830da6b7a993b31da}{gyro}=
+      \hyperlink{Gyro_8c_a41690c80e0f291ddbdea391f0a669316_a41690c80e0f291ddbdea391f0a669316}{g\_halGyro\_getGyroscope\_st}();
+233     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_a512925b63aa63c02874ce4dbb920c7f0_a512925b63aa63c02874ce4dbb920c7f0}{pressure\_f64}=
+      \hyperlink{barometer_8c_a716b8893f8a37a48fa5903d531a0c4f5_a716b8893f8a37a48fa5903d531a0c4f5}{g\_halBaro\_getPressure\_f64}();
+234     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_aeda72e72e4979977023cba31ee89cffa_aeda72e72e4979977023cba31ee89cffa}{temperature\_f64}=
+      \hyperlink{barometer_8c_a40c5b15fd88f05b25fcc896ddef1a51f_a40c5b15fd88f05b25fcc896ddef1a51f}{g\_halBaro\_getTemperature\_f64}();
+235 
+236     \textcolor{keywordflow}{return} \hyperlink{imu_8h_ae8aa90a76f9f2d38fc4849bc00e28c17_ae8aa90a76f9f2d38fc4849bc00e28c17}{M\_HAL\_IMU\_SUCCESS\_BL};
+237 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_a561a32c02cc4322ecd90c6b1ba31c560_a561a32c02cc4322ecd90c6b1ba31c560_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_a561a32c02cc4322ecd90c6b1ba31c560_a561a32c02cc4322ecd90c6b1ba31c560_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{imu_8c_a50e5767c3976aef087ea1e9d4ed784f2_a50e5767c3976aef087ea1e9d4ed784f2}{\index{imu.\+c@{imu.\+c}!g\+\_\+hal\+Imu\+\_\+trigger\+Mag\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Mag\+Reading\+\_\+bl}}
+\index{g\+\_\+hal\+Imu\+\_\+trigger\+Mag\+Reading\+\_\+bl@{g\+\_\+hal\+Imu\+\_\+trigger\+Mag\+Reading\+\_\+bl}!imu.\+c@{imu.\+c}}
+\subsubsection[{g\+\_\+hal\+Imu\+\_\+trigger\+Mag\+Reading\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Imu\+\_\+trigger\+Mag\+Reading\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{imu_8c_a50e5767c3976aef087ea1e9d4ed784f2_a50e5767c3976aef087ea1e9d4ed784f2}
+
+
+Trigger magnitude reading. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Oliver Breuning (olbrgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/14
+\end{DoxyDate}
+Triggers the electrical compass sensor to measure new magnetic field strengths and then it is saved locally
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em boolean} & value indicating the success of initialization~\newline
+ 1\+: error occured 0\+: initialization succeeded\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 186 of file imu.\+c.
+
+
+\begin{DoxyCode}
+187 \{
+188     \textcolor{keywordflow}{if}(\hyperlink{accMag_8c_afdbd4ece113ff4859718b678150d069a_afdbd4ece113ff4859718b678150d069a}{g\_halAccmag\_triggerMagUpdate\_bl}()!=0)
+189     \{\textcolor{keywordflow}{return} \hyperlink{imu_8h_a18e9da7ab992e56df99ed0cb77146b12_a18e9da7ab992e56df99ed0cb77146b12}{M\_HAL\_IMU\_FAILED\_BL};\}
+190 
+191     \hyperlink{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{m\_halImu\_imuValues\_st}.\hyperlink{structhalImu__orientationValues_ac0763bc025ee3aa20f167e74ecccfc3c_ac0763bc025ee3aa20f167e74ecccfc3c}{mag}=
+      \hyperlink{accMag_8c_ad4f25c6a1f31b6eb494243aa0706986a_ad4f25c6a1f31b6eb494243aa0706986a}{g\_halAccmag\_getMagVector\_st}();
+192 
+193     \textcolor{keywordflow}{return} \hyperlink{imu_8h_ae8aa90a76f9f2d38fc4849bc00e28c17_ae8aa90a76f9f2d38fc4849bc00e28c17}{M\_HAL\_IMU\_SUCCESS\_BL};
+194 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imu_8c_a50e5767c3976aef087ea1e9d4ed784f2_a50e5767c3976aef087ea1e9d4ed784f2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}{\index{imu.\+c@{imu.\+c}!m\+\_\+hal\+Imu\+\_\+imu\+Values\+\_\+st@{m\+\_\+hal\+Imu\+\_\+imu\+Values\+\_\+st}}
+\index{m\+\_\+hal\+Imu\+\_\+imu\+Values\+\_\+st@{m\+\_\+hal\+Imu\+\_\+imu\+Values\+\_\+st}!imu.\+c@{imu.\+c}}
+\subsubsection[{m\+\_\+hal\+Imu\+\_\+imu\+Values\+\_\+st}]{\setlength{\rightskip}{0pt plus 5cm}{\bf hal\+Imu\+\_\+orientation\+Values} m\+\_\+hal\+Imu\+\_\+imu\+Values\+\_\+st\hspace{0.3cm}{\ttfamily [static]}}}\label{imu_8c_a8adb7031b603415616aaeec7aab667da_a8adb7031b603415616aaeec7aab667da}
+
+
+Definition at line 17 of file imu.\+c.
+

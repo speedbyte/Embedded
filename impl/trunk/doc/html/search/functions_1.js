@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['disp',['disp',['../analyseIMUData_8m_a698ea3a4d11997db2456cb5340d44a90.html#a698ea3a4d11997db2456cb5340d44a90',1,'disp(&apos;Calibration Data:&apos;):&#160;analyseIMUData.m'],['../analyseIMUData_8m_ade097ea1aad8722bb547c26e01503180.html#ade097ea1aad8722bb547c26e01503180',1,'disp(&apos;=================&apos;):&#160;analyseIMUData.m'],['../analyseIMUData_8m_a84bce1e5da9c56811356bb401f81c5d6.html#a84bce1e5da9c56811356bb401f81c5d6',1,'disp(&apos;Generating Calibration-Header-File&apos;):&#160;analyseIMUData.m'],['../analyseIMUData_8m_a01cca4aef46ad789d4ed4815decaadb7.html#a01cca4aef46ad789d4ed4815decaadb7',1,'disp([&apos;Writing header &apos;, headerFileName, &apos;...&apos;]):&#160;analyseIMUData.m']]],
+  ['driver_5fread',['driver_read',['../ppmDemux_8c_a765ca6f646d99d63179a9f8989ae3dd2.html#a765ca6f646d99d63179a9f8989ae3dd2',1,'driver_read(struct file *instanz, char __user *user, size_t count, loff_t *offset):&#160;ppmDemux.c'],['../timeTrigger_8c_a765ca6f646d99d63179a9f8989ae3dd2.html#a765ca6f646d99d63179a9f8989ae3dd2',1,'driver_read(struct file *instanz, char __user *user, size_t count, loff_t *offset):&#160;timeTrigger.c']]]
+];

@@ -1,0 +1,5 @@
+<map id="m_sigOri_calcGyroAnglePerStep_st" name="m_sigOri_calcGyroAnglePerStep_st">
+<area shape="rect" id="node2" href="$Orientation_8h_ad6f7e5ebba85a9e7c23427803f77dc2f.html#ad6f7e5ebba85a9e7c23427803f77dc2f" title="Trigger of Kalman&#45;Filter calculation. " alt="" coords="240,5,465,32"/>
+<area shape="rect" id="node4" href="$Orientation_8h_a99b95124924a04fee17327b71cabe123.html#a99b95124924a04fee17327b71cabe123" title="Trigger of Complementary&#45;Filter calculation. " alt="" coords="256,57,449,98"/>
+<area shape="rect" id="node3" href="$main_8c_a840291bc02cba5474a4cb46a9b9566fe.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="513,35,564,61"/>
+</map>

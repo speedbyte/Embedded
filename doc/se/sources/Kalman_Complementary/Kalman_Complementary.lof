@@ -1,0 +1,9 @@
+\select@language {english}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Roll, Pitch, Yaw \cite {doc:boreg}\relax }}{1}{figure.caption.3}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Magnitude / Acceleration angles\relax }}{2}{figure.caption.4}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Gyroscope angles\relax }}{2}{figure.caption.5}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Complementary-Filter\cite {doc:STM}\relax }}{3}{figure.caption.6}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Variance and Meanvalue of an acceleration sensor\relax }}{4}{figure.caption.7}

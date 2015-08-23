@@ -1,0 +1,6 @@
+<map id="g_halMatlab_initConnection_i32" name="g_halMatlab_initConnection_i32">
+<area shape="rect" id="node2" href="$udpLib_8c_ae4db0dc04a7a7f7b01cf95c393701204.html#ae4db0dc04a7a7f7b01cf95c393701204" title="Create and init an UDP&#45;Socket for given incoming port. " alt="" coords="265,5,447,32"/>
+<area shape="rect" id="node4" href="$udpLib_8c_a9a1478b5b50fab3e48f1918b065bcc9e.html#a9a1478b5b50fab3e48f1918b065bcc9e" title="Configures a given UDP&#45;Socket to communicate with a specific remote host. " alt="" coords="260,56,452,83"/>
+<area shape="rect" id="node3" href="$udpLib_8c_a93bb1cc728a2a251c56b849c52a64f9a.html#a93bb1cc728a2a251c56b849c52a64f9a" title="Finds a free slot in the socket management buffer. " alt="" coords="500,5,667,32"/>
+<area shape="rect" id="node5" href="$udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893.html#adc385b1d5891b3efc2f9c7f91018d893" title="Finds the slot number of a given socket handler. " alt="" coords="524,56,643,83"/>
+</map>

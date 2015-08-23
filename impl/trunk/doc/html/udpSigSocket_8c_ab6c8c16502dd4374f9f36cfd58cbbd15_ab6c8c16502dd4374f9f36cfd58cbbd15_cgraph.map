@@ -1,0 +1,5 @@
+<map id="mdlOutputs" name="mdlOutputs">
+<area shape="rect" id="node2" href="$udpSigLib_8c_abf4dac6b7984656845b4c3d0d2168a7c.html#abf4dac6b7984656845b4c3d0d2168a7c" title="Receives a packet of SIG data with the current via a given UDP&#45;Socket. " alt="" coords="143,5,356,32"/>
+<area shape="rect" id="node3" href="$udpLib_8c_ae2c1f15f17730f3794e20be65106a963.html#ae2c1f15f17730f3794e20be65106a963" title="Reads a packet of data via a given UDP&#45;Socket. " alt="" coords="404,5,600,32"/>
+<area shape="rect" id="node4" href="$udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893.html#adc385b1d5891b3efc2f9c7f91018d893" title="Finds the slot number of a given socket handler. " alt="" coords="648,5,767,32"/>
+</map>

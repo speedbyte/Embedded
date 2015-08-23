@@ -1,0 +1,5 @@
+<map id="hal/IMU/imu.h" name="hal/IMU/imu.h">
+<area shape="rect" id="node2" href="$accMag_8h.html" title="./accMag/accMag.h" alt="" coords="5,80,143,107"/>
+<area shape="rect" id="node4" href="$Gyro_8h.html" title="./gyro/Gyro.h" alt="" coords="167,80,266,107"/>
+<area shape="rect" id="node3" href="$accMag__registers_8h.html" title="accMag_registers.h" alt="" coords="6,155,142,181"/>
+</map>

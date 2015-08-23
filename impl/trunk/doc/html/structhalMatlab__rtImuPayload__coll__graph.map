@@ -1,0 +1,5 @@
+<map id="halMatlab_rtImuPayload" name="halMatlab_rtImuPayload">
+<area shape="rect" id="node2" href="$structhalImu__orientationValues.html" title="Inertial measurement unit values. " alt="" coords="97,189,265,281"/>
+<area shape="rect" id="node3" href="$structhalAccmag__3dDoubleVector.html" title="3D vector of floats for x,y,z axes of sensors " alt="" coords="5,5,192,112"/>
+<area shape="rect" id="node4" href="$structstrGyro.html" title="struct with Gyroscope values " alt="" coords="217,5,314,112"/>
+</map>

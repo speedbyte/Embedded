@@ -1,0 +1,414 @@
+\hypertarget{LLD__I2C_8c}{\section{hal/\+L\+L\+D\+\_\+\+I\+F/\+L\+L\+D\+\_\+\+I2\+C.c File Reference}
+\label{LLD__I2C_8c}\index{hal/\+L\+L\+D\+\_\+\+I\+F/\+L\+L\+D\+\_\+\+I2\+C.\+c@{hal/\+L\+L\+D\+\_\+\+I\+F/\+L\+L\+D\+\_\+\+I2\+C.\+c}}
+}
+{\ttfamily \#include \char`\"{}L\+L\+D\+\_\+\+I2\+C.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$linux/i2c-\/dev.\+h$>$}\\*
+Include dependency graph for L\+L\+D\+\_\+\+I2\+C.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{LLD__I2C_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{LLD__I2C_8c_aeaca94687ce58a90a4d0fb44f1ea829e_aeaca94687ce58a90a4d0fb44f1ea829e}{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c0\+\_\+bl} (unsigned char f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8, const unsigned char $\ast$f\+\_\+lld\+I2c\+\_\+i2c\+Read\+Buffer\+\_\+pui8, unsigned int f\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32)
+\begin{DoxyCompactList}\small\item\em Read-\/function for I2\+C0-\/\+Bus. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e_a107ee9f1e4646733ac3ef6addf0def7e}{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c\+\_\+bl} (unsigned char f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8, const unsigned char $\ast$f\+\_\+lld\+I2c\+\_\+i2c\+Read\+Buffer\+\_\+pui8, unsigned int f\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32)
+\begin{DoxyCompactList}\small\item\em Read-\/function for I2\+C-\/\+Bus. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{LLD__I2C_8c_a8b130e9580447cad3fde20b915bfefec_a8b130e9580447cad3fde20b915bfefec}{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c0\+\_\+bl} (unsigned char f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8, const unsigned char $\ast$f\+\_\+i2c\+Write\+Buffer\+\_\+pui8, unsigned int f\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32)
+\begin{DoxyCompactList}\small\item\em Write-\/function for I2\+C0 Bus. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321_aa6892bf4aea7f232d9b0ff2dbf8a9321}{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c\+\_\+bl} (unsigned char f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8, const unsigned char $\ast$f\+\_\+i2c\+Write\+Buffer\+\_\+pui8, unsigned int f\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32)
+\begin{DoxyCompactList}\small\item\em Write-\/function for I2\+C Bus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{LLD__I2C_8c_aeaca94687ce58a90a4d0fb44f1ea829e_aeaca94687ce58a90a4d0fb44f1ea829e}{\index{L\+L\+D\+\_\+\+I2\+C.\+c@{L\+L\+D\+\_\+\+I2\+C.\+c}!g\+\_\+lld\+I2c\+\_\+\+Read\+I2c0\+\_\+bl@{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c0\+\_\+bl}}
+\index{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c0\+\_\+bl@{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c0\+\_\+bl}!L\+L\+D\+\_\+\+I2\+C.\+c@{L\+L\+D\+\_\+\+I2\+C.\+c}}
+\subsubsection[{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c0\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+lld\+I2c\+\_\+\+Read\+I2c0\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8, }
+\item[{const unsigned char $\ast$}]{f\+\_\+lld\+I2c\+\_\+i2c\+Read\+Buffer\+\_\+pui8, }
+\item[{unsigned int}]{f\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32}
+\end{DoxyParamCaption}
+)}}\label{LLD__I2C_8c_aeaca94687ce58a90a4d0fb44f1ea829e_aeaca94687ce58a90a4d0fb44f1ea829e}
+
+
+Read-\/function for I2\+C0-\/\+Bus. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Philipp Woditsch (phwogs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/06/21
+\end{DoxyDate}
+Function for reading data from the I2\+C-\/\+Bus into a byte-\/array. A pointer to the byte-\/array and the number of payload bytes to read are required. The function ensures to write the desired bytes on the bus, including a retransmission procedure.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8} & is the Address of the I2\+C Slave device in Hex \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+lld\+I2c\+\_\+i2c\+Read\+Buffer\+\_\+pui8} & is a pointer to an array where the readed data should be stored \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+i2c\+Number\+Of\+Reading\+Bytes\+\_\+ui32is} & gives the amount of bytes to be readed \\
+\hline
+\mbox{\tt out}  & {\em returns} & the error state~\newline
+ 0 ... success (no errors)~\newline
+ $>$=1 ... failed (some errors occured)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 263 of file L\+L\+D\+\_\+\+I2\+C.\+c.
+
+
+\begin{DoxyCode}
+264 \{
+265     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_ReturnOfReadBytes\_ui8 = 0;
+266     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_ReadRetryCounter\_ui8  = 0;
+267     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}    l\_i2cFile\_ui32          = 0;
+268 
+269     \textcolor{comment}{//Open I2C device}
+270     l\_i2cFile\_ui32 = open(\hyperlink{LLD__I2C_8h_a3ab9b86ea911150048b1304b801f328d_a3ab9b86ea911150048b1304b801f328d}{M\_HAL\_LLDI2C\_I2C0\_DEV\_UI8}, O\_RDWR);   \textcolor{comment}{//Open I2C device}
+271     \textcolor{keywordflow}{if}(l\_i2cFile\_ui32 < 0)
+272     \{
+273         \textcolor{comment}{/*ERROR HANDLER*/}
+274         \textcolor{keywordflow}{return} 1;
+275     \}
+276 
+277     \textcolor{comment}{//Specify the address of the I2C Slave to communicate with}
+278     ioctl(l\_i2cFile\_ui32, I2C\_SLAVE, f\_lldI2c\_i2cSlaveAddress\_ui8);
+279 
+280     \textcolor{keywordflow}{while}(      (l\_ReturnOfReadBytes\_ui8 != f\_i2cNumOfDataBytes\_ui32)
+281             &&  (l\_ReadRetryCounter\_ui8 < \hyperlink{LLD__I2C_8h_af811e7b12752a4128bc0502389ce77b7_af811e7b12752a4128bc0502389ce77b7}{M\_HAL\_LLDI2C\_TRANSMISSION\_RETRYNUM\_UI8}
+      ) )
+282     \{
+283         l\_ReturnOfReadBytes\_ui8 = read(l\_i2cFile\_ui32, f\_lldI2c\_i2cReadBuffer\_pui8, 
+      f\_i2cNumOfDataBytes\_ui32);
+284         l\_ReadRetryCounter\_ui8++;
+285     \}
+286 
+287     \textcolor{keywordflow}{if}(l\_ReadRetryCounter\_ui8 >= \hyperlink{LLD__I2C_8h_af811e7b12752a4128bc0502389ce77b7_af811e7b12752a4128bc0502389ce77b7}{M\_HAL\_LLDI2C\_TRANSMISSION\_RETRYNUM\_UI8}
+      )
+288     \{
+289         \textcolor{keywordflow}{return} 1;
+290     \}
+291 
+292     \textcolor{comment}{//Close I2C device}
+293     close(l\_i2cFile\_ui32);
+294     \textcolor{keywordflow}{if}(l\_i2cFile\_ui32 < 0)
+295     \{
+296         \textcolor{comment}{/*ERROR HANDLER*/}
+297         \textcolor{keywordflow}{return} 1;
+298     \}
+299     \textcolor{keywordflow}{return}(0);
+300 
+301 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LLD__I2C_8c_aeaca94687ce58a90a4d0fb44f1ea829e_aeaca94687ce58a90a4d0fb44f1ea829e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e_a107ee9f1e4646733ac3ef6addf0def7e}{\index{L\+L\+D\+\_\+\+I2\+C.\+c@{L\+L\+D\+\_\+\+I2\+C.\+c}!g\+\_\+lld\+I2c\+\_\+\+Read\+I2c\+\_\+bl@{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c\+\_\+bl}}
+\index{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c\+\_\+bl@{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c\+\_\+bl}!L\+L\+D\+\_\+\+I2\+C.\+c@{L\+L\+D\+\_\+\+I2\+C.\+c}}
+\subsubsection[{g\+\_\+lld\+I2c\+\_\+\+Read\+I2c\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+lld\+I2c\+\_\+\+Read\+I2c\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8, }
+\item[{const unsigned char $\ast$}]{f\+\_\+lld\+I2c\+\_\+i2c\+Read\+Buffer\+\_\+pui8, }
+\item[{unsigned int}]{f\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32}
+\end{DoxyParamCaption}
+)}}\label{LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e_a107ee9f1e4646733ac3ef6addf0def7e}
+
+
+Read-\/function for I2\+C-\/\+Bus. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Philipp Woditsch (phwogs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/04
+\end{DoxyDate}
+Function for reading data from the I2\+C-\/\+Bus into a byte-\/array. A pointer to the byte-\/array and the number of payload bytes to read are required. The function ensures to write the desired bytes on the bus, including a retransmission procedure.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8} & is the Address of the I2\+C Slave device in Hex \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+lld\+I2c\+\_\+i2c\+Read\+Buffer\+\_\+pui8} & is a pointer to an array where the readed data should be stored \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+i2c\+Number\+Of\+Reading\+Bytes\+\_\+ui32is} & gives the amount of bytes to be readed \\
+\hline
+\mbox{\tt out}  & {\em returns} & the error state~\newline
+ 0 ... success (no errors)~\newline
+ $>$=1 ... failed (some errors occured)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 122 of file L\+L\+D\+\_\+\+I2\+C.\+c.
+
+
+\begin{DoxyCode}
+123 \{
+124     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_ReturnOfReadBytes\_ui8 = 0;
+125     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_ReadRetryCounter\_ui8  = 0;
+126     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}    l\_i2cFile\_ui32          = 0;
+127 
+128     \textcolor{comment}{//Open I2C device}
+129     l\_i2cFile\_ui32 = open(\hyperlink{LLD__I2C_8h_acda3e0518e5238c550b64581b4a83cd3_acda3e0518e5238c550b64581b4a83cd3}{M\_HAL\_LLDI2C\_I2C\_DEV\_UI8}, O\_RDWR);   \textcolor{comment}{//Open I2C device}
+130     \textcolor{keywordflow}{if}(l\_i2cFile\_ui32 < 0)
+131     \{
+132         \textcolor{comment}{/*ERROR HANDLER*/}
+133         \textcolor{keywordflow}{return} 1;
+134     \}
+135 
+136     \textcolor{comment}{//Specify the address of the I2C Slave to communicate with}
+137     ioctl(l\_i2cFile\_ui32, I2C\_SLAVE, f\_lldI2c\_i2cSlaveAddress\_ui8);
+138 
+139     \textcolor{keywordflow}{while}(      (l\_ReturnOfReadBytes\_ui8 != f\_i2cNumOfDataBytes\_ui32)
+140             &&  (l\_ReadRetryCounter\_ui8 < \hyperlink{LLD__I2C_8h_af811e7b12752a4128bc0502389ce77b7_af811e7b12752a4128bc0502389ce77b7}{M\_HAL\_LLDI2C\_TRANSMISSION\_RETRYNUM\_UI8}
+      ) )
+141     \{
+142         l\_ReturnOfReadBytes\_ui8 = read(l\_i2cFile\_ui32, f\_lldI2c\_i2cReadBuffer\_pui8, 
+      f\_i2cNumOfDataBytes\_ui32);
+143         l\_ReadRetryCounter\_ui8++;
+144     \}
+145 
+146     \textcolor{keywordflow}{if}(l\_ReadRetryCounter\_ui8 >= \hyperlink{LLD__I2C_8h_af811e7b12752a4128bc0502389ce77b7_af811e7b12752a4128bc0502389ce77b7}{M\_HAL\_LLDI2C\_TRANSMISSION\_RETRYNUM\_UI8}
+      )
+147     \{
+148         \textcolor{keywordflow}{return} 1;
+149     \}
+150 
+151     \textcolor{comment}{//Close I2C device}
+152     close(l\_i2cFile\_ui32);
+153     \textcolor{keywordflow}{if}(l\_i2cFile\_ui32 < 0)
+154     \{
+155         \textcolor{comment}{/*ERROR HANDLER*/}
+156         \textcolor{keywordflow}{return} 1;
+157     \}
+158     \textcolor{keywordflow}{return}(0);
+159 
+160 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e_a107ee9f1e4646733ac3ef6addf0def7e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{LLD__I2C_8c_a8b130e9580447cad3fde20b915bfefec_a8b130e9580447cad3fde20b915bfefec}{\index{L\+L\+D\+\_\+\+I2\+C.\+c@{L\+L\+D\+\_\+\+I2\+C.\+c}!g\+\_\+lld\+I2c\+\_\+\+Write\+I2c0\+\_\+bl@{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c0\+\_\+bl}}
+\index{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c0\+\_\+bl@{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c0\+\_\+bl}!L\+L\+D\+\_\+\+I2\+C.\+c@{L\+L\+D\+\_\+\+I2\+C.\+c}}
+\subsubsection[{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c0\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+lld\+I2c\+\_\+\+Write\+I2c0\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8, }
+\item[{const unsigned char $\ast$}]{f\+\_\+i2c\+Write\+Buffer\+\_\+pui8, }
+\item[{unsigned int}]{f\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32}
+\end{DoxyParamCaption}
+)}}\label{LLD__I2C_8c_a8b130e9580447cad3fde20b915bfefec_a8b130e9580447cad3fde20b915bfefec}
+
+
+Write-\/function for I2\+C0 Bus. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Philipp Woditsch (phwogs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/06/21
+\end{DoxyDate}
+Function for writing a byte-\/array on the I2\+C-\/\+Bus. A pointer to the byte-\/array and the number of payload bytes to read are required. The function ensures to write the desired bytes on the bus, including a retransmission procedure.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8} & is the address of the I2\+C Slave device \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+i2c\+Write\+Buffer\+\_\+pui8} & is pointer to the byte-\/array to which the read bus data is written \\
+\hline
+\mbox{\tt in}  & {\em l\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32} & is the amount of bytes to be written \\
+\hline
+\mbox{\tt out}  & {\em returns} & the error state~\newline
+ 0 ... success (no errors)~\newline
+ $>$=1 ... failed (some errors occured)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 193 of file L\+L\+D\+\_\+\+I2\+C.\+c.
+
+
+\begin{DoxyCode}
+194 \{
+195     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_returnOfWrittenBytes\_ui8  = 0;
+196     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_WriteRetryCounter\_ui8     = 0;
+197     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}    l\_i2cFile\_ui32              = 0;
+198 
+199     \textcolor{comment}{//Open I2C device}
+200     l\_i2cFile\_ui32 = open(\hyperlink{LLD__I2C_8h_a3ab9b86ea911150048b1304b801f328d_a3ab9b86ea911150048b1304b801f328d}{M\_HAL\_LLDI2C\_I2C0\_DEV\_UI8}, O\_RDWR);
+201     \textcolor{keywordflow}{if}(l\_i2cFile\_ui32 < 0)
+202     \{
+203         \textcolor{comment}{/*ERROR HANDLER*/}
+204         \textcolor{keywordflow}{return} 1;
+205     \}
+206 
+207     \textcolor{comment}{//Specify the address of the I2C Slave to communicate with}
+208     ioctl(l\_i2cFile\_ui32, I2C\_SLAVE, f\_lldI2c\_i2cSlaveAddress\_ui8);
+209 
+210     \textcolor{comment}{//Write Buffer to I2C Slave Device}
+211     \textcolor{keywordflow}{while}(      (l\_returnOfWrittenBytes\_ui8 != f\_i2cNumOfDataBytes\_ui32)
+212             &&  (l\_WriteRetryCounter\_ui8 < 
+      \hyperlink{LLD__I2C_8h_af811e7b12752a4128bc0502389ce77b7_af811e7b12752a4128bc0502389ce77b7}{M\_HAL\_LLDI2C\_TRANSMISSION\_RETRYNUM\_UI8}) )
+213     \{
+214         l\_returnOfWrittenBytes\_ui8 = write(l\_i2cFile\_ui32, f\_i2cWriteBuffer\_pui8, f\_i2cNumOfDataBytes\_ui32)
+      ;
+215         l\_WriteRetryCounter\_ui8++;
+216     \}
+217 
+218     \textcolor{keywordflow}{if}(l\_WriteRetryCounter\_ui8 >= \hyperlink{LLD__I2C_8h_af811e7b12752a4128bc0502389ce77b7_af811e7b12752a4128bc0502389ce77b7}{M\_HAL\_LLDI2C\_TRANSMISSION\_RETRYNUM\_UI8}
+      )
+219     \{
+220         \textcolor{keywordflow}{return} 1;
+221     \}
+222 
+223     \textcolor{comment}{//Close I2C device}
+224     close(l\_i2cFile\_ui32);
+225     \textcolor{keywordflow}{if}(l\_i2cFile\_ui32 < 0)
+226     \{
+227         \textcolor{comment}{/*ERROR HANDLER*/}
+228         \textcolor{keywordflow}{return} 1;
+229     \}
+230 
+231     \textcolor{keywordflow}{return} 0;
+232 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LLD__I2C_8c_a8b130e9580447cad3fde20b915bfefec_a8b130e9580447cad3fde20b915bfefec_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321_aa6892bf4aea7f232d9b0ff2dbf8a9321}{\index{L\+L\+D\+\_\+\+I2\+C.\+c@{L\+L\+D\+\_\+\+I2\+C.\+c}!g\+\_\+lld\+I2c\+\_\+\+Write\+I2c\+\_\+bl@{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c\+\_\+bl}}
+\index{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c\+\_\+bl@{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c\+\_\+bl}!L\+L\+D\+\_\+\+I2\+C.\+c@{L\+L\+D\+\_\+\+I2\+C.\+c}}
+\subsubsection[{g\+\_\+lld\+I2c\+\_\+\+Write\+I2c\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+lld\+I2c\+\_\+\+Write\+I2c\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8, }
+\item[{const unsigned char $\ast$}]{f\+\_\+i2c\+Write\+Buffer\+\_\+pui8, }
+\item[{unsigned int}]{f\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32}
+\end{DoxyParamCaption}
+)}}\label{LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321_aa6892bf4aea7f232d9b0ff2dbf8a9321}
+
+
+Write-\/function for I2\+C Bus. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Philipp Woditsch (phwogs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/04
+\end{DoxyDate}
+Function for writing a byte-\/array on the I2\+C-\/\+Bus. A pointer to the byte-\/array and the number of payload bytes to read are required. The function ensures to write the desired bytes on the bus, including a retransmission procedure.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+lld\+I2c\+\_\+i2c\+Slave\+Address\+\_\+ui8} & is the address of the I2\+C Slave device \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+i2c\+Write\+Buffer\+\_\+pui8} & is pointer to the byte-\/array to which the read bus data is written \\
+\hline
+\mbox{\tt in}  & {\em l\+\_\+i2c\+Num\+Of\+Data\+Bytes\+\_\+ui32} & is the amount of bytes to be written \\
+\hline
+\mbox{\tt out}  & {\em returns} & the error state~\newline
+ 0 ... success (no errors)~\newline
+ $>$=1 ... failed (some errors occured)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 43 of file L\+L\+D\+\_\+\+I2\+C.\+c.
+
+
+\begin{DoxyCode}
+44 \{
+45     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_returnOfWrittenBytes\_ui8  = 0;
+46     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   l\_WriteRetryCounter\_ui8     = 0;
+47     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}    l\_i2cFile\_ui32              = 0;
+48 
+49     \textcolor{comment}{//Open I2C device}
+50     l\_i2cFile\_ui32 = open(\hyperlink{LLD__I2C_8h_acda3e0518e5238c550b64581b4a83cd3_acda3e0518e5238c550b64581b4a83cd3}{M\_HAL\_LLDI2C\_I2C\_DEV\_UI8}, O\_RDWR);
+51     \textcolor{keywordflow}{if}(l\_i2cFile\_ui32 < 0)
+52     \{
+53         \textcolor{comment}{/*ERROR HANDLER*/}
+54         \textcolor{keywordflow}{return} 1;
+55     \}
+56 
+57     \textcolor{comment}{//Specify the address of the I2C Slave to communicate with}
+58     ioctl(l\_i2cFile\_ui32, I2C\_SLAVE, f\_lldI2c\_i2cSlaveAddress\_ui8);
+59 
+60     \textcolor{comment}{//Write Buffer to I2C Slave Device}
+61     \textcolor{keywordflow}{while}(      (l\_returnOfWrittenBytes\_ui8 != f\_i2cNumOfDataBytes\_ui32)
+62             &&  (l\_WriteRetryCounter\_ui8 < 
+      \hyperlink{LLD__I2C_8h_af811e7b12752a4128bc0502389ce77b7_af811e7b12752a4128bc0502389ce77b7}{M\_HAL\_LLDI2C\_TRANSMISSION\_RETRYNUM\_UI8}) )
+63     \{
+64         l\_returnOfWrittenBytes\_ui8 = write(l\_i2cFile\_ui32, f\_i2cWriteBuffer\_pui8, f\_i2cNumOfDataBytes\_ui32)
+      ;
+65         l\_WriteRetryCounter\_ui8++;
+66     \}
+67 
+68     \textcolor{keywordflow}{if}(l\_WriteRetryCounter\_ui8 >= \hyperlink{LLD__I2C_8h_af811e7b12752a4128bc0502389ce77b7_af811e7b12752a4128bc0502389ce77b7}{M\_HAL\_LLDI2C\_TRANSMISSION\_RETRYNUM\_UI8}
+      )
+69     \{
+70         \textcolor{keywordflow}{return} 1;
+71     \}
+72 
+73     \textcolor{comment}{//Close I2C device}
+74     close(l\_i2cFile\_ui32);
+75     \textcolor{keywordflow}{if}(l\_i2cFile\_ui32 < 0)
+76     \{
+77         \textcolor{comment}{/*ERROR HANDLER*/}
+78         \textcolor{keywordflow}{return} 1;
+79     \}
+80 
+81     \textcolor{keywordflow}{return} 0;
+82 \}
+\end{DoxyCode}
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321_aa6892bf4aea7f232d9b0ff2dbf8a9321_icgraph}
+\end{center}
+\end{figure}
+
+

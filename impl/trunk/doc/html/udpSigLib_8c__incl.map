@@ -1,0 +1,9 @@
+<map id="matlab/udpSigLib.c" name="matlab/udpSigLib.c">
+<area shape="rect" id="node3" href="$udpSigLib_8h.html" title="udpSigLib.h" alt="" coords="114,80,205,107"/>
+<area shape="rect" id="node4" href="$udpLib_8h.html" title="udpLib.h" alt="" coords="5,162,76,189"/>
+<area shape="rect" id="node5" href="$Orientation_8h.html" title="../sig/Orientation\l/Orientation.h" alt="" coords="100,155,219,196"/>
+<area shape="rect" id="node6" href="$imu_8h.html" title="../hal/IMU/imu.h" alt="" coords="243,162,359,189"/>
+<area shape="rect" id="node7" href="$accMag_8h.html" title="./accMag/accMag.h" alt="" coords="160,244,297,271"/>
+<area shape="rect" id="node9" href="$Gyro_8h.html" title="./gyro/Gyro.h" alt="" coords="322,244,421,271"/>
+<area shape="rect" id="node8" href="$accMag__registers_8h.html" title="accMag_registers.h" alt="" coords="161,319,297,345"/>
+</map>

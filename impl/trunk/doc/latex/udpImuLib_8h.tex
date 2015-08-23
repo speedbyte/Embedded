@@ -1,0 +1,220 @@
+\hypertarget{udpImuLib_8h}{\section{matlab/udp\+Imu\+Lib.h File Reference}
+\label{udpImuLib_8h}\index{matlab/udp\+Imu\+Lib.\+h@{matlab/udp\+Imu\+Lib.\+h}}
+}
+{\ttfamily \#include \char`\"{}udp\+Lib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../hal/\+I\+M\+U/imu.\+h\char`\"{}}\\*
+Include dependency graph for udp\+Imu\+Lib.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{udpImuLib_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{udpImuLib_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structhalMatlab__rtImuPayload}{hal\+Matlab\+\_\+rt\+Imu\+Payload}
+\begin{DoxyCompactList}\small\item\em Container for time-\/stamped I\+M\+U state data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structhalMatlab__rtImuPayload}{hal\+Matlab\+\_\+rt\+Imu\+Payload} \hyperlink{udpImuLib_8h_a950c3c02f670a48965dc6d6c5130ac8b_a950c3c02f670a48965dc6d6c5130ac8b}{g\+\_\+hal\+Matlab\+\_\+recv\+Imu\+State\+\_\+bl} (int f\+\_\+socket\+Handler\+\_\+i32)
+\begin{DoxyCompactList}\small\item\em Receives a packet of I\+M\+U data with the current via a given U\+D\+P-\/\+Socket. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{udpImuLib_8h_a5aed7fe7dfcd9ee05454d2ca222dd4f3_a5aed7fe7dfcd9ee05454d2ca222dd4f3}{g\+\_\+hal\+Matlab\+\_\+send\+Imu\+State\+\_\+bl} (int f\+\_\+socket\+Handler\+\_\+i32, \hyperlink{structhalImu__orientationValues}{hal\+Imu\+\_\+orientation\+Values} f\+\_\+imu\+State\+\_\+st)
+\begin{DoxyCompactList}\small\item\em Sends a packet of I\+M\+U data with the current unuix-\/timestamp via a given U\+D\+P-\/\+Socket. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{udpImuLib_8h_a950c3c02f670a48965dc6d6c5130ac8b_a950c3c02f670a48965dc6d6c5130ac8b}{\index{udp\+Imu\+Lib.\+h@{udp\+Imu\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+recv\+Imu\+State\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+recv\+Imu\+State\+\_\+bl}}
+\index{g\+\_\+hal\+Matlab\+\_\+recv\+Imu\+State\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+recv\+Imu\+State\+\_\+bl}!udp\+Imu\+Lib.\+h@{udp\+Imu\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+recv\+Imu\+State\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf hal\+Matlab\+\_\+rt\+Imu\+Payload} g\+\_\+hal\+Matlab\+\_\+recv\+Imu\+State\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{int}]{f\+\_\+socket\+Handler\+\_\+i32}
+\end{DoxyParamCaption}
+)}}\label{udpImuLib_8h_a950c3c02f670a48965dc6d6c5130ac8b_a950c3c02f670a48965dc6d6c5130ac8b}
+
+
+Receives a packet of I\+M\+U data with the current via a given U\+D\+P-\/\+Socket. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/17
+\end{DoxyDate}
+This function receives a data packet with a synthetic I\+M\+U state via a given U\+D\+P-\/\+Socket. This can be used to perform a Software-\/in -\/the-\/\+Loop setup or test specific filter algorithms in M\+A\+T\+L\+A\+B.~\newline
+ It is recommended to open the neccessary U\+D\+P-\/socket with \hyperlink{udpLib_8c_ae4db0dc04a7a7f7b01cf95c393701204_ae4db0dc04a7a7f7b01cf95c393701204}{g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32()} or \hyperlink{udpLib_8c_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d}{g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32()}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+socket\+Handler\+\_\+i32} & specifies socket handler number used for the data transmission \\
+\hline
+\mbox{\tt out}  & {\em returns} & the received synthetic I\+M\+U state packed into a custom struct type (type\+: \hyperlink{structhalImu__orientationValues}{hal\+Imu\+\_\+orientation\+Values})\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 96 of file udp\+Imu\+Lib.\+c.
+
+
+\begin{DoxyCode}
+96                                                                             \{
+97     \hyperlink{structhalMatlab__rtImuPayload}{halMatlab\_rtImuPayload}        l\_recvImuState\_st;
+98     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}               l\_recvBuffer\_rgXui8[ \textcolor{keyword}{sizeof}(
+      \hyperlink{structhalMatlab__rtImuPayload}{halMatlab\_rtImuPayload}) ];
+99     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}                l\_recvBytesNumber\_ui32;
+100 
+101     \textcolor{comment}{// zero all values}
+102     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a884897c9695ab0e4d2d0fbe9677a60cd_a884897c9695ab0e4d2d0fbe9677a60cd}{timestamp\_st}.tv\_sec   = 0;
+103     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a884897c9695ab0e4d2d0fbe9677a60cd_a884897c9695ab0e4d2d0fbe9677a60cd}{timestamp\_st}.tv\_nsec  = 0;
+104 
+105     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a8080616bd2a3d4f01f5334d4bf05427e_a8080616bd2a3d4f01f5334d4bf05427e}{acc}.\hyperlink{structhalAccmag__3dDoubleVector_a011646ea6f4b78400dfd2ffa8eb45eea_a011646ea6f4b78400dfd2ffa8eb45eea}{x\_f64} = 0;
+106     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a8080616bd2a3d4f01f5334d4bf05427e_a8080616bd2a3d4f01f5334d4bf05427e}{acc}.\hyperlink{structhalAccmag__3dDoubleVector_a88f4ed3363ccaa08c00d2fc28f7b2ab4_a88f4ed3363ccaa08c00d2fc28f7b2ab4}{y\_f64} = 0;
+107     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a8080616bd2a3d4f01f5334d4bf05427e_a8080616bd2a3d4f01f5334d4bf05427e}{acc}.\hyperlink{structhalAccmag__3dDoubleVector_a5041b0551694f5f4057a5f3454782e44_a5041b0551694f5f4057a5f3454782e44}{z\_f64} = 0;
+108 
+109     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a386a3509066dbfd830da6b7a993b31da_a386a3509066dbfd830da6b7a993b31da}{gyro}.\hyperlink{structstrGyro_a9d82fa8970135f2097dd209a74138848_a9d82fa8970135f2097dd209a74138848}{l\_pitch\_f64} = 0;
+110     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a386a3509066dbfd830da6b7a993b31da_a386a3509066dbfd830da6b7a993b31da}{gyro}.\hyperlink{structstrGyro_a0b8d0c0ec6e3324a403d983d67fae643_a0b8d0c0ec6e3324a403d983d67fae643}{l\_roll\_f64} = 0;
+111     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a386a3509066dbfd830da6b7a993b31da_a386a3509066dbfd830da6b7a993b31da}{gyro}.\hyperlink{structstrGyro_a1c8ca43d350ad8ef20d2968aa29e6ce6_a1c8ca43d350ad8ef20d2968aa29e6ce6}{l\_yaw\_f64} = 0;
+112 
+113     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_ac0763bc025ee3aa20f167e74ecccfc3c_ac0763bc025ee3aa20f167e74ecccfc3c}{mag}.\hyperlink{structhalAccmag__3dDoubleVector_a011646ea6f4b78400dfd2ffa8eb45eea_a011646ea6f4b78400dfd2ffa8eb45eea}{x\_f64} = 0;
+114     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_ac0763bc025ee3aa20f167e74ecccfc3c_ac0763bc025ee3aa20f167e74ecccfc3c}{mag}.\hyperlink{structhalAccmag__3dDoubleVector_a88f4ed3363ccaa08c00d2fc28f7b2ab4_a88f4ed3363ccaa08c00d2fc28f7b2ab4}{y\_f64} = 0;
+115     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_ac0763bc025ee3aa20f167e74ecccfc3c_ac0763bc025ee3aa20f167e74ecccfc3c}{mag}.\hyperlink{structhalAccmag__3dDoubleVector_a5041b0551694f5f4057a5f3454782e44_a5041b0551694f5f4057a5f3454782e44}{z\_f64} = 0;
+116 
+117     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_a512925b63aa63c02874ce4dbb920c7f0_a512925b63aa63c02874ce4dbb920c7f0}{pressure\_f64} = 0;
+118     l\_recvImuState\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}.\hyperlink{structhalImu__orientationValues_aeda72e72e4979977023cba31ee89cffa_aeda72e72e4979977023cba31ee89cffa}{temperature\_f64} = 0;
+119 
+120     \textcolor{comment}{// receive packet}
+121     l\_recvBytesNumber\_ui32 = \hyperlink{udpLib_8c_ae2c1f15f17730f3794e20be65106a963_ae2c1f15f17730f3794e20be65106a963}{g\_halMatlab\_recvPacket\_ui32}(    f\_socketHandler\_i32
+      ,
+122                                                             l\_recvBuffer\_rgXui8,
+123                                                             \textcolor{keyword}{sizeof}(
+      \hyperlink{structhalMatlab__rtImuPayload}{halMatlab\_rtImuPayload}) );
+124 
+125     \textcolor{keywordflow}{if} ( l\_recvBytesNumber\_ui32 == \textcolor{keyword}{sizeof}(\hyperlink{structhalMatlab__rtImuPayload}{halMatlab\_rtImuPayload}) )
+126     \{
+127         memcpy( &l\_recvImuState\_st, &l\_recvBuffer\_rgXui8, \textcolor{keyword}{sizeof}(
+      \hyperlink{structhalMatlab__rtImuPayload}{halMatlab\_rtImuPayload}));
+128     \}
+129 
+130     \textcolor{keywordflow}{return} l\_recvImuState\_st;
+131 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpImuLib_8h_a950c3c02f670a48965dc6d6c5130ac8b_a950c3c02f670a48965dc6d6c5130ac8b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{udpImuLib_8h_a950c3c02f670a48965dc6d6c5130ac8b_a950c3c02f670a48965dc6d6c5130ac8b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpImuLib_8h_a5aed7fe7dfcd9ee05454d2ca222dd4f3_a5aed7fe7dfcd9ee05454d2ca222dd4f3}{\index{udp\+Imu\+Lib.\+h@{udp\+Imu\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+send\+Imu\+State\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+send\+Imu\+State\+\_\+bl}}
+\index{g\+\_\+hal\+Matlab\+\_\+send\+Imu\+State\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+send\+Imu\+State\+\_\+bl}!udp\+Imu\+Lib.\+h@{udp\+Imu\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+send\+Imu\+State\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Matlab\+\_\+send\+Imu\+State\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{int}]{f\+\_\+socket\+Handler\+\_\+i32, }
+\item[{{\bf hal\+Imu\+\_\+orientation\+Values}}]{f\+\_\+imu\+State\+\_\+st}
+\end{DoxyParamCaption}
+)}}\label{udpImuLib_8h_a5aed7fe7dfcd9ee05454d2ca222dd4f3_a5aed7fe7dfcd9ee05454d2ca222dd4f3}
+
+
+Sends a packet of I\+M\+U data with the current unuix-\/timestamp via a given U\+D\+P-\/\+Socket. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/17
+\end{DoxyDate}
+This function sends a data packet with the given I\+M\+U state via a given U\+D\+P-\/\+Socket. The current timestamp is added to the payload to get some sort of realtime behavior.~\newline
+ This can be used to perform a Software-\/in -\/the-\/\+Loop setup or test specific filter algorithms in M\+A\+T\+L\+A\+B.~\newline
+ It is recommended to open the neccessary U\+D\+P-\/socket with \hyperlink{udpLib_8c_ae4db0dc04a7a7f7b01cf95c393701204_ae4db0dc04a7a7f7b01cf95c393701204}{g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32()} or \hyperlink{udpLib_8c_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d}{g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32()}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+socket\+Handler\+\_\+i32} & specifies socket handler number used for the data transmission \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+imu\+State\+\_\+st} & is a the I\+M\+U state packed into a custom struct type (type\+: \hyperlink{structhalImu__orientationValues}{hal\+Imu\+\_\+orientation\+Values}) \\
+\hline
+\mbox{\tt out}  & {\em returns} & a boolean value, indicating the occurrence of failures~\newline
+ 0 .... indicates success (no errors)~\newline
+ 1 .... indicates failed (some errors)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 41 of file udp\+Imu\+Lib.\+c.
+
+
+\begin{DoxyCode}
+42                                                                                     \{
+43 
+44     \hyperlink{structhalMatlab__rtImuPayload}{halMatlab\_rtImuPayload}    l\_rtImuPayload\_st;
+45     \textcolor{keyword}{struct }timespec         l\_timestamp\_st;
+46 
+47     \textcolor{comment}{/*}
+48 \textcolor{comment}{     * first of all: get an accurate timestamp for this data telegram}
+49 \textcolor{comment}{     * Hint: ensure that 'librt' is also linked in the project!}
+50 \textcolor{comment}{     *       Eclipse: Goto Project->Properties.}
+51 \textcolor{comment}{     *                Select C/C++-Build->Settings}
+52 \textcolor{comment}{     *                Select tab view 'Tool Settings'.}
+53 \textcolor{comment}{     *                Select 'Cross G++ Linker'->Libraries}
+54 \textcolor{comment}{     *                and add the entry 'rt' to 'Libraries (-l)'}
+55 \textcolor{comment}{     *}
+56 \textcolor{comment}{     *       GCC on the commandline: simply add '-lrt' to your gcc options}
+57 \textcolor{comment}{     */}
+58     \textcolor{keywordflow}{if} ( clock\_gettime(CLOCK\_REALTIME, &l\_timestamp\_st) != 
+      \hyperlink{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{M\_HAL\_MATLAB\_SUCCESS\_UI8})
+59     \{
+60         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{M\_HAL\_MATLAB\_FAILED\_UI8};
+61     \}
+62 
+63     \textcolor{comment}{//assmeble timestamp and}
+64     l\_rtImuPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a884897c9695ab0e4d2d0fbe9677a60cd_a884897c9695ab0e4d2d0fbe9677a60cd}{timestamp\_st}  = l\_timestamp\_st;
+65     l\_rtImuPayload\_st.\hyperlink{structhalMatlab__rtImuPayload_a9c79ff85291d3492b09536e902c96c92_a9c79ff85291d3492b09536e902c96c92}{imuState\_st}    = f\_imuState\_st;
+66 
+67     \textcolor{keywordflow}{return} \hyperlink{udpLib_8c_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_a3bcf5bf8c07f257cd13d2c94a9ce6d4f}{g\_halMatlab\_sendPacket\_bl}(  f\_socketHandler\_i32,
+68                                         (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*)&l\_rtImuPayload\_st,
+69                                         \textcolor{keyword}{sizeof}( l\_rtImuPayload\_st ) );
+70 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpImuLib_8h_a5aed7fe7dfcd9ee05454d2ca222dd4f3_a5aed7fe7dfcd9ee05454d2ca222dd4f3_cgraph}
+\end{center}
+\end{figure}
+
+

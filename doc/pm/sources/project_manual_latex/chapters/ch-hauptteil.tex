@@ -1,0 +1,200 @@
+%--------------------------------------------
+% Chapter: PROJECT GOALS
+%--------------------------------------------
+\chapter{Project goals}
+\label{sec:goals}
+
+\section{Temporal scope and milestones}
+\label{sec:goals:scope}
+Start of project: March 23, 2015\\
+End of project: June 19, 2015
+
+\begin{enumerate}
+	\item Milestone: April 1, 2015\\
+				-- Hardware selected
+	\item Milestone: May 11, 2015\\
+				-- HAL drivers finalized
+	\item Milestone: May 25, 2015\\
+				-- First prototyp with flying capabilities\\
+				-- First simulation prototype for autonomous landing
+	\item Milestone: June 15, 2015\\
+				-- First prototyp with position hold and autonomous landing capabilities
+\end{enumerate}
+
+\section{Intended contentual goals}
+\label{sec:goals:intention}
+\begin{itemize}
+	\item Selecting new hardware for an exisiting quadrocopter system
+	\item Setting up a Real-Time Operating System (linux-based) for new hardware
+	\item Do extensive testing on new sensors (behaviour, sensor models, etc.)
+	\item Develop an autonomous landing functionality for the new Quadrocopter platform
+	\item Develop a position hold functionality (GPS-hold) for new Quadrocopter platform
+\end{itemize}
+
+\section{Contentual framework}
+\label{sec:goals:framework}
+\begin{itemize}
+	\item Select new hardware (Raspberry-based with Linux capability) 
+	\item Setting up RTOS (Preempt RT Kernel)
+	\item Writing HAL drivers for new Hardware
+	\item Writing a sensor fusion for orientation filtering and signal enhancement
+	\item Integrate existing control software (if possible)
+	\item Setup of sensor models to simulate landing control
+	\item Setup of flight model to simulate position hold
+\end{itemize}
+
+%--------------------------------------------
+% Chapter: PERSONNEL
+%--------------------------------------------
+\chapter{Personnel}
+\label{sec:personnel}
+
+\section{Contact information}
+\label{sec:personnel:contact}
+\begin{itemize}
+	\item \textemphs{Oliver Breuning}\\
+				Email: olbrgs00@hs-esslingen.de
+	\item \textemphs{Martin Brodbeck}\\
+				Email: mabrgs00@hs-esslingen.de
+	\item \textemphs{J\"urgen Schmidt}\\
+				Email: juscgs00@hs-esslingen.de			 
+	\item \textemphs{Philipp Woditsch}\\
+				Email: phwogs00@hs-esslingen.de
+\end{itemize}
+
+\section{Roles and Responsibilities}
+\label{sec:personnel:respons}
+\textemphs{Oliver Breuning}
+\begin{itemize}
+	\item Documentation Quality Manager
+	\item Software Developer
+\end{itemize}
+
+
+\textemphs{Martin Brodbeck}
+\begin{itemize}
+	\item Product Quality Manager
+	\item Software Developer
+\end{itemize}
+
+
+\textemphs{J\"urgen Schmidt}
+\begin{itemize}
+	\item Project Manager
+	\item Software Developer
+\end{itemize}
+
+
+\textemphs{Philipp Woditsch}
+\begin{itemize}
+	\item Software Developer
+	\item Testing Quality Manager
+\end{itemize}
+
+%--------------------------------------------
+% Chapter: WORKINGS
+%--------------------------------------------
+\chapter{Workings}
+\label{sec:work}
+
+\section{Reporting and meetings}
+\label{sec:work:report}
+There will be a weekly meeting with Prof. Dr. Friedrich to discuss the progress of the project. Progress will be shown by reports (documentation files, stored \/doc\/* in SVN), project plan status (data in track+) and files in the subversion system. Furthermore, whenever the project team will have a internal meeting, a meeting report will be created. This meeting report can be additionally used for status reporting.
+
+A template of a meeting report can be found in the subversion system at
+\begin{align*}
+\texttt{/doc/pm/meetings/meetingReport\_template.docx} \quad.
+\end{align*}A finalized meeting report shall be stored in \texttt{/doc/pm/meetings} in SVN, following the naming convention \textbf{\texttt{meetingReport\_YYYYMMDD.docx}}. If there will be more than one meeting per day, the report file shall be extended. Each report shall be stored as a \textbf{docx-file} and a \textbf{PDF}.
+
+\textbf{Important remark:}\\
+The author of the report and all participated team members have to be named!
+
+\section{Documentation}
+\label{sec:work:docu}
+The project team will deliver the following documents:
+\begin{itemize}
+	\item Project manual (\texttt{/doc/pm})
+	\item Technical drawing of hardware (\texttt{/doc/se})
+	\item Bill of materials (\texttt{/doc/se})
+	\item Software structure \& concept (\texttt{/doc/se})
+	\item Testing concept for sensors (\texttt{/doc/se})
+	\item User manual of project (\texttt{/doc/se})
+\end{itemize}
+All documents will be created during the development. The project team will keep the content of the documentation as close as possible to the actual progress of development.
+
+\section{Team communication}
+\label{sec:work:comm}
+
+\subsection{Meetings}
+The project team will have \textbf{meeting on a weekly basis}, on fridays. The progress of the current week will be discussed. Problems will be clarified and - if needed - the project plan will be adapted to the latest occurrences.
+
+\subsection{Code reviewing}
+Additionally, whenever a task for software implementation will be near to 'completed' the \textbf{source code} will be \textbf{reviewed} by another team member to ensure the software quality and style guide conformity.
+
+\section{Groupware conventions}
+\label{sec:work:groupware}
+
+\subsection{Folder structure in SVN}
+\label{sec:work:groupware:svn_folders}
+For version controlling, the subversion system shall be used. Every team member will regard the following given folder structure in order to keep a structured and organized working flow.
+\dirtree{%
+.1 /.
+.2 doc\DTcomment{\textbf{Finalized documentation}}.
+.3 pm\DTcomment{Documentation regarding project management}.
+.4 sources\DTcomment{LaTex sources of all documents in \texttt{/doc/pm}}.
+.3 se\DTcomment{Documentation regarding system engineering}.
+.4 sources\DTcomment{LaTex sources of all documents in \texttt{/doc/se}}.
+.2 impl\DTcomment{\textbf{Source code}}.
+.3 branch\DTcomment{Container for parallel development lines to trunk}.
+.3 tag\DTcomment{Finalized and stable software}.
+.3 trunk\DTcomment{Current development line}.
+.4 app\DTcomment{Application Layer Software}.
+.4 hal\DTcomment{Hardware Abstraction Layer Software}.
+.4 sig\DTcomment{Signal Processing Layer Software}.
+.2 scratch\DTcomment{\textbf{Documents or files in progress, excluding source code}}.
+.3 doc\_template\DTcomment{Templates for documentation files (mainly LaTex)}.
+.3 meetings\DTcomment{Meeting reports and meeting template}.
+.2 sys\DTcomment{\textbf{Firmwares, OS and development environment}}.
+.3 RPi\DTcomment{Preconfigured firmware(s) for Raspberry Pi}.
+.3 VM\DTcomment{Development VM for Desktop with all IDEs preconfigured}.
+}
+
+\newpage
+Within the folders 
+\begin{itemize}
+	\item \texttt{/impl/trunk/app}
+	\item \texttt{/impl/trunk/hal}
+	\item \texttt{/impl/trunk/sig}
+\end{itemize}
+a subfolder for each functional unit shall be created. The functional units shall be considered as depicted in \texttt{/doc/se/software\_concept.pdf}. Example:
+\dirtree{%
+.1 /.
+.2 impl.
+.3 trunk.
+.4 hal.
+.5 adc.
+.5 gps.
+.5 gyro.
+}
+
+\subsection{Storing test files}
+\label{sec:work:groupware:test}
+For each software component, a separate test should be written to ensure the software quality. All source code files and test data files to run a test shall be saved in a separate subfolder named \texttt{tst}. Example:
+\dirtree{%
+.1 /.
+.2 impl.
+.3 trunk.
+.4 hal.
+.5 gps.
+.6 tst\DTcomment{contains data \& code to test the module 'gps'}.
+.7 test\_data.dump.
+.7 helper\_code.c.
+.7 helper\_code.h.
+.7 test\_main.c.
+.6 gps.c\DTcomment{actual source of module 'gps'}.
+.6 gps.h\DTcomment{actual interfaces of module 'gps'}.
+}
+
+
+\textbf{Important note:}\\
+The \texttt{tst}-folder will \textbf{not} be moved to the tags folders! All data in \texttt{/imp/tags} is considered to be well tested and stable. Therefore, the test data is not required to move.
