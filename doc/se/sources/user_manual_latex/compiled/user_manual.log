@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.9)  15 SEP 2015 14:18
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.9)  8 OCT 2015 15:34
 entering extended mode
 **user_manual.tex
 (C:\Users\Agrawal\work\workspace\helikopter\helikopter-raspberry\doc\se\sources\user_manual_latex\user_manual.tex
@@ -6787,6 +6787,10 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 83.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 83.
 Package rerunfilecheck Info: File `user_manual.out' has not changed.
 (rerunfilecheck)             Checksum: 9D367E2331541FF050716F9A0C51E464;6276.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
  21208 strings out of 493921
@@ -6836,7 +6840,7 @@ Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Program Files (x86
 public/lm/lmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmtt12.pfb><C:/Program Files (x86)/MiKTeX 
 2.9/fonts/type1/public/lm/lmtti10.pfb>
 Output written on C:/Users/Agrawal/work/workspace/helikopter/helikopter-raspberry/doc/se/sources/user_manual_latex/outpu
-t/user_manual.pdf (146 pages, 21252698 bytes).
+t/user_manual.pdf (146 pages, 21252448 bytes).
 PDF statistics:
  7708 PDF objects out of 8907 (max. 8388607)
  1882 named destinations out of 2073 (max. 500000)

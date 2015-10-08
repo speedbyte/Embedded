@@ -11,14 +11,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=944
-NormalPos.bottom=678
+NormalPos.right=1562
+NormalPos.bottom=559
 Class=LaTeXView
 Document=I2C_adressing.tex
 
 [Frame0_View0,0]
-TopLine=0
-Cursor=823
+TopLine=19
+Cursor=996
 
 [Frame1]
 Flags=0
@@ -29,8 +29,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=944
-NormalPos.bottom=678
+NormalPos.right=1562
+NormalPos.bottom=559
 Class=LaTeXView
 Document=chapters\ch-main.tex
 
@@ -40,5 +40,5 @@ Cursor=2303
 
 [SessionInfo]
 FrameCount=2
-ActiveFrame=1
+ActiveFrame=0
 

@@ -1,0 +1,19 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}I$^2$C}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}ADC /MB}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Read}{1}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Write}{2}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Read conversion register}{2}{subsection.1.1.3}
+\contentsline {section}{\numberline {1.2}Inertial Measurement Unit IMU}{2}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Acceleration and Magnet Sensor}{2}{subsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.1.1}Read}{3}{subsubsection.1.2.1.1}
+\contentsline {subsubsection}{\numberline {1.2.1.2}Write}{4}{subsubsection.1.2.1.2}
+\contentsline {subsection}{\numberline {1.2.2}Gyroscope Sensor}{4}{subsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.2.1}Read}{5}{subsubsection.1.2.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2.2}Write}{5}{subsubsection.1.2.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Pressure Sensor}{6}{subsection.1.2.3}
+\contentsline {subsubsection}{\numberline {1.2.3.1}Read}{6}{subsubsection.1.2.3.1}
+\contentsline {subsubsection}{\numberline {1.2.3.2}Write}{7}{subsubsection.1.2.3.2}
+\contentsline {section}{\numberline {1.3}Motor Driver}{8}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Read}{8}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Write}{8}{subsection.1.3.2}
