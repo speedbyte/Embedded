@@ -58,6 +58,9 @@ This section shows all necessary transmissions which are needed for a successful
 %\textbf{I$^2$C slave adress:\\
 \textbf{I$^2$C slave address}: \texttt{0b1001001 (0x49)}
 
+\subsubsection{Read}
+\label{subsec:ADCread}
+
 The read command get's the data from the address, which is stored in the pointer register (blue color). See figure \ref{fig:ADC1}
 
 \begin{figure}[H]
@@ -66,12 +69,18 @@ The read command get's the data from the address, which is stored in the pointer
 	\label{fig:ADC1}
 \end{figure}
 
+\subsubsection{Write}
+\label{subsec:ADCwrite}
+
+
 \begin{figure}[H]
 	\centering\includegraphics[width=0.7\textwidth]{fig/I2C_Adressing/ADC_write}
 	\caption{Scheme to write data to the ADC}
 	\label{fig:ADC2}
 \end{figure}
 
+\subsubsection{Read conversion register}
+\label{subsec:ADCconversion}
 To enable a read from a conversion register, several packages need to be sent. They can be seen in figure \ref{fig:ADC3}. All slave and master acknowledges are not shown because they are handled direct by the interface and so not important for the application.
 
 \begin{figure}[H]
@@ -92,6 +101,10 @@ The Inertial measurement unit (IMU) has three different chips mounted. Each chip
 
 There are several registers which have to be configured before reading and also several register where the acceleration, magnetic strength and if needed temperature can be read. To reduce the amount of pages of this document, they will be not listed here. All the registers can be found in the datasheet \texttt{IMU\_LSM303D.pdf}, stored in the SVN directory \texttt{/doc/se/Datasheets/IMU}.
 
+
+\subsubsection{Read}
+\label{subsubsec:ACCread}
+
 \begin{figure}[H]
 	\centering\includegraphics[width=0.7\textwidth]{fig/I2C_Adressing/ACC_read_single}
 	\caption{Transmission scheme for a single byte read of the ACC-Sensor}
@@ -106,6 +119,9 @@ There are several registers which have to be configured before reading and also 
 
 \textbf{1. Transmission}: Slave address including RW bit ('0'): \texttt{0x3C}\\
 \textbf{2. Transmission}: Slave address including RW bit ('1'): \texttt{0x3D}
+
+\subsubsection{Write}
+\label{subsubsec:ACCwrite}
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.55\textwidth]{fig/I2C_Adressing/ACC_write_single}
@@ -129,6 +145,9 @@ There are several registers which have to be configured before reading and also 
 
 There are several registers which have to be configured before reading and also several register where the rotational speed and if needed the temperature can be read. To reduce the amount of pages of this document, they will be not listed here. All the registers can be found in the datasheet \texttt{IMU\_L3GD20H.pdf}, which is stored in the SVN directory \texttt{\textbackslash{}doc\textbackslash{}se\textbackslash{}Datasheets\textbackslash{}IMU}.
 
+\subsubsection{Read}
+\label{subsubsec:Gyroread}
+
 \begin{figure}[H]
 	\centering\includegraphics[width=0.7\textwidth]{fig/I2C_Adressing/ACC_read_single}
 	\caption{Transmission scheme for a single byte read of the Gyro-Sensor}
@@ -143,6 +162,9 @@ There are several registers which have to be configured before reading and also 
 
 \textbf{1.Transmission}: Slave address including RW bit ('0'): \texttt{0xD4}\\
 \textbf{2.Transmission}: Slave address including RW bit ('1'): \texttt{0xD5}
+
+\subsubsection{Write}
+\label{subsubsec:Gyrowrite}
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.55\textwidth]{fig/I2C_Adressing/ACC_write_single}
@@ -165,6 +187,9 @@ There are several registers which have to be configured before reading and also 
 
 There are several registers which have to be configured before reading and also several register where the pressure and if needed the temperature can be read. To reduce the amount of pages of this document, they will be not listed here. All the registers can be found in the datasheet \texttt{IMU\_LPS331AP.pdf}, which is stored in the SVN directory \texttt{\textbackslash{}doc\textbackslash{}se\textbackslash{}Datasheets\textbackslash{}IMU}.
 
+\subsubsection{Read}
+\label{subsubsec:Pressureread}
+
 \begin{figure}[H]
 	\centering\includegraphics[width=0.7\textwidth]{fig/I2C_Adressing/ACC_read_single}
 	\caption[Scheme for a single byte read of the Pressure-Sensor]{Transmission scheme for a single byte read of the Pressure-Sensor}
@@ -180,6 +205,8 @@ There are several registers which have to be configured before reading and also 
 \textbf{1.Transmission}: Slave address including RW bit ('0'): \texttt{0xB8}\\
 \textbf{2.Transmission}: Slave address including RW bit ('1'): \texttt{0xB9}
 
+\subsubsection{Write}
+\label{subsubsec:Pressurewrite}
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.55\textwidth]{fig/I2C_Adressing/ACC_write_single}
@@ -208,7 +235,13 @@ Motor 2  --> \texttt{0b0101010 (0x2A)}\\
 Motor 3  --> \texttt{0b0101011 (0x2B)}\\
 Motor 4  --> \texttt{0b0101100 (0x2C)}}
 
+\subsection{Read}
+\label{subsec:Motorread}
+
 \textbf{Read operations}: NOT DEFINED	
+
+\subsection{Write}
+\label{subsec:Motorwrite}
 
 \textbf{Write operations}:
 
@@ -227,6 +260,8 @@ Motor 1 --> \texttt{0x52}\\
 Motor 2 --> \texttt{0x54}\\
 Motor 3 --> \texttt{0x56}\\
 Motor 4 --> \texttt{0x58}}
+
+\textbf{Possible Data values are in the range of 10 (Decimal) up to 255 (Decimal). So in the range from 0x0A to 0xFF.}
 
 \end{itemize}
 
@@ -335,3 +370,63 @@ For this project, the parts nedded for the Raspberry Pi Platform has been ordere
     \caption{Bill of materials, part 3}
     \label{fig:hardware:BillOfMat:3}
 \end{figure}
+
+\chapter{Individual parts}
+\label{sec:parts}
+
+\section{Raspberry Pi B+}
+\label{sec:goals:rpib}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig/ch-rpi-hardware/A4_tech_draw_topview_rpi}
+    \caption{Raspberry Pi B+ (topview)}
+    \label{fig:parts:rpi_topview}
+\end{figure}
+
+\newpage
+\section{Adafruit GPS Hat}
+\label{sec:goals:gpshat}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig/ch-rpi-hardware/A4_tech_draw_topview_gpshat}
+    \caption{Adafruit GPS Hat}
+    \label{fig:parts:gps_topview}
+\end{figure}
+
+\newpage
+\section{Polulu AltIMU v4}
+\label{sec:goals:altimu}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig/ch-rpi-hardware/A4_tech_draw_topview_imu}
+    \caption{Polulu AltIMU v4}
+    \label{fig:parts:imu_topview}
+\end{figure}
+
+\newpage
+\section{Adafruit 12bit ADC over I2C}
+\label{sec:goals:adc}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig/ch-rpi-hardware/A4_tech_draw_topview_adc}
+    \caption{Adafruit 12bit ADC over I2C}
+    \label{fig:parts:adc_topview}
+\end{figure}
+
+%--------------------------------------------
+% Chapter: ASSEMBLY
+%--------------------------------------------
+\chapter{Assembly}
+\label{sec:assemb}
+
+\section{Placing ADC and IMU on GPS Hat}
+\label{sec:assemb:sensorsOnHat}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig/ch-rpi-hardware/A4_tech_draw_topview_sensor_mountingPositions}
+    \caption{Placing ADC and IMU on GPS Hat}
+    \label{fig:assemb:sensorMount}
+\end{figure}
+
+\section{Wedding of GPS Hat and Raspberry Pi B+}
+\label{sec:assemb:wedding}

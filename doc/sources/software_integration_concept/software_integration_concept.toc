@@ -1,5 +1,0 @@
-\select@language {english}
-\contentsline {chapter}{\numberline {1}Feasibility analysis}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Requirements for current Raspberry Pi implementation}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Findings on current code branch}{1}{section.1.2}
-\contentsline {section}{\numberline {1.3}Conclusion}{1}{section.1.3}

@@ -1,9 +1,0 @@
-\select@language {english}
-\contentsline {chapter}{\numberline {1}Individual parts}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Raspberry Pi B+}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Adafruit GPS Hat}{2}{section.1.2}
-\contentsline {section}{\numberline {1.3}Polulu AltIMU v4}{3}{section.1.3}
-\contentsline {section}{\numberline {1.4}Adafruit 12bit ADC over I2C}{4}{section.1.4}
-\contentsline {chapter}{\numberline {2}Assembly}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}Placing ADC and IMU on GPS Hat}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Wedding of GPS Hat and Raspberry Pi B+}{5}{section.2.2}

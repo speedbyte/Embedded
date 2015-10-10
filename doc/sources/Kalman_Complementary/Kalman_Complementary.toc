@@ -1,5 +1,0 @@
-\select@language {english}
-\contentsline {chapter}{\numberline {1}Introduction Sensor Fusion}{1}{chapter.1}
-\contentsline {chapter}{\numberline {2}Complementary-Filter}{3}{chapter.2}
-\contentsline {chapter}{\numberline {3}Kalman-Filter}{4}{chapter.3}
-\contentsline {chapter}{Bibliography}{7}{appendix*.8}

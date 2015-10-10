@@ -11,14 +11,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1893
-NormalPos.bottom=610
+NormalPos.right=1562
+NormalPos.bottom=559
 Class=LaTeXView
 Document=latex\refman.tex
 
 [Frame0_View0,0]
-TopLine=335
-Cursor=9181
+TopLine=0
+Cursor=30
 
 [SessionInfo]
 FrameCount=1
