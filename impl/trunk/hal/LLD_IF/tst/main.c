@@ -1,11 +1,15 @@
 /*!
  * \file main.c
  */
-/*
- * main.cpp
+/* \date 27/10/2015
+ * \author Vikas Agrawal
+ * \brief This function is a test function to test if the GPS values can be acquired over UART and saved into a file
+ * \details
+ * \param[in]
+ * \param[out]
+ * \internal
+ * \endinternal
  *
- *  Created on: 29.03.2015
- *      Author: user
  */
 
 #include <stdio.h>

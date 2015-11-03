@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include "HAL_ADC.h"
 
+extern float g_halADC_get_ui16(unsigned char );
+
+
 int main() {
   
   float erg;
