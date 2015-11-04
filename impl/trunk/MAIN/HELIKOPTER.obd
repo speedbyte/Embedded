@@ -9,260 +9,898 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   2 .note.gnu.build-id 00000024  00008170  00008170  00000170  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .hash         00000034  00008194  00008194  00000194  2**2
+  3 .hash         00000048  00008194  00008194  00000194  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  4 .dynsym       00000080  000081c8  000081c8  000001c8  2**2
+  4 .dynsym       000000d0  000081dc  000081dc  000001dc  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .dynstr       000000b4  00008248  00008248  00000248  2**0
+  5 .dynstr       000000d0  000082ac  000082ac  000002ac  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  6 .gnu.version  00000010  000082fc  000082fc  000002fc  2**1
+  6 .gnu.version  0000001a  0000837c  0000837c  0000037c  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .gnu.version_r 00000020  0000830c  0000830c  0000030c  2**2
+  7 .gnu.version_r 00000020  00008398  00008398  00000398  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .rel.dyn      00000008  0000832c  0000832c  0000032c  2**2
+  8 .rel.dyn      00000008  000083b8  000083b8  000003b8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  9 .rel.plt      00000020  00008334  00008334  00000334  2**2
+  9 .rel.plt      00000048  000083c0  000083c0  000003c0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
- 10 .init         0000000c  00008354  00008354  00000354  2**2
+ 10 .init         0000000c  00008408  00008408  00000408  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 11 .plt          00000044  00008360  00008360  00000360  2**2
+ 11 .plt          00000080  00008414  00008414  00000414  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 12 .text         000001e8  000083a4  000083a4  000003a4  2**2
+ 12 .text         0000072c  00008498  00008498  00000498  2**3
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 13 .fini         00000008  0000858c  0000858c  0000058c  2**2
+ 13 .fini         00000008  00008bc4  00008bc4  00000bc4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 14 .rodata       0000001c  00008594  00008594  00000594  2**2
+ 14 .rodata       00000034  00008bcc  00008bcc  00000bcc  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
- 15 .ARM.exidx    00000008  000085b0  000085b0  000005b0  2**2
+ 15 .ARM.exidx    00000008  00008c00  00008c00  00000c00  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
- 16 .eh_frame     00000004  000085b8  000085b8  000005b8  2**2
+ 16 .eh_frame     00000004  00008c08  00008c08  00000c08  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
- 17 .init_array   00000004  000105bc  000105bc  000005bc  2**2
+ 17 .init_array   00000004  00010c0c  00010c0c  00000c0c  2**2
                   CONTENTS, ALLOC, LOAD, DATA
- 18 .fini_array   00000004  000105c0  000105c0  000005c0  2**2
+ 18 .fini_array   00000004  00010c10  00010c10  00000c10  2**2
                   CONTENTS, ALLOC, LOAD, DATA
- 19 .jcr          00000004  000105c4  000105c4  000005c4  2**2
+ 19 .jcr          00000004  00010c14  00010c14  00000c14  2**2
                   CONTENTS, ALLOC, LOAD, DATA
- 20 .dynamic      00000100  000105c8  000105c8  000005c8  2**2
+ 20 .dynamic      00000100  00010c18  00010c18  00000c18  2**2
                   CONTENTS, ALLOC, LOAD, DATA
- 21 .got          00000020  000106c8  000106c8  000006c8  2**2
+ 21 .got          00000034  00010d18  00010d18  00000d18  2**2
                   CONTENTS, ALLOC, LOAD, DATA
- 22 .data         00000008  000106e8  000106e8  000006e8  2**2
+ 22 .data         00000008  00010d4c  00010d4c  00000d4c  2**2
                   CONTENTS, ALLOC, LOAD, DATA
- 23 .bss          00000004  000106f0  000106f0  000006f0  2**0
+ 23 .bss          00000004  00010d54  00010d54  00000d54  2**0
                   ALLOC
- 24 .comment      0000005b  00000000  00000000  000006f0  2**0
+ 24 .comment      0000005b  00000000  00000000  00000d54  2**0
                   CONTENTS, READONLY
- 25 .ARM.attributes 00000031  00000000  00000000  0000074b  2**0
+ 25 .ARM.attributes 00000031  00000000  00000000  00000daf  2**0
                   CONTENTS, READONLY
- 26 .debug_aranges 00000020  00000000  00000000  0000077c  2**0
+ 26 .debug_aranges 00000060  00000000  00000000  00000de0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 27 .debug_info   000000ad  00000000  00000000  0000079c  2**0
+ 27 .debug_info   000004f2  00000000  00000000  00000e40  2**0
                   CONTENTS, READONLY, DEBUGGING
- 28 .debug_abbrev 00000056  00000000  00000000  00000849  2**0
+ 28 .debug_abbrev 000001b7  00000000  00000000  00001332  2**0
                   CONTENTS, READONLY, DEBUGGING
- 29 .debug_line   00000403  00000000  00000000  0000089f  2**0
+ 29 .debug_line   00000d12  00000000  00000000  000014e9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 30 .debug_frame  00000030  00000000  00000000  00000ca4  2**2
+ 30 .debug_frame  000000f0  00000000  00000000  000021fc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 31 .debug_str    00005bb2  00000000  00000000  00000cd4  2**0
+ 31 .debug_str    000069bf  00000000  00000000  000022ec  2**0
                   CONTENTS, READONLY, DEBUGGING
- 32 .debug_macro  000018a0  00000000  00000000  00006886  2**0
+ 32 .debug_macro  0000209e  00000000  00000000  00008cab  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .init:
 
-00008354 <_init>:
-    8354:	e92d4008 	push	{r3, lr}
-    8358:	eb000020 	bl	83e0 <call_gmon_start>
-    835c:	e8bd8008 	pop	{r3, pc}
+00008408 <_init>:
+    8408:	e92d4008 	push	{r3, lr}
+    840c:	eb000030 	bl	84d4 <call_gmon_start>
+    8410:	e8bd8008 	pop	{r3, pc}
 
 Disassembly of section .plt:
 
-00008360 <.plt>:
-    8360:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
-    8364:	e59fe004 	ldr	lr, [pc, #4]	; 8370 <_init+0x1c>
-    8368:	e08fe00e 	add	lr, pc, lr
-    836c:	e5bef008 	ldr	pc, [lr, #8]!
-    8370:	00008358 	.word	0x00008358
-    8374:	e28fc600 	add	ip, pc, #0, 12
-    8378:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
-    837c:	e5bcf358 	ldr	pc, [ip, #856]!	; 0x358
-    8380:	e28fc600 	add	ip, pc, #0, 12
-    8384:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
-    8388:	e5bcf350 	ldr	pc, [ip, #848]!	; 0x350
-    838c:	e28fc600 	add	ip, pc, #0, 12
-    8390:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
-    8394:	e5bcf348 	ldr	pc, [ip, #840]!	; 0x348
-    8398:	e28fc600 	add	ip, pc, #0, 12
-    839c:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
-    83a0:	e5bcf340 	ldr	pc, [ip, #832]!	; 0x340
+00008414 <.plt>:
+    8414:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+    8418:	e59fe004 	ldr	lr, [pc, #4]	; 8424 <_init+0x1c>
+    841c:	e08fe00e 	add	lr, pc, lr
+    8420:	e5bef008 	ldr	pc, [lr, #8]!
+    8424:	000088f4 	.word	0x000088f4
+    8428:	e28fc600 	add	ip, pc, #0, 12
+    842c:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8430:	e5bcf8f4 	ldr	pc, [ip, #2292]!	; 0x8f4
+    8434:	e28fc600 	add	ip, pc, #0, 12
+    8438:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    843c:	e5bcf8ec 	ldr	pc, [ip, #2284]!	; 0x8ec
+    8440:	e28fc600 	add	ip, pc, #0, 12
+    8444:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8448:	e5bcf8e4 	ldr	pc, [ip, #2276]!	; 0x8e4
+    844c:	e28fc600 	add	ip, pc, #0, 12
+    8450:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8454:	e5bcf8dc 	ldr	pc, [ip, #2268]!	; 0x8dc
+    8458:	e28fc600 	add	ip, pc, #0, 12
+    845c:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8460:	e5bcf8d4 	ldr	pc, [ip, #2260]!	; 0x8d4
+    8464:	e28fc600 	add	ip, pc, #0, 12
+    8468:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    846c:	e5bcf8cc 	ldr	pc, [ip, #2252]!	; 0x8cc
+    8470:	e28fc600 	add	ip, pc, #0, 12
+    8474:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8478:	e5bcf8c4 	ldr	pc, [ip, #2244]!	; 0x8c4
+    847c:	e28fc600 	add	ip, pc, #0, 12
+    8480:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8484:	e5bcf8bc 	ldr	pc, [ip, #2236]!	; 0x8bc
+    8488:	e28fc600 	add	ip, pc, #0, 12
+    848c:	e28cca08 	add	ip, ip, #8, 20	; 0x8000
+    8490:	e5bcf8b4 	ldr	pc, [ip, #2228]!	; 0x8b4
 
 Disassembly of section .text:
 
-000083a4 <_start>:
-    83a4:	e3a0b000 	mov	fp, #0
-    83a8:	e3a0e000 	mov	lr, #0
-    83ac:	e49d1004 	pop	{r1}		; (ldr r1, [sp], #4)
-    83b0:	e1a0200d 	mov	r2, sp
-    83b4:	e52d2004 	push	{r2}		; (str r2, [sp, #-4]!)
-    83b8:	e52d0004 	push	{r0}		; (str r0, [sp, #-4]!)
-    83bc:	e59fc010 	ldr	ip, [pc, #16]	; 83d4 <_start+0x30>
-    83c0:	e52dc004 	push	{ip}		; (str ip, [sp, #-4]!)
-    83c4:	e59f000c 	ldr	r0, [pc, #12]	; 83d8 <_start+0x34>
-    83c8:	e59f300c 	ldr	r3, [pc, #12]	; 83dc <_start+0x38>
-    83cc:	ebffffeb 	bl	8380 <_init+0x2c>
-    83d0:	ebffffe7 	bl	8374 <_init+0x20>
-    83d4:	00008588 	.word	0x00008588
-    83d8:	000084c8 	.word	0x000084c8
-    83dc:	00008528 	.word	0x00008528
+00008498 <_start>:
+    8498:	e3a0b000 	mov	fp, #0
+    849c:	e3a0e000 	mov	lr, #0
+    84a0:	e49d1004 	pop	{r1}		; (ldr r1, [sp], #4)
+    84a4:	e1a0200d 	mov	r2, sp
+    84a8:	e52d2004 	push	{r2}		; (str r2, [sp, #-4]!)
+    84ac:	e52d0004 	push	{r0}		; (str r0, [sp, #-4]!)
+    84b0:	e59fc010 	ldr	ip, [pc, #16]	; 84c8 <_start+0x30>
+    84b4:	e52dc004 	push	{ip}		; (str ip, [sp, #-4]!)
+    84b8:	e59f000c 	ldr	r0, [pc, #12]	; 84cc <_start+0x34>
+    84bc:	e59f300c 	ldr	r3, [pc, #12]	; 84d0 <_start+0x38>
+    84c0:	ebffffde 	bl	8440 <_init+0x38>
+    84c4:	ebffffda 	bl	8434 <_init+0x2c>
+    84c8:	00008bc0 	.word	0x00008bc0
+    84cc:	000085bc 	.word	0x000085bc
+    84d0:	00008b60 	.word	0x00008b60
 
-000083e0 <call_gmon_start>:
-    83e0:	e59f3014 	ldr	r3, [pc, #20]	; 83fc <call_gmon_start+0x1c>
-    83e4:	e59f2014 	ldr	r2, [pc, #20]	; 8400 <call_gmon_start+0x20>
-    83e8:	e08f3003 	add	r3, pc, r3
-    83ec:	e7933002 	ldr	r3, [r3, r2]
-    83f0:	e3530000 	cmp	r3, #0
-    83f4:	012fff1e 	bxeq	lr
-    83f8:	eaffffe3 	b	838c <_init+0x38>
-    83fc:	000082d8 	.word	0x000082d8
-    8400:	0000001c 	.word	0x0000001c
+000084d4 <call_gmon_start>:
+    84d4:	e59f3014 	ldr	r3, [pc, #20]	; 84f0 <call_gmon_start+0x1c>
+    84d8:	e59f2014 	ldr	r2, [pc, #20]	; 84f4 <call_gmon_start+0x20>
+    84dc:	e08f3003 	add	r3, pc, r3
+    84e0:	e7933002 	ldr	r3, [r3, r2]
+    84e4:	e3530000 	cmp	r3, #0
+    84e8:	012fff1e 	bxeq	lr
+    84ec:	eaffffd6 	b	844c <_init+0x44>
+    84f0:	00008834 	.word	0x00008834
+    84f4:	00000030 	.word	0x00000030
 
-00008404 <deregister_tm_clones>:
-    8404:	e59f301c 	ldr	r3, [pc, #28]	; 8428 <deregister_tm_clones+0x24>
-    8408:	e59f001c 	ldr	r0, [pc, #28]	; 842c <deregister_tm_clones+0x28>
-    840c:	e0603003 	rsb	r3, r0, r3
-    8410:	e3530006 	cmp	r3, #6
-    8414:	912fff1e 	bxls	lr
-    8418:	e59f3010 	ldr	r3, [pc, #16]	; 8430 <deregister_tm_clones+0x2c>
-    841c:	e3530000 	cmp	r3, #0
-    8420:	012fff1e 	bxeq	lr
-    8424:	e12fff13 	bx	r3
-    8428:	000106f3 	.word	0x000106f3
-    842c:	000106f0 	.word	0x000106f0
-    8430:	00000000 	.word	0x00000000
+000084f8 <deregister_tm_clones>:
+    84f8:	e59f301c 	ldr	r3, [pc, #28]	; 851c <deregister_tm_clones+0x24>
+    84fc:	e59f001c 	ldr	r0, [pc, #28]	; 8520 <deregister_tm_clones+0x28>
+    8500:	e0603003 	rsb	r3, r0, r3
+    8504:	e3530006 	cmp	r3, #6
+    8508:	912fff1e 	bxls	lr
+    850c:	e59f3010 	ldr	r3, [pc, #16]	; 8524 <deregister_tm_clones+0x2c>
+    8510:	e3530000 	cmp	r3, #0
+    8514:	012fff1e 	bxeq	lr
+    8518:	e12fff13 	bx	r3
+    851c:	00010d57 	.word	0x00010d57
+    8520:	00010d54 	.word	0x00010d54
+    8524:	00000000 	.word	0x00000000
 
-00008434 <register_tm_clones>:
-    8434:	e59f3024 	ldr	r3, [pc, #36]	; 8460 <register_tm_clones+0x2c>
-    8438:	e59f0024 	ldr	r0, [pc, #36]	; 8464 <register_tm_clones+0x30>
-    843c:	e0603003 	rsb	r3, r0, r3
-    8440:	e1a03143 	asr	r3, r3, #2
-    8444:	e0833fa3 	add	r3, r3, r3, lsr #31
-    8448:	e1b010c3 	asrs	r1, r3, #1
-    844c:	012fff1e 	bxeq	lr
-    8450:	e59f2010 	ldr	r2, [pc, #16]	; 8468 <register_tm_clones+0x34>
-    8454:	e3520000 	cmp	r2, #0
-    8458:	012fff1e 	bxeq	lr
-    845c:	e12fff12 	bx	r2
-    8460:	000106f0 	.word	0x000106f0
-    8464:	000106f0 	.word	0x000106f0
-    8468:	00000000 	.word	0x00000000
+00008528 <register_tm_clones>:
+    8528:	e59f3024 	ldr	r3, [pc, #36]	; 8554 <register_tm_clones+0x2c>
+    852c:	e59f0024 	ldr	r0, [pc, #36]	; 8558 <register_tm_clones+0x30>
+    8530:	e0603003 	rsb	r3, r0, r3
+    8534:	e1a03143 	asr	r3, r3, #2
+    8538:	e0833fa3 	add	r3, r3, r3, lsr #31
+    853c:	e1b010c3 	asrs	r1, r3, #1
+    8540:	012fff1e 	bxeq	lr
+    8544:	e59f2010 	ldr	r2, [pc, #16]	; 855c <register_tm_clones+0x34>
+    8548:	e3520000 	cmp	r2, #0
+    854c:	012fff1e 	bxeq	lr
+    8550:	e12fff12 	bx	r2
+    8554:	00010d54 	.word	0x00010d54
+    8558:	00010d54 	.word	0x00010d54
+    855c:	00000000 	.word	0x00000000
 
-0000846c <__do_global_dtors_aux>:
-    846c:	e92d4010 	push	{r4, lr}
-    8470:	e59f4018 	ldr	r4, [pc, #24]	; 8490 <__do_global_dtors_aux+0x24>
-    8474:	e5d43000 	ldrb	r3, [r4]
-    8478:	e3530000 	cmp	r3, #0
-    847c:	18bd8010 	popne	{r4, pc}
-    8480:	ebffffdf 	bl	8404 <deregister_tm_clones>
-    8484:	e3a03001 	mov	r3, #1
-    8488:	e5c43000 	strb	r3, [r4]
-    848c:	e8bd8010 	pop	{r4, pc}
-    8490:	000106f0 	.word	0x000106f0
+00008560 <__do_global_dtors_aux>:
+    8560:	e92d4010 	push	{r4, lr}
+    8564:	e59f4018 	ldr	r4, [pc, #24]	; 8584 <__do_global_dtors_aux+0x24>
+    8568:	e5d43000 	ldrb	r3, [r4]
+    856c:	e3530000 	cmp	r3, #0
+    8570:	18bd8010 	popne	{r4, pc}
+    8574:	ebffffdf 	bl	84f8 <deregister_tm_clones>
+    8578:	e3a03001 	mov	r3, #1
+    857c:	e5c43000 	strb	r3, [r4]
+    8580:	e8bd8010 	pop	{r4, pc}
+    8584:	00010d54 	.word	0x00010d54
 
-00008494 <frame_dummy>:
-    8494:	e59f0024 	ldr	r0, [pc, #36]	; 84c0 <frame_dummy+0x2c>
-    8498:	e92d4008 	push	{r3, lr}
-    849c:	e5903000 	ldr	r3, [r0]
-    84a0:	e3530000 	cmp	r3, #0
-    84a4:	0a000003 	beq	84b8 <frame_dummy+0x24>
-    84a8:	e59f3014 	ldr	r3, [pc, #20]	; 84c4 <frame_dummy+0x30>
-    84ac:	e3530000 	cmp	r3, #0
-    84b0:	0a000000 	beq	84b8 <frame_dummy+0x24>
-    84b4:	e12fff33 	blx	r3
-    84b8:	e8bd4008 	pop	{r3, lr}
-    84bc:	eaffffdc 	b	8434 <register_tm_clones>
-    84c0:	000105c4 	.word	0x000105c4
-    84c4:	00000000 	.word	0x00000000
+00008588 <frame_dummy>:
+    8588:	e59f0024 	ldr	r0, [pc, #36]	; 85b4 <frame_dummy+0x2c>
+    858c:	e92d4008 	push	{r3, lr}
+    8590:	e5903000 	ldr	r3, [r0]
+    8594:	e3530000 	cmp	r3, #0
+    8598:	0a000003 	beq	85ac <frame_dummy+0x24>
+    859c:	e59f3014 	ldr	r3, [pc, #20]	; 85b8 <frame_dummy+0x30>
+    85a0:	e3530000 	cmp	r3, #0
+    85a4:	0a000000 	beq	85ac <frame_dummy+0x24>
+    85a8:	e12fff33 	blx	r3
+    85ac:	e8bd4008 	pop	{r3, lr}
+    85b0:	eaffffdc 	b	8528 <register_tm_clones>
+    85b4:	00010c14 	.word	0x00010c14
+    85b8:	00000000 	.word	0x00000000
 
-000084c8 <main>:
+000085bc <main>:
 #include <stdio.h>
 #include "../hal/ADC/HAL_ADC.h"
 #include <stdlib.h>
 
 
 int main() {
-    84c8:	e92d4800 	push	{fp, lr}
-    84cc:	e28db004 	add	fp, sp, #4
-    84d0:	e24dd008 	sub	sp, sp, #8
+    85bc:	e92d4800 	push	{fp, lr}
+    85c0:	e28db004 	add	fp, sp, #4
+    85c4:	e24dd008 	sub	sp, sp, #8
 
   float erg=0;
-    84d4:	e3a03000 	mov	r3, #0
-    84d8:	e50b3008 	str	r3, [fp, #-8]
+    85c8:	e3a03000 	mov	r3, #0
+    85cc:	e50b3008 	str	r3, [fp, #-8]
 
-  //erg = g_halADC_get_ui16(1);
+  erg = g_halADC_get_ui16(1);
+    85d0:	e3a00001 	mov	r0, #1
+    85d4:	eb000013 	bl	8628 <g_halADC_get_ui16>
+    85d8:	ed0b0a02 	vstr	s0, [fp, #-8]
   if(erg<0)
-    84dc:	ed5b7a02 	vldr	s15, [fp, #-8]
-    84e0:	eef57ac0 	vcmpe.f32	s15, #0.0
-    84e4:	eef1fa10 	vmrs	APSR_nzcv, fpscr
-    84e8:	5a000003 	bpl	84fc <main+0x34>
+    85dc:	ed5b7a02 	vldr	s15, [fp, #-8]
+    85e0:	eef57ac0 	vcmpe.f32	s15, #0.0
+    85e4:	eef1fa10 	vmrs	APSR_nzcv, fpscr
+    85e8:	5a000003 	bpl	85fc <main+0x40>
 	{
 	printf("Fehler");
-    84ec:	e59f002c 	ldr	r0, [pc, #44]	; 8520 <main+0x58>
-    84f0:	ebffffa8 	bl	8398 <_init+0x44>
+    85ec:	e59f002c 	ldr	r0, [pc, #44]	; 8620 <main+0x64>
+    85f0:	ebffffa1 	bl	847c <_init+0x74>
 	return 1;
-    84f4:	e3a03001 	mov	r3, #1
-    84f8:	ea000005 	b	8514 <main+0x4c>
+    85f4:	e3a03001 	mov	r3, #1
+    85f8:	ea000005 	b	8614 <main+0x58>
 	}
   else
 	{
   printf("Ergebniss: %f\n",erg);
-    84fc:	ed5b7a02 	vldr	s15, [fp, #-8]
-    8500:	eeb77ae7 	vcvt.f64.f32	d7, s15
-    8504:	e59f0018 	ldr	r0, [pc, #24]	; 8524 <main+0x5c>
-    8508:	ec532b17 	vmov	r2, r3, d7
-    850c:	ebffffa1 	bl	8398 <_init+0x44>
+    85fc:	ed5b7a02 	vldr	s15, [fp, #-8]
+    8600:	eeb77ae7 	vcvt.f64.f32	d7, s15
+    8604:	e59f0018 	ldr	r0, [pc, #24]	; 8624 <main+0x68>
+    8608:	ec532b17 	vmov	r2, r3, d7
+    860c:	ebffff9a 	bl	847c <_init+0x74>
   return 0;
-    8510:	e3a03000 	mov	r3, #0
+    8610:	e3a03000 	mov	r3, #0
 	}
 }
-    8514:	e1a00003 	mov	r0, r3
-    8518:	e24bd004 	sub	sp, fp, #4
-    851c:	e8bd8800 	pop	{fp, pc}
-    8520:	00008598 	.word	0x00008598
-    8524:	000085a0 	.word	0x000085a0
+    8614:	e1a00003 	mov	r0, r3
+    8618:	e24bd004 	sub	sp, fp, #4
+    861c:	e8bd8800 	pop	{fp, pc}
+    8620:	00008bd0 	.word	0x00008bd0
+    8624:	00008bd8 	.word	0x00008bd8
 
-00008528 <__libc_csu_init>:
-    8528:	e92d45f8 	push	{r3, r4, r5, r6, r7, r8, sl, lr}
-    852c:	e1a06000 	mov	r6, r0
-    8530:	e59f5048 	ldr	r5, [pc, #72]	; 8580 <__libc_csu_init+0x58>
-    8534:	e59fa048 	ldr	sl, [pc, #72]	; 8584 <__libc_csu_init+0x5c>
-    8538:	e08f5005 	add	r5, pc, r5
-    853c:	e08fa00a 	add	sl, pc, sl
-    8540:	e065a00a 	rsb	sl, r5, sl
-    8544:	e1a07001 	mov	r7, r1
-    8548:	e1a08002 	mov	r8, r2
-    854c:	ebffff80 	bl	8354 <_init>
-    8550:	e1b0a14a 	asrs	sl, sl, #2
-    8554:	08bd85f8 	popeq	{r3, r4, r5, r6, r7, r8, sl, pc}
-    8558:	e3a04000 	mov	r4, #0
-    855c:	e4953004 	ldr	r3, [r5], #4
-    8560:	e1a00006 	mov	r0, r6
-    8564:	e1a01007 	mov	r1, r7
-    8568:	e1a02008 	mov	r2, r8
-    856c:	e2844001 	add	r4, r4, #1
-    8570:	e12fff33 	blx	r3
-    8574:	e154000a 	cmp	r4, sl
-    8578:	1afffff7 	bne	855c <__libc_csu_init+0x34>
-    857c:	e8bd85f8 	pop	{r3, r4, r5, r6, r7, r8, sl, pc}
-    8580:	0000807c 	.word	0x0000807c
-    8584:	0000807c 	.word	0x0000807c
+00008628 <g_halADC_get_ui16>:
+ * 2015/05/08 mabrgs00:
+ *  Error handling from I2C included
+ *
+ * \endinternal
+ ***********************************************************************/
+float g_halADC_get_ui16(unsigned char l_input_ui8){
+    8628:	e92d4800 	push	{fp, lr}
+    862c:	e28db004 	add	fp, sp, #4
+    8630:	e24dd018 	sub	sp, sp, #24
+    8634:	e1a03000 	mov	r3, r0
+    8638:	e54b3015 	strb	r3, [fp, #-21]
 
-00008588 <__libc_csu_fini>:
-    8588:	e12fff1e 	bx	lr
+  unsigned char l_address_ui8 = 0x49;		// Address of our device on the I2C bus
+    863c:	e3a03049 	mov	r3, #73	; 0x49
+    8640:	e54b3006 	strb	r3, [fp, #-6]
+  unsigned char l_mux_ui8;			// Config value depening on input
+  unsigned short l_val_ui16;			// (Converted) result of ADC
+  unsigned char l_checkerror_bl;			// Variable to store return value
+
+  // Setting Config according to select Input
+  switch(l_input_ui8){			   	// Standard: 1100 0011  (Bit 15-8) Input A0
+    8644:	e55b3015 	ldrb	r3, [fp, #-21]
+    8648:	e2433001 	sub	r3, r3, #1
+    864c:	e3530003 	cmp	r3, #3
+    8650:	979ff103 	ldrls	pc, [pc, r3, lsl #2]
+    8654:	ea00000f 	b	8698 <g_halADC_get_ui16+0x70>
+    8658:	00008668 	.word	0x00008668
+    865c:	00008674 	.word	0x00008674
+    8660:	00008680 	.word	0x00008680
+    8664:	0000868c 	.word	0x0000868c
+	case 1: l_mux_ui8 = 0xC2; break;	// Input: A0	
+    8668:	e3e0303d 	mvn	r3, #61	; 0x3d
+    866c:	e54b3005 	strb	r3, [fp, #-5]
+    8670:	ea00000a 	b	86a0 <g_halADC_get_ui16+0x78>
+	case 2: l_mux_ui8 = 0xD2; break;	
+    8674:	e3e0302d 	mvn	r3, #45	; 0x2d
+    8678:	e54b3005 	strb	r3, [fp, #-5]
+    867c:	ea000007 	b	86a0 <g_halADC_get_ui16+0x78>
+	case 3: l_mux_ui8 = 0xE2; break;	
+    8680:	e3e0301d 	mvn	r3, #29
+    8684:	e54b3005 	strb	r3, [fp, #-5]
+    8688:	ea000004 	b	86a0 <g_halADC_get_ui16+0x78>
+	case 4: l_mux_ui8 = 0xF2; break;	// Input: A3
+    868c:	e3e0300d 	mvn	r3, #13
+    8690:	e54b3005 	strb	r3, [fp, #-5]
+    8694:	ea000001 	b	86a0 <g_halADC_get_ui16+0x78>
+	default: l_mux_ui8 = 0xC2; 			
+    8698:	e3e0303d 	mvn	r3, #61	; 0x3d
+    869c:	e54b3005 	strb	r3, [fp, #-5]
+  // First Hex depends on Starting Conversion + the Input, which Pin to read A0-3
+  // Second Value is PGA (001)=+-4,099V and continuous Mode (0)
+
+
+  // These three bytes are written to the ADS1015 to set the config register and start the conversion 
+  l_writeBuf_rg24[0] = 1;		// This sets the pointer register to write two bytes to the config register
+    86a0:	e3a03001 	mov	r3, #1
+    86a4:	e54b3010 	strb	r3, [fp, #-16]
+  l_writeBuf_rg24[1] = l_mux_ui8;   	// This sets the 8 MSBs of the config register (bits 15-8) to 11000011
+    86a8:	e55b3005 	ldrb	r3, [fp, #-5]
+    86ac:	e54b300f 	strb	r3, [fp, #-15]
+  l_writeBuf_rg24[2] = 0x23;  		// This sets the 8 LSBs of the config register (bits  7-0) to 00100011   
+    86b0:	e3a03023 	mov	r3, #35	; 0x23
+    86b4:	e54b300e 	strb	r3, [fp, #-14]
+  // First Hex is sample Rate. (001) sets to 250SPS + Comp Mode (0)
+  // Second Hex is Comp. config. (0011) disable the comparator
+
+
+  // Initialize the buffer used to read data from the ADS1015 to 0
+  l_readBuf_rg16[0]= 0;		
+    86b8:	e3a03000 	mov	r3, #0
+    86bc:	e54b3014 	strb	r3, [fp, #-20]
+  l_readBuf_rg16[1]= 0;
+    86c0:	e3a03000 	mov	r3, #0
+    86c4:	e54b3013 	strb	r3, [fp, #-19]
+  
+  // Write l_writeBuf_rg24 to the ADS1015, the 3 specifies the number of bytes we are writing,
+  // this begins a continuous conversion
+  l_checkerror_bl = g_lldI2c_WriteI2c_bl(l_address_ui8,l_writeBuf_rg24,3);
+    86c8:	e55b2006 	ldrb	r2, [fp, #-6]
+    86cc:	e24b3010 	sub	r3, fp, #16
+    86d0:	e1a00002 	mov	r0, r2
+    86d4:	e1a01003 	mov	r1, r3
+    86d8:	e3a02003 	mov	r2, #3
+    86dc:	eb00004b 	bl	8810 <g_lldI2c_WriteI2c_bl>
+    86e0:	e1a03000 	mov	r3, r0
+    86e4:	e54b3007 	strb	r3, [fp, #-7]
+  if (l_checkerror_bl == 1)
+    86e8:	e55b3007 	ldrb	r3, [fp, #-7]
+    86ec:	e3530001 	cmp	r3, #1
+    86f0:	1a000001 	bne	86fc <g_halADC_get_ui16+0xd4>
+	{
+	return -1;
+    86f4:	eddf7a43 	vldr	s15, [pc, #268]	; 8808 <g_halADC_get_ui16+0x1e0>
+    86f8:	ea00003b 	b	87ec <g_halADC_get_ui16+0x1c4>
+	}
+
+  // Read the config register into readBuf
+  l_checkerror_bl = g_lldI2c_ReadI2c_bl(l_address_ui8,l_readBuf_rg16,2);
+    86fc:	e55b2006 	ldrb	r2, [fp, #-6]
+    8700:	e24b3014 	sub	r3, fp, #20
+    8704:	e1a00002 	mov	r0, r2
+    8708:	e1a01003 	mov	r1, r3
+    870c:	e3a02002 	mov	r2, #2
+    8710:	eb000073 	bl	88e4 <g_lldI2c_ReadI2c_bl>
+    8714:	e1a03000 	mov	r3, r0
+    8718:	e54b3007 	strb	r3, [fp, #-7]
+  if (l_checkerror_bl == 1)
+    871c:	e55b3007 	ldrb	r3, [fp, #-7]
+    8720:	e3530001 	cmp	r3, #1
+    8724:	1a000001 	bne	8730 <g_halADC_get_ui16+0x108>
+	{
+	return -1;
+    8728:	eddf7a36 	vldr	s15, [pc, #216]	; 8808 <g_halADC_get_ui16+0x1e0>
+    872c:	ea00002e 	b	87ec <g_halADC_get_ui16+0x1c4>
+	}	
+	
+  // Set pointer register to 0 to read from the conversion register
+  l_writeBuf_rg24[0] = 0;			
+    8730:	e3a03000 	mov	r3, #0
+    8734:	e54b3010 	strb	r3, [fp, #-16]
+  l_checkerror_bl = g_lldI2c_WriteI2c_bl(l_address_ui8, l_writeBuf_rg24,1);
+    8738:	e55b2006 	ldrb	r2, [fp, #-6]
+    873c:	e24b3010 	sub	r3, fp, #16
+    8740:	e1a00002 	mov	r0, r2
+    8744:	e1a01003 	mov	r1, r3
+    8748:	e3a02001 	mov	r2, #1
+    874c:	eb00002f 	bl	8810 <g_lldI2c_WriteI2c_bl>
+    8750:	e1a03000 	mov	r3, r0
+    8754:	e54b3007 	strb	r3, [fp, #-7]
+  if (l_checkerror_bl == 1)
+    8758:	e55b3007 	ldrb	r3, [fp, #-7]
+    875c:	e3530001 	cmp	r3, #1
+    8760:	1a000001 	bne	876c <g_halADC_get_ui16+0x144>
+	{
+	return -1;
+    8764:	eddf7a27 	vldr	s15, [pc, #156]	; 8808 <g_halADC_get_ui16+0x1e0>
+    8768:	ea00001f 	b	87ec <g_halADC_get_ui16+0x1c4>
+	}
+
+  // Read the contents of the conversion register into readBuf		
+  l_checkerror_bl = g_lldI2c_ReadI2c_bl(l_address_ui8,l_readBuf_rg16,2);	
+    876c:	e55b2006 	ldrb	r2, [fp, #-6]
+    8770:	e24b3014 	sub	r3, fp, #20
+    8774:	e1a00002 	mov	r0, r2
+    8778:	e1a01003 	mov	r1, r3
+    877c:	e3a02002 	mov	r2, #2
+    8780:	eb000057 	bl	88e4 <g_lldI2c_ReadI2c_bl>
+    8784:	e1a03000 	mov	r3, r0
+    8788:	e54b3007 	strb	r3, [fp, #-7]
+  if (l_checkerror_bl == 1)
+    878c:	e55b3007 	ldrb	r3, [fp, #-7]
+    8790:	e3530001 	cmp	r3, #1
+    8794:	1a000001 	bne	87a0 <g_halADC_get_ui16+0x178>
+	{
+	return -1;
+    8798:	eddf7a1a 	vldr	s15, [pc, #104]	; 8808 <g_halADC_get_ui16+0x1e0>
+    879c:	ea000012 	b	87ec <g_halADC_get_ui16+0x1c4>
+	}
+
+  // Combine the two bytes of readBuf into a single 16 bit result 
+  l_val_ui16 = l_readBuf_rg16[0] << 8 | l_readBuf_rg16[1];	
+    87a0:	e55b3014 	ldrb	r3, [fp, #-20]
+    87a4:	e1a03403 	lsl	r3, r3, #8
+    87a8:	e6ff2073 	uxth	r2, r3
+    87ac:	e55b3013 	ldrb	r3, [fp, #-19]
+    87b0:	e1823003 	orr	r3, r2, r3
+    87b4:	e6ff3073 	uxth	r3, r3
+    87b8:	e14b30ba 	strh	r3, [fp, #-10]
+  l_val_ui16 = l_val_ui16 >> 4; 
+    87bc:	e15b30ba 	ldrh	r3, [fp, #-10]
+    87c0:	e1a03223 	lsr	r3, r3, #4
+    87c4:	e14b30ba 	strh	r3, [fp, #-10]
+
+  return((float)l_val_ui16*4.096/2047.0);
+    87c8:	e15b30ba 	ldrh	r3, [fp, #-10]
+    87cc:	ee073a10 	vmov	s14, r3
+    87d0:	eef87a47 	vcvt.f32.u32	s15, s14
+    87d4:	eeb76ae7 	vcvt.f64.f32	d6, s15
+    87d8:	ed9f7b06 	vldr	d7, [pc, #24]	; 87f8 <g_halADC_get_ui16+0x1d0>
+    87dc:	ee266b07 	vmul.f64	d6, d6, d7
+    87e0:	ed9f7b06 	vldr	d7, [pc, #24]	; 8800 <g_halADC_get_ui16+0x1d8>
+    87e4:	ee867b07 	vdiv.f64	d7, d6, d7
+    87e8:	eef77bc7 	vcvt.f32.f64	s15, d7
+
+}
+    87ec:	eeb00a67 	vmov.f32	s0, s15
+    87f0:	e24bd004 	sub	sp, fp, #4
+    87f4:	e8bd8800 	pop	{fp, pc}
+    87f8:	d2f1a9fc 	.word	0xd2f1a9fc
+    87fc:	4010624d 	.word	0x4010624d
+    8800:	00000000 	.word	0x00000000
+    8804:	409ffc00 	.word	0x409ffc00
+    8808:	bf800000 	.word	0xbf800000
+    880c:	e1a00000 	nop			; (mov r0, r0)
+
+00008810 <g_lldI2c_WriteI2c_bl>:
+ * 2015/05/06 phwogs00:
+ * Changed variable and function names in order to guideline
+ * \endinternal
+ ***********************************************************************/
+unsigned int g_lldI2c_WriteI2c_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_i2cWriteBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
+{
+    8810:	e92d4800 	push	{fp, lr}
+    8814:	e28db004 	add	fp, sp, #4
+    8818:	e24dd018 	sub	sp, sp, #24
+    881c:	e1a03000 	mov	r3, r0
+    8820:	e50b1014 	str	r1, [fp, #-20]
+    8824:	e50b2018 	str	r2, [fp, #-24]
+    8828:	e54b300d 	strb	r3, [fp, #-13]
+	unsigned char 	l_returnOfWrittenBytes_ui8 	= 0;
+    882c:	e3a03000 	mov	r3, #0
+    8830:	e54b3005 	strb	r3, [fp, #-5]
+	unsigned char 	l_WriteRetryCounter_ui8 	= 0;
+    8834:	e3a03000 	mov	r3, #0
+    8838:	e54b3006 	strb	r3, [fp, #-6]
+	unsigned int 	l_i2cFile_ui32 				= 0;
+    883c:	e3a03000 	mov	r3, #0
+    8840:	e50b300c 	str	r3, [fp, #-12]
+
+	//Open I2C device
+	l_i2cFile_ui32 = open(M_HAL_LLDI2C_I2C_DEV_UI8, O_RDWR);
+    8844:	e59f0090 	ldr	r0, [pc, #144]	; 88dc <g_lldI2c_WriteI2c_bl+0xcc>
+    8848:	e3a01002 	mov	r1, #2
+    884c:	ebfffef5 	bl	8428 <_init+0x20>
+    8850:	e1a03000 	mov	r3, r0
+    8854:	e50b300c 	str	r3, [fp, #-12]
+		/*ERROR HANDLER*/
+		return 1;
+	}
+
+	//Specify the address of the I2C Slave to communicate with
+	ioctl(l_i2cFile_ui32, I2C_SLAVE, f_lldI2c_i2cSlaveAddress_ui8);
+    8858:	e55b300d 	ldrb	r3, [fp, #-13]
+    885c:	e51b000c 	ldr	r0, [fp, #-12]
+    8860:	e59f1078 	ldr	r1, [pc, #120]	; 88e0 <g_lldI2c_WriteI2c_bl+0xd0>
+    8864:	e1a02003 	mov	r2, r3
+    8868:	ebffff00 	bl	8470 <_init+0x68>
+
+	//Write Buffer to I2C Slave Device
+	while(		(l_returnOfWrittenBytes_ui8 != f_i2cNumOfDataBytes_ui32)
+    886c:	ea000008 	b	8894 <g_lldI2c_WriteI2c_bl+0x84>
+			&& 	(l_WriteRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
+	{
+		l_returnOfWrittenBytes_ui8 = write(l_i2cFile_ui32, f_i2cWriteBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+    8870:	e51b000c 	ldr	r0, [fp, #-12]
+    8874:	e51b1014 	ldr	r1, [fp, #-20]
+    8878:	e51b2018 	ldr	r2, [fp, #-24]
+    887c:	ebfffef8 	bl	8464 <_init+0x5c>
+    8880:	e1a03000 	mov	r3, r0
+    8884:	e54b3005 	strb	r3, [fp, #-5]
+		l_WriteRetryCounter_ui8++;
+    8888:	e55b3006 	ldrb	r3, [fp, #-6]
+    888c:	e2833001 	add	r3, r3, #1
+    8890:	e54b3006 	strb	r3, [fp, #-6]
+
+	//Specify the address of the I2C Slave to communicate with
+	ioctl(l_i2cFile_ui32, I2C_SLAVE, f_lldI2c_i2cSlaveAddress_ui8);
+
+	//Write Buffer to I2C Slave Device
+	while(		(l_returnOfWrittenBytes_ui8 != f_i2cNumOfDataBytes_ui32)
+    8894:	e55b2005 	ldrb	r2, [fp, #-5]
+    8898:	e51b3018 	ldr	r3, [fp, #-24]
+    889c:	e1520003 	cmp	r2, r3
+    88a0:	0a000002 	beq	88b0 <g_lldI2c_WriteI2c_bl+0xa0>
+			&& 	(l_WriteRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
+    88a4:	e55b3006 	ldrb	r3, [fp, #-6]
+    88a8:	e3530002 	cmp	r3, #2
+    88ac:	9affffef 	bls	8870 <g_lldI2c_WriteI2c_bl+0x60>
+	{
+		l_returnOfWrittenBytes_ui8 = write(l_i2cFile_ui32, f_i2cWriteBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+		l_WriteRetryCounter_ui8++;
+	}
+
+	if(l_WriteRetryCounter_ui8 >= M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8)
+    88b0:	e55b3006 	ldrb	r3, [fp, #-6]
+    88b4:	e3530002 	cmp	r3, #2
+    88b8:	9a000001 	bls	88c4 <g_lldI2c_WriteI2c_bl+0xb4>
+	{
+		return 1;
+    88bc:	e3a03001 	mov	r3, #1
+    88c0:	ea000002 	b	88d0 <g_lldI2c_WriteI2c_bl+0xc0>
+	}
+
+	//Close I2C device
+	close(l_i2cFile_ui32);
+    88c4:	e51b000c 	ldr	r0, [fp, #-12]
+    88c8:	ebfffeee 	bl	8488 <_init+0x80>
+	{
+		/*ERROR HANDLER*/
+		return 1;
+	}
+
+	return 0;
+    88cc:	e3a03000 	mov	r3, #0
+}
+    88d0:	e1a00003 	mov	r0, r3
+    88d4:	e24bd004 	sub	sp, fp, #4
+    88d8:	e8bd8800 	pop	{fp, pc}
+    88dc:	00008be8 	.word	0x00008be8
+    88e0:	00000703 	.word	0x00000703
+
+000088e4 <g_lldI2c_ReadI2c_bl>:
+ * Changed variable and function names in order to guideline
+ *   *
+ * \endinternal
+ ***********************************************************************/ 
+unsigned int g_lldI2c_ReadI2c_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_lldI2c_i2cReadBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
+{
+    88e4:	e92d4800 	push	{fp, lr}
+    88e8:	e28db004 	add	fp, sp, #4
+    88ec:	e24dd018 	sub	sp, sp, #24
+    88f0:	e1a03000 	mov	r3, r0
+    88f4:	e50b1014 	str	r1, [fp, #-20]
+    88f8:	e50b2018 	str	r2, [fp, #-24]
+    88fc:	e54b300d 	strb	r3, [fp, #-13]
+	unsigned char 	l_ReturnOfReadBytes_ui8 = 0;
+    8900:	e3a03000 	mov	r3, #0
+    8904:	e54b3005 	strb	r3, [fp, #-5]
+	unsigned char 	l_ReadRetryCounter_ui8 	= 0;
+    8908:	e3a03000 	mov	r3, #0
+    890c:	e54b3006 	strb	r3, [fp, #-6]
+	unsigned int 	l_i2cFile_ui32 			= 0;
+    8910:	e3a03000 	mov	r3, #0
+    8914:	e50b300c 	str	r3, [fp, #-12]
+
+	//Open I2C device
+	l_i2cFile_ui32 = open(M_HAL_LLDI2C_I2C_DEV_UI8, O_RDWR);   //Open I2C device
+    8918:	e59f0090 	ldr	r0, [pc, #144]	; 89b0 <g_lldI2c_ReadI2c_bl+0xcc>
+    891c:	e3a01002 	mov	r1, #2
+    8920:	ebfffec0 	bl	8428 <_init+0x20>
+    8924:	e1a03000 	mov	r3, r0
+    8928:	e50b300c 	str	r3, [fp, #-12]
+		/*ERROR HANDLER*/
+		return 1;
+	}
+
+	//Specify the address of the I2C Slave to communicate with
+	ioctl(l_i2cFile_ui32, I2C_SLAVE, f_lldI2c_i2cSlaveAddress_ui8);
+    892c:	e55b300d 	ldrb	r3, [fp, #-13]
+    8930:	e51b000c 	ldr	r0, [fp, #-12]
+    8934:	e59f1078 	ldr	r1, [pc, #120]	; 89b4 <g_lldI2c_ReadI2c_bl+0xd0>
+    8938:	e1a02003 	mov	r2, r3
+    893c:	ebfffecb 	bl	8470 <_init+0x68>
+
+	while(		(l_ReturnOfReadBytes_ui8 != f_i2cNumOfDataBytes_ui32)
+    8940:	ea000008 	b	8968 <g_lldI2c_ReadI2c_bl+0x84>
+			&& 	(l_ReadRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
+	{
+		l_ReturnOfReadBytes_ui8 = read(l_i2cFile_ui32, f_lldI2c_i2cReadBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+    8944:	e51b000c 	ldr	r0, [fp, #-12]
+    8948:	e51b1014 	ldr	r1, [fp, #-20]
+    894c:	e51b2018 	ldr	r2, [fp, #-24]
+    8950:	ebfffec0 	bl	8458 <_init+0x50>
+    8954:	e1a03000 	mov	r3, r0
+    8958:	e54b3005 	strb	r3, [fp, #-5]
+		l_ReadRetryCounter_ui8++;
+    895c:	e55b3006 	ldrb	r3, [fp, #-6]
+    8960:	e2833001 	add	r3, r3, #1
+    8964:	e54b3006 	strb	r3, [fp, #-6]
+	}
+
+	//Specify the address of the I2C Slave to communicate with
+	ioctl(l_i2cFile_ui32, I2C_SLAVE, f_lldI2c_i2cSlaveAddress_ui8);
+
+	while(		(l_ReturnOfReadBytes_ui8 != f_i2cNumOfDataBytes_ui32)
+    8968:	e55b2005 	ldrb	r2, [fp, #-5]
+    896c:	e51b3018 	ldr	r3, [fp, #-24]
+    8970:	e1520003 	cmp	r2, r3
+    8974:	0a000002 	beq	8984 <g_lldI2c_ReadI2c_bl+0xa0>
+			&& 	(l_ReadRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
+    8978:	e55b3006 	ldrb	r3, [fp, #-6]
+    897c:	e3530002 	cmp	r3, #2
+    8980:	9affffef 	bls	8944 <g_lldI2c_ReadI2c_bl+0x60>
+	{
+		l_ReturnOfReadBytes_ui8 = read(l_i2cFile_ui32, f_lldI2c_i2cReadBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+		l_ReadRetryCounter_ui8++;
+	}
+
+	if(l_ReadRetryCounter_ui8 >= M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8)
+    8984:	e55b3006 	ldrb	r3, [fp, #-6]
+    8988:	e3530002 	cmp	r3, #2
+    898c:	9a000001 	bls	8998 <g_lldI2c_ReadI2c_bl+0xb4>
+	{
+		return 1;
+    8990:	e3a03001 	mov	r3, #1
+    8994:	ea000002 	b	89a4 <g_lldI2c_ReadI2c_bl+0xc0>
+	}
+
+	//Close I2C device
+	close(l_i2cFile_ui32);
+    8998:	e51b000c 	ldr	r0, [fp, #-12]
+    899c:	ebfffeb9 	bl	8488 <_init+0x80>
+	if(l_i2cFile_ui32 < 0)
+	{
+		/*ERROR HANDLER*/
+		return 1;
+	}
+	return(0);
+    89a0:	e3a03000 	mov	r3, #0
+
+}
+    89a4:	e1a00003 	mov	r0, r3
+    89a8:	e24bd004 	sub	sp, fp, #4
+    89ac:	e8bd8800 	pop	{fp, pc}
+    89b0:	00008be8 	.word	0x00008be8
+    89b4:	00000703 	.word	0x00000703
+
+000089b8 <g_lldI2c_WriteI2c0_bl>:
+ *
+ * 
+ * \endinternal
+ ***********************************************************************/
+unsigned int g_lldI2c_WriteI2c0_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_i2cWriteBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
+{
+    89b8:	e92d4800 	push	{fp, lr}
+    89bc:	e28db004 	add	fp, sp, #4
+    89c0:	e24dd018 	sub	sp, sp, #24
+    89c4:	e1a03000 	mov	r3, r0
+    89c8:	e50b1014 	str	r1, [fp, #-20]
+    89cc:	e50b2018 	str	r2, [fp, #-24]
+    89d0:	e54b300d 	strb	r3, [fp, #-13]
+	unsigned char 	l_returnOfWrittenBytes_ui8 	= 0;
+    89d4:	e3a03000 	mov	r3, #0
+    89d8:	e54b3005 	strb	r3, [fp, #-5]
+	unsigned char 	l_WriteRetryCounter_ui8 	= 0;
+    89dc:	e3a03000 	mov	r3, #0
+    89e0:	e54b3006 	strb	r3, [fp, #-6]
+	unsigned int 	l_i2cFile_ui32 				= 0;
+    89e4:	e3a03000 	mov	r3, #0
+    89e8:	e50b300c 	str	r3, [fp, #-12]
+
+	//Open I2C device
+	l_i2cFile_ui32 = open(M_HAL_LLDI2C_I2C0_DEV_UI8, O_RDWR);
+    89ec:	e59f0090 	ldr	r0, [pc, #144]	; 8a84 <g_lldI2c_WriteI2c0_bl+0xcc>
+    89f0:	e3a01002 	mov	r1, #2
+    89f4:	ebfffe8b 	bl	8428 <_init+0x20>
+    89f8:	e1a03000 	mov	r3, r0
+    89fc:	e50b300c 	str	r3, [fp, #-12]
+		/*ERROR HANDLER*/
+		return 1;
+	}
+
+	//Specify the address of the I2C Slave to communicate with
+	ioctl(l_i2cFile_ui32, I2C_SLAVE, f_lldI2c_i2cSlaveAddress_ui8);
+    8a00:	e55b300d 	ldrb	r3, [fp, #-13]
+    8a04:	e51b000c 	ldr	r0, [fp, #-12]
+    8a08:	e59f1078 	ldr	r1, [pc, #120]	; 8a88 <g_lldI2c_WriteI2c0_bl+0xd0>
+    8a0c:	e1a02003 	mov	r2, r3
+    8a10:	ebfffe96 	bl	8470 <_init+0x68>
+
+	//Write Buffer to I2C Slave Device
+	while(		(l_returnOfWrittenBytes_ui8 != f_i2cNumOfDataBytes_ui32)
+    8a14:	ea000008 	b	8a3c <g_lldI2c_WriteI2c0_bl+0x84>
+			&& 	(l_WriteRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
+	{
+		l_returnOfWrittenBytes_ui8 = write(l_i2cFile_ui32, f_i2cWriteBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+    8a18:	e51b000c 	ldr	r0, [fp, #-12]
+    8a1c:	e51b1014 	ldr	r1, [fp, #-20]
+    8a20:	e51b2018 	ldr	r2, [fp, #-24]
+    8a24:	ebfffe8e 	bl	8464 <_init+0x5c>
+    8a28:	e1a03000 	mov	r3, r0
+    8a2c:	e54b3005 	strb	r3, [fp, #-5]
+		l_WriteRetryCounter_ui8++;
+    8a30:	e55b3006 	ldrb	r3, [fp, #-6]
+    8a34:	e2833001 	add	r3, r3, #1
+    8a38:	e54b3006 	strb	r3, [fp, #-6]
+
+	//Specify the address of the I2C Slave to communicate with
+	ioctl(l_i2cFile_ui32, I2C_SLAVE, f_lldI2c_i2cSlaveAddress_ui8);
+
+	//Write Buffer to I2C Slave Device
+	while(		(l_returnOfWrittenBytes_ui8 != f_i2cNumOfDataBytes_ui32)
+    8a3c:	e55b2005 	ldrb	r2, [fp, #-5]
+    8a40:	e51b3018 	ldr	r3, [fp, #-24]
+    8a44:	e1520003 	cmp	r2, r3
+    8a48:	0a000002 	beq	8a58 <g_lldI2c_WriteI2c0_bl+0xa0>
+			&& 	(l_WriteRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
+    8a4c:	e55b3006 	ldrb	r3, [fp, #-6]
+    8a50:	e3530002 	cmp	r3, #2
+    8a54:	9affffef 	bls	8a18 <g_lldI2c_WriteI2c0_bl+0x60>
+	{
+		l_returnOfWrittenBytes_ui8 = write(l_i2cFile_ui32, f_i2cWriteBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+		l_WriteRetryCounter_ui8++;
+	}
+
+	if(l_WriteRetryCounter_ui8 >= M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8)
+    8a58:	e55b3006 	ldrb	r3, [fp, #-6]
+    8a5c:	e3530002 	cmp	r3, #2
+    8a60:	9a000001 	bls	8a6c <g_lldI2c_WriteI2c0_bl+0xb4>
+	{
+		return 1;
+    8a64:	e3a03001 	mov	r3, #1
+    8a68:	ea000002 	b	8a78 <g_lldI2c_WriteI2c0_bl+0xc0>
+	}
+
+	//Close I2C device
+	close(l_i2cFile_ui32);
+    8a6c:	e51b000c 	ldr	r0, [fp, #-12]
+    8a70:	ebfffe84 	bl	8488 <_init+0x80>
+	{
+		/*ERROR HANDLER*/
+		return 1;
+	}
+
+	return 0;
+    8a74:	e3a03000 	mov	r3, #0
+}
+    8a78:	e1a00003 	mov	r0, r3
+    8a7c:	e24bd004 	sub	sp, fp, #4
+    8a80:	e8bd8800 	pop	{fp, pc}
+    8a84:	00008bf4 	.word	0x00008bf4
+    8a88:	00000703 	.word	0x00000703
+
+00008a8c <g_lldI2c_ReadI2c0_bl>:
+ * 
+ * 
+ *  * \endinternal
+ ***********************************************************************/ 
+unsigned int g_lldI2c_ReadI2c0_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_lldI2c_i2cReadBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
+{
+    8a8c:	e92d4800 	push	{fp, lr}
+    8a90:	e28db004 	add	fp, sp, #4
+    8a94:	e24dd018 	sub	sp, sp, #24
+    8a98:	e1a03000 	mov	r3, r0
+    8a9c:	e50b1014 	str	r1, [fp, #-20]
+    8aa0:	e50b2018 	str	r2, [fp, #-24]
+    8aa4:	e54b300d 	strb	r3, [fp, #-13]
+	unsigned char 	l_ReturnOfReadBytes_ui8 = 0;
+    8aa8:	e3a03000 	mov	r3, #0
+    8aac:	e54b3005 	strb	r3, [fp, #-5]
+	unsigned char 	l_ReadRetryCounter_ui8 	= 0;
+    8ab0:	e3a03000 	mov	r3, #0
+    8ab4:	e54b3006 	strb	r3, [fp, #-6]
+	unsigned int 	l_i2cFile_ui32 			= 0;
+    8ab8:	e3a03000 	mov	r3, #0
+    8abc:	e50b300c 	str	r3, [fp, #-12]
+
+	//Open I2C device
+	l_i2cFile_ui32 = open(M_HAL_LLDI2C_I2C0_DEV_UI8, O_RDWR);   //Open I2C device
+    8ac0:	e59f0090 	ldr	r0, [pc, #144]	; 8b58 <g_lldI2c_ReadI2c0_bl+0xcc>
+    8ac4:	e3a01002 	mov	r1, #2
+    8ac8:	ebfffe56 	bl	8428 <_init+0x20>
+    8acc:	e1a03000 	mov	r3, r0
+    8ad0:	e50b300c 	str	r3, [fp, #-12]
+		/*ERROR HANDLER*/
+		return 1;
+	}
+
+	//Specify the address of the I2C Slave to communicate with
+	ioctl(l_i2cFile_ui32, I2C_SLAVE, f_lldI2c_i2cSlaveAddress_ui8);
+    8ad4:	e55b300d 	ldrb	r3, [fp, #-13]
+    8ad8:	e51b000c 	ldr	r0, [fp, #-12]
+    8adc:	e59f1078 	ldr	r1, [pc, #120]	; 8b5c <g_lldI2c_ReadI2c0_bl+0xd0>
+    8ae0:	e1a02003 	mov	r2, r3
+    8ae4:	ebfffe61 	bl	8470 <_init+0x68>
+
+	while(		(l_ReturnOfReadBytes_ui8 != f_i2cNumOfDataBytes_ui32)
+    8ae8:	ea000008 	b	8b10 <g_lldI2c_ReadI2c0_bl+0x84>
+			&& 	(l_ReadRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
+	{
+		l_ReturnOfReadBytes_ui8 = read(l_i2cFile_ui32, f_lldI2c_i2cReadBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+    8aec:	e51b000c 	ldr	r0, [fp, #-12]
+    8af0:	e51b1014 	ldr	r1, [fp, #-20]
+    8af4:	e51b2018 	ldr	r2, [fp, #-24]
+    8af8:	ebfffe56 	bl	8458 <_init+0x50>
+    8afc:	e1a03000 	mov	r3, r0
+    8b00:	e54b3005 	strb	r3, [fp, #-5]
+		l_ReadRetryCounter_ui8++;
+    8b04:	e55b3006 	ldrb	r3, [fp, #-6]
+    8b08:	e2833001 	add	r3, r3, #1
+    8b0c:	e54b3006 	strb	r3, [fp, #-6]
+	}
+
+	//Specify the address of the I2C Slave to communicate with
+	ioctl(l_i2cFile_ui32, I2C_SLAVE, f_lldI2c_i2cSlaveAddress_ui8);
+
+	while(		(l_ReturnOfReadBytes_ui8 != f_i2cNumOfDataBytes_ui32)
+    8b10:	e55b2005 	ldrb	r2, [fp, #-5]
+    8b14:	e51b3018 	ldr	r3, [fp, #-24]
+    8b18:	e1520003 	cmp	r2, r3
+    8b1c:	0a000002 	beq	8b2c <g_lldI2c_ReadI2c0_bl+0xa0>
+			&& 	(l_ReadRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
+    8b20:	e55b3006 	ldrb	r3, [fp, #-6]
+    8b24:	e3530002 	cmp	r3, #2
+    8b28:	9affffef 	bls	8aec <g_lldI2c_ReadI2c0_bl+0x60>
+	{
+		l_ReturnOfReadBytes_ui8 = read(l_i2cFile_ui32, f_lldI2c_i2cReadBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+		l_ReadRetryCounter_ui8++;
+	}
+
+	if(l_ReadRetryCounter_ui8 >= M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8)
+    8b2c:	e55b3006 	ldrb	r3, [fp, #-6]
+    8b30:	e3530002 	cmp	r3, #2
+    8b34:	9a000001 	bls	8b40 <g_lldI2c_ReadI2c0_bl+0xb4>
+	{
+		return 1;
+    8b38:	e3a03001 	mov	r3, #1
+    8b3c:	ea000002 	b	8b4c <g_lldI2c_ReadI2c0_bl+0xc0>
+	}
+
+	//Close I2C device
+	close(l_i2cFile_ui32);
+    8b40:	e51b000c 	ldr	r0, [fp, #-12]
+    8b44:	ebfffe4f 	bl	8488 <_init+0x80>
+	if(l_i2cFile_ui32 < 0)
+	{
+		/*ERROR HANDLER*/
+		return 1;
+	}
+	return(0);
+    8b48:	e3a03000 	mov	r3, #0
+
+}
+    8b4c:	e1a00003 	mov	r0, r3
+    8b50:	e24bd004 	sub	sp, fp, #4
+    8b54:	e8bd8800 	pop	{fp, pc}
+    8b58:	00008bf4 	.word	0x00008bf4
+    8b5c:	00000703 	.word	0x00000703
+
+00008b60 <__libc_csu_init>:
+    8b60:	e92d45f8 	push	{r3, r4, r5, r6, r7, r8, sl, lr}
+    8b64:	e1a06000 	mov	r6, r0
+    8b68:	e59f5048 	ldr	r5, [pc, #72]	; 8bb8 <__libc_csu_init+0x58>
+    8b6c:	e59fa048 	ldr	sl, [pc, #72]	; 8bbc <__libc_csu_init+0x5c>
+    8b70:	e08f5005 	add	r5, pc, r5
+    8b74:	e08fa00a 	add	sl, pc, sl
+    8b78:	e065a00a 	rsb	sl, r5, sl
+    8b7c:	e1a07001 	mov	r7, r1
+    8b80:	e1a08002 	mov	r8, r2
+    8b84:	ebfffe1f 	bl	8408 <_init>
+    8b88:	e1b0a14a 	asrs	sl, sl, #2
+    8b8c:	08bd85f8 	popeq	{r3, r4, r5, r6, r7, r8, sl, pc}
+    8b90:	e3a04000 	mov	r4, #0
+    8b94:	e4953004 	ldr	r3, [r5], #4
+    8b98:	e1a00006 	mov	r0, r6
+    8b9c:	e1a01007 	mov	r1, r7
+    8ba0:	e1a02008 	mov	r2, r8
+    8ba4:	e2844001 	add	r4, r4, #1
+    8ba8:	e12fff33 	blx	r3
+    8bac:	e154000a 	cmp	r4, sl
+    8bb0:	1afffff7 	bne	8b94 <__libc_csu_init+0x34>
+    8bb4:	e8bd85f8 	pop	{r3, r4, r5, r6, r7, r8, sl, pc}
+    8bb8:	00008094 	.word	0x00008094
+    8bbc:	00008094 	.word	0x00008094
+
+00008bc0 <__libc_csu_fini>:
+    8bc0:	e12fff1e 	bx	lr
 
 Disassembly of section .fini:
 
-0000858c <_fini>:
-    858c:	e92d4008 	push	{r3, lr}
-    8590:	e8bd8008 	pop	{r3, pc}
+00008bc4 <_fini>:
+    8bc4:	e92d4008 	push	{r3, lr}
+    8bc8:	e8bd8008 	pop	{r3, pc}

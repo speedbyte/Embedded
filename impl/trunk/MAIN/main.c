@@ -10,7 +10,7 @@ int main() {
 
   float erg=0;
 
-  //erg = g_halADC_get_ui16(1);
+  erg = g_halADC_get_ui16(1);
   if(erg<0)
 	{
 	printf("Fehler");

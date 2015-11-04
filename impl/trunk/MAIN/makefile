@@ -30,7 +30,7 @@ sym: $(TARGET).sym
 %.elf:$(OBJS)
 	@echo Start Linking
 	@echo $(CURDIR)	
-	$(LD) $(LDFLAGS) $(LIBS) $(OBJS) -o $@
+	$(LD) $(LDFLAGS) $(OBJS) $(LIBS)  -o $@
 #Strip debug symbols for production code
 #	$(OBJCOPY) --strip-debug  $@ $@
 

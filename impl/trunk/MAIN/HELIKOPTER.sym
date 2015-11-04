@@ -1,40 +1,50 @@
          U abort@@GLIBC_2.4
+         U close@@GLIBC_2.4
          w __gmon_start__
+         U ioctl@@GLIBC_2.4
          w _ITM_deregisterTMCloneTable
          w _ITM_registerTMCloneTable
          w _Jv_RegisterClasses
          U __libc_start_main@@GLIBC_2.4
+         U open@@GLIBC_2.4
          U printf@@GLIBC_2.4
-00008354 T _init
-000083a4 T _start
-000083e0 t call_gmon_start
-00008404 t deregister_tm_clones
-00008434 t register_tm_clones
-0000846c t __do_global_dtors_aux
-00008494 t frame_dummy
-000084c8 T main
-00008528 T __libc_csu_init
-00008588 T __libc_csu_fini
-0000858c T _fini
-00008594 R _IO_stdin_used
-000085b8 r __FRAME_END__
-000105bc t __frame_dummy_init_array_entry
-000105bc t __init_array_start
-000105c0 t __do_global_dtors_aux_fini_array_entry
-000105c0 t __init_array_end
-000105c4 d __JCR_END__
-000105c4 d __JCR_LIST__
-000105c8 d _DYNAMIC
-000106c8 d _GLOBAL_OFFSET_TABLE_
-000106e8 D __data_start
-000106e8 W data_start
-000106ec D __dso_handle
-000106f0 B __bss_start
-000106f0 B __bss_start__
-000106f0 b completed.8841
-000106f0 D _edata
-000106f0 D __TMC_END__
-000106f4 B __bss_end__
-000106f4 B _bss_end__
-000106f4 B _end
-000106f4 B __end__
+         U read@@GLIBC_2.4
+         U write@@GLIBC_2.4
+00008408 T _init
+00008498 T _start
+000084d4 t call_gmon_start
+000084f8 t deregister_tm_clones
+00008528 t register_tm_clones
+00008560 t __do_global_dtors_aux
+00008588 t frame_dummy
+000085bc T main
+00008628 T g_halADC_get_ui16
+00008810 T g_lldI2c_WriteI2c_bl
+000088e4 T g_lldI2c_ReadI2c_bl
+000089b8 T g_lldI2c_WriteI2c0_bl
+00008a8c T g_lldI2c_ReadI2c0_bl
+00008b60 T __libc_csu_init
+00008bc0 T __libc_csu_fini
+00008bc4 T _fini
+00008bcc R _IO_stdin_used
+00008c08 r __FRAME_END__
+00010c0c t __frame_dummy_init_array_entry
+00010c0c t __init_array_start
+00010c10 t __do_global_dtors_aux_fini_array_entry
+00010c10 t __init_array_end
+00010c14 d __JCR_END__
+00010c14 d __JCR_LIST__
+00010c18 d _DYNAMIC
+00010d18 d _GLOBAL_OFFSET_TABLE_
+00010d4c D __data_start
+00010d4c W data_start
+00010d50 D __dso_handle
+00010d54 B __bss_start
+00010d54 B __bss_start__
+00010d54 b completed.8841
+00010d54 D _edata
+00010d54 D __TMC_END__
+00010d58 B __bss_end__
+00010d58 B _bss_end__
+00010d58 B _end
+00010d58 B __end__

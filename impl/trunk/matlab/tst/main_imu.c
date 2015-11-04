@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "./hal/IMU/imu.h"
-#include "hal/IMU/matlab/udpImuLib.h"
+#include "./matlab/udpImuLib.h"
 
 int main (void)
 {
