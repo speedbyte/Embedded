@@ -1,4 +1,4 @@
-include ../makeopts
+include ../../makeopts
 
 # we assume that a file called all or clean is never present in the folder.
 # if something like this is available, then one can use .PHONY: all to still

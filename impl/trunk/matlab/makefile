@@ -1,11 +1,11 @@
-include ../../makeopts
+include ../makeopts
 
 # we assume that a file called all or clean is never present in the folder.
 # if something like this is available, then one can use .PHONY: all to still
 # be able to run the recipe.
 
-OBJS=LLD_I2C.obj LLD_UART.obj
-LIBRARY=LLD_IF.lib
+OBJS=udpImuLib.obj udpLib.obj udpSigLib.obj
+LIBRARY=MATLAB.lib
 
 all:$(LIBRARY)
 
@@ -21,3 +21,5 @@ clean:
 	@echo Cleaning	
 	rm -f $(OBJS)
 	rm -f $(LIBRARY)
+
+

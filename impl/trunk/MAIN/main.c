@@ -2,7 +2,7 @@
  * \file ADCTest.c
  */
 #include <stdio.h>
-#include "../ADC/HAL_ADC.h"
+#include "../hal/ADC/HAL_ADC.h"
 #include <stdlib.h>
 
 

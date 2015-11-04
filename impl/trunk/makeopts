@@ -1,0 +1,40 @@
+FORMAT = binary
+
+AR=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ar
+LD=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-g++
+CC=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc
+RL=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ranlib
+OBJCOPY=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objcopy
+OBJDUMP=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objdump
+SIZE=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-size
+NM=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-nm
+READELF=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-readelf
+
+
+CFLAGS=-O0 -g3 -Wall -I. -c -fmessage-length=0
+ARFLAGS=rcs
+#LDFLAGS=-z -c -x
+LDFLAGS=-g
+#Dependancy : -MMD -MP
+CINC=\
+-I/usr/local/bin/arm-linux-eabi/lib/gcc/arm-linux-gnueabihf/4.8.3/plugin/include\
+-I/usr/local/bin/arm-linux-eabi/lib/gcc/arm-linux-gnueabihf/4.8.3/install-tools/include\
+-I/usr/local/bin/arm-linux-eabi/lib/gcc/arm-linux-gnueabihf/4.8.3/include\
+-I/usr/local/bin/arm-linux-eabi/arm-linux-gnueabihf/libc/usr/include\
+-I/usr/local/bin/arm-linux-eabi/arm-linux-gnueabihf/include\
+
+LIBS=\
+../hal/ADC/ADC.lib\
+../hal/BATTERY/BATTERY.lib\
+../hal/GPS/GPS.lib\
+../hal/IMU/IMU.lib\
+../hal/LASER/LASER.lib\
+../hal/LLD_IF/LLD_IF.lib\
+../matlab/MATLAB.lib\
+../sig/SIG.lib\
+
+
+
+
+
+

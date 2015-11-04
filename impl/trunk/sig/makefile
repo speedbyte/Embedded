@@ -4,16 +4,14 @@ include ../makeopts
 # if something like this is available, then one can use .PHONY: all to still
 # be able to run the recipe.
 
-IMAGE=HELIKOPTER
-OBJS=main.obj
+OBJS=ImuFilter/ImuFilter.obj matrixLib/matrixLib.obj Orientation/Orientation.obj
+LIBRARY=SIG.lib
 
-all:$(IMAGE)
+all:$(LIBRARY)
 
-.PHONY : $(LOUT)
-$(IMAGE):$(OBJS)
-	@echo Start Linking
-	@echo $(CURDIR)	
-	$(LN) $(LIBS) $(OBJS) -o $(IMAGE).out
+.PHONY : $(LIBRARY)
+$(LIBRARY):$(OBJS)
+	$(AR) $(ARFLAGS) $(LIBRARY) $(OBJS)	
 	
 .PHONY : $(OBJS)
 $(OBJS): %.obj : %.c
@@ -21,11 +19,7 @@ $(OBJS): %.obj : %.c
 
 clean:
 	@echo Cleaning	
-	rm -f $(OBJS)
-	rm -f $(IMAGE).map
-	rm -f $(IMAGE).out
+	rm -rf $(OBJS)
+	rm -f $(LIBRARY)
 
 
-#	$(RL) $(LIBRARY)
-#$(@:.obj=.c)
-#-MT"$@"
