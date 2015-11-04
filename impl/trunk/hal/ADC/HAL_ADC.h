@@ -17,7 +17,7 @@
  #define HAL_ADC_H_
  
     
- float g_halADC_get_ui16(unsigned char );
+ extern float g_halADC_get_ui16(unsigned char );
  
  
  #endif //HAL_ADC_H_

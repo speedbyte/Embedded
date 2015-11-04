@@ -13,4 +13,5 @@ compiled/*
 *.out
 *.toc
 *.synctex.gz
+*.obj
 /output
