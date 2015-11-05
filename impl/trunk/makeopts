@@ -10,12 +10,16 @@ SIZE=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gn
 NM=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-nm
 READELF=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-readelf
 
+CFLAGSERROR=-Werror
+CFLAGSNOERROR=-Wno-error=unused-but-set-variable -Wno-error=unused-variable
 
-CFLAGS=-O0 -g3 -Wall -I. -c -fmessage-length=0
+
+CFLAGS=-O0 -g3  $(CFLAGSNOERROR) -Wall -I. -c -fmessage-length=0
 ARFLAGS=rcs
 #LDFLAGS=-z -c -x
-LDFLAGS=-g
+LDFLAGS=-g -lrt
 #Dependancy : -MMD -MP
+
 CINC=\
 -I/usr/local/bin/arm-linux-eabi/lib/gcc/arm-linux-gnueabihf/4.8.3/plugin/include\
 -I/usr/local/bin/arm-linux-eabi/lib/gcc/arm-linux-gnueabihf/4.8.3/install-tools/include\
@@ -32,9 +36,3 @@ LIBS=\
 ../hal/LLD_IF/LLD_IF.lib\
 ../matlab/MATLAB.lib\
 ../sig/SIG.lib\
-
-
-
-
-
-

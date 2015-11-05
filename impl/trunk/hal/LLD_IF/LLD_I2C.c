@@ -4,7 +4,8 @@
 #include "LLD_I2C.h"
 #include <fcntl.h>          //required for open()
 #include <linux/i2c-dev.h>  //coming with i2c-tools
-
+#include <unistd.h>
+#include <sys/ioctl.h>
 
 /*!**********************************************************************
  * \author 	Philipp Woditsch (phwogs00)
@@ -139,7 +140,7 @@ unsigned int g_lldI2c_ReadI2c_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, con
 	while(		(l_ReturnOfReadBytes_ui8 != f_i2cNumOfDataBytes_ui32)
 			&& 	(l_ReadRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
 	{
-		l_ReturnOfReadBytes_ui8 = read(l_i2cFile_ui32, f_lldI2c_i2cReadBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+		l_ReturnOfReadBytes_ui8 = read(l_i2cFile_ui32, (void *)f_lldI2c_i2cReadBuffer_pui8, f_i2cNumOfDataBytes_ui32);
 		l_ReadRetryCounter_ui8++;
 	}
 
@@ -280,7 +281,7 @@ unsigned int g_lldI2c_ReadI2c0_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, co
 	while(		(l_ReturnOfReadBytes_ui8 != f_i2cNumOfDataBytes_ui32)
 			&& 	(l_ReadRetryCounter_ui8 < M_HAL_LLDI2C_TRANSMISSION_RETRYNUM_UI8) )
 	{
-		l_ReturnOfReadBytes_ui8 = read(l_i2cFile_ui32, f_lldI2c_i2cReadBuffer_pui8, f_i2cNumOfDataBytes_ui32);
+		l_ReturnOfReadBytes_ui8 = read(l_i2cFile_ui32, (void *)f_lldI2c_i2cReadBuffer_pui8, f_i2cNumOfDataBytes_ui32);
 		l_ReadRetryCounter_ui8++;
 	}
 

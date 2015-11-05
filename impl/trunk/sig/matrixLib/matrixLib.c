@@ -304,7 +304,7 @@ unsigned int g_sigMath_matrixInverse_bl(double* f_matrixResult_pf64,
 
 //solve linear system
 
-	if(g_sigMath_matrixEye_bl(l_eyeMatrix_f64,f_nrOfRowsA_ui32,f_nrOfColsA_ui32)!=0)
+	if(g_sigMath_matrixEye_bl(l_eyeMatrix_f64[0],f_nrOfRowsA_ui32,f_nrOfColsA_ui32)!=0)
 	{return M_SIG_MATRIXLIB_FAILED_BL;}
 	l_tempValue_f64=0;
 
