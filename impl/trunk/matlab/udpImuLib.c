@@ -93,7 +93,7 @@ unsigned int g_halMatlab_sendImuState_bl(	int f_socketHandler_i32,
  * none
  * \endinternal
  ***********************************************************************/
-halMatlab_rtImuPayload g_halMatlab_recvImuState_bl(int f_socketHandler_i32) {
+halMatlab_rtImuPayload g_halMatlab_recvImuStateAndTime_bl(int f_socketHandler_i32) {
 	halMatlab_rtImuPayload 		l_recvImuState_st;
 	unsigned char				l_recvBuffer_rgXui8[ sizeof(halMatlab_rtImuPayload) ];
 	unsigned int				l_recvBytesNumber_ui32;
@@ -125,6 +125,64 @@ halMatlab_rtImuPayload g_halMatlab_recvImuState_bl(int f_socketHandler_i32) {
 	if ( l_recvBytesNumber_ui32 == sizeof(halMatlab_rtImuPayload) )
 	{
 		memcpy( &l_recvImuState_st, &l_recvBuffer_rgXui8, sizeof(halMatlab_rtImuPayload));
+	}
+
+	return l_recvImuState_st;
+}
+
+
+/*!**********************************************************************
+ * \author 	Juergen Schmidt (juscgs00)
+ * \date 	2014/05/17
+ *
+ * \brief	Receives a packet of IMU data with the current via a given
+ * 			UDP-Socket
+ * \details	This function receives a data packet with a synthetic IMU
+ * 			state via a given UDP-Socket. This can be used to perform
+ * 			a Software-in -the-Loop setup or test specific filter
+ * 			algorithms in MATLAB.\n
+ * 			It is recommended to open the neccessary UDP-socket with
+ * 			g_halMatlab_initSocket_i32() or
+ * 			g_halMatlab_initConnection_i32().
+ *
+ * 	\param[in]	f_socketHandler_i32 specifies socket handler number used
+ * 				for the data transmission
+ * 	\param[out] returns the received synthetic IMU state packed into a
+ * 				custom struct type (type: halImu_orientationValues)
+ *
+ * \internal
+ * CHANGELOG:
+ * none
+ * \endinternal
+ ***********************************************************************/
+halImu_orientationValues g_halMatlab_recvImuState_bl(int f_socketHandler_i32) {
+	halImu_orientationValues 		l_recvImuState_st;
+	unsigned char				l_recvBuffer_rgXui8[ sizeof(halMatlab_rtImuPayload) ];
+	unsigned int				l_recvBytesNumber_ui32;
+
+	l_recvImuState_st.acc.x_f64 = 0;
+	l_recvImuState_st.acc.y_f64 = 0;
+	l_recvImuState_st.acc.z_f64 = 0;
+
+	l_recvImuState_st.gyro.l_pitch_f64 = 0;
+	l_recvImuState_st.gyro.l_roll_f64 = 0;
+	l_recvImuState_st.gyro.l_yaw_f64 = 0;
+
+	l_recvImuState_st.mag.x_f64 = 0;
+	l_recvImuState_st.mag.y_f64 = 0;
+	l_recvImuState_st.mag.z_f64 = 0;
+
+	l_recvImuState_st.pressure_f64 = 0;
+	l_recvImuState_st.temperature_f64 = 0;
+
+	// receive packet
+	l_recvBytesNumber_ui32 = g_halMatlab_recvPacket_ui32(	f_socketHandler_i32,
+															l_recvBuffer_rgXui8,
+															sizeof(halImu_orientationValues) );
+
+	if ( l_recvBytesNumber_ui32 == sizeof(halImu_orientationValues) )
+	{
+		memcpy( &l_recvImuState_st, &l_recvBuffer_rgXui8, sizeof(halImu_orientationValues));
 	}
 
 	return l_recvImuState_st;
