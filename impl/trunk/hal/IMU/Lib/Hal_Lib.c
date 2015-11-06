@@ -29,7 +29,7 @@ int g_halLib_twoComplement2Int(unsigned char* f_buffer_ui8,unsigned int f_nrOfBy
 		for(l_countVariable_i32=0;l_countVariable_i32<=f_nrOfBytes_ui32-1;l_countVariable_i32++)
 		{
 			l_shift_ui8=f_nrOfBytes_ui32-1-l_countVariable_i32;
-			l_result_i32=l_result_i32+((l_buffer_ui8[l_countVariable_i32])^255)<<l_shift_ui8*8;
+			l_result_i32=l_result_i32+(((l_buffer_ui8[l_countVariable_i32])^255)<<(l_shift_ui8*8));
 		}
 		l_result_i32=l_result_i32+1;
 		l_result_i32=l_result_i32*-1;

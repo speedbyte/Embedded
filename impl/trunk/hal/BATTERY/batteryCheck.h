@@ -45,4 +45,7 @@ none
 --------------------------------------------- */
 unsigned int  g_halBatCheck_readBatStatusFromI2C_i32(void);
 
+unsigned int  g_halBatCheck_readBatStatusFromI2C_bl(void);
+
+
 #endif /* HAL_BATTERYCHECK_BATTERYCHECK_H_ */

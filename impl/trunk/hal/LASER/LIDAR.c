@@ -6,6 +6,7 @@
 #include "LIDAR.h"
 #include <stdio.h>
 #include <stdint.h>
+#include <unistd.h>
 
 // Readable Var
 static double m_distance_f64;

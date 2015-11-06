@@ -11,6 +11,7 @@
 #include "../../LLD_IF/LLD_I2C.h"
 #include "../Lib/Hal_Lib.h"
 #include "Gyro.h"
+#include <unistd.h>
 
 
 #define M_HAL_GYRO_TEMP_OFFSET_UI8		27

@@ -15,7 +15,7 @@ $(LIBRARY):$(OBJS)
 	
 .PHONY : $(OBJS)
 $(OBJS): %.obj : %.c
-	$(CC) $(CFLAGS) $(CINC) -o $@ $<
+	$(CC) $(CFLAGS) $(CINC) -D__linux__ -o $@ $<
 
 clean:
 	@echo Cleaning	
