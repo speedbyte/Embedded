@@ -12,8 +12,8 @@
 #include<string.h>
 #include<stdlib.h>
 #include<string.h>
-#include<unistd.h>
 #ifdef __linux__
+    #include<unistd.h>
 	#include<time.h>
 #endif
 
