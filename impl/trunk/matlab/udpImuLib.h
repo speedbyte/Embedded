@@ -42,6 +42,9 @@ unsigned int g_halMatlab_sendImuState_bl(	int f_socketHandler_i32,
 											halImu_orientationValues f_imuState_st
 											);
 
-halMatlab_rtImuPayload g_halMatlab_recvImuState_bl( int f_socketHandler_i32 );
+halMatlab_rtImuPayload g_halMatlab_recvImuStateAndTime_bl( int f_socketHandler_i32 );
+
+halImu_orientationValues g_halMatlab_recvImuState_bl( int f_socketHandler_i32 );
+
 
 #endif //HAL_MATLAB_UDPIMULIB_H

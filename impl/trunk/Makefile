@@ -1,3 +1,4 @@
+# Invoke this file by using the command make MAKECMDGOALS=target
 
 # Default target.
 all: begin makeversion gccversion product end

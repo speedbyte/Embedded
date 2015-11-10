@@ -21,40 +21,61 @@
 
 extern float g_halADC_get_ui16(unsigned char );
 
+typedef enum enumTestCases
+{
+	TESTADC=1,
+	TESTBATTERY,
+	TESTGPS,
+	TESTIMU,
+	TESTLASER,
+	TESTUART,
+	TESTMATLABIMU,
+	TESTMATLABKALMAN,
+	TESTACCMAG,
+	TESTGYRO,
+	TESTBARO,
+	TESTMATRIXLIB,
+	TESTUDP,
+	TESTEND
+} enumTestcases;
+
 int main() {
 
-	int runCommand = 0;
+	//enumTestcases enTstCases;
+	enumTestcases runCommand = 0;
 	char testValue[20];
 	scanf("%s", testValue);
 	printf("Received string is %s\n", testValue);
 	if ( strcmp(testValue,"testadc")  == 0 )
-		runCommand = 1;
-	else if ( strcmp(testValue,"testadc")  == 0 )
-		runCommand = 2;
+		runCommand = TESTADC;
 	else if ( strcmp(testValue,"testbattery")  == 0 )
-		runCommand = 3;
+		runCommand = TESTBATTERY;
 	else if ( strcmp(testValue,"testgps")  == 0 )
-		runCommand = 4;
+		runCommand = TESTGPS;
 	else if ( strcmp(testValue,"testimu")  == 0 )
-		runCommand = 5;
+		runCommand = TESTIMU;
 	else if ( strcmp(testValue,"testlaser")  == 0 )
-		runCommand = 6;
+		runCommand = TESTLASER;
+	else if ( strcmp(testValue,"testuart")  == 0 )
+		runCommand = TESTUART;
 	else if ( strcmp(testValue,"testmatlabimu")  == 0 )
-		runCommand = 7;
+		runCommand = TESTMATLABIMU;
 	else if ( strcmp(testValue,"testmatlabkalman")  == 0 )
-		runCommand = 8;
+		runCommand = TESTMATLABKALMAN;
 	else if ( strcmp(testValue,"testaccmag")  == 0 )
-		runCommand = 9;
+		runCommand = TESTACCMAG;
 	else if ( strcmp(testValue,"testgyro")  == 0 )
-		runCommand = 10;
+		runCommand = TESTGYRO;
 	else if ( strcmp(testValue,"testbaro")  == 0 )
-		runCommand = 11;
+		runCommand = TESTBARO;
 	else if ( strcmp(testValue,"testmatrixlib")  == 0 )
-		runCommand = 12;
+		runCommand = TESTMATRIXLIB;
+	else if ( strcmp(testValue,"testudp")  == 0 )
+		runCommand = TESTUDP;
 
 	switch (runCommand)
 	{
-		case 1:
+		case TESTADC:
 		{
 			float erg;
 			printf("Starting ADC Test\n");
@@ -70,7 +91,7 @@ int main() {
 			}
 			break;
 		}
-		case 2:
+		case TESTBATTERY:
 		{
 			double l_batterLevel_f64=0;
 			printf("Starting Battery Test\n");
@@ -83,7 +104,7 @@ int main() {
 			}
 			break;
 		}
-		case 3:
+		case TESTGPS:
 		{
 			int i=0;
 			struct strPosition main_longitude;
@@ -95,7 +116,7 @@ int main() {
 			}
 			break;
 		}
-		case 4:
+		case TESTIMU:
 		{
 			halImu_orientationValues l_imuMeasurements_st;
 			printf("Starting IMU Test\n");
@@ -116,7 +137,7 @@ int main() {
 			}
 			break;
 		}
-		case 5:
+		case TESTLASER:
 		{
 			double dist=0;
 			printf("Starting LASER Test\n");
@@ -132,7 +153,7 @@ int main() {
 			}
 			break;
 		}
-		case 6:
+		case TESTUART:
 		{
 			char rec_char='z';
 			char *ptr_rec_char=&rec_char;
@@ -153,7 +174,7 @@ int main() {
 			fclose(fp);
 			break;
 		}
-		case 7:
+		case TESTMATLABIMU:
 		{
 			printf("Starting IMU Matlab Test\n");
 			unsigned char	l_remoteHostAddr_rg4ui8[4] 	= {192,168,22,160};
@@ -177,18 +198,18 @@ int main() {
 				l_imuMeasurements_st=g_halImu_getImuValues_str();
 
 				l_sendState_bl = g_halMatlab_sendImuState_bl(l_udpSocket_i32, l_imuMeasurements_st);
+				printf("Temp %f\n", l_imuMeasurements_st.temperature_f64);
 				if ( l_sendState_bl != M_HAL_MATLAB_SUCCESS_UI8 )
 				{
 					printf("UDP-Packet error\n");
 				}
-
 				usleep( 20000 ); //20ms = 50Hz
 			}
 			// close udp connection
 			g_halMatlab_closeSocket_bl(l_udpSocket_i32);
 			break;
 		}
-		case 8:
+		case TESTMATLABKALMAN:
 		{
 			printf("Starting Kalman Orientation Matlab Test\n");
 			unsigned char	l_remoteHostAddr_rg4ui8[4] 	= {192,168,22,160};
@@ -234,7 +255,7 @@ int main() {
 			g_halMatlab_closeSocket_bl(l_udpSocket_i32);
 			break;
 		}
-		case 9:
+		case TESTACCMAG:
 		{
 			halAccmag_dataContainer l_sensorData_st;
 			printf("IMU Acceleration and Compass Test\n");
@@ -272,7 +293,7 @@ int main() {
 			}
 			break;
 		}
-		case 10:
+		case TESTBARO:
 		{
 			double pressure=0;
 			double temp=0;
@@ -284,27 +305,27 @@ int main() {
 			while(1)
 			{
 				g_halBaro_readPressureFromI2C_i32();
-				//usleep(100000);
+				usleep(100000);
 				g_halBaro_readTemperatureFromI2C_i32();
-				//usleep(100000);
+				usleep(100000);
 				pressure=g_halBaro_getPressure_f64();
 				temp=g_halBaro_getTemperature_f64();
 				printf("Pressure: %5.3f    ;    Temperature:  %5.3f\n",pressure,temp);
-				//usleep(100000);
+				usleep(100000);
 
 
 				g_halGyro_readGyroscopeFromI2C_i32();
-				//usleep(100000);
+				usleep(100000);
 				g_halGyro_readTemperatureFromI2C_i32();
-				//usleep(100000);
+				usleep(100000);
 				GyroValues=g_halGyro_getGyroscope_st();
 				Gyrotemp=g_halGyro_getTemperature_f64();
 				printf("yaw: %5.3f    ;    pitch:  %5.3f    ;    roll:  %5.3f\n",GyroValues.l_yaw_f64,GyroValues.l_pitch_f64,GyroValues.l_roll_f64);
-				//usleep(100000);
+				usleep(100000);
 			}
 			break;
 		}
-		case 11:
+		case TESTGYRO:
 		{
 			double pressure=0;
 			double temp=0;
@@ -334,7 +355,7 @@ int main() {
 			}
 			break;
 		}
-		case 12:
+		case TESTMATRIXLIB:
 		{
 			static	double l_MatrixA_f64[3][3]={{1,2,1},{2,5,4},{1,4,9}};
 			//static	double l_MatrixA_f64[3][3]={{4,-14,-2},{-14,65,3},{-2,3,3}};
@@ -366,7 +387,46 @@ int main() {
 			}
 			break;
 		}
+		case TESTUDP:
+		{
+			printf("simple send udp test...");
+			int clientSocket, nBytesMessage, nBytesMessage2;
+			char message[20] = "Hello\n";
+			char message2[20] = "AnotherMessage\n";
+
+			nBytesMessage= sizeof(message)/ sizeof(message[0]);
+			nBytesMessage2 =sizeof(message2)/ sizeof(message2[0]);
+
+			struct sockaddr_in serverAddress;
+			socklen_t addressSize;
+
+			/*Create UDP socket*/
+			clientSocket = socket(PF_INET, SOCK_DGRAM, 0);
+
+			/*Configure settings in address struct*/
+			serverAddress.sin_family = AF_INET;
+			serverAddress.sin_port = htons(9999);
+			//serverAddress.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+			serverAddress.sin_addr.s_addr = inet_addr("192.168.22.160");
+			memset(serverAddress.sin_zero, '\0', sizeof serverAddress.sin_zero);
+
+			/*Initialize size variable to be used later on*/
+			addressSize = sizeof(serverAddress);
+
+			printf("Start Sending Messages\n");
+
+			while(1)
+			{
+				sleep(1);
+				sendto(clientSocket,message,nBytesMessage,0,(struct sockaddr *)&serverAddress,addressSize);
+				sleep(1);
+				sendto(clientSocket,message2,nBytesMessage2,0,(struct sockaddr *)&serverAddress,addressSize);
+				printf("And send again....\n");
+			}
+			break;
+		}
 		default:
+		case TESTEND:
 		{
 			printf("Nothing found");
 			break;

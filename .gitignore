@@ -16,3 +16,4 @@ compiled/*
 *.obj
 /output
 *.lib
+*.o
