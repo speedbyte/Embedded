@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <time.h>
 
 #include "../matlab/udpSigLib.h"
 #include "../matlab/udpImuLib.h"
@@ -20,6 +21,9 @@
 #include "../hal/LLD_IF/LLD_UART.h"
 
 extern float g_halADC_get_ui16(unsigned char );
+
+#define REMOTE_PORT 5000
+#define REMOTE_ADDR "192.168.22.160"
 
 typedef enum enumTestCases
 {
@@ -36,12 +40,15 @@ typedef enum enumTestCases
 	TESTBARO,
 	TESTMATRIXLIB,
 	TESTUDP,
+	TESTUDPTRANSFER,
 	TESTEND
 } enumTestcases;
 
+
+static char str[200];
+
 int main() {
 
-	//enumTestcases enTstCases;
 	enumTestcases runCommand = 0;
 	char testValue[20];
 	scanf("%s", testValue);
@@ -72,6 +79,8 @@ int main() {
 		runCommand = TESTMATRIXLIB;
 	else if ( strcmp(testValue,"testudp")  == 0 )
 		runCommand = TESTUDP;
+	else if ( strcmp(testValue,"testudptransfer")  == 0 )
+		runCommand = TESTUDPTRANSFER;
 
 	switch (runCommand)
 	{
@@ -391,16 +400,7 @@ int main() {
 		{
 			printf("simple send udp test...");
 			int clientSocket;
-			int nBytesMessage;
 			char message[20] = "Hello\n";
-
-			halMatlab_rtImuPayload	l_rtImuPayload_st;
-
-			(unsigned char*)&l_rtImuPayload_st,
-					sizeof( l_rtImuPayload_st ) );
-
-			nBytesMessage = sizeof(message)/ sizeof(message[0]);
-
 			struct sockaddr_in serverAddress;
 			socklen_t addressSize;
 
@@ -408,8 +408,8 @@ int main() {
 			clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
 			serverAddress.sin_family = PF_INET;
-			serverAddress.sin_port = htons(9999);
-			serverAddress.sin_addr.s_addr = inet_addr("192.168.22.160");
+			serverAddress.sin_port = htons(REMOTE_PORT);
+			serverAddress.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
 
 			memset(serverAddress.sin_zero, '\0', sizeof(serverAddress.sin_zero));
 
@@ -426,12 +426,91 @@ int main() {
 
 				   This function is a cancellation point and therefore not marked with
 				   __THROW.  */
-				sendto(clientSocket, message, nBytesMessage, 0,
+				sendto(clientSocket, message, sizeof(message), 0,
 						(struct sockaddr *)&serverAddress,addressSize);
 				printf("And send again....\n");
 			}
 			break;
 		}
+		case TESTUDPTRANSFER:
+		{
+			sigOri_orientationAngles	l_kalmanAngles_st;
+			sigOri_orientationAngles	l_compAngles_st;
+			halImu_orientationValues	l_imuStates_st;
+			halMatlab_rtSigAllStatePayload	l_rtCompleteSigPayload_st;
+			struct timespec					l_timestamp_st;
+
+
+			printf("Starting Transfer matlab data on udp test\n");
+
+			int val=0;
+			int socketclient = 0;
+			struct sockaddr_in remoteaddress;
+
+			remoteaddress.sin_family = PF_INET;
+			remoteaddress.sin_port = htons(REMOTE_PORT);
+
+			(void)inet_aton(REMOTE_ADDR, &remoteaddress.sin_addr); //dot to integer and then host to network byte order
+
+			socketclient = socket(PF_INET, SOCK_DGRAM, 0);
+
+
+			g_sigOri_initMatrices_bl();
+			g_sigOri_initImuSensors_bl();
+
+			while(1)
+			{
+				g_sigOri_calcKalmanOrientation_bl();
+				g_sigOri_calcComplementaryOrientation_bl();
+
+				l_kalmanAngles_st 	= g_sigOri_getAnglesKalman_bl();
+				l_compAngles_st		= g_sigOri_getAnglesComplementary_bl();
+				l_imuStates_st 		= g_halImu_getImuValues_str();
+
+
+				/*
+				 * first of all: get an accurate timestamp for this data telegram
+				 * Hint: ensure that 'librt' is also linked in the project!
+				 *       Eclipse: Goto Project->Properties.
+				 *                Select C/C++-Build->Settings
+				 *                Select tab view 'Tool Settings'.
+				 *                Select 'Cross G++ Linker'->Libraries
+				 *                and add the entry 'rt' to 'Libraries (-l)'
+				 *
+				 *       GCC on the commandline: simply add '-lrt' to your gcc options
+				 */
+				if ( clock_gettime(CLOCK_REALTIME, &l_timestamp_st) != M_HAL_MATLAB_SUCCESS_UI8)
+				{
+					return M_HAL_MATLAB_FAILED_UI8;
+				}
+
+				clock_gettime(CLOCK_REALTIME, &l_timestamp_st);
+
+				//assmeble timestamp and
+				l_rtCompleteSigPayload_st.timestamp_st 				= l_timestamp_st;
+				l_rtCompleteSigPayload_st.imuState_st				= l_imuStates_st;
+				l_rtCompleteSigPayload_st.kalmanSigState_st 		= l_kalmanAngles_st;
+				l_rtCompleteSigPayload_st.complementarySigState_st	= l_compAngles_st;
+
+				sprintf(str, "sec = %d, nano = %d\nacc = %f %f %f\nmag = %f %f %f\nyaw, pitch, roll = %f %f %f\ntemperature = %f\npressure = %f\n",
+						l_rtCompleteSigPayload_st.timestamp_st.tv_sec,
+						l_rtCompleteSigPayload_st.timestamp_st.tv_nsec,
+						l_rtCompleteSigPayload_st.imuState_st.acc.x_f64, l_rtCompleteSigPayload_st.imuState_st.acc.y_f64, l_rtCompleteSigPayload_st.imuState_st.acc.z_f64,
+						l_rtCompleteSigPayload_st.imuState_st.mag.x_f64, l_rtCompleteSigPayload_st.imuState_st.mag.y_f64, l_rtCompleteSigPayload_st.imuState_st.mag.z_f64,
+						l_rtCompleteSigPayload_st.imuState_st.gyro.l_yaw_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.l_pitch_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.l_roll_f64,
+						l_rtCompleteSigPayload_st.imuState_st.temperature_f64, l_rtCompleteSigPayload_st.imuState_st.pressure_f64);
+				puts(str);
+
+				//printf("Sending time %d and Temperature %f\n", l_rtCompleteSigPayload_st.timestamp_st.tv_sec, l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
+				sendto(socketclient, (unsigned char *)&l_rtCompleteSigPayload_st , (size_t)sizeof( l_rtCompleteSigPayload_st ),  0, (struct sockaddr *)&remoteaddress, sizeof(remoteaddress));
+
+				usleep( 2000000 ); //20ms = 50Hz
+			}
+			// close udp connection
+			close(socketclient);
+			break;
+		}
+
 		default:
 		case TESTEND:
 		{

@@ -7,7 +7,7 @@ include ../makeopts
 TARGET=HELIKOPTER
 OBJS=main.obj
 
-all:sizebefore build sizeafter readelf copytotarget
+all:sizebefore build sizeafter readelf
 
 # Display size of file.
 ELFSIZE 	= $(SIZE) -A $(TARGET).elf
