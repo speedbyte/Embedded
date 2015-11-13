@@ -7,7 +7,7 @@ include ../makeopts
 TARGET=HELIKOPTER
 OBJS=main.obj
 
-all:sizebefore build sizeafter readelf
+all:sizebefore build sizeafter readelf copytotarget
 
 # Display size of file.
 ELFSIZE 	= $(SIZE) -A $(TARGET).elf
@@ -62,6 +62,9 @@ $(OBJS): %.obj : %.c
 
 readelf:
 	@if [ -f $(TARGET).elf ]; then echo; echo "elf file header"; $(READELF) -e $(TARGET).elf; echo; fi
+
+copytotarget:
+	scp HELIKOPTER.elf pi@192.168.22.161:/home/pi/HELIKOPTER.elf
 
 clean:
 	@echo Cleaning	

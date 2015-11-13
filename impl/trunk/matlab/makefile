@@ -1,7 +1,6 @@
 ifeq ($(MAKECMDGOAL),host)
 include ../makeopts-host
-endif
-ifeq ($(MAKECMDGOAL),target)
+else #ifeq ($(MAKECMDGOAL),target)
 include ../makeopts
 endif
 

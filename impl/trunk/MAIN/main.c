@@ -390,25 +390,28 @@ int main() {
 		case TESTUDP:
 		{
 			printf("simple send udp test...");
-			int clientSocket, nBytesMessage, nBytesMessage2;
+			int clientSocket;
+			int nBytesMessage;
 			char message[20] = "Hello\n";
-			char message2[20] = "AnotherMessage\n";
 
-			nBytesMessage= sizeof(message)/ sizeof(message[0]);
-			nBytesMessage2 =sizeof(message2)/ sizeof(message2[0]);
+			halMatlab_rtImuPayload	l_rtImuPayload_st;
+
+			(unsigned char*)&l_rtImuPayload_st,
+					sizeof( l_rtImuPayload_st ) );
+
+			nBytesMessage = sizeof(message)/ sizeof(message[0]);
 
 			struct sockaddr_in serverAddress;
 			socklen_t addressSize;
 
 			/*Create UDP socket*/
-			clientSocket = socket(PF_INET, SOCK_DGRAM, 0);
+			clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-			/*Configure settings in address struct*/
-			serverAddress.sin_family = AF_INET;
+			serverAddress.sin_family = PF_INET;
 			serverAddress.sin_port = htons(9999);
-			//serverAddress.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
 			serverAddress.sin_addr.s_addr = inet_addr("192.168.22.160");
-			memset(serverAddress.sin_zero, '\0', sizeof serverAddress.sin_zero);
+
+			memset(serverAddress.sin_zero, '\0', sizeof(serverAddress.sin_zero));
 
 			/*Initialize size variable to be used later on*/
 			addressSize = sizeof(serverAddress);
@@ -418,9 +421,13 @@ int main() {
 			while(1)
 			{
 				sleep(1);
-				sendto(clientSocket,message,nBytesMessage,0,(struct sockaddr *)&serverAddress,addressSize);
-				sleep(1);
-				sendto(clientSocket,message2,nBytesMessage2,0,(struct sockaddr *)&serverAddress,addressSize);
+				/* Send N bytes of BUF on socket FD to peer at address ADDR (which is
+				   ADDR_LEN bytes long).  Returns the number sent, or -1 for errors.
+
+				   This function is a cancellation point and therefore not marked with
+				   __THROW.  */
+				sendto(clientSocket, message, nBytesMessage, 0,
+						(struct sockaddr *)&serverAddress,addressSize);
 				printf("And send again....\n");
 			}
 			break;
