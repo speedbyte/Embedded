@@ -164,8 +164,8 @@
 00018228 D __data_start
 00018228 W data_start
 0001822c D __dso_handle
-00018230 d l_MatrixA_f64.6706
-00018278 d l_MatrixB_f64.6707
+00018230 d l_MatrixA_f64.6707
+00018278 d l_MatrixB_f64.6708
 000182c0 d l_rec_Data_ch
 000182c4 d l_decimal_place_factor_i32
 000182c8 d l_filestream_i32
@@ -175,7 +175,7 @@
 000182cc D __TMC_END__
 000182d0 b completed.8841
 000182d8 b str
-000183a0 b l_outputMatrix_f64.6708
+000183a0 b l_outputMatrix_f64.6709
 000183e8 b m_batteryLevel_f64
 000183f0 b l_gps_longitude_st
 00018408 b l_gps_latitude_st
