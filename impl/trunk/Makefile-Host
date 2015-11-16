@@ -21,13 +21,10 @@ makeversion :
 	@make --version
 
 
-product:MATLAB HOST
+product: HOST
 
 HOST:FORCE
 	cd host; make all-host
-
-#MATLAB:FORCE
-#	cd matlab; make all-host
 
 FORCE:
 
