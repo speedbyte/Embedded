@@ -14,7 +14,7 @@ CFLAGSERROR=-Werror
 CFLAGSNOERROR=-Wno-error=unused-but-set-variable -Wno-error=unused-variable
 
 
-CFLAGS=-O0 -g3  $(CFLAGSNOERROR) -Wall -I. -c -fmessage-length=0
+CFLAGS=-O0 -g3  $(CFLAGSNOERROR) -Wall -I. -c -fmessage-length=0 -D__host__
 ARFLAGS=rcs
 #LDFLAGS=-z -c -x
 LDFLAGS=-g -lrt

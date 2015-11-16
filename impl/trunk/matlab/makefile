@@ -1,7 +1,6 @@
 ifeq ($(MAKECMDGOAL),host)
 include ../makeopts-host
-endif
-ifeq ($(MAKECMDGOAL),target)
+else #ifeq ($(MAKECMDGOAL),target)
 include ../makeopts
 endif
 
@@ -36,7 +35,7 @@ $(LIBRARY-HOST):$(OBJS-HOST)
 	
 .PHONY : $(OBJS-HOST)
 $(OBJS-HOST): %.o : %.c
-	$(CC) $(CFLAGS) $(CINC) -D__linux__ -o $@ $<
+	$(CC) $(CFLAGS) $(CINC) -o $@ $<
 
 clean:
 	@echo Cleaning	
