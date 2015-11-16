@@ -17,5 +17,5 @@ compiled/*
 /output
 *.lib
 *.o
-slprj/*
+impl/trunk/slprj/*
 slprj

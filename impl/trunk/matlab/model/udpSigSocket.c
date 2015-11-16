@@ -383,7 +383,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
     halMatlab_rtSigAllStatePayload 		l_udpPayload_st;
 
-	l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
+	//l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
 
     printf("Remote time: %ld.%ld\n", l_udpPayload_st.timestamp_st.tv_sec,l_udpPayload_st.timestamp_st.tv_nsec);
     

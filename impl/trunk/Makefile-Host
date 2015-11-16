@@ -1,4 +1,4 @@
-# Invoke this file by using the command make -f Makefile-Host MAKECMDGOALS=host all-host
+# Invoke this file by using the command make -f Makefile-Host MAKECMDGOAL=host all-host
 
 # Default target.
 all-host: begin makeversion gccversion product end
@@ -26,12 +26,12 @@ product:MATLAB HOST
 HOST:FORCE
 	cd host; make all-host
 
-MATLAB:FORCE
-	cd matlab; make all-host
+#MATLAB:FORCE
+#	cd matlab; make all-host
 
 FORCE:
 
 clean-host:
-	cd matlab; make clean-host
+#	cd matlab; make clean-host
 	cd host; make clean-host
 	

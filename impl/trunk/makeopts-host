@@ -1,4 +1,4 @@
-FORMAT = binary
+FORMAT=binary
 
 AR=ar
 LD=g++
@@ -9,6 +9,7 @@ OBJDUMP=objdump
 SIZE=size
 NM=nm
 READELF=readelf
+OS=$(shell uname -o)
 
 CFLAGSERROR=-Werror
 CFLAGSNOERROR=-Wno-error=unused-but-set-variable -Wno-error=unused-variable
@@ -18,10 +19,10 @@ CFLAGS=-O0 -g3  $(CFLAGSNOERROR) -Wall -I. -c -fmessage-length=0 -D__host__
 ARFLAGS=rcs
 #LDFLAGS=-z -c -x
 LDFLAGS=-g -lrt
-#Dependancy : -MMD -MP
+#Dependancy:-MMD -MP
 
 CINC-HOST=\
 -I/usr/include\
 
 LIBS-HOST=\
-../matlab/MATLAB-HOST.lib\
+#../matlab/MATLAB-HOST.lib\

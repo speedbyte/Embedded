@@ -4,8 +4,16 @@ include ../makeopts-host
 # if something like this is available, then one can use .PHONY: all to still
 # be able to run the recipe.
 
-IMAGE-HOST=READ-UDP
+
 OBJS-HOST=read-udp-host.o
+
+#OS='uname -o'
+ifeq ($(OS),Cygwin)
+	IMAGE-HOST=READ-UDP-WIN
+else
+	IMAGE-HOST=READ-UDP-LINUX
+endif
+
 
 all-host:elf
 
@@ -16,6 +24,7 @@ elf:$(IMAGE-HOST).elf
 	
 .PHONY : $(OBJS-HOST)
 $(OBJS-HOST): %.o : %.c
+	@echo $(OS)
 	$(CC) $(CFLAGS) $(CINC) -o $@ $<
 
 clean-host:
