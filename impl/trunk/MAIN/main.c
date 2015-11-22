@@ -23,7 +23,7 @@
 extern float g_halADC_get_ui16(unsigned char );
 
 #define REMOTE_PORT 5000
-#define REMOTE_ADDR "192.168.22.160"
+#define REMOTE_ADDR "192.168.22.159"
 
 typedef enum enumTestCases
 {
@@ -45,7 +45,8 @@ typedef enum enumTestCases
 } enumTestcases;
 
 
-static char str[200];
+static char str[500];
+static char str2[500];
 
 int main() {
 
@@ -492,13 +493,30 @@ int main() {
 				l_rtCompleteSigPayload_st.kalmanSigState_st 		= l_kalmanAngles_st;
 				l_rtCompleteSigPayload_st.complementarySigState_st	= l_compAngles_st;
 
-				sprintf(str, "sec = %d, nano = %d\nacc = %f %f %f\nmag = %f %f %f\nyaw, pitch, roll = %f %f %f\ntemperature = %f\npressure = %f\n",
-						l_rtCompleteSigPayload_st.timestamp_st.tv_sec,
-						l_rtCompleteSigPayload_st.timestamp_st.tv_nsec,
-						l_rtCompleteSigPayload_st.imuState_st.acc.x_f64, l_rtCompleteSigPayload_st.imuState_st.acc.y_f64, l_rtCompleteSigPayload_st.imuState_st.acc.z_f64,
-						l_rtCompleteSigPayload_st.imuState_st.mag.x_f64, l_rtCompleteSigPayload_st.imuState_st.mag.y_f64, l_rtCompleteSigPayload_st.imuState_st.mag.z_f64,
-						l_rtCompleteSigPayload_st.imuState_st.gyro.l_yaw_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.l_pitch_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.l_roll_f64,
-						l_rtCompleteSigPayload_st.imuState_st.temperature_f64, l_rtCompleteSigPayload_st.imuState_st.pressure_f64);
+				printf("START MEASUREMENT\n");
+				sprintf(str, "sec =  %d, nano = %d",
+						l_rtCompleteSigPayload_st.timestamp_st.tv_sec, l_rtCompleteSigPayload_st.timestamp_st.tv_nsec);
+				puts(str);
+				sprintf(str, "acc = %f %f %f",
+						l_rtCompleteSigPayload_st.imuState_st.acc.x_f64, l_rtCompleteSigPayload_st.imuState_st.acc.y_f64, l_rtCompleteSigPayload_st.imuState_st.acc.z_f64);
+				puts(str);
+				sprintf(str, "mag = %f %f %f",
+						l_rtCompleteSigPayload_st.imuState_st.mag.x_f64, l_rtCompleteSigPayload_st.imuState_st.mag.y_f64, l_rtCompleteSigPayload_st.imuState_st.mag.z_f64);
+				puts(str);
+				sprintf(str, "yaw %f, pitch %f roll %f",
+						l_rtCompleteSigPayload_st.imuState_st.gyro.l_yaw_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.l_pitch_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.l_roll_f64);
+				puts(str);
+				sprintf(str, "temperature = %f",
+						l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
+				puts(str);
+				sprintf(str, "pressure = %f",
+						l_rtCompleteSigPayload_st.imuState_st.pressure_f64);
+				puts(str);
+				sprintf(str, "KALMAN yaw %f, pitch %f roll %f",
+						l_rtCompleteSigPayload_st.kalmanSigState_st.yaw_f64, l_rtCompleteSigPayload_st.kalmanSigState_st.pitch_f64, l_rtCompleteSigPayload_st.kalmanSigState_st.roll_f64);
+				puts(str);
+				sprintf(str, "COMPLEMENTARY yaw %f, pitch %f roll %f",
+						l_rtCompleteSigPayload_st.complementarySigState_st.yaw_f64, l_rtCompleteSigPayload_st.complementarySigState_st.pitch_f64, l_rtCompleteSigPayload_st.complementarySigState_st.roll_f64);
 				puts(str);
 
 				//printf("Sending time %d and Temperature %f\n", l_rtCompleteSigPayload_st.timestamp_st.tv_sec, l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
