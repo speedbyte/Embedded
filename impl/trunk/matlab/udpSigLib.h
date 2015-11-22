@@ -31,7 +31,7 @@ typedef struct{
 
 typedef struct{
 	struct timespec				timestamp_st;
-#if !defined(__host__)
+#if defined(__host__)
 	double 						dummy; // this is to pad, because struct timespec on host ( 64 bit ) > struct timespec on target ( 32 bit )
 #endif
 	halImu_orientationValues	imuState_st;

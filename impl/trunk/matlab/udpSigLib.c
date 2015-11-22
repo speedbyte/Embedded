@@ -221,26 +221,26 @@ halMatlab_rtSigAllStatePayload g_halMatlab_recvSigAllStates_bl( int f_socketHand
 	l_recvSigAllStates_st.timestamp_st.tv_sec 	= 0;
 	l_recvSigAllStates_st.timestamp_st.tv_nsec 	= 0;
 
-  l_recvSigAllStates_st.imuState_st.acc.x_f64       = 0;
-  l_recvSigAllStates_st.imuState_st.acc.y_f64       = 0;
-  l_recvSigAllStates_st.imuState_st.acc.z_f64       = 0;
+    l_recvSigAllStates_st.imuState_st.acc.x_f64       = 0;
+    l_recvSigAllStates_st.imuState_st.acc.y_f64       = 0;
+    l_recvSigAllStates_st.imuState_st.acc.z_f64       = 0;
   
-  l_recvSigAllStates_st.imuState_st.mag.x_f64       = 0;
-  l_recvSigAllStates_st.imuState_st.mag.y_f64       = 0;
-  l_recvSigAllStates_st.imuState_st.mag.z_f64       = 0;
+    l_recvSigAllStates_st.imuState_st.mag.x_f64       = 0;
+    l_recvSigAllStates_st.imuState_st.mag.y_f64       = 0;
+    l_recvSigAllStates_st.imuState_st.mag.z_f64       = 0;
   
-  l_recvSigAllStates_st.imuState_st.gyro.l_pitch_f64  = 0;
+    l_recvSigAllStates_st.imuState_st.gyro.l_pitch_f64  = 0;
 	l_recvSigAllStates_st.imuState_st.gyro.l_roll_f64 	= 0;
 	l_recvSigAllStates_st.imuState_st.gyro.l_yaw_f64 	  = 0;
   
-  l_recvSigAllStates_st.imuState_st.temperature_f64 = 0;
-  l_recvSigAllStates_st.imuState_st.pressure_f64    = 0;
+    l_recvSigAllStates_st.imuState_st.temperature_f64 = 0;
+    l_recvSigAllStates_st.imuState_st.pressure_f64    = 0;
   
 	l_recvSigAllStates_st.kalmanSigState_st.pitch_f64 = 0;
 	l_recvSigAllStates_st.kalmanSigState_st.roll_f64 	= 0;
 	l_recvSigAllStates_st.kalmanSigState_st.yaw_f64 	= 0;
 
-  l_recvSigAllStates_st.complementarySigState_st.pitch_f64 = 0;
+    l_recvSigAllStates_st.complementarySigState_st.pitch_f64 = 0;
 	l_recvSigAllStates_st.complementarySigState_st.roll_f64 	= 0;
 	l_recvSigAllStates_st.complementarySigState_st.yaw_f64 	= 0;
 

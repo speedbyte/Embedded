@@ -201,7 +201,7 @@
 #define REMOTE_HOST_PORT_UI16		5000
 
 static int	m_simSocket_i32 = 0;
-
+static struct timespec tp;
 /*====================*
  * S-function methods *
  *====================*/
@@ -349,7 +349,8 @@ static void mdlInitializeSampleTimes(SimStruct *S)
       l_listenPort_pf64 = mxGetPr( ssGetSFcnParam(S, 1) );
       printf("Listening to port %lf\n",*l_listenPort_pf64);
 	  
-      m_simSocket_i32 = g_halMatlab_initConnection_i32( l_remoteIpAddr_rg4ui8 , (unsigned short)*l_listenPort_pf64);
+      //m_simSocket_i32 = g_halMatlab_initConnection_i32( l_remoteIpAddr_rg4ui8 , (unsigned short)*l_listenPort_pf64);
+      printf("socket number  %d\n",m_simSocket_i32);
   }
 #endif /*  MDL_START */
 
@@ -383,33 +384,35 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
     halMatlab_rtSigAllStatePayload 		l_udpPayload_st;
 
-	//l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
-
+  	//  l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
+    clock_gettime(CLOCK_REALTIME, &tp);
     printf("Remote time: %ld.%ld\n", l_udpPayload_st.timestamp_st.tv_sec,l_udpPayload_st.timestamp_st.tv_nsec);
-    
-	Raw_Accelerometer_xyz[0] = l_udpPayload_st.imuState_st.acc.x_f64;
-	Raw_Accelerometer_xyz[1] = l_udpPayload_st.imuState_st.acc.y_f64;
-	Raw_Accelerometer_xyz[2] = l_udpPayload_st.imuState_st.acc.z_f64;
+    printf("Current time: %ld.%ld\n", tp.tv_sec,tp.tv_nsec);
+      
+  	Raw_Accelerometer_xyz[0] = l_udpPayload_st.imuState_st.acc.x_f64;
+    printf("Accc: %f\n", Raw_Accelerometer_xyz[0]);
+  	Raw_Accelerometer_xyz[1] = l_udpPayload_st.imuState_st.acc.y_f64;
+  	Raw_Accelerometer_xyz[2] = l_udpPayload_st.imuState_st.acc.z_f64;
 
-	Raw_Gyrometer_rpy[0] = l_udpPayload_st.imuState_st.gyro.l_roll_f64;
-	Raw_Gyrometer_rpy[1] = l_udpPayload_st.imuState_st.gyro.l_pitch_f64;
-	Raw_Gyrometer_rpy[2] = l_udpPayload_st.imuState_st.gyro.l_yaw_f64;
+  	Raw_Gyrometer_rpy[0] = l_udpPayload_st.imuState_st.gyro.l_roll_f64;
+  	Raw_Gyrometer_rpy[1] = l_udpPayload_st.imuState_st.gyro.l_pitch_f64;
+  	Raw_Gyrometer_rpy[2] = l_udpPayload_st.imuState_st.gyro.l_yaw_f64;
 
-	Raw_Compass_xyz[0] = l_udpPayload_st.imuState_st.mag.x_f64;
-	Raw_Compass_xyz[1] = l_udpPayload_st.imuState_st.mag.y_f64;
-	Raw_Compass_xyz[2] = l_udpPayload_st.imuState_st.mag.z_f64;
+  	Raw_Compass_xyz[0] = l_udpPayload_st.imuState_st.mag.x_f64;
+  	Raw_Compass_xyz[1] = l_udpPayload_st.imuState_st.mag.y_f64;
+  	Raw_Compass_xyz[2] = l_udpPayload_st.imuState_st.mag.z_f64;
 
-	Raw_Barometer_z[0] = l_udpPayload_st.imuState_st.pressure_f64;
+  	Raw_Barometer_z[0] = l_udpPayload_st.imuState_st.pressure_f64;
 
-	Raw_Temperature[0] = l_udpPayload_st.imuState_st.temperature_f64;
-    
-    Kalman_Angles_rpy[0] = l_udpPayload_st.kalmanSigState_st.roll_f64;
-	Kalman_Angles_rpy[1] = l_udpPayload_st.kalmanSigState_st.pitch_f64;
-	Kalman_Angles_rpy[2] = l_udpPayload_st.kalmanSigState_st.yaw_f64;
-    
+  	Raw_Temperature[0] = l_udpPayload_st.imuState_st.temperature_f64;
+      
+    Kalman_Angles_rpy[0] = (double)rand()*3/(double)RAND_MAX; //l_udpPayload_st.kalmanSigState_st.roll_f64;
+  	Kalman_Angles_rpy[1] = (double)rand()*2/(double)RAND_MAX; //l_udpPayload_st.kalmanSigState_st.pitch_f64;
+  	Kalman_Angles_rpy[2] = (double)rand()*4/(double)RAND_MAX; //l_udpPayload_st.kalmanSigState_st.yaw_f64;
+      
     Complementary_Angles_rpy[0] = l_udpPayload_st.complementarySigState_st.roll_f64;
-	Complementary_Angles_rpy[1] = l_udpPayload_st.complementarySigState_st.pitch_f64;
-	Complementary_Angles_rpy[2] = l_udpPayload_st.complementarySigState_st.yaw_f64;
+  	Complementary_Angles_rpy[1] = l_udpPayload_st.complementarySigState_st.pitch_f64;
+  	Complementary_Angles_rpy[2] = l_udpPayload_st.complementarySigState_st.yaw_f64;
 }
 
 
@@ -426,7 +429,7 @@ static void mdlTerminate(SimStruct *S)
     
     printf("Closing socket\n");
     
-    l_closeState_ui32 = g_halMatlab_closeSocket_bl(m_simSocket_i32);
+    //l_closeState_ui32 = g_halMatlab_closeSocket_bl(m_simSocket_i32);
 }
 #ifdef  MATLAB_MEX_FILE    /* Is this file being compiled as a MEX-file? */
 #include "simulink.c"      /* MEX-file interface mechanism */

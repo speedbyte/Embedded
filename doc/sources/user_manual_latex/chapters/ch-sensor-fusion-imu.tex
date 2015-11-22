@@ -1,8 +1,239 @@
 %--------------------------------------------
+% section: Angle calculation
+%--------------------------------------------
+
+%--------------------------------------------
 % Chapter: SENSOR FUSION OF INERTIAL MEASUREMENT UNIT
 %--------------------------------------------
 \chapter{Sensor fusion for Inertial Measurement Unit}
 \label{sec:sensorFusion}
+
+\section{Angle calculation}
+\label{sec:angle}
+
+\subsection{Calculation of the orientation angles}
+\label{subsec:CalcAngle}
+The Kalman filter and the Complementary filter both need angles as input. Those angles are calculated with the acceleration sensor and with the gyroscope. The gyroscope sensor is used as main input and is corrected by the acceleration/magnetic sensor. The reason why both are used is already described in the Sensor fusion chapter.\\
+To achieve an angle from the gyroscope, the values from the sensor needs to be integrated. The following formulas show the integration part of the function of the gyroscope which runs on the Raspberry Pi. It is located in the folder 'sig/Orientientation/' in the file Orientation.c in the function 'm\_sigOri\_calcGyroAnglePerStep\_st()'. This function calculates the angle which since the last call is made.
+\begin{align}
+roll_{angle}&=roll_{rate}*deltaT\\
+pitch_{angle}&=pitch_{rate}*deltaT\\
+yaw_{angle}&=yaw_{rate}*deltaT
+\end{align}
+To make this code independent from any time step, it calculates locally the time difference 'deltaT' between the last call. To make this possible the 'gettimeofday' function is used. Because of that any jitter will not make a problem. Also the gyroscope sensor gets automatically offset corrected when the code is started.\\\\
+To get an angle from the acceleration/magnetic sensor the following calculation is needed. It is located in the function 'm\_sigOri\_calcAccMagAngle\_st()' in the same file like mentioned before.\\
+First the roll angle is calculated:
+\begin{align}
+roll_{angle\_rad}&=atan2\left(\frac{acc_{y\_axis}}{acc_{z\_axis}}\right)\\
+		roll_{angle\_deg}&=-roll_{angle\_rad}*180/Pi
+\end{align}
+
+Then the pitch is calculated:
+\begin{align}
+pitch_{angle\_rad}&=atan\left(-\frac{acc_{x\_axis}}{acc_{y\_axis}*sin(roll_{angle\_rad})+acc_{z\_axis}*cos(roll_{angle\_rad})}\right)\\
+pitch_{angle\_deg}&=-pitch_{angle\_rad}*180/Pi
+\end{align}
+
+Last step is the calculation of the yaw angle. The yaw angle can not be calculated by the acceleration sensor, only the magnetic sensor can be used for this. But the magnetic sensor can not directly be used. Additional a magnetic tilt compensation needs to be done. The following formulas show the calculation steps.\\
+\begin{align}
+divider=mag_{x\_axis}&*cos(pitch_{angle\_rad})+\\
+mag_{y\_axis}&*sin(pitch_{angle\_rad})*sin(roll_{angle\_rad})+\\
+mag_{z\_axis}&*sin(pitch_{angle\_rad})*cos(roll_{angle\_rad})
+\end{align}
+\begin{align}		
+yaw_{angle\_rad}&=atan2\left(\frac{mag_{z\_axis}*sin(roll_{angle\_rad})-mag_{y\_axis}*cos(roll_{angle\_rad})}{divider}\right)\\
+yaw_{angle\_deg}&=yaw_{angle\_rad}*180/Pi
+\end{align}
+With this, the implementation of the fusion filter were done and proved. First the results seem to be correct like can be seen in figure \ref{fig:initial_angle}.
+
+\begin{figure}[H]
+	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/initial_Kalman}
+	\caption{First result Kalman filter}
+	\label{fig:initial_angle}
+\end{figure}
+\subsection{Magnetic sensor test}
+\label{subsec:MagSensTest}
+As can be seen there is a problem with the yaw angle when a pitch angle is applied. This is no solution which can be used in the Quadrocopter. So additional tests are made. After some time the problem was detected. Because just the yaw angle makes some problem, the main observation layed on the magnetic sensor. Figure \ref{fig:field_weak} shows the measured magnetic field.
+\begin{figure}[H]
+	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/field_weak}
+	\caption{Weak magnetic field strength}
+	\label{fig:field_weak}
+\end{figure}
+The problem can directly be seen. The measured field strength should be nearly the same on all axis. The field strength on the x-axis and y-axis is the same. The z-axis delivers only just one tenth of the normal value. Because of that the noise on the sensor is in the same height like the signal and therefore acquiring not possible. First the position of the mounted IMU is disputed.
+After changing the following sensor values of the magnetic sensor can be achieved.
+\begin{figure}[H]
+	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/field_strong}
+	\caption{Strong magnetic field strength}
+	\label{fig:field_strong}
+\end{figure}
+By comparing the measurement of the initial positioning of the IMU with the new one, the strength on the z-axis is significantly higher. Also the strength on the three axis are nearly the same. So for further usage the new position is used. 
+
+\subsection{Improvement magnetic sensor}
+\label{subsec:ImpMagSens}
+The figures \ref{fig:pos_neu1} and \ref{fig:pos_neu2} shows the comparison of the mounting.
+\begin{figure}[H]
+	\centering\includegraphics[width=0.6\textwidth]{fig/Res_Kal_Comp/pos_neu1}
+	\caption{New positioning of IMU 1}
+	\label{fig:pos_neu1}
+\end{figure}
+\begin{figure}[H]
+	\centering\includegraphics[width=0.6\textwidth]{fig/Res_Kal_Comp/pos_neu2}
+	\caption{New positioning of IMU 2}
+	\label{fig:pos_neu2}
+\end{figure}
+The left PCB shows the old position and the right the new position. As can be seen just the height of the mounted IMU needs to be changed. Due to the tests a distance of approximately 1cm seems to be enough. So the wiring can be kept as it is.\\
+Additionally to reduce the really high influences of near metallic parts, a hard magnetic offset compensation needs to be done. Also a scaling is done. The following calculations which run in the function 'm\_sigOri\_calcAccMagAngle\_st()' are done within every step.
+\begin{align}
+mag_{x\_axis}=(mag_{x\_axis}-logged_{min\_x})/(logged_{max\_x}-logged_{min\_x})*2-1\\
+mag_{y\_axis}=(mag_{y\_axis}-logged_{min\_y})/(logged_{min\_y}-logged_{min\_y})*2-1\\
+mag_{z\_axis}=(mag_{z\_axis}-logged_{min\_z})/(logged_{min\_z}-logged_{min\_z})*2-1
+\end{align}
+To achieve the full range, maximum and minimum value of all three magnetic sensors the scope of Matlab can be used. First the data transmission between Matlab and the Raspberry Pi needs to be started. Then the scopes of the magnetic sensor should be opened. Now the Raspberry Pi should be rotated by parallel trying to find the maximum and minimum with the opened scopes. The m-file which is mentioned before creates directly the header-file for the code. The improved results due to the changes which are made here can be seen in the second output of the Kalman filter and complementary filter in figure \ref{fig:final_Comp} and \ref{fig:final_Kalman}.
+
+
+%--------------------------------------------
+% section: Complementary Filter result 
+%--------------------------------------------
+
+\section{Complementary-Filter}
+\label{sec:ComplementaryFilterResult}
+
+As written in the chapter about the sensor fusion for the complementary filter a filter time needs to be chosen. This constant is used for the lowpass filter for the acceleration/magnetic sensor and for the highpass filter of the gyroscope. \\\\
+The complementary filter uses the following calculation:
+\begin{align}
+angle=alpha*(angle+integrated\_Gyro)+(1-alpha)*Acc\_Mag\_angle
+\label{equ:Comp1}
+\end{align}
+
+As an initial guess for the first try the complementary filter uses the filter constant of 0.995. The sampling period of the sensors is 800 Hz. Usage of the filter constant of 0.995 and the sampling period of 800 Hz leads to a cut off frequency of 4 Hz. 
+\begin{align}
+alpha&=\frac{time\_constant}{time\_constant+sample\_period}
+\label{equ:Comp2a}
+\end{align}
+\begin{align}
+alpha&=0.995\\
+sample\_period&=\frac{1}{800 Hz}=0.00125sec\\
+\label{equ:Comp2b}
+\end{align}
+This leads to:
+\begin{align}
+time\_constant = 0.2488sec\approx \frac{1}{4 Hz}
+\label{equ:Comp3}
+\end{align}
+With this constant the following result was achieved. To make a test, first the yaw angle is changed in the range of $\pm90 \degree$, after that a roll angle is changed in the range of $\pm90 \degree$ and finally the pitch angle is changed in the range of $\pm90 \degree$.
+
+\begin{figure}[H]
+	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/initial_Comp}
+	\caption{First result complementary filter}
+	\label{fig:initial_Comp}
+\end{figure}
+
+First what catches somebody's eye is that the filter is to slow. So the steady state value is achieved after consuming to much time. Also the yaw angle is not equally distributed over the whole 360 degree. In one direction the angle changes just around 70 degree. When changing roll the influences in yaw is just because the rotation was not straight in roll direction. Changing the pitch angle to much lead to a change in yaw. The next step is to improve the yaw angle, so that it will reach also the +90 degree. Also the yaw change during pitch will be observed and compared to the initial measurement. Also the time constant will be changed that a faster response can be seen.
+\begin{figure}[H]
+	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/final_Comp1}
+	\caption{Final result complementary filter}
+	\label{fig:final_Comp}
+\end{figure}
+The comparison of the first result and the final result shows the increased filter speed. The signal needs not so much time to reach the final value. Also the yaw angle reaches the 90 degree when turning 90 degree. The extreme influences on yaw directly after changing of the rotation angle results from a hand made rotation. The influences on yaw while an other angle is applied is extremely reduced.\\
+
+The last figure shows how off an angle can be when just an gyroscope is used. On the left side the integrated gyroscope can be seen. On the right side, the 3D representation of the fusioned sensors are displayed.
+\begin{figure}[H]
+	\centering\includegraphics[width=0.6\textwidth]{fig/Res_Kal_Comp/3D}
+	\caption[3D representation of Complementary-filtered IMU-Data in MATLAB]{3D representation of the integrated gyroscope raw values on the left and the fusion filtered on the right}
+	\label{fig:3D}
+\end{figure}
+
+%--------------------------------------------
+% section: Kalman Filter result
+%--------------------------------------------
+
+\section{Kalman-Filter}
+\label{sec:KalmanFilterResult}
+
+For the Kalman filter the noise of the measurement and the process has to be set up. This noise values are the variances of the used sensors and of the process. In the calculation process are those matrices named $\underline Q$ and $\underline R$. The matrix $\underline Q$ uses the variances of the process noise and the matrix $\underline R$ uses the variances of the noise of the sensors.\\\\
+\underline{Prediction step:}\\\\
+Predict the next state:
+\begin{align}
+\vec x_k = \underline{A}\vec x_{k-1}+\underline{B}\vec u_{k-1}
+\label{equ:KalmanFilterResult:Kalman1}
+\end{align}
+Predict the covariance for the next step:
+\begin{align}
+\underline{P}_k = \underline{A}\underline{P}_{k-1}\underline{A}^T+\underline{Q}
+\label{equ:KalmanFilterResult:Kalman2}
+\end{align}
+\underline{Correction step:}\\\\
+Computation of the Kalman gain:
+\begin{align}
+\underline{K}_k = \underline{P}_k	\underline{H}^T(\underline{H}\underline{P}_k\underline{H}^T+\underline{R})^{-1}
+\label{equ:KalmanFilterResult:Kalman3}
+\end{align}
+Updating state prediction with new measurement:
+\begin{align}
+\vec x_k = 	\vec x_k+\underline{K}_k(\vec z_k-\underline{H}\vec x_k)
+\label{equ:KalmanFilterResult:Kalman4}
+\end{align}
+Updating the error covariance:
+\begin{align}
+\underline{P}_k = (\underline{I}-\underline{K}_k\underline{H})\underline{P}_k	
+\label{equ:KalmanFilterResult:Kalman5}
+\end{align}
+As an initial guess the matrices are set to:
+\begin{align}
+\underline{Q} &= \begin{pmatrix} 0.005&0&0 \\ 0&0.005&0 \\ 0&0&0.0001 \end{pmatrix}\\
+\underline{R} &= \begin{pmatrix} 0.5&0&0 \\ 0&0.5&0 \\ 0&0&0.01 \end{pmatrix}
+\end{align}
+With those matrices the following result was achieved. To make a test, first the yaw angle is changed in the range of $\pm90 \degree$, after that a roll angle is changed in the range of $\pm90 \degree$ and finally the pitch angle is changed in the range of $\pm90 \degree$. 
+
+\begin{figure}[H]
+	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/initial_Kalman}
+	\caption{First result Kalman filter}
+	\label{fig:initial_Kalman}
+\end{figure}
+
+The filter responses in a adequate time. Yaw angle change is like with the complementary filter from -90 degree to just 70 degree. The roll angle changes sufficient. But when changing the pitch angle to high a extreme yaw angle change can be seen. So the next step is to improve the yaw angle, so that it will reach also the +90 degree. Also the yaw change during pitch will be observed. After measuring the mean value and variances of all sensors they can be used to improve the Kalman filter. The figures \ref{fig:varAcc}, \ref{fig:varGyro} and \ref{fig:varMag} show the logged data.
+\begin{figure}[H]
+	\centering\includegraphics[width=0.8\textwidth]{fig/Res_Kal_Comp/varAcc3}
+	\caption{Analyzing the acceleration sensor}
+	\label{fig:varAcc}
+\end{figure}
+\begin{figure}[H]
+	\centering\includegraphics[width=0.8\textwidth]{fig/Res_Kal_Comp/varGyro3}
+	\caption{Analyzing the gyroscope sensor}
+	\label{fig:varGyro}
+\end{figure}
+\begin{figure}[H]
+	\centering\includegraphics[width=0.8\textwidth]{fig/Res_Kal_Comp/varMag3}
+	\caption{Analyzing the magnetic sensor}
+	\label{fig:varMag}
+\end{figure}
+First the matrix $\underline Q$, the variances of the process noise and the matrix $\underline R$, the variances of the measured sensor noises are changed by using the measured values. The new values are:\\
+\begin{align}
+\underline{Q} &= \begin{pmatrix} 0.005&0&0 \\ 0&0.005&0 \\ 0&0&0.005 \end{pmatrix}\\
+\underline{R} &= \begin{pmatrix} 0.06&0&0 \\ 0&0.1&0 \\ 0&0&0.07 \end{pmatrix}
+\end{align}
+
+\begin{figure}[H]
+	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/final_Kalman1}
+	\caption{Final result Kalman filter}
+	\label{fig:final_Kalman}
+\end{figure}
+The wanted improving of the yaw angle in reaching the 90 degree when turning 90 degree is successfully reached. The extreme influences on yaw directly after changing of the rotation angle results from a hand made rotation. The influences on yaw while an other angle is applied is extremely reduced.\\
+
+The last figure shows how off an angle can be when just an gyroscope is used. On the left side the integrated gyroscope can be seen. On the right side, the 3D representation of the fusioned sensors are displayed.
+\begin{figure}[H]
+	\centering\includegraphics[width=0.6\textwidth]{fig/Res_Kal_Comp/3D}
+	\caption[3D representation of Kalman-filtered IMU-Data in MATLAB]{3D representation of the integrated gyroscope raw values on the left and the fusion filtered on the right}
+	\label{fig:KalmanFilterResult:3D}
+\end{figure}
+
+%--------------------------------------------
+% section: Complementary Filter description
+%--------------------------------------------
+\newpage
+\section{Sensor fusion for Inertial Measurement Unit}
+\label{sec:Sensor fusion for Inertial Measurement Unit}
+
 
 For enabling a autonomous flight, the Raspberry Pi has to know the orientation. Figure \ref{fig:angles} shows the axes and the naming of the rotation around the axes. These rotations are later used for the calculation for the roll, pitch and yaw angles.
 
@@ -380,225 +611,3 @@ disp('Calibration successfully processed.');
 
 
 
-%--------------------------------------------
-% section: Angle calculation
-%--------------------------------------------
-
-\section{Angle calculation}
-\label{sec:angle}
-
-\subsection{Calculation of the orientation angles}
-\label{subsec:CalcAngle}
-The Kalman filter and the Complementary filter both need angles as input. Those angles are calculated with the acceleration sensor and with the gyroscope. The gyroscope sensor is used as main input and is corrected by the acceleration/magnetic sensor. The reason why both are used is already described in the Sensor fusion chapter.\\
-To achieve an angle from the gyroscope, the values from the sensor needs to be integrated. The following formulas show the integration part of the function of the gyroscope which runs on the Raspberry Pi. It is located in the folder 'sig/Orientientation/' in the file Orientation.c in the function 'm\_sigOri\_calcGyroAnglePerStep\_st()'. This function calculates the angle which since the last call is made.
-\begin{align}
-roll_{angle}&=roll_{rate}*deltaT\\
-pitch_{angle}&=pitch_{rate}*deltaT\\
-yaw_{angle}&=yaw_{rate}*deltaT
-\end{align}
-To make this code independent from any time step, it calculates locally the time difference 'deltaT' between the last call. To make this possible the 'gettimeofday' function is used. Because of that any jitter will not make a problem. Also the gyroscope sensor gets automatically offset corrected when the code is started.\\\\
-To get an angle from the acceleration/magnetic sensor the following calculation is needed. It is located in the function 'm\_sigOri\_calcAccMagAngle\_st()' in the same file like mentioned before.\\
-First the roll angle is calculated:
-\begin{align}
-roll_{angle\_rad}&=atan2\left(\frac{acc_{y\_axis}}{acc_{z\_axis}}\right)\\
-		roll_{angle\_deg}&=-roll_{angle\_rad}*180/Pi
-\end{align}
-
-Then the pitch is calculated:
-\begin{align}
-pitch_{angle\_rad}&=atan\left(-\frac{acc_{x\_axis}}{acc_{y\_axis}*sin(roll_{angle\_rad})+acc_{z\_axis}*cos(roll_{angle\_rad})}\right)\\
-pitch_{angle\_deg}&=-pitch_{angle\_rad}*180/Pi
-\end{align}
-
-Last step is the calculation of the yaw angle. The yaw angle can not be calculated by the acceleration sensor, only the magnetic sensor can be used for this. But the magnetic sensor can not directly be used. Additional a magnetic tilt compensation needs to be done. The following formulas show the calculation steps.\\
-\begin{align}
-divider=mag_{x\_axis}&*cos(pitch_{angle\_rad})+\\
-mag_{y\_axis}&*sin(pitch_{angle\_rad})*sin(roll_{angle\_rad})+\\
-mag_{z\_axis}&*sin(pitch_{angle\_rad})*cos(roll_{angle\_rad})
-\end{align}
-\begin{align}		
-yaw_{angle\_rad}&=atan2\left(\frac{mag_{z\_axis}*sin(roll_{angle\_rad})-mag_{y\_axis}*cos(roll_{angle\_rad})}{divider}\right)\\
-yaw_{angle\_deg}&=yaw_{angle\_rad}*180/Pi
-\end{align}
-With this, the implementation of the fusion filter were done and proved. First the results seem to be correct like can be seen in figure \ref{fig:initial_angle}.
-
-\begin{figure}[H]
-	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/initial_Kalman}
-	\caption{First result Kalman filter}
-	\label{fig:initial_angle}
-\end{figure}
-\subsection{Magnetic sensor test}
-\label{subsec:MagSensTest}
-As can be seen there is a problem with the yaw angle when a pitch angle is applied. This is no solution which can be used in the Quadrocopter. So additional tests are made. After some time the problem was detected. Because just the yaw angle makes some problem, the main observation layed on the magnetic sensor. Figure \ref{fig:field_weak} shows the measured magnetic field.
-\begin{figure}[H]
-	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/field_weak}
-	\caption{Weak magnetic field strength}
-	\label{fig:field_weak}
-\end{figure}
-The problem can directly be seen. The measured field strength should be nearly the same on all axis. The field strength on the x-axis and y-axis is the same. The z-axis delivers only just one tenth of the normal value. Because of that the noise on the sensor is in the same height like the signal and therefore acquiring not possible. First the position of the mounted IMU is disputed.
-After changing the following sensor values of the magnetic sensor can be achieved.
-\begin{figure}[H]
-	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/field_strong}
-	\caption{Strong magnetic field strength}
-	\label{fig:field_strong}
-\end{figure}
-By comparing the measurement of the initial positioning of the IMU with the new one, the strength on the z-axis is significantly higher. Also the strength on the three axis are nearly the same. So for further usage the new position is used. 
-
-\subsection{Improvement magnetic sensor}
-\label{subsec:ImpMagSens}
-The figures \ref{fig:pos_neu1} and \ref{fig:pos_neu2} shows the comparison of the mounting.
-\begin{figure}[H]
-	\centering\includegraphics[width=0.6\textwidth]{fig/Res_Kal_Comp/pos_neu1}
-	\caption{New positioning of IMU 1}
-	\label{fig:pos_neu1}
-\end{figure}
-\begin{figure}[H]
-	\centering\includegraphics[width=0.6\textwidth]{fig/Res_Kal_Comp/pos_neu2}
-	\caption{New positioning of IMU 2}
-	\label{fig:pos_neu2}
-\end{figure}
-The left PCB shows the old position and the right the new position. As can be seen just the height of the mounted IMU needs to be changed. Due to the tests a distance of approximately 1cm seems to be enough. So the wiring can be kept as it is.\\
-Additionally to reduce the really high influences of near metallic parts, a hard magnetic offset compensation needs to be done. Also a scaling is done. The following calculations which run in the function 'm\_sigOri\_calcAccMagAngle\_st()' are done within every step.
-\begin{align}
-mag_{x\_axis}=(mag_{x\_axis}-logged_{min\_x})/(logged_{max\_x}-logged_{min\_x})*2-1\\
-mag_{y\_axis}=(mag_{y\_axis}-logged_{min\_y})/(logged_{min\_y}-logged_{min\_y})*2-1\\
-mag_{z\_axis}=(mag_{z\_axis}-logged_{min\_z})/(logged_{min\_z}-logged_{min\_z})*2-1
-\end{align}
-To achieve the full range, maximum and minimum value of all three magnetic sensors the scope of Matlab can be used. First the data transmission between Matlab and the Raspberry Pi needs to be started. Then the scopes of the magnetic sensor should be opened. Now the Raspberry Pi should be rotated by parallel trying to find the maximum and minimum with the opened scopes. The m-file which is mentioned before creates directly the header-file for the code. The improved results due to the changes which are made here can be seen in the second output of the Kalman filter and complementary filter in figure \ref{fig:final_Comp} and \ref{fig:final_Kalman}.
-
-
-%--------------------------------------------
-% section: Complementary Filter result 
-%--------------------------------------------
-
-\section{Complementary-Filter}
-\label{sec:ComplementaryFilterResult}
-
-As written in the chapter about the sensor fusion for the complementary filter a filter time needs to be chosen. This constant is used for the lowpass filter for the acceleration/magnetic sensor and for the highpass filter of the gyroscope. \\\\
-The complementary filter uses the following calculation:
-\begin{align}
-angle=alpha*(angle+integrated\_Gyro)+(1-alpha)*Acc\_Mag\_angle
-\label{equ:Comp1}
-\end{align}
-
-As an initial guess for the first try the complementary filter uses the filter constant of 0.995. The sampling period of the sensors is 800 Hz. Usage of the filter constant of 0.995 and the sampling period of 800 Hz leads to a cut off frequency of 4 Hz. 
-\begin{align}
-alpha&=\frac{time\_constant}{time\_constant+sample\_period}
-\label{equ:Comp2a}
-\end{align}
-\begin{align}
-alpha&=0.995\\
-sample\_period&=\frac{1}{800 Hz}=0.00125sec\\
-\label{equ:Comp2b}
-\end{align}
-This leads to:
-\begin{align}
-time\_constant = 0.2488sec\approx \frac{1}{4 Hz}
-\label{equ:Comp3}
-\end{align}
-With this constant the following result was achieved. To make a test, first the yaw angle is changed in the range of $\pm90 \degree$, after that a roll angle is changed in the range of $\pm90 \degree$ and finally the pitch angle is changed in the range of $\pm90 \degree$.
-
-\begin{figure}[H]
-	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/initial_Comp}
-	\caption{First result complementary filter}
-	\label{fig:initial_Comp}
-\end{figure}
-
-First what catches somebody's eye is that the filter is to slow. So the steady state value is achieved after consuming to much time. Also the yaw angle is not equally distributed over the whole 360 degree. In one direction the angle changes just around 70 degree. When changing roll the influences in yaw is just because the rotation was not straight in roll direction. Changing the pitch angle to much lead to a change in yaw. The next step is to improve the yaw angle, so that it will reach also the +90 degree. Also the yaw change during pitch will be observed and compared to the initial measurement. Also the time constant will be changed that a faster response can be seen.
-\begin{figure}[H]
-	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/final_Comp1}
-	\caption{Final result complementary filter}
-	\label{fig:final_Comp}
-\end{figure}
-The comparison of the first result and the final result shows the increased filter speed. The signal needs not so much time to reach the final value. Also the yaw angle reaches the 90 degree when turning 90 degree. The extreme influences on yaw directly after changing of the rotation angle results from a hand made rotation. The influences on yaw while an other angle is applied is extremely reduced.\\
-
-The last figure shows how off an angle can be when just an gyroscope is used. On the left side the integrated gyroscope can be seen. On the right side, the 3D representation of the fusioned sensors are displayed.
-\begin{figure}[H]
-	\centering\includegraphics[width=0.6\textwidth]{fig/Res_Kal_Comp/3D}
-	\caption[3D representation of Complementary-filtered IMU-Data in MATLAB]{3D representation of the integrated gyroscope raw values on the left and the fusion filtered on the right}
-	\label{fig:3D}
-\end{figure}
-
-%--------------------------------------------
-% section: Kalman Filter result
-%--------------------------------------------
-
-\section{Kalman-Filter}
-\label{sec:KalmanFilterResult}
-
-For the Kalman filter the noise of the measurement and the process has to be set up. This noise values are the variances of the used sensors and of the process. In the calculation process are those matrices named $\underline Q$ and $\underline R$. The matrix $\underline Q$ uses the variances of the process noise and the matrix $\underline R$ uses the variances of the noise of the sensors.\\\\
-\underline{Prediction step:}\\\\
-Predict the next state:
-\begin{align}
-\vec x_k = \underline{A}\vec x_{k-1}+\underline{B}\vec u_{k-1}
-\label{equ:KalmanFilterResult:Kalman1}
-\end{align}
-Predict the covariance for the next step:
-\begin{align}
-\underline{P}_k = \underline{A}\underline{P}_{k-1}\underline{A}^T+\underline{Q}
-\label{equ:KalmanFilterResult:Kalman2}
-\end{align}
-\underline{Correction step:}\\\\
-Computation of the Kalman gain:
-\begin{align}
-\underline{K}_k = \underline{P}_k	\underline{H}^T(\underline{H}\underline{P}_k\underline{H}^T+\underline{R})^{-1}
-\label{equ:KalmanFilterResult:Kalman3}
-\end{align}
-Updating state prediction with new measurement:
-\begin{align}
-\vec x_k = 	\vec x_k+\underline{K}_k(\vec z_k-\underline{H}\vec x_k)
-\label{equ:KalmanFilterResult:Kalman4}
-\end{align}
-Updating the error covariance:
-\begin{align}
-\underline{P}_k = (\underline{I}-\underline{K}_k\underline{H})\underline{P}_k	
-\label{equ:KalmanFilterResult:Kalman5}
-\end{align}
-As an initial guess the matrices are set to:
-\begin{align}
-\underline{Q} &= \begin{pmatrix} 0.005&0&0 \\ 0&0.005&0 \\ 0&0&0.0001 \end{pmatrix}\\
-\underline{R} &= \begin{pmatrix} 0.5&0&0 \\ 0&0.5&0 \\ 0&0&0.01 \end{pmatrix}
-\end{align}
-With those matrices the following result was achieved. To make a test, first the yaw angle is changed in the range of $\pm90 \degree$, after that a roll angle is changed in the range of $\pm90 \degree$ and finally the pitch angle is changed in the range of $\pm90 \degree$. 
-
-\begin{figure}[H]
-	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/initial_Kalman}
-	\caption{First result Kalman filter}
-	\label{fig:initial_Kalman}
-\end{figure}
-
-The filter responses in a adequate time. Yaw angle change is like with the complementary filter from -90 degree to just 70 degree. The roll angle changes sufficient. But when changing the pitch angle to high a extreme yaw angle change can be seen. So the next step is to improve the yaw angle, so that it will reach also the +90 degree. Also the yaw change during pitch will be observed. After measuring the mean value and variances of all sensors they can be used to improve the Kalman filter. The figures \ref{fig:varAcc}, \ref{fig:varGyro} and \ref{fig:varMag} show the logged data.
-\begin{figure}[H]
-	\centering\includegraphics[width=0.8\textwidth]{fig/Res_Kal_Comp/varAcc3}
-	\caption{Analyzing the acceleration sensor}
-	\label{fig:varAcc}
-\end{figure}
-\begin{figure}[H]
-	\centering\includegraphics[width=0.8\textwidth]{fig/Res_Kal_Comp/varGyro3}
-	\caption{Analyzing the gyroscope sensor}
-	\label{fig:varGyro}
-\end{figure}
-\begin{figure}[H]
-	\centering\includegraphics[width=0.8\textwidth]{fig/Res_Kal_Comp/varMag3}
-	\caption{Analyzing the magnetic sensor}
-	\label{fig:varMag}
-\end{figure}
-First the matrix $\underline Q$, the variances of the process noise and the matrix $\underline R$, the variances of the measured sensor noises are changed by using the measured values. The new values are:\\
-\begin{align}
-\underline{Q} &= \begin{pmatrix} 0.005&0&0 \\ 0&0.005&0 \\ 0&0&0.005 \end{pmatrix}\\
-\underline{R} &= \begin{pmatrix} 0.06&0&0 \\ 0&0.1&0 \\ 0&0&0.07 \end{pmatrix}
-\end{align}
-
-\begin{figure}[H]
-	\centering\includegraphics[width=1.0\textwidth]{fig/Res_Kal_Comp/final_Kalman1}
-	\caption{Final result Kalman filter}
-	\label{fig:final_Kalman}
-\end{figure}
-The wanted improving of the yaw angle in reaching the 90 degree when turning 90 degree is successfully reached. The extreme influences on yaw directly after changing of the rotation angle results from a hand made rotation. The influences on yaw while an other angle is applied is extremely reduced.\\
-
-The last figure shows how off an angle can be when just an gyroscope is used. On the left side the integrated gyroscope can be seen. On the right side, the 3D representation of the fusioned sensors are displayed.
-\begin{figure}[H]
-	\centering\includegraphics[width=0.6\textwidth]{fig/Res_Kal_Comp/3D}
-	\caption[3D representation of Kalman-filtered IMU-Data in MATLAB]{3D representation of the integrated gyroscope raw values on the left and the fusion filtered on the right}
-	\label{fig:KalmanFilterResult:3D}
-\end{figure}
