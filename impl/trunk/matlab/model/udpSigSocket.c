@@ -40,9 +40,17 @@
  * 
  *
  */
-
 #define S_FUNCTION_LEVEL 2
 #define S_FUNCTION_NAME udpSigSocket
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <winsock2.h>
+#include <time.h>
+#pragma comment(lib,"ws2_32.lib")
+
+
 /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 /* %%%-SFUNWIZ_defines_Changes_BEGIN --- EDIT HERE TO _END */
 #define NUM_INPUTS           0
@@ -202,6 +210,98 @@
 
 static int	m_simSocket_i32 = 0;
 static struct timespec tp;
+#define BUFFER_SIZE 200
+
+WSADATA w;							/* Used to open windows connection */
+int a1=0, a2=0, a3=0, a4=0;			/* Components of address in xxx.xxx.xxx.xxx form */
+int client_length;					/* Length of client struct */
+int bytes_received;					/* Bytes received from client */
+SOCKET sd;							/* Socket descriptor of server */
+struct sockaddr_in server;			/* Information about the server */
+struct sockaddr_in client;			/* Information about the client */
+char buffer[BUFFER_SIZE];			/* Where to store received data */
+char str[BUFFER_SIZE*5];
+struct hostent *hp;					/* Information about this computer */
+char host_name[256];				/* Name of the server */
+time_t current_time;				/* Current time */
+static int i = 0;
+
+static void mdlTerminate(SimStruct *S);
+
+#ifdef _WIN32
+// local redefinition for Windows-Systems
+//int clock_gettime(clockid_t clk_id, struct timespec *res)
+//{
+//	struct timespec l_timestampDummy_st;
+//
+//	l_timestampDummy_st.tv_sec = 0;
+//	l_timestampDummy_st.tv_nsec = 0;
+//
+//    *res = l_timestampDummy_st;
+//
+//	return 0;
+//}
+LARGE_INTEGER
+getFILETIMEoffset()
+{
+    SYSTEMTIME s;
+    FILETIME f;
+    LARGE_INTEGER t;
+
+    s.wYear = 1970;
+    s.wMonth = 1;
+    s.wDay = 1;
+    s.wHour = 0;
+    s.wMinute = 0;
+    s.wSecond = 0;
+    s.wMilliseconds = 0;
+    SystemTimeToFileTime(&s, &f);
+    t.QuadPart = f.dwHighDateTime;
+    t.QuadPart <<= 32;
+    t.QuadPart |= f.dwLowDateTime;
+    return (t);
+}
+
+int clock_gettime(int X, struct timeval *tv)
+{
+    LARGE_INTEGER           t;
+    FILETIME            f;
+    double                  microseconds;
+    static LARGE_INTEGER    offset;
+    static double           frequencyToMicroseconds;
+    static int              initialized = 0;
+    static BOOL             usePerformanceCounter = 0;
+
+    if (!initialized) {
+        LARGE_INTEGER performanceFrequency;
+        initialized = 1;
+        usePerformanceCounter = QueryPerformanceFrequency(&performanceFrequency);
+        if (usePerformanceCounter) {
+            QueryPerformanceCounter(&offset);
+            frequencyToMicroseconds = (double)performanceFrequency.QuadPart / 1000000.;
+        } else {
+            offset = getFILETIMEoffset();
+            frequencyToMicroseconds = 10.;
+        }
+    }
+    if (usePerformanceCounter) QueryPerformanceCounter(&t);
+    else {
+        GetSystemTimeAsFileTime(&f);
+        t.QuadPart = f.dwHighDateTime;
+        t.QuadPart <<= 32;
+        t.QuadPart |= f.dwLowDateTime;
+    }
+
+    t.QuadPart -= offset.QuadPart;
+    microseconds = (double)t.QuadPart / frequencyToMicroseconds;
+    t.QuadPart = microseconds;
+    tv->tv_sec = t.QuadPart / 1000000;
+    tv->tv_usec = t.QuadPart % 1000000;
+    return (0);
+}
+#endif
+
+
 /*====================*
  * S-function methods *
  *====================*/
@@ -342,15 +442,58 @@ static void mdlInitializeSampleTimes(SimStruct *S)
    */
   static void mdlStart(SimStruct *S)
   {
-	  unsigned char l_remoteIpAddr_rg4ui8[4] = REMOTE_HOST_IPADDR_RG4UI8;
-      double* l_listenPort_pf64;
+	unsigned char l_remoteIpAddr_rg4ui8[4] = REMOTE_HOST_IPADDR_RG4UI8;
+	double* l_listenPort_pf64;
     
-      //get smaple time, configured in block parameters
-      l_listenPort_pf64 = mxGetPr( ssGetSFcnParam(S, 1) );
-      printf("Listening to port %lf\n",*l_listenPort_pf64);
+	//get smaple time, configured in block parameters
+	l_listenPort_pf64 = mxGetPr( ssGetSFcnParam(S, 1) );
+	printf("Listening to port %lf\n",*l_listenPort_pf64);
 	  
-      //m_simSocket_i32 = g_halMatlab_initConnection_i32( l_remoteIpAddr_rg4ui8 , (unsigned short)*l_listenPort_pf64);
-      printf("socket number  %d\n",m_simSocket_i32);
+	/* Open windows connection */
+	if (WSAStartup(0x0101, &w) != 0)
+	{
+		fprintf(stderr, "Could not open Windows connection.\n");
+		exit(0);
+	}
+
+	/* Open a datagram socket */
+	sd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (sd == INVALID_SOCKET)
+	{
+		fprintf(stderr, "Could not create socket.\n");
+		WSACleanup();
+		exit(0);
+	}
+
+	/* Clear out server struct */
+	memset((void *)&server, '\0', sizeof(struct sockaddr_in));
+
+	/* Set family and port */
+	server.sin_family = AF_INET;
+	server.sin_port = htons(REMOTE_HOST_PORT_UI16);
+	server.sin_addr.S_un.S_un_b.s_b1 = (unsigned char)a1;
+	server.sin_addr.S_un.S_un_b.s_b2 = (unsigned char)a2;
+	server.sin_addr.S_un.S_un_b.s_b3 = (unsigned char)a3;
+	server.sin_addr.S_un.S_un_b.s_b4 = (unsigned char)a4;
+	/* Bind address to socket */
+	if (bind(sd, (struct sockaddr *)&server, sizeof(struct sockaddr_in)) == -1)
+	{
+		fprintf(stderr, "Could not bind name to socket.\n");
+		closesocket(sd);
+		WSACleanup();
+		exit(0);
+	}
+
+	/* Print out server information */
+	printf("Server running on %u.%u.%u.%u\n", (unsigned char)server.sin_addr.S_un.S_un_b.s_b1,
+											  (unsigned char)server.sin_addr.S_un.S_un_b.s_b2,
+											  (unsigned char)server.sin_addr.S_un.S_un_b.s_b3,
+											  (unsigned char)server.sin_addr.S_un.S_un_b.s_b4);
+	printf("Press CTRL + C to quit\n");
+
+	//      m_simSocket_i32 = g_halMatlab_initConnection_i32( l_remoteIpAddr_rg4ui8 , (unsigned short)*l_listenPort_pf64);
+	//      printf("socket number  %d\n",m_simSocket_i32);
+    
   }
 #endif /*  MDL_START */
 
@@ -381,19 +524,46 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     const int_T   p_width1  = mxGetNumberOfElements(PARAM_DEF1(S));
     const real_T  *sampleTime  = (const real_T *)mxGetData(PARAM_DEF0(S));
     const real_T  *ListenPort  = (const real_T *)mxGetData(PARAM_DEF1(S));
+    int j = 0;
 
     halMatlab_rtSigAllStatePayload 		l_udpPayload_st;
-
-  	//  l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
     clock_gettime(CLOCK_REALTIME, &tp);
-    printf("Remote time: %ld.%ld\n", l_udpPayload_st.timestamp_st.tv_sec,l_udpPayload_st.timestamp_st.tv_nsec);
+
+	client_length = (int)sizeof(struct sockaddr_in);
+
+	/* Receive bytes from client */
+	bytes_received = recvfrom(sd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&client, &client_length);
+    memcpy( &l_udpPayload_st, buffer, sizeof(halMatlab_rtSigAllStatePayload));    
+    printf("Remote time: %lu.%lu\n", l_udpPayload_st.timestamp_st.tv_sec,l_udpPayload_st.timestamp_st.tv_nsec);
     printf("Current time: %ld.%ld\n", tp.tv_sec,tp.tv_nsec);
+	printf("Recvd bytes %d Expected bytes%d\n", bytes_received, sizeof(l_udpPayload_st));
+	if (bytes_received < 0)
+	{
+		fprintf(stderr, "Could not receive datagram.\n");
+		closesocket(sd);
+		WSACleanup();
+		exit(0);
+	}
+	sprintf(str, "sec = %d, nano = %lu\nacc = %f %f %f\nmag = %f %f %f\nyaw, pitch, roll = %f %f %f\ntemperature = %f\npressure = %f\n",
+			l_udpPayload_st.timestamp_st.tv_sec,
+			l_udpPayload_st.timestamp_st.tv_nsec,
+			l_udpPayload_st.imuState_st.acc.x_f64, l_udpPayload_st.imuState_st.acc.y_f64, l_udpPayload_st.imuState_st.acc.z_f64,
+			l_udpPayload_st.imuState_st.mag.x_f64, l_udpPayload_st.imuState_st.mag.y_f64, l_udpPayload_st.imuState_st.mag.z_f64,
+			l_udpPayload_st.imuState_st.gyro.l_yaw_f64, l_udpPayload_st.imuState_st.gyro.l_pitch_f64, l_udpPayload_st.imuState_st.gyro.l_roll_f64,
+			l_udpPayload_st.imuState_st.temperature_f64, l_udpPayload_st.imuState_st.pressure_f64);
+	printf("Received string = %s", str);
+
+	for ( j = 0; j < sizeof(l_udpPayload_st); j++)
+    {
+        //printf("%02X", buffer[j]);
+    }
+//	  l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
       
   	Raw_Accelerometer_xyz[0] = l_udpPayload_st.imuState_st.acc.x_f64;
-    printf("Accc: %f\n", Raw_Accelerometer_xyz[0]);
   	Raw_Accelerometer_xyz[1] = l_udpPayload_st.imuState_st.acc.y_f64;
   	Raw_Accelerometer_xyz[2] = l_udpPayload_st.imuState_st.acc.z_f64;
-
+    printf("Acc: %f\n", Raw_Accelerometer_xyz[0]);
+  	// (double)rand()*100/(double)RAND_MAX;
   	Raw_Gyrometer_rpy[0] = l_udpPayload_st.imuState_st.gyro.l_roll_f64;
   	Raw_Gyrometer_rpy[1] = l_udpPayload_st.imuState_st.gyro.l_pitch_f64;
   	Raw_Gyrometer_rpy[2] = l_udpPayload_st.imuState_st.gyro.l_yaw_f64;
@@ -406,13 +576,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
   	Raw_Temperature[0] = l_udpPayload_st.imuState_st.temperature_f64;
       
-    Kalman_Angles_rpy[0] = (double)rand()*3/(double)RAND_MAX; //l_udpPayload_st.kalmanSigState_st.roll_f64;
-  	Kalman_Angles_rpy[1] = (double)rand()*2/(double)RAND_MAX; //l_udpPayload_st.kalmanSigState_st.pitch_f64;
-  	Kalman_Angles_rpy[2] = (double)rand()*4/(double)RAND_MAX; //l_udpPayload_st.kalmanSigState_st.yaw_f64;
+    Kalman_Angles_rpy[0] = l_udpPayload_st.kalmanSigState_st.roll_f64;
+  	Kalman_Angles_rpy[1] = l_udpPayload_st.kalmanSigState_st.pitch_f64;
+  	Kalman_Angles_rpy[2] = l_udpPayload_st.kalmanSigState_st.yaw_f64;
       
     Complementary_Angles_rpy[0] = l_udpPayload_st.complementarySigState_st.roll_f64;
   	Complementary_Angles_rpy[1] = l_udpPayload_st.complementarySigState_st.pitch_f64;
   	Complementary_Angles_rpy[2] = l_udpPayload_st.complementarySigState_st.yaw_f64;
+
+	i++;
+	if ( i == 5 )
+	{
+		return;
+	}
 }
 
 
@@ -426,10 +602,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 static void mdlTerminate(SimStruct *S)
 {
     unsigned int l_closeState_ui32;
-    
     printf("Closing socket\n");
-    
-    //l_closeState_ui32 = g_halMatlab_closeSocket_bl(m_simSocket_i32);
+    l_closeState_ui32 = closesocket(sd);
 }
 #ifdef  MATLAB_MEX_FILE    /* Is this file being compiled as a MEX-file? */
 #include "simulink.c"      /* MEX-file interface mechanism */
