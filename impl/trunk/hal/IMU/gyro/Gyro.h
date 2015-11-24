@@ -11,6 +11,8 @@
 #ifndef GYRO_H_
 #define GYRO_H_
 
+#include "../../../sig/Orientation/Orientation.h"
+
 
 // 7 Bit I2C Slave address
 #define M_I2C_SLAVE_ADDRESS_GYRO_UI8 0b1101010
@@ -257,9 +259,9 @@
  ********************************************************************** */
 typedef struct
 {
-	double l_yaw_f64;
-	double l_pitch_f64;
 	double l_roll_f64;
+	double l_pitch_f64;
+	double l_yaw_f64;
 }strGyro;
 
 
@@ -290,7 +292,7 @@ Get interfaces for Gyroscope values
 CHANGELOG:
 none
 --------------------------------------------- */
-strGyro g_halGyro_getGyroscope_st(void);
+sigOri_orientationAngles g_halGyro_getGyroscope_st(void);
 double g_halGyro_getTemperature_f64(void);
 
 

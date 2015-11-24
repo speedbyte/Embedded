@@ -41,6 +41,7 @@ typedef enum enumTestCases
 	TESTMATRIXLIB,
 	TESTUDP,
 	TESTUDPTRANSFER,
+	ALLANGLES,
 	TESTEND
 } enumTestcases;
 
@@ -82,6 +83,8 @@ int main() {
 		runCommand = TESTUDP;
 	else if ( strcmp(testValue,"testudptransfer")  == 0 )
 		runCommand = TESTUDPTRANSFER;
+	else if ( strcmp(testValue,"testallangles")  == 0 )
+		runCommand = ALLANGLES;
 
 	switch (runCommand)
 	{
@@ -141,7 +144,7 @@ int main() {
 				l_imuMeasurements_st=g_halImu_getImuValues_str();
 
 				printf("Pressure: %5.3f    ;    Temperature:  %5.3f\n",l_imuMeasurements_st.pressure_f64,l_imuMeasurements_st.temperature_f64);
-				printf("yaw: %5.3f ; pitch:  %5.3f ; roll:  %5.3f\n",l_imuMeasurements_st.gyro.l_yaw_f64,l_imuMeasurements_st.gyro.l_pitch_f64,l_imuMeasurements_st.gyro.l_roll_f64);
+				printf("roll: %5.3f    ;    pitch:  %5.3f    ;    yaw:  %5.3f\n",l_imuMeasurements_st.gyro.roll_f64, l_imuMeasurements_st.gyro.pitch_f64, l_imuMeasurements_st.gyro.yaw_f64);
 				printf("X: %5.3f ; Y:  %5.3f ; Z:  %5.3f\n",l_imuMeasurements_st.acc.x_f64,l_imuMeasurements_st.acc.y_f64,l_imuMeasurements_st.acc.z_f64);
 				printf("X: %5.10f ; Y:  %5.10f ; Z:  %5.10f\n\n\n\n",l_imuMeasurements_st.mag.x_f64,l_imuMeasurements_st.mag.y_f64,l_imuMeasurements_st.mag.z_f64);
 			}
@@ -307,7 +310,7 @@ int main() {
 		{
 			double pressure=0;
 			double temp=0;
-			strGyro GyroValues;
+			sigOri_orientationAngles GyroValues;
 			double Gyrotemp=0;
 			g_halBaro_initBaro_i32();
 			g_halGyro_initGyro_i32();
@@ -330,7 +333,7 @@ int main() {
 				usleep(100000);
 				GyroValues=g_halGyro_getGyroscope_st();
 				Gyrotemp=g_halGyro_getTemperature_f64();
-				printf("yaw: %5.3f    ;    pitch:  %5.3f    ;    roll:  %5.3f\n",GyroValues.l_yaw_f64,GyroValues.l_pitch_f64,GyroValues.l_roll_f64);
+				printf("roll: %5.3f    ;    pitch:  %5.3f    ;    yaw:  %5.3f\n",GyroValues.roll_f64, GyroValues.pitch_f64, GyroValues.yaw_f64);
 				usleep(100000);
 			}
 			break;
@@ -339,7 +342,7 @@ int main() {
 		{
 			double pressure=0;
 			double temp=0;
-			strGyro GyroValues;
+			sigOri_orientationAngles GyroValues;
 			double Gyrotemp=0;
 			printf("IMU Gyroscope test\n");
 			g_halBaro_initBaro_i32();
@@ -360,7 +363,7 @@ int main() {
 				//usleep(100000);
 				GyroValues=g_halGyro_getGyroscope_st();
 				Gyrotemp=g_halGyro_getTemperature_f64();
-				printf("yaw: %5.3f    ;    pitch:  %5.3f    ;    roll:  %5.3f\n",GyroValues.l_yaw_f64,GyroValues.l_pitch_f64,GyroValues.l_roll_f64);
+				printf("roll: %5.3f    ;    pitch:  %5.3f    ;    yaw:  %5.3f\n",GyroValues.roll_f64, GyroValues.pitch_f64, GyroValues.yaw_f64);
 				//usleep(100000);
 			}
 			break;
@@ -437,8 +440,11 @@ int main() {
 		{
 			sigOri_orientationAngles	l_kalmanAngles_st;
 			sigOri_orientationAngles	l_compAngles_st;
+
 			halImu_orientationValues	l_imuStates_st;
 			halMatlab_rtSigAllStatePayload	l_rtCompleteSigPayload_st;
+
+
 			struct timespec					l_timestamp_st;
 
 
@@ -503,8 +509,8 @@ int main() {
 				sprintf(str, "mag = %f %f %f",
 						l_rtCompleteSigPayload_st.imuState_st.mag.x_f64, l_rtCompleteSigPayload_st.imuState_st.mag.y_f64, l_rtCompleteSigPayload_st.imuState_st.mag.z_f64);
 				puts(str);
-				sprintf(str, "yaw %f, pitch %f roll %f",
-						l_rtCompleteSigPayload_st.imuState_st.gyro.l_yaw_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.l_pitch_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.l_roll_f64);
+				sprintf(str, "roll %f, pitch %f yaw  %f",
+						l_rtCompleteSigPayload_st.imuState_st.gyro.roll_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.pitch_f64, l_rtCompleteSigPayload_st.imuState_st.gyro.yaw_f64 );
 				puts(str);
 				sprintf(str, "temperature = %f",
 						l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
@@ -522,7 +528,91 @@ int main() {
 				//printf("Sending time %d and Temperature %f\n", l_rtCompleteSigPayload_st.timestamp_st.tv_sec, l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
 				sendto(socketclient, (unsigned char *)&l_rtCompleteSigPayload_st , (size_t)sizeof( l_rtCompleteSigPayload_st ),  0, (struct sockaddr *)&remoteaddress, sizeof(remoteaddress));
 
-				usleep( 2000000 ); //20ms = 50Hz
+				usleep( 50000 ); //20ms = 50Hz
+			}
+			// close udp connection
+			close(socketclient);
+			break;
+		}
+		case ALLANGLES:
+		{
+			sigOri_orientationAngles	l_GyroPerStepAngles_st;
+			sigOri_orientationAngles	l_AccMagAngles_st;
+			sigOri_orientationAngles	l_kalmanAngles_st;
+			sigOri_orientationAngles	l_compAngles_st;
+			halImu_orientationValues	l_imuStates_st;
+
+			halMatlab_rtSigRollPitchYawStatePayload	l_rtRollPitchYawSigPayload_st;
+
+			struct timespec					l_timestamp_st;
+
+			printf("Starting Transfer matlab data on all angles\n");
+
+			int val=0;
+			int socketclient = 0;
+			struct sockaddr_in remoteaddress;
+
+			remoteaddress.sin_family = PF_INET;
+			remoteaddress.sin_port = htons(REMOTE_PORT);
+
+			(void)inet_aton(REMOTE_ADDR, &remoteaddress.sin_addr); //dot to integer and then host to network byte order
+
+			socketclient = socket(PF_INET, SOCK_DGRAM, 0);
+
+			g_sigOri_initMatrices_bl();
+			g_sigOri_initImuSensors_bl();
+
+			while(1)
+			{
+				g_sigOri_calcKalmanOrientation_bl();
+				g_sigOri_calcComplementaryOrientation_bl();
+
+				l_GyroPerStepAngles_st = g_sigOri_getAnglesGyroPerStep_bl();
+				l_AccMagAngles_st = g_sigOri_getAnglesAccMagCalc_bl();
+				l_kalmanAngles_st 	= g_sigOri_getAnglesKalman_bl();
+				l_compAngles_st		= g_sigOri_getAnglesComplementary_bl();
+				l_imuStates_st 		= g_halImu_getImuValues_str();
+
+
+				if ( clock_gettime(CLOCK_REALTIME, &l_timestamp_st) != M_HAL_MATLAB_SUCCESS_UI8)
+				{
+					return M_HAL_MATLAB_FAILED_UI8;
+				}
+
+				clock_gettime(CLOCK_REALTIME, &l_timestamp_st);
+
+				//assmeble timestamp and
+				l_rtRollPitchYawSigPayload_st.timestamp_st 				= l_timestamp_st;
+				l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st 		= l_imuStates_st.gyro;
+				l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st	= l_GyroPerStepAngles_st;
+				l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st 		= l_AccMagAngles_st;
+				l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st 		= l_kalmanAngles_st;
+				l_rtRollPitchYawSigPayload_st.angleFromcomplementarySigState_st	= l_compAngles_st;
+
+
+				printf("START MEASUREMENT\n");
+				sprintf(str, "sec =  %d, nano = %d",
+						l_rtRollPitchYawSigPayload_st.timestamp_st.tv_sec, l_rtRollPitchYawSigPayload_st.timestamp_st.tv_nsec);
+				puts(str);
+				sprintf(str, "Raw GYro Angular velocity roll %f, pitch %f yaw  %f",
+						l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st.roll_f64, l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st.yaw_f64 );
+				puts(str);
+				sprintf(str, "Gyro Angles roll %f, pitch %f yaw  %f",
+						l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st.roll_f64, l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st.yaw_f64 );
+				puts(str);
+				sprintf(str, "ACC MAG CALC Angles roll %f, pitch %f yaw  %f",
+						l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st.roll_f64, l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st.yaw_f64 );
+				puts(str);
+				sprintf(str, "COMPLEMENTARY Angles roll %f, pitch %f yaw %f",
+						l_rtRollPitchYawSigPayload_st.angleFromcomplementarySigState_st.roll_f64, l_rtRollPitchYawSigPayload_st.angleFromcomplementarySigState_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angleFromcomplementarySigState_st.yaw_f64);
+				puts(str);
+				sprintf(str, "KALMAN Angles roll %f, pitch %f yaw %f",
+						l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st.roll_f64, l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st.yaw_f64);
+				puts(str);
+
+				sendto(socketclient, (unsigned char *)&l_rtRollPitchYawSigPayload_st , (size_t)sizeof( l_rtRollPitchYawSigPayload_st ),  0, (struct sockaddr *)&remoteaddress, sizeof(remoteaddress));
+
+				usleep( 50000 ); //20ms = 50Hz
 			}
 			// close udp connection
 			close(socketclient);

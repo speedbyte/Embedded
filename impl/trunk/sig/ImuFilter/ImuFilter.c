@@ -14,7 +14,7 @@
 #define M_NR_OF_VALUES_FOR_OFFSET_UI8		1000
 
 static halImu_orientationValues m_sigFil_imuValues_st;
-static strGyro m_offsetGyro_st;
+static sigOri_orientationAngles m_offsetGyro_st;
 
 /*!**********************************************************************
  * \author 	Oliver Breuning (olbrgs00)
@@ -60,10 +60,10 @@ halImu_orientationValues g_sigFil_getImuValuesUnfiltered_st()
  * none
  * \endinternal
  ***********************************************************************/
-strGyro m_sigFil_offsetCorrectionGyro_st()
+sigOri_orientationAngles m_sigFil_offsetCorrectionGyro_st()
 {
 	int i=0;
-	strGyro l_measuredGyroValue_st={0,0,0};
+	sigOri_orientationAngles l_measuredGyroValue_st={0,0,0};
 	halImu_orientationValues l_sigFil_imuValues_st;
 
 	for(i=0;i<M_NR_OF_VALUES_FOR_OFFSET_UI8;i++)
@@ -71,14 +71,14 @@ strGyro m_sigFil_offsetCorrectionGyro_st()
 		g_halImu_triggerImuReading_bl();
 		l_sigFil_imuValues_st = g_halImu_getImuValues_str();
 
-		l_measuredGyroValue_st.l_pitch_f64+=l_sigFil_imuValues_st.gyro.l_pitch_f64;
-		l_measuredGyroValue_st.l_roll_f64+=l_sigFil_imuValues_st.gyro.l_roll_f64;
-		l_measuredGyroValue_st.l_yaw_f64+=l_sigFil_imuValues_st.gyro.l_yaw_f64;
+		l_measuredGyroValue_st.roll_f64+=l_sigFil_imuValues_st.gyro.roll_f64;
+		l_measuredGyroValue_st.pitch_f64+=l_sigFil_imuValues_st.gyro.pitch_f64;
+		l_measuredGyroValue_st.yaw_f64+=l_sigFil_imuValues_st.gyro.yaw_f64;
 	}
 
-	l_measuredGyroValue_st.l_pitch_f64=l_measuredGyroValue_st.l_pitch_f64/M_NR_OF_VALUES_FOR_OFFSET_UI8;
-	l_measuredGyroValue_st.l_roll_f64=l_measuredGyroValue_st.l_roll_f64/M_NR_OF_VALUES_FOR_OFFSET_UI8;
-	l_measuredGyroValue_st.l_yaw_f64=l_measuredGyroValue_st.l_yaw_f64/M_NR_OF_VALUES_FOR_OFFSET_UI8;
+	l_measuredGyroValue_st.roll_f64=l_measuredGyroValue_st.roll_f64/M_NR_OF_VALUES_FOR_OFFSET_UI8;
+	l_measuredGyroValue_st.pitch_f64=l_measuredGyroValue_st.pitch_f64/M_NR_OF_VALUES_FOR_OFFSET_UI8;
+	l_measuredGyroValue_st.yaw_f64=l_measuredGyroValue_st.yaw_f64/M_NR_OF_VALUES_FOR_OFFSET_UI8;
 
 	return l_measuredGyroValue_st;
 }
@@ -134,9 +134,9 @@ void g_sigFil_readImuData_bl()
 	m_sigFil_imuValues_st.mag.x_f64=m_sigFil_imuValues_st.mag.x_f64*1000000;
 	m_sigFil_imuValues_st.mag.y_f64=m_sigFil_imuValues_st.mag.y_f64*1000000;
 	m_sigFil_imuValues_st.mag.z_f64=-m_sigFil_imuValues_st.mag.z_f64*1000000;
-	m_sigFil_imuValues_st.gyro.l_pitch_f64=m_sigFil_imuValues_st.gyro.l_pitch_f64-m_offsetGyro_st.l_pitch_f64;
-	m_sigFil_imuValues_st.gyro.l_roll_f64=m_sigFil_imuValues_st.gyro.l_roll_f64-m_offsetGyro_st.l_roll_f64;
-	m_sigFil_imuValues_st.gyro.l_yaw_f64=m_sigFil_imuValues_st.gyro.l_yaw_f64-m_offsetGyro_st.l_yaw_f64;
+	m_sigFil_imuValues_st.gyro.roll_f64=m_sigFil_imuValues_st.gyro.roll_f64-m_offsetGyro_st.roll_f64;
+	m_sigFil_imuValues_st.gyro.pitch_f64=m_sigFil_imuValues_st.gyro.pitch_f64-m_offsetGyro_st.pitch_f64;
+	m_sigFil_imuValues_st.gyro.yaw_f64=m_sigFil_imuValues_st.gyro.yaw_f64-m_offsetGyro_st.yaw_f64;
 
 }
 

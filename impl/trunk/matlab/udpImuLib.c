@@ -106,9 +106,9 @@ halMatlab_rtImuPayload g_halMatlab_recvImuStateAndTime_bl(int f_socketHandler_i3
 	l_recvImuState_st.imuState_st.acc.y_f64 = 0;
 	l_recvImuState_st.imuState_st.acc.z_f64 = 0;
 
-	l_recvImuState_st.imuState_st.gyro.l_pitch_f64 = 0;
-	l_recvImuState_st.imuState_st.gyro.l_roll_f64 = 0;
-	l_recvImuState_st.imuState_st.gyro.l_yaw_f64 = 0;
+	l_recvImuState_st.imuState_st.gyro.pitch_f64 = 0;
+	l_recvImuState_st.imuState_st.gyro.roll_f64 = 0;
+	l_recvImuState_st.imuState_st.gyro.yaw_f64 = 0;
 
 	l_recvImuState_st.imuState_st.mag.x_f64 = 0;
 	l_recvImuState_st.imuState_st.mag.y_f64 = 0;
@@ -164,9 +164,9 @@ halImu_orientationValues g_halMatlab_recvImuState_bl(int f_socketHandler_i32) {
 	l_recvImuState_st.acc.y_f64 = 0;
 	l_recvImuState_st.acc.z_f64 = 0;
 
-	l_recvImuState_st.gyro.l_pitch_f64 = 0;
-	l_recvImuState_st.gyro.l_roll_f64 = 0;
-	l_recvImuState_st.gyro.l_yaw_f64 = 0;
+	l_recvImuState_st.gyro.pitch_f64 = 0;
+	l_recvImuState_st.gyro.roll_f64 = 0;
+	l_recvImuState_st.gyro.yaw_f64 = 0;
 
 	l_recvImuState_st.mag.x_f64 = 0;
 	l_recvImuState_st.mag.y_f64 = 0;

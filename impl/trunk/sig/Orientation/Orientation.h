@@ -56,6 +56,9 @@ double g_sigOri_getPitchKalman_bl(void);
 double g_sigOri_getRollKalman_bl(void);
 double g_sigOri_getYawKalman_bl(void);
 
+sigOri_orientationAngles g_sigOri_getAnglesGyroPerStep_bl(void);
+sigOri_orientationAngles g_sigOri_getAnglesAccMagCalc_bl(void);
+
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)
  * DATE OF CREATION: 2015/05/31
@@ -83,6 +86,7 @@ void g_sigOri_initBuildReferenceValues_bl();
  * -------------------------------------------------------------------- */
 void g_sigOri_calcKalmanOrientation_bl(void);
 void g_sigOri_calcComplementaryOrientation_bl(void);
+
 
 
 #endif /* SIG_KALMANORIENTATION_KALMANORIENTATION_H_ */

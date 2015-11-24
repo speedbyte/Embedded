@@ -13,6 +13,8 @@
 
 #include "./accMag/accMag.h"
 #include "./gyro/Gyro.h"
+#include "../../sig/Orientation/Orientation.h"
+
 
 #define M_HAL_IMU_SUCCESS_BL			0
 #define M_HAL_IMU_FAILED_BL				1
@@ -33,7 +35,7 @@
 typedef struct{
 	halAccmag_3dDoubleVector acc;
 	halAccmag_3dDoubleVector mag;
-	strGyro gyro;
+	sigOri_orientationAngles gyro;
 	double temperature_f64;
 	double pressure_f64;
 } halImu_orientationValues;

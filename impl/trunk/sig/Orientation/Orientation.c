@@ -32,9 +32,13 @@ static double m_sigOri_referenceTemperature_f64=0;
 static double m_SIGORI_heightGpsMetres_f64 =0;
 static double m_SIGORI_heightAccMetres_f64 =0;
 
+static sigOri_orientationAngles m_sigOri_arrayOutputAnglesGyroPerStep_st;
+static sigOri_orientationAngles m_sigOri_arrayOutputAnglesAccMagCalc_st;
+
 static sigOri_orientationAngles m_sigOri_arrayAccMagAnglesKalman_st;
 static sigOri_orientationAngles m_sigOri_arrayGyroAnglesKalman_st;
 static sigOri_orientationAngles m_sigOri_arrayOutputAnglesKalman_st;
+
 
 static sigOri_orientationAngles m_sigOri_arrayAccMagAnglesComplementary_st={0,0,0};
 static sigOri_orientationAngles m_sigOri_arrayGyroAnglesComplementary_st={0,0,0};
@@ -425,6 +429,8 @@ sigOri_orientationAngles m_sigOri_calcAccMagAngle_st()
 
 		}*/
 
+	m_sigOri_arrayOutputAnglesAccMagCalc_st = l_angles_f64;
+
 	return l_angles_f64;
 }
 
@@ -461,10 +467,12 @@ sigOri_orientationAngles m_sigOri_calcGyroAnglePerStep_st()
 
 	l_timestep_f64=(double)(time_difference)*0.000001;
 
-	l_angles_f64.roll_f64=m_sigori_imuValues_st.gyro.l_roll_f64*l_timestep_f64;
-	l_angles_f64.pitch_f64=m_sigori_imuValues_st.gyro.l_pitch_f64*l_timestep_f64;
-	l_angles_f64.yaw_f64=m_sigori_imuValues_st.gyro.l_yaw_f64*l_timestep_f64;
+	l_angles_f64.roll_f64=m_sigori_imuValues_st.gyro.roll_f64*l_timestep_f64;
+	l_angles_f64.pitch_f64=m_sigori_imuValues_st.gyro.pitch_f64*l_timestep_f64;
+	l_angles_f64.yaw_f64=m_sigori_imuValues_st.gyro.yaw_f64*l_timestep_f64;
 	gettimeofday(&gettime_old,(void *)0);
+
+	m_sigOri_arrayOutputAnglesGyroPerStep_st = l_angles_f64;
 
 	return l_angles_f64;
 }
@@ -629,6 +637,50 @@ void g_sigOri_calcComplementaryOrientation_bl()
 	m_sigOri_arrayOutputAnglesComplementary_st.yaw_f64=
 		M_COMP_FILTER_FACTOR_F64*(m_sigOri_arrayOutputAnglesComplementary_st.yaw_f64+m_sigOri_arrayGyroAnglesComplementary_st.yaw_f64) +
 		(1-M_COMP_FILTER_FACTOR_F64)*m_sigOri_arrayAccMagAnglesComplementary_st.yaw_f64;
+}
+
+
+/*!**********************************************************************
+ * \author 	Oliver Breuning (olbrgs00)
+ * \date 	2015/05/31
+ *
+ * \brief	Get angles of the IMU
+ * \details	This function returns a struct with calculated angles
+ * 			(pitch, roll, yaw) with the
+ * 			Complementary-Filter
+ *
+ * \param[out]	returns the requested angles calculate with the Complementary-Filter
+ *
+ * \internal
+ * CHANGELOG:
+ * none
+ * \endinternal
+ ***********************************************************************/
+sigOri_orientationAngles g_sigOri_getAnglesAccMagCalc_bl()
+{
+	return m_sigOri_arrayOutputAnglesAccMagCalc_st;
+}
+
+
+/*!**********************************************************************
+ * \author 	Oliver Breuning (olbrgs00)
+ * \date 	2015/05/31
+ *
+ * \brief	Get angles of the IMU
+ * \details	This function returns a struct with calculated angles
+ * 			(pitch, roll, yaw) with the
+ * 			Complementary-Filter
+ *
+ * \param[out]	returns the requested angles calculate with the Complementary-Filter
+ *
+ * \internal
+ * CHANGELOG:
+ * none
+ * \endinternal
+ ***********************************************************************/
+sigOri_orientationAngles g_sigOri_getAnglesGyroPerStep_bl()
+{
+	return m_sigOri_arrayOutputAnglesGyroPerStep_st;
 }
 
 

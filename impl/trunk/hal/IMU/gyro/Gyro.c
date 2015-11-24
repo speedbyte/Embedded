@@ -7,6 +7,7 @@
  *  Created on: 05.05.2015
  *      Author: user
  */
+#include "../../sig/Orientation/Orientation.h"
 
 #include "../../LLD_IF/LLD_I2C.h"
 #include "../Lib/Hal_Lib.h"
@@ -17,7 +18,7 @@
 #define M_HAL_GYRO_TEMP_OFFSET_UI8		27
 
 // Variables which can be read later
-static strGyro m_rotation_str;
+static sigOri_orientationAngles m_rotation_str;
 static double m_halGyro_temperature_f64;
 
 /*!**********************************************************************
@@ -68,14 +69,14 @@ int g_halGyro_initGyro_i32(void)
  * \details Interface of reading rotational speed which is measured by the gyroscope.
  *
  * \param[ in ] no parameter
- * \param[ out ] struct strGyro with yaw, pitch, roll
+ * \param[ out ] struct sigOri_orientationAngles with roll, pitch, yaw
  *
  * \internal
  * CHANGELOG:
  *
  * \endinternal
  ********************************************************************** */
-strGyro g_halGyro_getGyroscope_st(void)
+sigOri_orientationAngles g_halGyro_getGyroscope_st(void)
 {
 	return m_rotation_str;
 }
@@ -159,9 +160,9 @@ int g_halGyro_readGyroscopeFromI2C_i32(void)
 		l_yValue_ui8=l_yValue_ui8*l_factorRaw2Out_f64;
 		l_zValue_ui8=l_zValue_ui8*l_factorRaw2Out_f64;
 
-		m_rotation_str.l_roll_f64=l_xValue_ui8;
-		m_rotation_str.l_pitch_f64=l_yValue_ui8;
-		m_rotation_str.l_yaw_f64=l_zValue_ui8;
+		m_rotation_str.roll_f64=l_xValue_ui8;
+		m_rotation_str.pitch_f64=l_yValue_ui8;
+		m_rotation_str.yaw_f64=l_zValue_ui8;
 	}
 
 	return 0;
