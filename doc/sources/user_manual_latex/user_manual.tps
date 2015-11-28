@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=chapters\ch-sensor-fusion-imu.tex
 
 [Frame0_View0,0]
-TopLine=244
-Cursor=16112
+TopLine=336
+Cursor=21510
 
 [Frame1]
 Flags=0
@@ -36,7 +36,7 @@ Document=user_manual.tex
 
 [Frame1_View0,0]
 TopLine=34
-Cursor=1098
+Cursor=1044
 
 [Frame2]
 Flags=0
@@ -71,7 +71,7 @@ Class=LaTeXView
 Document=chapters\ch-sensor_testing_concept.tex
 
 [Frame3_View0,0]
-TopLine=85
+TopLine=93
 Cursor=4406
 
 [Frame4]
@@ -112,5 +112,5 @@ Cursor=257
 
 [SessionInfo]
 FrameCount=6
-ActiveFrame=0
+ActiveFrame=1
 

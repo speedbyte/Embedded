@@ -269,33 +269,6 @@ Figure \ref{fig:measurement} shows a measurement of an acceleration sensor.
 
 
 For the Kalman filter the noise of the measurement and the process has to be set up. This noise values are the variances of the used sensors and of the process. In the calculation process are those matrices named $\underline Q$ and $\underline R$. The matrix $\underline Q$ uses the variances of the process noise and the matrix $\underline R$ uses the variances of the noise of the sensors.\\\\
-\underline{Prediction step:}\\\\
-Predict the next state:
-\begin{align}
-\vec x_k = \underline{A}\vec x_{k-1}+\underline{B}\vec u_{k-1}
-\label{equ:KalmanFilterResult:Kalman1}
-\end{align}
-Predict the covariance for the next step:
-\begin{align}
-\underline{P}_k = \underline{A}\underline{P}_{k-1}\underline{A}^T+\underline{Q}
-\label{equ:KalmanFilterResult:Kalman2}
-\end{align}
-\underline{Correction step:}\\\\
-Computation of the Kalman gain:
-\begin{align}
-\underline{K}_k = \underline{P}_k	\underline{H}^T(\underline{H}\underline{P}_k\underline{H}^T+\underline{R})^{-1}
-\label{equ:KalmanFilterResult:Kalman3}
-\end{align}
-Updating state prediction with new measurement:
-\begin{align}
-\vec x_k = 	\vec x_k+\underline{K}_k(\vec z_k-\underline{H}\vec x_k)
-\label{equ:KalmanFilterResult:Kalman4}
-\end{align}
-Updating the error covariance:
-\begin{align}
-\underline{P}_k = (\underline{I}-\underline{K}_k\underline{H})\underline{P}_k	
-\label{equ:KalmanFilterResult:Kalman5}
-\end{align}
 As an initial guess the matrices are set to:
 \begin{align}
 \underline{Q} &= \begin{pmatrix} 0.005&0&0 \\ 0&0.005&0 \\ 0&0&0.0001 \end{pmatrix}\\

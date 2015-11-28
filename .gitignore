@@ -19,3 +19,4 @@ compiled/*
 *.o
 impl/trunk/slprj/*
 slprj
+Debug/

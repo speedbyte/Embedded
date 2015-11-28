@@ -9,7 +9,7 @@ OBJS-HOST=read-udp-host.o
 
 #OS='uname -o'
 ifeq ($(OS),Cygwin)
-	IMAGE-HOST=READ-UDP-WIN
+	IMAGE-HOST=READ-UDP-CYGWIN
 else
 	IMAGE-HOST=READ-UDP-LINUX
 endif
