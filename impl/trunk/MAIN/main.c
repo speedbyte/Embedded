@@ -23,7 +23,7 @@
 extern float g_halADC_get_ui16(unsigned char );
 
 #define REMOTE_PORT 5000
-#define REMOTE_ADDR "192.168.22.159"
+#define REMOTE_ADDR "192.168.242.1"
 
 typedef enum enumTestCases
 {
@@ -567,11 +567,11 @@ int main() {
 				g_sigOri_calcKalmanOrientation_bl();
 				g_sigOri_calcComplementaryOrientation_bl();
 
+				l_imuStates_st 		= g_halImu_getImuValues_str();
 				l_GyroPerStepAngles_st = g_sigOri_getAnglesGyroPerStep_bl();
 				l_AccMagAngles_st = g_sigOri_getAnglesAccMagCalc_bl();
 				l_kalmanAngles_st 	= g_sigOri_getAnglesKalman_bl();
 				l_compAngles_st		= g_sigOri_getAnglesComplementary_bl();
-				l_imuStates_st 		= g_halImu_getImuValues_str();
 
 
 				if ( clock_gettime(CLOCK_REALTIME, &l_timestamp_st) != M_HAL_MATLAB_SUCCESS_UI8)
