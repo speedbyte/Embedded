@@ -34,5 +34,6 @@ LIBS=\
 ../hal/IMU/IMU.lib\
 ../hal/LASER/LASER.lib\
 ../hal/LLD_IF/LLD_IF.lib\
+../hal/MOTOR/MOTOR.lib\
 ../matlab/MATLAB.lib\
 ../sig/SIG.lib\

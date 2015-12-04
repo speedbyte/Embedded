@@ -19,6 +19,7 @@
 #include "../hal/IMU/barometer/barometer.h"
 #include "../hal/LASER/LIDAR.h"
 #include "../hal/LLD_IF/LLD_UART.h"
+#include "../hal/MOTOR/MOTOR.h"
 
 extern float g_halADC_get_ui16(unsigned char );
 
@@ -42,6 +43,8 @@ typedef enum enumTestCases
 	TESTUDP,
 	TESTUDPTRANSFER,
 	ALLANGLES,
+	TESTALLSENSORDATA,
+	TESTMOTORPWM,
 	TESTEND
 } enumTestcases;
 
@@ -85,6 +88,10 @@ int main() {
 		runCommand = TESTUDPTRANSFER;
 	else if ( strcmp(testValue,"testallangles")  == 0 )
 		runCommand = ALLANGLES;
+	else if ( strcmp(testValue,"testallsensordata")  == 0 )
+			runCommand = TESTALLSENSORDATA;
+	else if ( strcmp(testValue,"testmotorpwm")  == 0 )
+			runCommand = TESTMOTORPWM;
 
 	switch (runCommand)
 	{
@@ -618,7 +625,87 @@ int main() {
 			close(socketclient);
 			break;
 		}
+		case TESTALLSENSORDATA:
+		{
+			printf("Starting IMU send all Sensor Values\n");
+			unsigned char	l_remoteHostAddr_rg4ui8[4] 	= {192,168,22,160};
+			unsigned short	l_remoteHostPort_ui16		= 5000;
+			int				l_udpSocket_i32;
+			unsigned int	l_sendState_bl;
 
+			// open udp connection
+			l_udpSocket_i32 = g_halMatlab_initConnection_i32( l_remoteHostAddr_rg4ui8, l_remoteHostPort_ui16 );
+
+			halImu_orientationValues l_imuMeasurements_st;
+			g_halImu_initImuSensors_bl();
+
+			while(1)
+			{
+				g_halImu_triggerImuReading_bl();
+				g_halImu_triggerBaroReading_bl();
+				g_halImu_triggerGyroReading_bl();
+				g_halImu_triggerAccReading_bl();
+
+				l_imuMeasurements_st=g_halImu_getImuValues_str();
+
+				l_sendState_bl = g_halMatlab_sendImuState_bl(l_udpSocket_i32, l_imuMeasurements_st);
+
+				printf("Acc X %f \n", l_imuMeasurements_st.acc.x_f64);
+				printf("Acc Y %f \n", l_imuMeasurements_st.acc.y_f64);
+				printf("Acc Z %f \n", l_imuMeasurements_st.acc.z_f64);
+				printf("Mag X %f \n", l_imuMeasurements_st.mag.x_f64);
+				printf("Mag Y %f \n", l_imuMeasurements_st.mag.y_f64);
+				printf("Mag Z %f \n", l_imuMeasurements_st.mag.z_f64);
+				printf("Gyro yaw %f \n", l_imuMeasurements_st.gyro.yaw_f64);
+				printf("Gyro pitch %f \n", l_imuMeasurements_st.gyro.pitch_f64);
+				printf("Gyro roll %f \n", l_imuMeasurements_st.gyro.roll_f64);
+				printf("Temp %f \n", l_imuMeasurements_st.temperature_f64);
+				printf("Press %f \n", l_imuMeasurements_st.pressure_f64);
+				printf("##########################################\n");
+
+				if ( l_sendState_bl != M_HAL_MATLAB_SUCCESS_UI8 )
+				{
+					printf("UDP-Packet error\n");
+				}
+				usleep( 20000 ); //20ms = 50Hz
+			}
+		// close udp connection
+		g_halMatlab_closeSocket_bl(l_udpSocket_i32);
+		break;
+		}
+
+		case TESTMOTORPWM:
+		{
+			char BLCtrlADRExecuteOrder[DEFMotorsCount];
+
+			int i = 0;
+			const int MAXPWM = DEFMotorSetpointMAX;
+			const int STEPSIZE = 10;
+			unsigned int pwmValue=0;
+
+			getBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
+
+			printf("Start Testing Motors with PWM");
+
+			while(1)
+			{
+				for(i = 0; i < DEFMotorsCount ;i++)
+				{
+					g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[i],pwmValue,1);
+				}
+
+				usleep(10000);//10ms
+
+				pwmValue =+STEPSIZE;
+				if(pwmValue > MAXPWM)
+				{
+					pwmValue= DEFMotorSetpointMAX;
+				}
+
+			}
+
+		break;
+		}
 		default:
 		case TESTEND:
 		{
