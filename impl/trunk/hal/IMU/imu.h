@@ -33,6 +33,7 @@
  * \endinternal
  ***********************************************************************/
 typedef struct{
+	double dummy;
 	halAccmag_3dDoubleVector acc;
 	halAccmag_3dDoubleVector mag;
 	sigOri_orientationAngles gyro;

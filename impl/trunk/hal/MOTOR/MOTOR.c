@@ -21,9 +21,7 @@
  * \endinternal
  ********************************************************************** */
 void getBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]){
-
-#ifdef Quadro_X
-#ifdef Quadro_Plus
+#if defined(Quadro_X) || defined(Quadro_Plus)
 	int BLCTRLADR[4] = {DEFMotorNo1_BLCtrlADR, DEFMotorNo2_BLCtrlADR, DEFMotorNo3_BLCtrlADR, DEFMotorNo4_BLCtrlADR};
 
 	BLCtrlADRExecuteOrder[DEFMotorNo1_OrderIDX ]=BLCTRLADR[0];
@@ -31,7 +29,6 @@ void getBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]){
 					BLCtrlADRExecuteOrder[DEFMotorNo3_OrderIDX]=BLCTRLADR[2];
 					BLCtrlADRExecuteOrder[DEFMotorNo4_OrderIDX]=BLCTRLADR[3];
 
-#endif
 #endif
 
 #ifdef Okto_Plus

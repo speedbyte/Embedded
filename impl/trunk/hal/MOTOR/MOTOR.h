@@ -136,10 +136,10 @@
 
 // Brushless Controller adress (i2c-bus) for MotorNo1,..,MotorNo8
 // bit7-1[0x52+2*(MotorNo99-1)] bit0[0:write; 1:read]
-#define DEFMotorNo1_BLCtrlADR         0x52          // (CC) BL Ctrl adresse for MotorNo1
-#define DEFMotorNo2_BLCtrlADR         0x54          // (CC) BL Ctrl adresse for MotorNo2
-#define DEFMotorNo3_BLCtrlADR         0x56          // (CC) BL Ctrl adresse for MotorNo3
-#define DEFMotorNo4_BLCtrlADR         0x58          // (CC) BL Ctrl adresse for MotorNo4
+#define DEFMotorNo1_BLCtrlADR         0x29//0x52          // (CC) BL Ctrl adresse for MotorNo1
+#define DEFMotorNo2_BLCtrlADR         0x2a//0x54          // (CC) BL Ctrl adresse for MotorNo2
+#define DEFMotorNo3_BLCtrlADR         0x2b//0x56          // (CC) BL Ctrl adresse for MotorNo3
+#define DEFMotorNo4_BLCtrlADR         0x2c//0x58          // (CC) BL Ctrl adresse for MotorNo4
 #define DEFMotorNo5_BLCtrlADR         0x5a          // (CC) BL Ctrl adresse for MotorNo5
 #define DEFMotorNo6_BLCtrlADR         0x5c          // (CC) BL Ctrl adresse for MotorNo6
 #define DEFMotorNo7_BLCtrlADR         0x5e          // (CC) BL Ctrl adresse for MotorNo7

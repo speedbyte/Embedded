@@ -45,6 +45,7 @@ typedef enum enumTestCases
 	ALLANGLES,
 	TESTALLSENSORDATA,
 	TESTMOTORPWM,
+	TESTMOTORHOLDHEIGHT,
 	TESTEND
 } enumTestcases;
 
@@ -92,6 +93,8 @@ int main() {
 			runCommand = TESTALLSENSORDATA;
 	else if ( strcmp(testValue,"testmotorpwm")  == 0 )
 			runCommand = TESTMOTORPWM;
+	else if ( strcmp(testValue,"testmotorholdheight")  == 0 )
+				runCommand = TESTMOTORHOLDHEIGHT;
 
 	switch (runCommand)
 	{
@@ -677,11 +680,11 @@ int main() {
 		case TESTMOTORPWM:
 		{
 			char BLCtrlADRExecuteOrder[DEFMotorsCount];
-
+			char sendBuffer[1];
 			int i = 0;
-			const int MAXPWM = DEFMotorSetpointMAX;
 			const int STEPSIZE = 10;
-			unsigned int pwmValue=0;
+			unsigned int pwmValue;
+
 
 			getBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
 
@@ -689,23 +692,43 @@ int main() {
 
 			while(1)
 			{
+				sendBuffer[0]=pwmValue;
 				for(i = 0; i < DEFMotorsCount ;i++)
 				{
-					g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[i],pwmValue,1);
+					g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[i],&sendBuffer[0],1);
+					usleep(10);//10us delay for HW Driver
 				}
 
 				usleep(10000);//10ms
 
-				pwmValue =+STEPSIZE;
-				if(pwmValue > MAXPWM)
+				pwmValue = pwmValue + STEPSIZE;
+				if(pwmValue > 0x50 )
 				{
-					pwmValue= DEFMotorSetpointMAX;
+					pwmValue= DEFMotorSetpointMIN;
 				}
 
 			}
 
 		break;
 		}
+
+		case TESTMOTORHOLDHEIGHT:
+				{
+					const double FLYHEIGHTcm = 10;
+					double currentHeightCm;
+
+					while(1){
+
+						if(g_LIDAR_readDistanceFromI2C_i32 == 0){
+							currentHeightCm =g_LIDAR_getDistance_f64();
+						}
+
+
+					}
+
+				break;
+				}
+
 		default:
 		case TESTEND:
 		{
