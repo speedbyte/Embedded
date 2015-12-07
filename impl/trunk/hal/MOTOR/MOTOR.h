@@ -145,6 +145,22 @@
 #define DEFMotorNo7_BLCtrlADR         0x5e          // (CC) BL Ctrl adresse for MotorNo7
 #define DEFMotorNo8_BLCtrlADR         0x60          // (CC) BL Ctrl adresse for MotorNo8
 
+//defines for SetPwmMotor toSet parameter:
+#define DEFMotorNo1_PWM         0b1
+#define DEFMotorNo2_PWM         0b2
+#define DEFMotorNo3_PWM         0b4
+#define DEFMotorNo4_PWM         0b8
+#define DEFMotorNo5_PWM         0b16
+#define DEFMotorNo6_PWM         0b32
+#define DEFMotorNo7_PWM         0b64
+#define DEFMotorNo8_PWM		  	0b128
+#define DEFMotorNo8_PWM_ALL	  	0xFF
+//#define DEFMotorNo8_PWM_CW	  	0b //TODO
+//#define DEFMotorNo8_PWM_CCW	  	0b //TODO
 
-
-void getBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]);
+void InitMotor();
+void SetMotorExecutionOrder();
+void SetPwmMotor(char toSet , int pwmValue);
+void InitMotorTimer();
+void IsrMotor();
+void GetBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]);

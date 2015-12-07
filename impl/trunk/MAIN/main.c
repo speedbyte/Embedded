@@ -45,6 +45,7 @@ typedef enum enumTestCases
 	ALLANGLES,
 	TESTALLSENSORDATA,
 	TESTMOTORPWM,
+	TESTMOTORISR,
 	TESTMOTORHOLDHEIGHT,
 	TESTEND
 } enumTestcases;
@@ -93,6 +94,8 @@ int main() {
 			runCommand = TESTALLSENSORDATA;
 	else if ( strcmp(testValue,"testmotorpwm")  == 0 )
 			runCommand = TESTMOTORPWM;
+	else if ( strcmp(testValue,"testmotorisr")  == 0 )
+			runCommand = TESTMOTORISR;
 	else if ( strcmp(testValue,"testmotorholdheight")  == 0 )
 				runCommand = TESTMOTORHOLDHEIGHT;
 
@@ -685,8 +688,7 @@ int main() {
 			const int STEPSIZE = 10;
 			unsigned int pwmValue;
 
-
-			getBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
+			GetBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
 
 			printf("Start Testing Motors with PWM");
 
@@ -711,6 +713,15 @@ int main() {
 
 		break;
 		}
+		case TESTMOTORISR:
+				{
+					InitMotor();
+
+					while(1);
+
+				break;
+				}
+
 
 		case TESTMOTORHOLDHEIGHT:
 				{
