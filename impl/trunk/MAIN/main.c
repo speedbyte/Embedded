@@ -716,8 +716,12 @@ int main() {
 		case TESTMOTORISR:
 				{
 					InitMotor();
-
-					while(1);
+					while(1){
+						if(GetFlagRunSendPwmToMotor() == 1){
+							sendPwmToMotor();
+						}
+						/* Do Other Things*/
+					}
 
 				break;
 				}

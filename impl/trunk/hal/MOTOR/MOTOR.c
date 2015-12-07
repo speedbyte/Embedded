@@ -15,6 +15,9 @@
 char BLCtrlADRExecuteOrder[DEFMotorsCount];
 char PWMValue[DEFMotorsCount];
 
+//Flags
+char flagRunSendPwmToMotor;
+
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
@@ -30,6 +33,7 @@ char PWMValue[DEFMotorsCount];
  * \endinternal
  ********************************************************************** */
 void InitMotor(){
+	SetFlagRunSendPwmToMotor(0);
 	SetMotorExecutionOrder();
 	SetPwmMotor(DEFMotorNo8_PWM_ALL, DEFMotorSetpointMIN);
 	//Last one always initMotorTimer()
@@ -100,7 +104,7 @@ void InitMotorTimer(){
 
 	//Creates Signal, if signal Rising a_handler called
 	memset(&sa, 0 , sizeof(sa));
-	sa.sa_handler = &IsrMotor;
+	sa.sa_handler = &IsrSetFlag;
 	sigaction(SIGVTALRM, &sa, NULL);
 
 	//Expire the Timer after:
@@ -113,22 +117,71 @@ void InitMotorTimer(){
 	setitimer(ITIMER_VIRTUAL, &timer , NULL);
 }
 
-
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2015/04/18
  *
+ * \brief set flag flagRunIsrMotor
  *
- *
- * \brief sends every timer interrupt to the motors the specific pwm values
- *
+ * \param[ in ] 1 Set Flag, else clear Flag
  *
  * \internal
  * CHANGELOG:
  *
  * \endinternal
  ********************************************************************** */
-void IsrMotor(){
+void SetFlagRunSendPwmToMotor(char value){
+	if(value == 1){
+		flagRunSendPwmToMotor=value;
+	}else{
+		flagRunSendPwmToMotor=0;
+	}
+}
+
+/*!**********************************************************************
+ * \author Chris Mönch( chmoit00 )
+ * \date 2015/04/18
+ *
+ * \brief ISR for set flag as flagRunIsrMotor
+ *
+ * \internal
+ * CHANGELOG:
+ *
+ * \endinternal
+ ********************************************************************** */
+void IsrSetFlag(){
+	flagRunSendPwmToMotor=1;
+}
+
+/*!**********************************************************************
+ * \author Chris Mönch( chmoit00 )
+ * \date 2015/04/18
+ *
+ * \brief get flag flagRunIsrMotor
+ *
+ * \param[out] flag flagRunIsrMotor
+ *
+ * \internal
+ * CHANGELOG:
+ *
+ * \endinternal
+ ********************************************************************** */
+char GetFlagRunSendPwmToMotor(){
+	return flagRunSendPwmToMotor;
+}
+
+/*!**********************************************************************
+ * \author Chris Mönch( chmoit00 )
+ * \date 2015/04/18
+ *
+ * \brief sends every timer interrupt to the motors the specific pwm values
+ *
+ * \internal
+ * CHANGELOG:
+ *
+ * \endinternal
+ ********************************************************************** */
+void sendPwmToMotor(){
 	int i;
 	for(i = 0; i < DEFMotorsCount ;i++)
 	{
