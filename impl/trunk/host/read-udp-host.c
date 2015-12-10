@@ -69,7 +69,7 @@ int main()
 				l_rtSigAllPayload_st.timestamp_st.tv_nsec,
 				l_rtSigAllPayload_st.imuState_st.acc.x_f64, l_rtSigAllPayload_st.imuState_st.acc.y_f64, l_rtSigAllPayload_st.imuState_st.acc.z_f64,
 				l_rtSigAllPayload_st.imuState_st.mag.x_f64, l_rtSigAllPayload_st.imuState_st.mag.y_f64, l_rtSigAllPayload_st.imuState_st.mag.z_f64,
-				l_rtSigAllPayload_st.imuState_st.gyro.l_yaw_f64, l_rtSigAllPayload_st.imuState_st.gyro.l_pitch_f64, l_rtSigAllPayload_st.imuState_st.gyro.l_roll_f64,
+				l_rtSigAllPayload_st.imuState_st.gyro.yaw_f64, l_rtSigAllPayload_st.imuState_st.gyro.pitch_f64, l_rtSigAllPayload_st.imuState_st.gyro.roll_f64,
 				l_rtSigAllPayload_st.imuState_st.temperature_f64, l_rtSigAllPayload_st.imuState_st.pressure_f64);
 		puts(str);
 	}

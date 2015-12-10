@@ -31,9 +31,6 @@ typedef struct{
 
 typedef struct{
 	struct timespec				timestamp_st;
-#if defined(__host__)
-	double 						dummy; // this is to pad, because struct timespec on host ( 64 bit ) > struct timespec on target ( 32 bit )
-#endif
 	halImu_orientationValues	imuState_st;
 	sigOri_orientationAngles	kalmanSigState_st;
 	sigOri_orientationAngles	complementarySigState_st;
@@ -41,9 +38,6 @@ typedef struct{
 
 typedef struct {
 	struct timespec timestamp_st;
-#if defined(__host__)
-	double 						dummy; // this is to pad, because struct timespec on host ( 64 bit ) > struct timespec on target ( 32 bit )
-#endif
 	sigOri_orientationAngles    angularVelocityGyroFromImu_st;
 	sigOri_orientationAngles    angleFromGyroStepCalculation_st;
 	sigOri_orientationAngles    angleFromAccMagCalculation_st;
