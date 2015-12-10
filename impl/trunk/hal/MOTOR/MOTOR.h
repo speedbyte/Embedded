@@ -154,16 +154,28 @@
 #define DEFMotorNo6_PWM         0b32
 #define DEFMotorNo7_PWM         0b64
 #define DEFMotorNo8_PWM		  	0b128
-#define DEFMotorNo8_PWM_ALL	  	0xFF
-//#define DEFMotorNo8_PWM_CW	  	0b //TODO
-//#define DEFMotorNo8_PWM_CCW	  	0b //TODO
+#define DEFMotorALL_PWM		  	0xFF
+#define DEFMotorCW_PWM_  		0x55
+#define DEFMotorCCW_PWM	  		0XAA
+
+#define MAXPitchRollAngel 5
+#define MAXBeschleunigung
+
+//structs
+typedef struct{
+double heightCM; // Flughöhe
+double yawAngle; // ZU dem absolutem Winkel ausrichten
+}maneuver;
 
 void InitMotor();
 void SetMotorExecutionOrder();
-void SetPwmMotor(char toSet , int pwmValue);
+void SetPwmMotor(char toSet , int pwmValue, int optFlag);
+int GetPwmMotor(int motorNumber);
 void InitMotorTimer();
 void SetFlagRunSendPwmToMotor(char value);
 char GetFlagRunSendPwmToMotor();
 void IsrSetFlag();
 void sendPwmToMotor();
 void GetBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]);
+
+void SendManeuver(maneuver m);

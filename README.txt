@@ -22,4 +22,8 @@ tst - contains test data and codde to test the module. this folder is under each
 
 To regenerate the code documentation to the latest version, run doxygen in the folder impl/trunk/doc/
 
+Zauber commands:
+Enter directory to compare: cd blah
+find ./ -name *.c -exec  diff -U0 {} ../helikopter-raspberry-ChrisWork/{} \;
 
+This will give you all the details of the file currently differing from master.

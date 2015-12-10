@@ -46,7 +46,7 @@ typedef enum enumTestCases
 	TESTALLSENSORDATA,
 	TESTMOTORPWM,
 	TESTMOTORISR,
-	TESTMOTORHOLDHEIGHT,
+	TESTMOTORUPDOWN,
 	TESTEND
 } enumTestcases;
 
@@ -96,8 +96,8 @@ int main() {
 			runCommand = TESTMOTORPWM;
 	else if ( strcmp(testValue,"testmotorisr")  == 0 )
 			runCommand = TESTMOTORISR;
-	else if ( strcmp(testValue,"testmotorholdheight")  == 0 )
-				runCommand = TESTMOTORHOLDHEIGHT;
+	else if ( strcmp(testValue,"testmotorupdown")  == 0 )
+				runCommand = TESTMOTORUPDOWN;
 
 	switch (runCommand)
 	{
@@ -714,12 +714,114 @@ int main() {
 		break;
 		}
 		case TESTMOTORISR:
-				{
+				{	//starts withh first press of + or - than enter
+					printf("Start Testing Motors with ISR");
 					InitMotor();
+
+					int sendValue=DEFMotorSetpointMIN;
 					while(1){
 						if(GetFlagRunSendPwmToMotor() == 1){
 							sendPwmToMotor();
 						}
+
+						int i = kbhit();
+
+						if(i == '+'){
+							int k = kbhit();
+
+							switch (k){
+							case '0':
+								int value = GetPwmMotor(0);
+								value < 100? value++: value=100;
+								SetPwmMotor(DEFMotorNo1_PWM, value ,0);
+								break;
+							case '1':
+								int value = GetPwmMotor(1);
+								value < 100? value++: value=100;
+								SetPwmMotor(DEFMotorNo2_PWM, value ,0);
+								break;
+							case '2':
+								int value = GetPwmMotor(2);
+								value < 100? value++: value=100;
+								SetPwmMotor(DEFMotorNo3_PWM, value ,0);
+								break;
+							case '3':
+								int value = GetPwmMotor(3);
+								value < 100? value++: value=100;
+								SetPwmMotor(DEFMotorNo4_PWM, value ,0);
+								break;
+							case '4':
+								int value = GetPwmMotor(4);
+								value < 100? value++: value=100;
+								SetPwmMotor(DEFMotorNo5_PWM, value ,0);
+								break;
+							case '5':
+								int value = GetPwmMotor(5);
+								value < 100? value++: value=100;
+								SetPwmMotor(DEFMotorNo6_PWM, value ,0);
+								break;
+							case '6':
+								int value = GetPwmMotor(6);
+								value < 100? value++: value=100;
+								SetPwmMotor(DEFMotorNo7_PWM, value ,0);
+								break;
+							case '7':
+								int value = GetPwmMotor(7);
+								value < 100? value++: value=100;
+								SetPwmMotor(DEFMotorNo8_PWM, value ,0);
+								break;
+							default:
+								break;
+							}
+//							(sendValue+1)>100? sendValue=100 :  sendValue++;
+//							SetPwmMotor(DEFMotorALL_PWM,sendValue,1);
+						}else if(i == 45){
+							int k = kbhit();
+							case '0':
+								int value = GetPwmMotor(0);
+								value > 0? value--: value=DEFMotorSetpointMIN;
+								SetPwmMotor(DEFMotorNo1_PWM, value ,0);
+								break;
+							case '1':
+								int value = GetPwmMotor(1);
+								value > 0? value--: value=DEFMotorSetpointMIN;
+								SetPwmMotor(DEFMotorNo2_PWM, value ,0);
+								break;
+							case '2':
+								int value = GetPwmMotor(2);
+								value > 0? value--: value=DEFMotorSetpointMIN;
+								SetPwmMotor(DEFMotorNo3_PWM, value ,0);
+								break;
+							case '3':
+								int value = GetPwmMotor(3);
+								value > 0? value--: value=DEFMotorSetpointMIN;
+								SetPwmMotor(DEFMotorNo4_PWM, value ,0);
+								break;
+							case '4':
+								int value = GetPwmMotor(4);
+								value > 0? value--: value=DEFMotorSetpointMIN;
+								SetPwmMotor(DEFMotorNo5_PWM, value ,0);
+								break;
+							case '5':
+								int value = GetPwmMotor(5);
+								value > 0? value--: value=DEFMotorSetpointMIN;
+								SetPwmMotor(DEFMotorNo6_PWM, value ,0);
+								break;
+							case '6':
+								int value = GetPwmMotor(6);
+								value > 0? value--: value=DEFMotorSetpointMIN;
+								SetPwmMotor(DEFMotorNo7_PWM, value ,0);
+								break;
+							case '7':
+								int value = GetPwmMotor(7);
+								value > 0? value--: value=DEFMotorSetpointMIN;
+								SetPwmMotor(DEFMotorNo8_PWM, value ,0);
+								break;
+//							(sendValue-1)<DEFMotorSetpointMIN? sendValue=DEFMotorSetpointMIN :  sendValue--;
+//							SetPwmMotor(DEFMotorALL_PWM,sendValue,1);
+						}
+
+
 						/* Do Other Things*/
 					}
 
@@ -727,18 +829,14 @@ int main() {
 				}
 
 
-		case TESTMOTORHOLDHEIGHT:
+		case TESTMOTORUPDOWN:
 				{
-					const double FLYHEIGHTcm = 10;
-					double currentHeightCm;
+					maneuver testManeuver;
+					testManeuver.heightCM = 10;
 
-					while(1){
-
-						if(g_LIDAR_readDistanceFromI2C_i32 == 0){
-							currentHeightCm =g_LIDAR_getDistance_f64();
-						}
-
-
+					while(1)
+					{
+							SendManeuver(testManeuver);
 					}
 
 				break;
@@ -753,3 +851,23 @@ int main() {
 	}
 	return 0;
 }
+
+
+#include <termios.h>
+
+int kbhit(void)
+{
+	struct termios term, oterm;
+	  int fd = 0;
+	  int c = 0;
+	  tcgetattr(fd, &oterm);
+	  memcpy(&term, &oterm, sizeof(term));
+	  term.c_lflag = term.c_lflag & (!ICANON);
+	  term.c_cc[VMIN] = 0;
+	  term.c_cc[VTIME] = 1;
+	  tcsetattr(fd, TCSANOW, &term);
+	  c = getchar();
+	  tcsetattr(fd, TCSANOW, &oterm);
+	  return c; // gibt -1 zurück, wenn kein Zeichen gelesen wurde
+}
+

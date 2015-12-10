@@ -47,10 +47,6 @@ unsigned int g_lldI2c_WriteI2c_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, co
 	unsigned char 	l_WriteRetryCounter_ui8 	= 0;
 	unsigned int 	l_i2cFile_ui32 				= 0;
 
-	//TODO: DEL
-	unsigned char test = f_i2cWriteBuffer_pui8[0];
-	//TODO: END
-
 	//Open I2C device
 	l_i2cFile_ui32 = open(M_HAL_LLDI2C_I2C_DEV_UI8, O_RDWR);
 	if(l_i2cFile_ui32 < 0)

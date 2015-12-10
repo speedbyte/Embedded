@@ -18,7 +18,6 @@ char PWMValue[DEFMotorsCount];
 //Flags
 char flagRunSendPwmToMotor;
 
-
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2015/04/18
@@ -35,7 +34,7 @@ char flagRunSendPwmToMotor;
 void InitMotor(){
 	SetFlagRunSendPwmToMotor(0);
 	SetMotorExecutionOrder();
-	SetPwmMotor(DEFMotorNo8_PWM_ALL, DEFMotorSetpointMIN);
+	SetPwmMotor(DEFMotorALL_PWM, DEFMotorSetpointMIN, 0);
 	//Last one always initMotorTimer()
 	InitMotorTimer();
 }
@@ -65,13 +64,16 @@ void SetMotorExecutionOrder(){
  * \brief sets PWM Signal of Motor which is in toSet Selected
  * \details toSet = 00001111 sets the first 4 Motoers in Execution Order to pwmValue
  *
+ * \param[ in ] toSet - Which Motor to Set
+ * \param[ in ] pwmValue - Which Value so Set
+ * \param[ in ] optFlag - optional Parameter if !0 flagRunSendPwmToMotor will be set
+ *
  * \internal
  * CHANGELOG:
  *
  * \endinternal
  ********************************************************************** */
-void SetPwmMotor(char toSet , int pwmValue){
-	//TODO : Disable Interrupts
+void SetPwmMotor(char toSet , int pwmValue, int optFlag){
 	int i=0;
 	while(toSet != 0 && i < DEFMotorsCount){
 
@@ -80,7 +82,13 @@ void SetPwmMotor(char toSet , int pwmValue){
 		}
 		toSet= toSet >>1;
 	}
-	//TODO: Enable Interrupts
+	if(optFlag != 0){
+		SetFlagRunSendPwmToMotor(1);
+	}
+}
+
+int GetPwmMotor(int motorNumber){
+	return motorNumber < DEFMotorsCount ? PWMValue[motorNumber]: 0;
 }
 
 
@@ -108,7 +116,7 @@ void InitMotorTimer(){
 	sigaction(SIGVTALRM, &sa, NULL);
 
 	//Expire the Timer after:
-	timer.it_value.tv_sec = 5;
+	timer.it_value.tv_sec = 2;
 	timer.it_value.tv_usec = 0;
 	//And every ... after that:
 	timer.it_interval.tv_sec = 0;
@@ -229,6 +237,11 @@ void GetBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]){
 	BLCtrlADRExecuteOrder[DEFMotorNo8_OrderIDX]=BLCTRLADR[7];
 
 #endif
+}
+
+
+void SendManeuver(maneuver m){
+
 }
 
 
