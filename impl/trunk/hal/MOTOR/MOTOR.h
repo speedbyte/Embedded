@@ -147,13 +147,13 @@
 
 //defines for SetPwmMotor toSet parameter:
 #define DEFMotorNo1_PWM         0b1
-#define DEFMotorNo2_PWM         0b2
-#define DEFMotorNo3_PWM         0b4
-#define DEFMotorNo4_PWM         0b8
-#define DEFMotorNo5_PWM         0b16
-#define DEFMotorNo6_PWM         0b32
-#define DEFMotorNo7_PWM         0b64
-#define DEFMotorNo8_PWM		  	0b128
+#define DEFMotorNo2_PWM         0b10
+#define DEFMotorNo3_PWM         0b100
+#define DEFMotorNo4_PWM         0b1000
+#define DEFMotorNo5_PWM         0b10000
+#define DEFMotorNo6_PWM         0b100000
+#define DEFMotorNo7_PWM         0b1000000
+#define DEFMotorNo8_PWM		  	0b10000000
 #define DEFMotorALL_PWM		  	0xFF
 #define DEFMotorCW_PWM_  		0x55
 #define DEFMotorCCW_PWM	  		0XAA

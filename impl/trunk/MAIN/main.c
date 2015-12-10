@@ -725,49 +725,48 @@ int main() {
 						}
 
 						int i = kbhit();
-
+						int value;
 						if(i == '+'){
 							int k = kbhit();
-
 							switch (k){
 							case '0':
-								int value = GetPwmMotor(0);
-								value < 100? value++: value=100;
+								value = GetPwmMotor(0);
+								(value < 100) ? value++ : (value=100);
 								SetPwmMotor(DEFMotorNo1_PWM, value ,0);
 								break;
 							case '1':
-								int value = GetPwmMotor(1);
-								value < 100? value++: value=100;
+								value = GetPwmMotor(1);
+								(value < 100)? value++: (value=100);
 								SetPwmMotor(DEFMotorNo2_PWM, value ,0);
 								break;
 							case '2':
-								int value = GetPwmMotor(2);
-								value < 100? value++: value=100;
+								value = GetPwmMotor(2);
+								(value < 100)? value++: (value=100);
 								SetPwmMotor(DEFMotorNo3_PWM, value ,0);
 								break;
 							case '3':
-								int value = GetPwmMotor(3);
-								value < 100? value++: value=100;
+								value = GetPwmMotor(3);
+								(value < 100)? value++: (value=100);
 								SetPwmMotor(DEFMotorNo4_PWM, value ,0);
 								break;
 							case '4':
-								int value = GetPwmMotor(4);
-								value < 100? value++: value=100;
+								value = GetPwmMotor(4);
+								(value < 100)? value++: (value=100);
 								SetPwmMotor(DEFMotorNo5_PWM, value ,0);
 								break;
 							case '5':
-								int value = GetPwmMotor(5);
-								value < 100? value++: value=100;
+								value = GetPwmMotor(5);
+								(value < 100)? value++: (value=100);
 								SetPwmMotor(DEFMotorNo6_PWM, value ,0);
 								break;
 							case '6':
-								int value = GetPwmMotor(6);
-								value < 100? value++: value=100;
+								value = GetPwmMotor(6);
+								(value < 100)? value++: (value=100);
 								SetPwmMotor(DEFMotorNo7_PWM, value ,0);
 								break;
 							case '7':
-								int value = GetPwmMotor(7);
-								value < 100? value++: value=100;
+								value = GetPwmMotor(7);
+								(value < 100)? value++: (value=100);
 								SetPwmMotor(DEFMotorNo8_PWM, value ,0);
 								break;
 							default:
@@ -778,43 +777,43 @@ int main() {
 						}else if(i == 45){
 							int k = kbhit();
 							case '0':
-								int value = GetPwmMotor(0);
-								value > 0? value--: value=DEFMotorSetpointMIN;
+								value = GetPwmMotor(0);
+								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo1_PWM, value ,0);
 								break;
 							case '1':
-								int value = GetPwmMotor(1);
-								value > 0? value--: value=DEFMotorSetpointMIN;
+								value = GetPwmMotor(1);
+								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo2_PWM, value ,0);
 								break;
 							case '2':
-								int value = GetPwmMotor(2);
-								value > 0? value--: value=DEFMotorSetpointMIN;
+								value = GetPwmMotor(2);
+								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo3_PWM, value ,0);
 								break;
 							case '3':
-								int value = GetPwmMotor(3);
-								value > 0? value--: value=DEFMotorSetpointMIN;
+								value = GetPwmMotor(3);
+								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo4_PWM, value ,0);
 								break;
 							case '4':
-								int value = GetPwmMotor(4);
-								value > 0? value--: value=DEFMotorSetpointMIN;
+								value = GetPwmMotor(4);
+								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo5_PWM, value ,0);
 								break;
 							case '5':
-								int value = GetPwmMotor(5);
-								value > 0? value--: value=DEFMotorSetpointMIN;
+								value = GetPwmMotor(5);
+								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo6_PWM, value ,0);
 								break;
 							case '6':
-								int value = GetPwmMotor(6);
-								value > 0? value--: value=DEFMotorSetpointMIN;
+								value = GetPwmMotor(6);
+								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo7_PWM, value ,0);
 								break;
 							case '7':
-								int value = GetPwmMotor(7);
-								value > 0? value--: value=DEFMotorSetpointMIN;
+								value = GetPwmMotor(7);
+								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo8_PWM, value ,0);
 								break;
 //							(sendValue-1)<DEFMotorSetpointMIN? sendValue=DEFMotorSetpointMIN :  sendValue--;
