@@ -37,6 +37,7 @@ void InitMotor(){
 	SetPwmMotor(DEFMotorALL_PWM, DEFMotorSetpointMIN, 0);
 	//Last one always initMotorTimer()
 	InitMotorTimer();
+	SetFlagRunSendPwmToMotor(1);
 }
 
 /*!**********************************************************************

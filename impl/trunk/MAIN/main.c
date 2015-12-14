@@ -776,6 +776,7 @@ int main() {
 //							SetPwmMotor(DEFMotorALL_PWM,sendValue,1);
 						}else if(i == 45){
 							int k = kbhit();
+							switch (k){
 							case '0':
 								value = GetPwmMotor(0);
 								value > 0? value--: (value=DEFMotorSetpointMIN);
@@ -816,6 +817,7 @@ int main() {
 								value > 0? value--: (value=DEFMotorSetpointMIN);
 								SetPwmMotor(DEFMotorNo8_PWM, value ,0);
 								break;
+							}
 //							(sendValue-1)<DEFMotorSetpointMIN? sendValue=DEFMotorSetpointMIN :  sendValue--;
 //							SetPwmMotor(DEFMotorALL_PWM,sendValue,1);
 						}
