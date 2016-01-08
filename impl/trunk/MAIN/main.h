@@ -3,5 +3,7 @@
 //#define Quadro_X 1
 //#define Okto_Plus 1
 
-int kbhit();
+int readTestcaseFile(char testcase[] , int lenght);
+
+int kbhit(void);
 int calcPwmValue(char controllChar , int motorNumber, int pwmValue);
