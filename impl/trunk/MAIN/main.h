@@ -4,3 +4,4 @@
 //#define Okto_Plus 1
 
 int kbhit();
+int calcPwmValue(char controllChar , int motorNumber, int pwmValue);

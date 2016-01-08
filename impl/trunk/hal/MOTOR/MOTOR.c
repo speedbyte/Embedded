@@ -2,7 +2,7 @@
  * MOTOR.c
  *
  *  Created on: Nov 18, 2015
- *      Author: ezs
+ *      Author: Chris Mönch
  */
 
 #include "MOTOR.h"
@@ -20,11 +20,8 @@ char flagRunSendPwmToMotor;
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
  *
- *
- * \brief calls every init functions which is needed for motors
- *
+ * \brief calls init functions which needed for the motor driver
  *
  * \internal
  * CHANGELOG:
@@ -42,11 +39,9 @@ void InitMotor(){
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
- *
+ * \date 2016/01/08
  *
  * \brief set Motor Exectution Order
- *
  *
  * \internal
  * CHANGELOG:
@@ -59,32 +54,104 @@ void SetMotorExecutionOrder(){
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
+ * \date 2016/01/08
  *
- *
- * \brief sets PWM Signal of Motor which is in toSet Selected
- * \details toSet = 00001111 sets the first 4 Motoers in Execution Order to pwmValue
+ * \brief sets PWM Signal of selected Motor to pwmValue
+ * \details toSet = 00001111 sets the first 4 Motors in Execution Order to pwmValue
  *
  * \param[ in ] toSet - Which Motor to Set
  * \param[ in ] pwmValue - Which Value so Set
- * \param[ in ] optFlag - optional Parameter if !0 flagRunSendPwmToMotor will be set
+ * \param[ in ] forceSend - optional Parameter if !0 flagRunSendPwmToMotor will be set
  *
  * \internal
  * CHANGELOG:
  *
  * \endinternal
  ********************************************************************** */
-void SetPwmMotor(char toSet , int pwmValue, int optFlag){
+void SetPwmMotor(char toSet , int pwmValue, int forceSend){
 	int i=0;
+	pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
+	pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
 	while(toSet != 0 && i < DEFMotorsCount){
 
-		if(toSet%2){
-			PWMValue[i++]= pwmValue;
+			if(toSet%2){
+				PWMValue[i]= pwmValue;
+			}
+			toSet= toSet >>1;
+			i++;
 		}
-		toSet= toSet >>1;
+		if(forceSend != 0){
+			SetFlagRunSendPwmToMotor(1);
 	}
-	if(optFlag != 0){
-		SetFlagRunSendPwmToMotor(1);
+}
+
+/*!**********************************************************************
+ * \author Chris Mönch( chmoit00 )
+ * \date 2016/01/08
+ *
+ * \brief adds to the current PWM Signal of selected Motor the pwmValue
+ * \details toSet = 00001111 add to the first 4 motors pwmValue
+ *
+ * \param[ in ] toSet - Which Motor to Set
+ * \param[ in ] pwmValue - adding pwm value to current PWMValue
+ * \param[ in ] forceSend - optional Parameter if !0 flagRunSendPwmToMotor will be set
+ *
+ * \internal
+ * CHANGELOG:
+ *
+ * \endinternal
+ ********************************************************************** */
+void AddPwmMotor(char toSet , int pwmValue, int forceSend){
+	int i=0;
+
+	while(toSet != 0 && i < DEFMotorsCount){
+
+			if(toSet%2){
+				pwmValue = pwmValue+GetPwmMotor(i);
+				pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
+				pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
+				PWMValue[i]= pwmValue;
+			}
+			toSet= toSet >>1;
+			i++;
+		}
+		if(forceSend != 0){
+			SetFlagRunSendPwmToMotor(1);
+	}
+}
+
+/*!**********************************************************************
+ * \author Chris Mönch( chmoit00 )
+ * \date 2016/01/08
+ *
+ * \brief Subtract to the current PWM Signal of selected Motor the pwmValue
+ * \details toSet = 00001111 subtract to the first 4 motors pwmValue
+ *
+ * \param[ in ] toSet - Which Motor to Set
+ * \param[ in ] pwmValue - pwm value to subtract from Current PWMValue
+ * \param[ in ] forceSend - optional Parameter if !0 flagRunSendPwmToMotor will be set
+ *
+ * \internal
+ * CHANGELOG:
+ *
+ * \endinternal
+ ********************************************************************** */
+void SubbPwmMotor(char toSet , int pwmValue, int forceSend){
+	int i=0;
+
+	while(toSet != 0 && i < DEFMotorsCount){
+
+			if(toSet%2){
+				pwmValue = GetPwmMotor(i)- pwmValue;
+				pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
+				pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
+				PWMValue[i]= pwmValue;
+			}
+			toSet= toSet >>1;
+			i++;
+		}
+		if(forceSend != 0){
+			SetFlagRunSendPwmToMotor(1);
 	}
 }
 
@@ -95,9 +162,8 @@ int GetPwmMotor(int motorNumber){
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
+ * \date 2016/01/08
  *
-
  * \brief init Timer for the IsrMotor
  * \details
  *
@@ -117,7 +183,7 @@ void InitMotorTimer(){
 	sigaction(SIGVTALRM, &sa, NULL);
 
 	//Expire the Timer after:
-	timer.it_value.tv_sec = 2;
+	timer.it_value.tv_sec = 0;
 	timer.it_value.tv_usec = 0;
 	//And every ... after that:
 	timer.it_interval.tv_sec = 0;
@@ -128,9 +194,9 @@ void InitMotorTimer(){
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
+ * \date 2016/01/08
  *
- * \brief set flag flagRunIsrMotor
+ * \brief set flag flagRunSendPwmToMotor
  *
  * \param[ in ] 1 Set Flag, else clear Flag
  *
@@ -149,9 +215,9 @@ void SetFlagRunSendPwmToMotor(char value){
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
+ * \date 2016/01/08
  *
- * \brief ISR for set flag as flagRunIsrMotor
+ * \brief ISR for set flag as flagRunSendPwmToMotor
  *
  * \internal
  * CHANGELOG:
@@ -164,11 +230,11 @@ void IsrSetFlag(){
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
+ * \date 2016/01/08
  *
- * \brief get flag flagRunIsrMotor
+ * \brief get flag flagRunSendPwmToMotor
  *
- * \param[out] flag flagRunIsrMotor
+ * \param[out] flag flagRunSendPwmToMotor
  *
  * \internal
  * CHANGELOG:
@@ -181,7 +247,7 @@ char GetFlagRunSendPwmToMotor(){
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
+ * \date 2016/01/08
  *
  * \brief sends every timer interrupt to the motors the specific pwm values
  *
@@ -200,7 +266,7 @@ void sendPwmToMotor(){
 
 /*!**********************************************************************
  * \author Chris Mönch( chmoit00 )
- * \date 2015/04/18
+ * \date 2016/01/08
  *
  * \brief Get the I2C addresses orderd by execution (defined in MOTOR.h)
  * \details
@@ -239,10 +305,3 @@ void GetBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]){
 
 #endif
 }
-
-
-void SendManeuver(maneuver m){
-
-}
-
-

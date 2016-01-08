@@ -21,7 +21,7 @@ makeversion :
 	@make --version
 
 
-product:ADC BATTERY GPS IMU LASER LLD_IF MOTOR MATLAB SIG MAIN
+product:ADC BATTERY CONTROLLER GPIO GPS IMU LASER LLD_IF MOTOR MATLAB SIG MAIN 
 
 MAIN:FORCE
 	cd MAIN; make all
@@ -31,6 +31,12 @@ ADC:FORCE
 
 BATTERY:FORCE
 	cd hal/BATTERY; make all
+
+CONTROLLER:FORCE
+	cd hal/CONTROLLER; make all
+
+GPIO:FORCE
+	cd hal/GPIO; make all
 
 GPS:FORCE
 	cd hal/GPS; make all
@@ -58,6 +64,8 @@ FORCE:
 clean:
 	cd hal/ADC; make clean
 	cd hal/BATTERY; make clean
+	cd hal/CONTROLLER; make clean
+	cd hal/GPIO; make clean
 	cd hal/GPS; make clean
 	cd hal/IMU; make clean
 	cd hal/LASER; make clean

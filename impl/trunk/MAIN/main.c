@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <time.h>
+#include <string.h>
 
 #include "../matlab/udpSigLib.h"
 #include "../matlab/udpImuLib.h"
@@ -47,6 +48,7 @@ typedef enum enumTestCases
 	TESTMOTORPWM,
 	TESTMOTORISR,
 	TESTMOTORUPDOWN,
+	TESTMOTORTXT,
 	TESTEND
 } enumTestcases;
 
@@ -96,6 +98,8 @@ int main() {
 			runCommand = TESTMOTORPWM;
 	else if ( strcmp(testValue,"testmotorisr")  == 0 )
 			runCommand = TESTMOTORISR;
+	else if ( strcmp(testValue,"testmotortxt")  == 0 )
+				runCommand = TESTMOTORTXT;
 	else if ( strcmp(testValue,"testmotorupdown")  == 0 )
 				runCommand = TESTMOTORUPDOWN;
 
@@ -684,15 +688,17 @@ int main() {
 		{
 			char BLCtrlADRExecuteOrder[DEFMotorsCount];
 			char sendBuffer[1];
-			int i = 0;
-			const int STEPSIZE = 10;
+			int i ,j = 0;
 			unsigned int pwmValue;
+
+			const int STEPSIZE = 5;
+			const int MAXPWMVALUE = 0x75;
 
 			GetBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
 
 			printf("Start Testing Motors with PWM");
 
-			while(1)
+			while(j != 1)
 			{
 				sendBuffer[0]=pwmValue;
 				for(i = 0; i < DEFMotorsCount ;i++)
@@ -704,9 +710,9 @@ int main() {
 				usleep(10000);//10ms
 
 				pwmValue = pwmValue + STEPSIZE;
-				if(pwmValue > 0x50 )
+				if(pwmValue > MAXPWMVALUE )
 				{
-					pwmValue= DEFMotorSetpointMIN;
+					j = 1;
 				}
 
 			}
@@ -714,17 +720,19 @@ int main() {
 		break;
 		}
 		case TESTMOTORISR:
-				{	//starts withh first press of + or - than enter
+				{	//starts with first press of + or - than enter
+					//leave with pressing 'q'
 					printf("Start Testing Motors with ISR");
 					InitMotor();
 
 					int sendValue=DEFMotorSetpointMIN;
-					while(1){
+					int i = kbhit();
+					while(i != 'q'){
 						if(GetFlagRunSendPwmToMotor() == 1){
 							sendPwmToMotor();
 						}
 
-						int i = kbhit();
+						i = kbhit();
 						int value;
 						if(i == '+'){
 							int k = kbhit();
@@ -772,8 +780,6 @@ int main() {
 							default:
 								break;
 							}
-//							(sendValue+1)>100? sendValue=100 :  sendValue++;
-//							SetPwmMotor(DEFMotorALL_PWM,sendValue,1);
 						}else if(i == 45){
 							int k = kbhit();
 							switch (k){
@@ -818,27 +824,66 @@ int main() {
 								SetPwmMotor(DEFMotorNo8_PWM, value ,0);
 								break;
 							}
-//							(sendValue-1)<DEFMotorSetpointMIN? sendValue=DEFMotorSetpointMIN :  sendValue--;
-//							SetPwmMotor(DEFMotorALL_PWM,sendValue,1);
 						}
-
-
 						/* Do Other Things*/
 					}
 
 				break;
 				}
 
+		case TESTMOTORTXT:
+				{
+					FILE *testFile;
+					int lineLenght =80;
+					char line[lineLenght];
+					int delayS=1;
+					time_t timeStamp , currentTime;
 
+
+					printf("Start Testing Motors reading txt file\n");
+
+					InitMotor();
+
+					//Wait 1 Sec
+					time(&timeStamp);
+					time(&currentTime);
+					if( difftime(currentTime, timeStamp) >= 1){
+						if(GetFlagRunSendPwmToMotor() == 1){
+							sendPwmToMotor();
+						}
+					}
+					if ((testFile = fopen("/home/pi/testfiles/MotorTest.txt", "r")) == NULL){
+						fprintf(stderr, "File kann nicht geöffnet werden");
+						exit(0);
+					}
+
+					time(&timeStamp);
+
+					while(1){
+						if(GetFlagRunSendPwmToMotor() == 1){
+							sendPwmToMotor();
+						}
+
+						time(&currentTime);
+						if( difftime(currentTime, timeStamp) >= delayS){
+							time(&timeStamp);
+							if((fgets(line, lineLenght, testFile)) != NULL)
+							{
+								printf("\n%s", line);
+								delayS = decodeline(&line[0], sizeof(line));
+							}else{
+								//Schließen und Neu öffnen
+							}
+						}
+					}
+
+
+
+					break;
+				}
 		case TESTMOTORUPDOWN:
 				{
-					maneuver testManeuver;
-					testManeuver.heightCM = 10;
 
-					while(1)
-					{
-							SendManeuver(testManeuver);
-					}
 
 				break;
 				}
@@ -870,5 +915,139 @@ int kbhit(void)
 	  c = getchar();
 	  tcsetattr(fd, TCSANOW, &oterm);
 	  return c; // gibt -1 zurück, wenn kein Zeichen gelesen wurde
+}
+
+
+int decodeline(char line[], int lineLenght){
+	int motorNumber;
+	char controllChar;
+	int pwmValue;
+	int offsetPwmValue=0;
+	int delay=0;
+	char *pNext;
+	char* stringToken;
+
+	char charMotorNumber[lineLenght];
+	char charPwmValue[lineLenght];
+	char charDelay[lineLenght];
+
+	if(line[0] == '#'){
+		controllChar = line[2];
+
+		stringToken= strtok(line, "#+-=;\n");
+		strcpy(charMotorNumber, stringToken);
+		motorNumber = charMotorNumber[0] - '0';
+
+		stringToken = strtok (NULL, "#+-=;\n");
+		strcpy(charPwmValue, stringToken);
+		pwmValue = strtol(charPwmValue , &pNext, 10);
+
+		stringToken = strtok (NULL, "#+-=;\n");
+		strcpy(charDelay, stringToken);
+		delay = strtol(charDelay , &pNext, 10);
+
+/*		switch(controllChar){
+			case '+':
+				pwmValue = GetPwmMotor(motorNumber)+pwmValue;
+				break;
+			case '-':
+				pwmValue = GetPwmMotor(motorNumber)-pwmValue;
+				break;
+			case '=':
+				break;
+			default:
+				break;
+	}*/
+
+		printf("pwmValue : %i", pwmValue);
+
+		switch(motorNumber){
+			case 0:
+				pwmValue = calcPwmValue(controllChar , motorNumber, pwmValue);
+				SetPwmMotor(DEFMotorNo1_PWM, pwmValue, 0);
+				break;
+			case 1:
+				pwmValue = calcPwmValue(controllChar , motorNumber, pwmValue);
+				SetPwmMotor(DEFMotorNo2_PWM, pwmValue, 0);
+				break;
+			case 2:
+				pwmValue = calcPwmValue(controllChar , motorNumber, pwmValue);
+				SetPwmMotor(DEFMotorNo3_PWM, pwmValue, 0);
+				break;
+			case 3:
+				pwmValue = calcPwmValue(controllChar , motorNumber, pwmValue);
+				SetPwmMotor(DEFMotorNo4_PWM, pwmValue, 0);
+				break;
+			case 4:
+				pwmValue = calcPwmValue(controllChar , motorNumber, pwmValue);
+				SetPwmMotor(DEFMotorNo5_PWM, pwmValue, 0);
+				break;
+			case 5:
+				pwmValue = calcPwmValue(controllChar , motorNumber, pwmValue);
+				SetPwmMotor(DEFMotorNo6_PWM, pwmValue, 0);
+				break;
+			case 6:
+				pwmValue = calcPwmValue(controllChar , motorNumber, pwmValue);
+				SetPwmMotor(DEFMotorNo7_PWM, pwmValue, 0);
+				break;
+			case 7:
+				pwmValue = calcPwmValue(controllChar , motorNumber, pwmValue);
+				SetPwmMotor(DEFMotorNo8_PWM, pwmValue, 0);
+				break;
+			case 12: // CW'>'
+				if(controllChar == '='){
+					SetPwmMotor(DEFMotorCW_PWM, pwmValue, 0);
+				}else{
+
+					offsetPwmValue = calcPwmValue( controllChar , 0, pwmValue);
+					SetPwmMotor(DEFMotorNo1_PWM, offsetPwmValue, 0);
+					offsetPwmValue = calcPwmValue( controllChar , 2, pwmValue);
+					SetPwmMotor(DEFMotorNo3_PWM, offsetPwmValue, 0);
+					#if Okto_Plus
+						offsetPwmValue = calcPwmValue( controllChar , 4, pwmValue);
+						SetPwmMotor(DEFMotorNo5_PWM, offsetPwmValue, 0);
+						offsetPwmValue = calcPwmValue( controllChar , 6, pwmValue);
+						SetPwmMotor(DEFMotorNo7_PWM, offsetPwmValue, 0);
+					#endif
+				}
+				break;
+			case 14: // '<' CCW
+				if(controllChar == '='){
+					SetPwmMotor(DEFMotorCCW_PWM, pwmValue, 0);
+				}else{
+					offsetPwmValue = calcPwmValue( controllChar , 1, pwmValue);
+					SetPwmMotor(DEFMotorNo2_PWM, offsetPwmValue, 0);
+					offsetPwmValue = calcPwmValue( controllChar , 3, pwmValue);
+					SetPwmMotor(DEFMotorNo4_PWM, offsetPwmValue, 0);
+					#if Okto_Plus
+						offsetPwmValue = calcPwmValue( controllChar , 5, pwmValue);
+						SetPwmMotor(DEFMotorNo6_PWM, offsetPwmValue, 0);
+						offsetPwmValue = calcPwmValue( controllChar , 7, pwmValue);
+						SetPwmMotor(DEFMotorNo8_PWM, offsetPwmValue, 0);
+					#endif
+				}
+				break;
+			default:
+				break;
+		}
+		printf("motorNumber : %i", motorNumber);
+	}
+	return delay;
+}
+
+int calcPwmValue(char controllChar , int motorNumber, int pwmValue){
+	switch(controllChar){
+				case '+':
+					pwmValue = GetPwmMotor(motorNumber)+pwmValue;
+					break;
+				case '-':
+					pwmValue = GetPwmMotor(motorNumber)-pwmValue;
+					break;
+				case '=':
+					break;
+				default:
+					break;
+		}
+	return pwmValue;
 }
 

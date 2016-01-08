@@ -30,6 +30,8 @@ CINC=\
 LIBS=\
 ../hal/ADC/ADC.lib\
 ../hal/BATTERY/BATTERY.lib\
+../hal/CONTROLLER/CONTROLLER.lib\
+../hal/GPIO/GPIO.lib\
 ../hal/GPS/GPS.lib\
 ../hal/IMU/IMU.lib\
 ../hal/LASER/LASER.lib\
