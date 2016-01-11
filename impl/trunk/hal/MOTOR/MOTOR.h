@@ -158,10 +158,7 @@
 #define DEFMotorCW_PWM  		0x55
 #define DEFMotorCCW_PWM	  		0XAA
 
-#define MAXPitchRollAngel 5
-#define MAXBeschleunigung
-
-void InitMotor();
+void InitMotor(int microSeconds);
 void SetMotorExecutionOrder();
 
 void SetPwmMotor(char toSet , int pwmValue, int forceSend);
@@ -169,7 +166,7 @@ void AddPwmMotor(char toSet , int pwmValue, int forceSend);
 void SubbPwmMotor(char toSet , int pwmValue, int forceSend);
 
 int GetPwmMotor(int motorNumber);
-void InitMotorTimer();
+void InitMotorTimer(int microSeconds);
 void SetFlagRunSendPwmToMotor(char value);
 char GetFlagRunSendPwmToMotor();
 void IsrSetFlag();

@@ -129,7 +129,8 @@ int main() {
 			{
 				double l_batterLevel_f64=0;
 				printf("Starting Battery Test\n");
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_halBatCheck_readBatStatusFromI2C_bl();
 					l_batterLevel_f64=g_halBatCheck_getBatteryStatus_f64();
@@ -144,7 +145,8 @@ int main() {
 				struct strPosition main_longitude;
 				struct strPosition main_latitude;
 				printf("Starting GPS Test\n");
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_halGps_getData_i32();
 				}
@@ -155,7 +157,8 @@ int main() {
 				halImu_orientationValues l_imuMeasurements_st;
 				printf("Starting IMU Test\n");
 				g_halImu_initImuSensors_bl();
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_halImu_triggerImuReading_bl();
 					g_halImu_triggerBaroReading_bl();
@@ -175,7 +178,8 @@ int main() {
 			{
 				double dist=0;
 				printf("Starting LASER Test\n");
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_LIDAR_readDistanceFromI2C_i32();
 					//usleep(100000);
@@ -196,7 +200,8 @@ int main() {
 				//open file to write received data from GPS
 				fp = (FILE *)open("GPS_logging.txt",100 | 01,400);
 				sleep(1);
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					rec_char=g_lldUart_readByte_ch();
 					//save read values if filestream is opened
@@ -222,7 +227,8 @@ int main() {
 				halImu_orientationValues l_imuMeasurements_st;
 				g_halImu_initImuSensors_bl();
 
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_halImu_triggerImuReading_bl();
 					g_halImu_triggerBaroReading_bl();
@@ -261,7 +267,8 @@ int main() {
 				g_sigOri_initMatrices_bl();
 				g_sigOri_initImuSensors_bl();
 
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_sigOri_calcKalmanOrientation_bl();
 					g_sigOri_calcComplementaryOrientation_bl();
@@ -299,7 +306,8 @@ int main() {
 					return 1;
 				}
 
-				while (1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					if ( g_halAccmag_triggerAccUpdate_bl() != M_HAL_ACCMAG_SUCCESS_BL )
 					{
@@ -336,7 +344,8 @@ int main() {
 				g_halBaro_initBaro_i32();
 				g_halGyro_initGyro_i32();
 				printf("IMU Barometer pressure test");
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_halBaro_readPressureFromI2C_i32();
 					usleep(100000);
@@ -368,7 +377,8 @@ int main() {
 				printf("IMU Gyroscope test\n");
 				g_halBaro_initBaro_i32();
 				g_halGyro_initGyro_i32();
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_halBaro_readPressureFromI2C_i32();
 					//usleep(100000);
@@ -400,7 +410,8 @@ int main() {
 				static	double l_outputMatrix_f64[3][3]={{0,0,0},{0,0,0},{0,0,0}};
 				//static	double l_outputMatrix_f64[3][2]={{0,0},{0,0},{0,0}};
 				printf("matrix lib function test\n");
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_sigMath_matrixEye_bl((double*)l_outputMatrix_f64,3,3);
 					sleep(1);
@@ -443,7 +454,8 @@ int main() {
 
 				printf("Start Sending Messages\n");
 
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					sleep(1);
 					/* Send N bytes of BUF on socket FD to peer at address ADDR (which is
@@ -486,7 +498,8 @@ int main() {
 				g_sigOri_initMatrices_bl();
 				g_sigOri_initImuSensors_bl();
 
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_sigOri_calcKalmanOrientation_bl();
 					g_sigOri_calcComplementaryOrientation_bl();
@@ -583,7 +596,8 @@ int main() {
 				g_sigOri_initMatrices_bl();
 				g_sigOri_initImuSensors_bl();
 
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_sigOri_calcKalmanOrientation_bl();
 					g_sigOri_calcComplementaryOrientation_bl();
@@ -653,7 +667,8 @@ int main() {
 				halImu_orientationValues l_imuMeasurements_st;
 				g_halImu_initImuSensors_bl();
 
-				while(1)
+				int i = kbhit();
+				while(i != 'q'){
 				{
 					g_halImu_triggerImuReading_bl();
 					g_halImu_triggerBaroReading_bl();
@@ -727,7 +742,7 @@ int main() {
 					{	//starts with first press of + or - than enter
 						//leave with pressing 'q'
 						printf("Start Testing Motors with ISR");
-						InitMotor();
+						InitMotor(9000);
 
 						int sendValue=DEFMotorSetpointMIN;
 						int i = kbhit();
@@ -846,7 +861,7 @@ int main() {
 
 						printf("Start Testing Motors reading txt file\n");
 
-						InitMotor();
+						InitMotor(9000);
 
 						//Wait 1 Sec
 						time(&timeStamp);
@@ -863,7 +878,7 @@ int main() {
 
 						time(&timeStamp);
 
-						while(1){
+						while(1){ // test ends when end of file reached
 							if(GetFlagRunSendPwmToMotor() == 1){
 								sendPwmToMotor();
 							}
@@ -933,7 +948,7 @@ int readTestcaseFile(char testcase[] , int lenght){
 				}
 			}
 			//Change Postion of seek
-			int j = fseek(testCasesFile, -i, SEEK_CUR);
+			fseek(testCasesFile, -i, SEEK_CUR);
 			//Write line
 			fputs(fullLine , testCasesFile);
 			fclose(testCasesFile);

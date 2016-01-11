@@ -23,17 +23,19 @@ char flagRunSendPwmToMotor;
  *
  * \brief calls init functions which needed for the motor driver
  *
+ * \param[ in ] microSeconds - Time in uS when Timer expired.
+ *
  * \internal
  * CHANGELOG:
  *
  * \endinternal
  ********************************************************************** */
-void InitMotor(){
+void InitMotor(int microSeconds){
 	SetFlagRunSendPwmToMotor(0);
 	SetMotorExecutionOrder();
 	SetPwmMotor(DEFMotorALL_PWM, DEFMotorSetpointMIN, 0);
 	//Last one always initMotorTimer()
-	InitMotorTimer();
+	InitMotorTimer(microSeconds);
 	SetFlagRunSendPwmToMotor(1);
 }
 
@@ -167,12 +169,14 @@ int GetPwmMotor(int motorNumber){
  * \brief init Timer for the IsrMotor
  * \details
  *
+ * \param[ in ] microSeconds - Time in uS when Timer expired.
+ *
  * \internal
  * CHANGELOG:
  *
  * \endinternal
  ********************************************************************** */
-void InitMotorTimer(){
+void InitMotorTimer(int microSeconds){
 
 	struct sigaction sa;
 	struct itimerval timer;
@@ -187,7 +191,7 @@ void InitMotorTimer(){
 	timer.it_value.tv_usec = 0;
 	//And every ... after that:
 	timer.it_interval.tv_sec = 0;
-	timer.it_interval.tv_usec = 9;
+	timer.it_interval.tv_usec = microSeconds;
 	//upon expiration the signal SIGVTALRM raised
 	setitimer(ITIMER_VIRTUAL, &timer , NULL);
 }
