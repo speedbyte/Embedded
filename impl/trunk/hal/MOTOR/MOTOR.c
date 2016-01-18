@@ -18,10 +18,16 @@ char PWMValue[DEFMotorsCount];
 //Flags
 char flagRunSendPwmToMotor;
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  *
- * \brief calls init functions which needed for the motor driver
+ * \brief calls init functions which needed for the motor driver:
+ * 	SetFlagRunSendPwmToMotor(0);
+ *	SetMotorExecutionOrder();
+ *	SetPwmMotor(DEFMotorALL_PWM, DEFMotorSetpointMIN, 0);
+ *	Last one always initMotorTimer()
+ *	InitMotorTimer(microSeconds);
+ *	SetFlagRunSendPwmToMotor(1);
  *
  * \param[ in ] microSeconds - Time in uS when Timer expired.
  *
@@ -29,7 +35,7 @@ char flagRunSendPwmToMotor;
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+*****************************************************************/
 void InitMotor(int microSeconds){
 	SetFlagRunSendPwmToMotor(0);
 	SetMotorExecutionOrder();
@@ -39,7 +45,7 @@ void InitMotor(int microSeconds){
 	SetFlagRunSendPwmToMotor(1);
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -49,12 +55,12 @@ void InitMotor(int microSeconds){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+ *****************************************************************/
 void SetMotorExecutionOrder(){
 	GetBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -69,7 +75,7 @@ void SetMotorExecutionOrder(){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+*****************************************************************/
 void SetPwmMotor(char toSet , int pwmValue, int forceSend){
 	int i=0;
 	pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
@@ -87,7 +93,7 @@ void SetPwmMotor(char toSet , int pwmValue, int forceSend){
 	}
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -102,7 +108,7 @@ void SetPwmMotor(char toSet , int pwmValue, int forceSend){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+ *****************************************************************/
 void AddPwmMotor(char toSet , int pwmValue, int forceSend){
 	int i=0;
 
@@ -122,7 +128,7 @@ void AddPwmMotor(char toSet , int pwmValue, int forceSend){
 	}
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -137,7 +143,7 @@ void AddPwmMotor(char toSet , int pwmValue, int forceSend){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+*****************************************************************/
 void SubbPwmMotor(char toSet , int pwmValue, int forceSend){
 	int i=0;
 
@@ -157,12 +163,29 @@ void SubbPwmMotor(char toSet , int pwmValue, int forceSend){
 	}
 }
 
+
+/*!***************************************************************
+ * \author Chris Mönch( chmoit00 )
+ * \date 2016/01/08
+ *
+ * \brief Gets pwmValue from a specific motor
+ * \details
+ *
+ * \param[ in ] motorNumber - which motor
+ *
+ * \param[ out ] pwmValue of the chosen Motor, returns O if chosen Motor not exist in these HElicoptertype
+ * 
+ * \internal
+ * CHANGELOG:
+ *
+ * \endinternal
+ *****************************************************************/
 int GetPwmMotor(int motorNumber){
 	return motorNumber < DEFMotorsCount ? PWMValue[motorNumber]: 0;
 }
 
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -175,7 +198,7 @@ int GetPwmMotor(int motorNumber){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+ *****************************************************************/
 void InitMotorTimer(int microSeconds){
 
 	struct sigaction sa;
@@ -196,7 +219,7 @@ void InitMotorTimer(int microSeconds){
 	setitimer(ITIMER_VIRTUAL, &timer , NULL);
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -208,7 +231,7 @@ void InitMotorTimer(int microSeconds){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+ *****************************************************************/
 void SetFlagRunSendPwmToMotor(char value){
 	if(value == 1){
 		flagRunSendPwmToMotor=value;
@@ -217,7 +240,7 @@ void SetFlagRunSendPwmToMotor(char value){
 	}
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -227,12 +250,12 @@ void SetFlagRunSendPwmToMotor(char value){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+*****************************************************************/
 void IsrSetFlag(){
 	flagRunSendPwmToMotor=1;
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -244,12 +267,12 @@ void IsrSetFlag(){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+*****************************************************************/
 char GetFlagRunSendPwmToMotor(){
 	return flagRunSendPwmToMotor;
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -259,7 +282,7 @@ char GetFlagRunSendPwmToMotor(){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+*****************************************************************/
 void sendPwmToMotor(){
 	int i;
 	for(i = 0; i < DEFMotorsCount ;i++)
@@ -268,7 +291,7 @@ void sendPwmToMotor(){
 	}
 }
 
-/*!**********************************************************************
+/*!***************************************************************
  * \author Chris Mönch( chmoit00 )
  * \date 2016/01/08
  *
@@ -281,7 +304,7 @@ void sendPwmToMotor(){
  * CHANGELOG:
  *
  * \endinternal
- ********************************************************************** */
+*****************************************************************/
 void GetBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]){
 #if defined(Quadro_X) || defined(Quadro_Plus)
 	int BLCTRLADR[4] = {DEFMotorNo1_BLCtrlADR, DEFMotorNo2_BLCtrlADR, DEFMotorNo3_BLCtrlADR, DEFMotorNo4_BLCtrlADR};
