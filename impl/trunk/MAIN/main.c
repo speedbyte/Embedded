@@ -130,7 +130,7 @@ int main() {
 				double l_batterLevel_f64=0;
 				printf("Starting Battery Test\n");
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_halBatCheck_readBatStatusFromI2C_bl();
 					l_batterLevel_f64=g_halBatCheck_getBatteryStatus_f64();
@@ -141,12 +141,11 @@ int main() {
 			}
 			case TESTGPS:
 			{
-				int i=0;
 				struct strPosition main_longitude;
 				struct strPosition main_latitude;
 				printf("Starting GPS Test\n");
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_halGps_getData_i32();
 				}
@@ -158,7 +157,7 @@ int main() {
 				printf("Starting IMU Test\n");
 				g_halImu_initImuSensors_bl();
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_halImu_triggerImuReading_bl();
 					g_halImu_triggerBaroReading_bl();
@@ -179,7 +178,7 @@ int main() {
 				double dist=0;
 				printf("Starting LASER Test\n");
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_LIDAR_readDistanceFromI2C_i32();
 					//usleep(100000);
@@ -201,7 +200,7 @@ int main() {
 				fp = (FILE *)open("GPS_logging.txt",100 | 01,400);
 				sleep(1);
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					rec_char=g_lldUart_readByte_ch();
 					//save read values if filestream is opened
@@ -228,7 +227,7 @@ int main() {
 				g_halImu_initImuSensors_bl();
 
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_halImu_triggerImuReading_bl();
 					g_halImu_triggerBaroReading_bl();
@@ -268,7 +267,7 @@ int main() {
 				g_sigOri_initImuSensors_bl();
 
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_sigOri_calcKalmanOrientation_bl();
 					g_sigOri_calcComplementaryOrientation_bl();
@@ -307,7 +306,7 @@ int main() {
 				}
 
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					if ( g_halAccmag_triggerAccUpdate_bl() != M_HAL_ACCMAG_SUCCESS_BL )
 					{
@@ -345,7 +344,7 @@ int main() {
 				g_halGyro_initGyro_i32();
 				printf("IMU Barometer pressure test");
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_halBaro_readPressureFromI2C_i32();
 					usleep(100000);
@@ -378,7 +377,7 @@ int main() {
 				g_halBaro_initBaro_i32();
 				g_halGyro_initGyro_i32();
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_halBaro_readPressureFromI2C_i32();
 					//usleep(100000);
@@ -411,7 +410,7 @@ int main() {
 				//static	double l_outputMatrix_f64[3][2]={{0,0},{0,0},{0,0}};
 				printf("matrix lib function test\n");
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_sigMath_matrixEye_bl((double*)l_outputMatrix_f64,3,3);
 					sleep(1);
@@ -455,7 +454,7 @@ int main() {
 				printf("Start Sending Messages\n");
 
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					sleep(1);
 					/* Send N bytes of BUF on socket FD to peer at address ADDR (which is
@@ -499,7 +498,7 @@ int main() {
 				g_sigOri_initImuSensors_bl();
 
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_sigOri_calcKalmanOrientation_bl();
 					g_sigOri_calcComplementaryOrientation_bl();
@@ -597,7 +596,7 @@ int main() {
 				g_sigOri_initImuSensors_bl();
 
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_sigOri_calcKalmanOrientation_bl();
 					g_sigOri_calcComplementaryOrientation_bl();
@@ -668,7 +667,7 @@ int main() {
 				g_halImu_initImuSensors_bl();
 
 				int i = kbhit();
-				while(i != 'q'){
+				while(i != 'q')
 				{
 					g_halImu_triggerImuReading_bl();
 					g_halImu_triggerBaroReading_bl();
@@ -912,6 +911,8 @@ int main() {
 	return 0;
 }
 
+
+
 int readTestcaseFile(char testcase[] , int lenght){
 	FILE *testCasesFile;
 	int isSelected =0;
@@ -945,16 +946,16 @@ int readTestcaseFile(char testcase[] , int lenght){
 					i++;
 					fullLine[i]= '\0';
 					break;
-				}
-			}
+				}//if
+			}//for
 			//Change Postion of seek
 			fseek(testCasesFile, -i, SEEK_CUR);
 			//Write line
 			fputs(fullLine , testCasesFile);
 			fclose(testCasesFile);
 			return 1;
-		}
-	}
+		}//if
+	}//while( not end of file read)
 	/* Not Testcase selected*/
 	return 0;
 
@@ -1007,19 +1008,6 @@ int decodeline(char line[], int lineLenght){
 		stringToken = strtok (NULL, "#+-=;\n");
 		strcpy(charDelay, stringToken);
 		delay = strtol(charDelay , &pNext, 10);
-
-/*		switch(controllChar){
-			case '+':
-				pwmValue = GetPwmMotor(motorNumber)+pwmValue;
-				break;
-			case '-':
-				pwmValue = GetPwmMotor(motorNumber)-pwmValue;
-				break;
-			case '=':
-				break;
-			default:
-				break;
-	}*/
 
 		printf("pwmValue : %i", pwmValue);
 
@@ -1091,11 +1079,12 @@ int decodeline(char line[], int lineLenght){
 				break;
 			default:
 				break;
-		}
+		}//switch
 		printf("motorNumber : %i", motorNumber);
-	}
+	}//if
 	return delay;
 }
+
 
 int calcPwmValue(char controllChar , int motorNumber, int pwmValue){
 	switch(controllChar){
