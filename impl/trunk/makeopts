@@ -30,9 +30,12 @@ CINC=\
 LIBS=\
 ../hal/ADC/ADC.lib\
 ../hal/BATTERY/BATTERY.lib\
+../hal/REMOTECONTROLLER/REMOTECONTROLLER.lib\
+../hal/GPIO/GPIO.lib\
 ../hal/GPS/GPS.lib\
 ../hal/IMU/IMU.lib\
 ../hal/LASER/LASER.lib\
 ../hal/LLD_IF/LLD_IF.lib\
+../hal/MOTOR/MOTOR.lib\
 ../matlab/MATLAB.lib\
 ../sig/SIG.lib\
