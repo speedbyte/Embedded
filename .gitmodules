@@ -1,0 +1,6 @@
+[submodule "server"]
+        path = server
+        url = git@atreus.informatik.uni-tuebingen.de:testcase-generation/server.git
+[submodule "helikopter-doc"]
+	path = helikopter-doc
+	url = git@atreus.informatik.uni-tuebingen.de:agrawal/helikopter-doc.git
