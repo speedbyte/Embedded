@@ -33,6 +33,9 @@
  * \endinternal
  ***********************************************************************/
 typedef struct{
+#if defined(__host__)
+	double 						dummy; // this is to pad, because struct timespec on host ( 64 bit ) > struct timespec on target ( 32 bit )
+#endif
 	halAccmag_3dDoubleVector acc;
 	halAccmag_3dDoubleVector mag;
 	sigOri_orientationAngles gyro;
