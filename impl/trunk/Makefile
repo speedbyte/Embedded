@@ -3,23 +3,21 @@
 # Default target.
 all: begin makeversion gccversion product end
 
-
 begin:
-	@echo
 	@echo "----------------- geht los ----------------------"
+	@echo $(TOP)
 
-end:
-	@echo
-	@echo "----------------- fertig ----------------------"
-
-# Display compiler version information.
-gccversion : 
-	@$(CC) --version
-	
 # Display make version information.
 makeversion : 
 	@make --version
 
+# Display compiler version information.
+gccversion : 
+	@$(CC) --version
+
+end:
+	@echo
+	@echo "----------------- fertig ----------------------"
 
 product:ADC BATTERY REMOTECONTROLLER GPIO GPS IMU LASER LLD_IF MOTOR MATLAB SIG MAIN 
 

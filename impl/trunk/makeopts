@@ -1,14 +1,14 @@
 FORMAT = binary
 
-AR=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ar
-LD=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-g++
-CC=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc
-RL=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ranlib
-OBJCOPY=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objcopy
-OBJDUMP=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objdump
-SIZE=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-size
-NM=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-nm
-READELF=/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-readelf
+AR=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ar
+LD=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-g++
+CC=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc
+RL=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ranlib
+OBJCOPY=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objcopy
+OBJDUMP=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objdump
+SIZE=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-size
+NM=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-nm
+READELF=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-readelf
 
 CFLAGSERROR=-Werror
 CFLAGSNOERROR=-Wno-error=unused-but-set-variable -Wno-error=unused-variable
@@ -21,11 +21,10 @@ LDFLAGS=-g -lrt
 #Dependancy : -MMD -MP
 
 CINC=\
--I/usr/local/bin/arm-linux-eabi/lib/gcc/arm-linux-gnueabihf/4.8.3/plugin/include\
--I/usr/local/bin/arm-linux-eabi/lib/gcc/arm-linux-gnueabihf/4.8.3/install-tools/include\
--I/usr/local/bin/arm-linux-eabi/lib/gcc/arm-linux-gnueabihf/4.8.3/include\
--I/usr/local/bin/arm-linux-eabi/arm-linux-gnueabihf/libc/usr/include\
--I/usr/local/bin/arm-linux-eabi/arm-linux-gnueabihf/include\
+-I$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include/c++/4.8.3\
+-I$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/include\
+-I$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include\
+-I.
 
 LIBS=\
 ../hal/ADC/ADC.lib\

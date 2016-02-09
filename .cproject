@@ -62,11 +62,9 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.1014149987" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.815600116" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1962287603" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder arguments="-f Makefile MAKECMDGOAL=target" buildPath="${ProjDirPath}/impl/trunk/" cleanBuildTarget="clean" command="make" id="cdt.managedbuild.builder.gnu.cross.1325342624" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<builder arguments="-f Makefile MAKECMDGOAL=target TOP=${ProjDirPath}" buildPath="${ProjDirPath}/impl/trunk/" cleanBuildTarget="clean" command="make" id="cdt.managedbuild.builder.gnu.cross.1325342624" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1787134642" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
-								<option id="gnu.c.compiler.option.include.paths.1409189856" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="/usr/local/bin/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include/c++"/>
-								</option>
+								<option id="gnu.c.compiler.option.include.paths.1409189856" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.545413800" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.877434907" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler"/>
@@ -102,18 +100,6 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="0.1898946705">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="0.1898946705.1823036975;0.1898946705.1823036975.;cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.932558036;cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1174126799">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="0.1898946705;0.1898946705.;cdt.managedbuild.tool.gnu.cross.c.compiler.641783604;cdt.managedbuild.tool.gnu.c.compiler.input.1733137076">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
 			<target name="all" path="impl/trunk" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
@@ -133,5 +119,20 @@
 				<runAllBuilders>true</runAllBuilders>
 			</target>
 		</buildTargets>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="0.1898946705.1823036975;0.1898946705.1823036975.;cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.932558036;cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1174126799">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="0.1898946705.1823036975.1097116857;0.1898946705.1823036975.1097116857.;cdt.managedbuild.tool.gnu.cross.c.compiler.1787134642;cdt.managedbuild.tool.gnu.c.compiler.input.545413800">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="0.1898946705;0.1898946705.;cdt.managedbuild.tool.gnu.cross.c.compiler.641783604;cdt.managedbuild.tool.gnu.c.compiler.input.1733137076">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="0.1898946705">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 	</storageModule>
 </cproject>
