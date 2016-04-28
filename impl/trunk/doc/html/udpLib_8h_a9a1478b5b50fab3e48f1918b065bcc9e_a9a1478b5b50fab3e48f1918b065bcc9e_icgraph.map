@@ -1,0 +1,5 @@
+<map id="g_halMatlab_configSocket_bl" name="g_halMatlab_configSocket_bl">
+<area shape="rect" id="node2" href="$udpLib_8h_af56c173f4b3218ace62bff967eacac4d.html#af56c173f4b3218ace62bff967eacac4d" title="Creates, inits and configures an UDP&#45;Socket for a symmetric connection setup. " alt="" coords="245,31,452,57"/>
+<area shape="rect" id="node3" href="$main_8c_a840291bc02cba5474a4cb46a9b9566fe.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="510,5,561,32"/>
+<area shape="rect" id="node4" href="$udpImuSocket_8c_a0dd07daf338cf84d1aee4bb8b6771720.html#a0dd07daf338cf84d1aee4bb8b6771720" title="mdlStart" alt="" coords="500,56,571,83"/>
+</map>

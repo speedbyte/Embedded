@@ -1,0 +1,154 @@
+\hypertarget{HAL__ADC_8c}{\section{hal/\+A\+D\+C/\+H\+A\+L\+\_\+\+A\+D\+C.c File Reference}
+\label{HAL__ADC_8c}\index{hal/\+A\+D\+C/\+H\+A\+L\+\_\+\+A\+D\+C.\+c@{hal/\+A\+D\+C/\+H\+A\+L\+\_\+\+A\+D\+C.\+c}}
+}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}../\+L\+L\+D\+\_\+\+I\+F/\+L\+L\+D\+\_\+\+I2\+C.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}H\+A\+L\+\_\+\+A\+D\+C.\+h\char`\"{}}\\*
+Include dependency graph for H\+A\+L\+\_\+\+A\+D\+C.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{HAL__ADC_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{HAL__ADC_8c_ad4f5cd5d9c7c0a335d5c485a2fb41cb2_ad4f5cd5d9c7c0a335d5c485a2fb41cb2}{g\+\_\+hal\+A\+D\+C\+\_\+get\+\_\+ui16} (unsigned char l\+\_\+input\+\_\+ui8)
+\begin{DoxyCompactList}\small\item\em Reads analog to digital converted values from A\+D\+S1015. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{HAL__ADC_8c_ad4f5cd5d9c7c0a335d5c485a2fb41cb2_ad4f5cd5d9c7c0a335d5c485a2fb41cb2}{\index{H\+A\+L\+\_\+\+A\+D\+C.\+c@{H\+A\+L\+\_\+\+A\+D\+C.\+c}!g\+\_\+hal\+A\+D\+C\+\_\+get\+\_\+ui16@{g\+\_\+hal\+A\+D\+C\+\_\+get\+\_\+ui16}}
+\index{g\+\_\+hal\+A\+D\+C\+\_\+get\+\_\+ui16@{g\+\_\+hal\+A\+D\+C\+\_\+get\+\_\+ui16}!H\+A\+L\+\_\+\+A\+D\+C.\+c@{H\+A\+L\+\_\+\+A\+D\+C.\+c}}
+\subsubsection[{g\+\_\+hal\+A\+D\+C\+\_\+get\+\_\+ui16}]{\setlength{\rightskip}{0pt plus 5cm}float g\+\_\+hal\+A\+D\+C\+\_\+get\+\_\+ui16 (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{l\+\_\+input\+\_\+ui8}
+\end{DoxyParamCaption}
+)}}\label{HAL__ADC_8c_ad4f5cd5d9c7c0a335d5c485a2fb41cb2_ad4f5cd5d9c7c0a335d5c485a2fb41cb2}
+
+
+Reads analog to digital converted values from A\+D\+S1015. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Martin Brodbeck (mabrgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2015/05/07
+\end{DoxyDate}
+A detailed descripction about the function, here for creating good foos and much more. Multiple lines of description is possible. Doxygen will recognize the format automatically.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em l\+\_\+input\+\_\+ui8} & is the input which selects input A0-\/3 to convert \\
+\hline
+\mbox{\tt out}  & {\em converted} & voltage value, -\/1 when error on I2\+C Bus\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 34 of file H\+A\+L\+\_\+\+A\+D\+C.\+c.
+
+
+\begin{DoxyCode}
+34                                                   \{
+35 
+36   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} l\_address\_ui8 = 0x49;       \textcolor{comment}{// Address of our device on the I2C bus}
+37   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} l\_writeBuf\_rg24[3];     \textcolor{comment}{// Buffer to store the 3 bytes that we write to the I2C device}
+38   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} l\_readBuf\_rg16[2];      \textcolor{comment}{// 2 byte buffer to store the data read from the I2C device}
+39   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} l\_mux\_ui8;          \textcolor{comment}{// Config value depening on input}
+40   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} l\_val\_ui16;            \textcolor{comment}{// (Converted) result of ADC}
+41   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} l\_checkerror\_bl;            \textcolor{comment}{// Variable to store return value}
+42 
+43   \textcolor{comment}{// Setting Config according to select Input}
+44   \textcolor{keywordflow}{switch}(l\_input\_ui8)\{              \textcolor{comment}{// Standard: 1100 0011  (Bit 15-8) Input A0}
+45     \textcolor{keywordflow}{case} 1: l\_mux\_ui8 = 0xC2; \textcolor{keywordflow}{break};    \textcolor{comment}{// Input: A0    }
+46     \textcolor{keywordflow}{case} 2: l\_mux\_ui8 = 0xD2; \textcolor{keywordflow}{break};    
+47     \textcolor{keywordflow}{case} 3: l\_mux\_ui8 = 0xE2; \textcolor{keywordflow}{break};    
+48     \textcolor{keywordflow}{case} 4: l\_mux\_ui8 = 0xF2; \textcolor{keywordflow}{break};    \textcolor{comment}{// Input: A3}
+49     \textcolor{keywordflow}{default}: l\_mux\_ui8 = 0xC2;          
+50   \} 
+51   \textcolor{comment}{// First Hex depends on Starting Conversion + the Input, which Pin to read A0-3}
+52   \textcolor{comment}{// Second Value is PGA (001)=+-4,099V and continuous Mode (0)}
+53 
+54 
+55   \textcolor{comment}{// These three bytes are written to the ADS1015 to set the config register and start the conversion }
+56   l\_writeBuf\_rg24[0] = 1;       \textcolor{comment}{// This sets the pointer register to write two bytes to the config register}
+57   l\_writeBuf\_rg24[1] = l\_mux\_ui8;       \textcolor{comment}{// This sets the 8 MSBs of the config register (bits 15-8) to
+       11000011}
+58   l\_writeBuf\_rg24[2] = 0x23;        \textcolor{comment}{// This sets the 8 LSBs of the config register (bits  7-0) to 00100011 
+        }
+59 
+60   \textcolor{comment}{// First Hex is sample Rate. (001) sets to 250SPS + Comp Mode (0)}
+61   \textcolor{comment}{// Second Hex is Comp. config. (0011) disable the comparator}
+62 
+63 
+64   \textcolor{comment}{// Initialize the buffer used to read data from the ADS1015 to 0}
+65   l\_readBuf\_rg16[0]= 0;     
+66   l\_readBuf\_rg16[1]= 0;
+67   
+68   \textcolor{comment}{// Write l\_writeBuf\_rg24 to the ADS1015, the 3 specifies the number of bytes we are writing,}
+69   \textcolor{comment}{// this begins a continuous conversion}
+70   l\_checkerror\_bl = \hyperlink{LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321_aa6892bf4aea7f232d9b0ff2dbf8a9321}{g\_lldI2c\_WriteI2c\_bl}(l\_address\_ui8,l\_writeBuf\_rg24,3);
+71   \textcolor{keywordflow}{if} (l\_checkerror\_bl == 1)
+72     \{
+73     \textcolor{keywordflow}{return} -1;
+74     \}
+75 
+76   \textcolor{comment}{// Read the config register into readBuf}
+77   l\_checkerror\_bl = \hyperlink{LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e_a107ee9f1e4646733ac3ef6addf0def7e}{g\_lldI2c\_ReadI2c\_bl}(l\_address\_ui8,l\_readBuf\_rg16,2);
+78   \textcolor{keywordflow}{if} (l\_checkerror\_bl == 1)
+79     \{
+80     \textcolor{keywordflow}{return} -1;
+81     \}   
+82     
+83   \textcolor{comment}{// Set pointer register to 0 to read from the conversion register}
+84   l\_writeBuf\_rg24[0] = 0;           
+85   l\_checkerror\_bl = \hyperlink{LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321_aa6892bf4aea7f232d9b0ff2dbf8a9321}{g\_lldI2c\_WriteI2c\_bl}(l\_address\_ui8, l\_writeBuf\_rg24,1);
+86   \textcolor{keywordflow}{if} (l\_checkerror\_bl == 1)
+87     \{
+88     \textcolor{keywordflow}{return} -1;
+89     \}
+90 
+91   \textcolor{comment}{// Read the contents of the conversion register into readBuf      }
+92   l\_checkerror\_bl = \hyperlink{LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e_a107ee9f1e4646733ac3ef6addf0def7e}{g\_lldI2c\_ReadI2c\_bl}(l\_address\_ui8,l\_readBuf\_rg16,2); 
+93   \textcolor{keywordflow}{if} (l\_checkerror\_bl == 1)
+94     \{
+95     \textcolor{keywordflow}{return} -1;
+96     \}
+97 
+98   \textcolor{comment}{// Combine the two bytes of readBuf into a single 16 bit result }
+99   l\_val\_ui16 = l\_readBuf\_rg16[0] << 8 | l\_readBuf\_rg16[1];  
+100   l\_val\_ui16 = l\_val\_ui16 >> 4; 
+101 
+102   \textcolor{keywordflow}{return}((\textcolor{keywordtype}{float})l\_val\_ui16*4.096/2047.0);
+103 
+104 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=325pt]{HAL__ADC_8c_ad4f5cd5d9c7c0a335d5c485a2fb41cb2_ad4f5cd5d9c7c0a335d5c485a2fb41cb2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{HAL__ADC_8c_ad4f5cd5d9c7c0a335d5c485a2fb41cb2_ad4f5cd5d9c7c0a335d5c485a2fb41cb2_icgraph}
+\end{center}
+\end{figure}
+
+

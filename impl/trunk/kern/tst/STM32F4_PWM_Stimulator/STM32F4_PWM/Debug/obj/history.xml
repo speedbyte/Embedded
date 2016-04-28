@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wall -ffunction-sections -g -O0 -c -DUSE_STDPERIPH_DRIVER -D__FPU_USED -DSTM32F429ZI -DSTM32F429xx -I..\..\..\..\..\Users\jsUni\Downloads\Coocox_stm32F4Discovery_EXAMPLES\STM32F4_PWM\cmsis_boot -I..\..\..\..\..\Users\jsUni\Downloads\Coocox_stm32F4Discovery_EXAMPLES -I..\..\..\..\..\Users\jsUni\Downloads\Coocox_stm32F4Discovery_EXAMPLES\STM32F4_PWM\cmsis_lib\include -I..\..\..\..\..\Users\jsUni\Downloads\Coocox_stm32F4Discovery_EXAMPLES\STM32F4_PWM\cmsis -I..\..\..\..\..\Users\jsUni\Downloads\Coocox_stm32F4Discovery_EXAMPLES\STM32F4_PWM -I..\..\..\..\..\Users\jsUni\Downloads\Coocox_stm32F4Discovery_EXAMPLES\STM32F4_PWM\cmsis_lib">
+      <target file="stm32f4xx_tim.o" lastModified="14df3bd03cb">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_tim.c" lastModified="139c45e8b30"/>
+      </target>
+      <target file="stm32f4xx_rcc.o" lastModified="14df3bd0299">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_rcc.c" lastModified="139c3ebacf0"/>
+      </target>
+      <target file="system_stm32f4xx.o" lastModified="14df3bd032f">
+         <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="139c4c68460"/>
+      </target>
+      <target file="stm32f4xx_gpio.o" lastModified="14df3bd02ea">
+         <source file="..\..\..\cmsis_lib\source\stm32f4xx_gpio.c" lastModified="139c3ebf340"/>
+      </target>
+      <target file="main.o" lastModified="14df3c2f936">
+         <source file="..\..\..\main.c" lastModified="14df3c2f337"/>
+      </target>
+      <target file="startup_stm32f4xx.o" lastModified="14df3bd0200">
+         <source file="..\..\..\cmsis_boot\startup\startup_stm32f4xx.c" lastModified="139e8d9fda0"/>
+      </target>
+   </processor>
+</history>

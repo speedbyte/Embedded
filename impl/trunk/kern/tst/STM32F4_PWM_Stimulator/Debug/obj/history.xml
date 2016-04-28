@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m4 -mthumb -Wall -ffunction-sections -O3 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -g -c -DUSE_STDPERIPH_DRIVER -D__FPU_USED -DSTM32F407VG -I. -Icmsis_lib -Icmsis_lib\include -Icmsis_boot -Icmsis">
+      <target file="stm32f4xx_tim.o" lastModified="13a6f0c4c23">
+         <source file="..\..\cmsis_lib\source\stm32f4xx_tim.c" lastModified="139c45e92bd"/>
+      </target>
+      <target file="stm32f4xx_rcc.o" lastModified="13a6f0c48a1">
+         <source file="..\..\cmsis_lib\source\stm32f4xx_rcc.c" lastModified="139c3ebae6c"/>
+      </target>
+      <target file="system_stm32f4xx.o" lastModified="13a6f0c49d5">
+         <source file="..\..\cmsis_boot\system_stm32f4xx.c" lastModified="139c4c68b5f"/>
+      </target>
+      <target file="stm32f4xx_gpio.o" lastModified="13a6f0c4956">
+         <source file="..\..\cmsis_lib\source\stm32f4xx_gpio.c" lastModified="139c3ebf4fb"/>
+      </target>
+      <target file="main.o" lastModified="13a6f0c47a9">
+         <source file="..\..\main.c" lastModified="13a6f0c393d"/>
+      </target>
+      <target file="startup_stm32f4xx.o" lastModified="13a6f0c4724">
+         <source file="..\..\cmsis_boot\startup\startup_stm32f4xx.c" lastModified="139e8d9fdac"/>
+      </target>
+   </processor>
+</history>

@@ -1,0 +1,7 @@
+[submodule "helikopter-doc"]
+	path = helikopter-doc
+	url = git@atreus.informatik.uni-tuebingen.de:agrawal/helikopter-doc.git
+[submodule "helikopter-tools"]
+	path = helikopter-tools
+	url = git://github.com/raspberrypi/tools.git
+        branch = f564210

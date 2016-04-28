@@ -1,0 +1,40 @@
+FORMAT = binary
+
+AR=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ar
+LD=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-g++
+CC=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc
+RL=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ranlib
+OBJCOPY=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objcopy
+OBJDUMP=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objdump
+SIZE=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-size
+NM=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-nm
+READELF=$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-readelf
+
+CFLAGSERROR=-Werror
+CFLAGSNOERROR=-Wno-error=unused-but-set-variable -Wno-error=unused-variable
+
+
+CFLAGS=-O0 -g3  $(CFLAGSNOERROR) -Wall -I. -c -fmessage-length=0
+ARFLAGS=rcs
+#LDFLAGS=-z -c -x
+LDFLAGS=-g -lrt
+#Dependancy : -MMD -MP
+
+CINC=\
+-I$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include/c++/4.8.3\
+-I$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/include\
+-I$(TOP)/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include\
+-I.
+
+LIBS=\
+../hal/ADC/ADC.lib\
+../hal/BATTERY/BATTERY.lib\
+../hal/REMOTECONTROLLER/REMOTECONTROLLER.lib\
+../hal/GPIO/GPIO.lib\
+../hal/GPS/GPS.lib\
+../hal/IMU/IMU.lib\
+../hal/LASER/LASER.lib\
+../hal/LLD_IF/LLD_IF.lib\
+../hal/MOTOR/MOTOR.lib\
+../matlab/MATLAB.lib\
+../sig/SIG.lib\

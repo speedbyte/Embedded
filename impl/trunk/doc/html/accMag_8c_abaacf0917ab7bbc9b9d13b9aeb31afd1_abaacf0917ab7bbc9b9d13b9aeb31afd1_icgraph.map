@@ -1,0 +1,7 @@
+<map id="l_readI2cByte_ui8" name="l_readI2cByte_ui8">
+<area shape="rect" id="node2" href="$accMag_8h_ab936c0ac53ff9ba47a138e841a6ba474.html#ab936c0ac53ff9ba47a138e841a6ba474" title="Initialize sensor. " alt="" coords="180,5,363,32"/>
+<area shape="rect" id="node3" href="$imu_8h_af6233b68a4e1e91a12422028d7657328.html#af6233b68a4e1e91a12422028d7657328" title="Initialize all sensors. " alt="" coords="411,5,597,32"/>
+<area shape="rect" id="node4" href="$Imufilter_8h_a04ced184c1622d6ae5c947f73e1d752f.html#a04ced184c1622d6ae5c947f73e1d752f" title="Bypass the initialization of the IMU. " alt="" coords="645,5,825,32"/>
+<area shape="rect" id="node5" href="$Orientation_8h_aa0c1eb4474b4c8e0d3d09e3b09b66452.html#aa0c1eb4474b4c8e0d3d09e3b09b66452" title="Bypass the initialization of the IMU. " alt="" coords="873,5,1055,32"/>
+<area shape="rect" id="node6" href="$main_8c_a840291bc02cba5474a4cb46a9b9566fe.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="1103,5,1153,32"/>
+</map>

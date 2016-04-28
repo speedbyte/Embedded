@@ -1,0 +1,420 @@
+\hypertarget{analyseIMUData_8m}{\section{matlab/model/analyse\+I\+M\+U\+Data.m File Reference}
+\label{analyseIMUData_8m}\index{matlab/model/analyse\+I\+M\+U\+Data.\+m@{matlab/model/analyse\+I\+M\+U\+Data.\+m}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{analyseIMUData_8m_a698ea3a4d11997db2456cb5340d44a90_a698ea3a4d11997db2456cb5340d44a90}{disp} ('Calibration Data\+:')
+\item 
+\hyperlink{analyseIMUData_8m_ade097ea1aad8722bb547c26e01503180_ade097ea1aad8722bb547c26e01503180}{disp} ('=================')
+\item 
+\hyperlink{analyseIMUData_8m_a84bce1e5da9c56811356bb401f81c5d6_a84bce1e5da9c56811356bb401f81c5d6}{disp} ('Generating Calibration-\/Header-\/File')
+\item 
+\hyperlink{analyseIMUData_8m_a01cca4aef46ad789d4ed4815decaadb7_a01cca4aef46ad789d4ed4815decaadb7}{disp} (\mbox{[}'Writing header ', \hyperlink{analyseIMUData_8m_a428eb036606ff69801d5ba8a883c44de_a428eb036606ff69801d5ba8a883c44de}{header\+File\+Name}, '...'\mbox{]})
+\item 
+Acceleration sensor \hyperlink{analyseIMUData_8m_a0d1aed27cbaede136965faa781711afa_a0d1aed27cbaede136965faa781711afa}{figure} (1)\%\hyperlink{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}{plot} histogram of ax and calculate meanvalue and variance subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_aa2746ddf3ca9b8454b1ba2969534de4d_aa2746ddf3ca9b8454b1ba2969534de4d}{fprintf} ('\textbackslash{}n')
+\item 
+\hyperlink{analyseIMUData_8m_aeb55db8de3e8ff1f57a98fad26728b5f_aeb55db8de3e8ff1f57a98fad26728b5f}{fprintf} (\hyperlink{analyseIMUData_8m_ad0a9596430175bf14f6a53178dc5e809_ad0a9596430175bf14f6a53178dc5e809}{file\+I\+D},'\textbackslash{}n')
+\item 
+\hyperlink{analyseIMUData_8m_afd9f463a5f2fb3748d515cc69e9be778_afd9f463a5f2fb3748d515cc69e9be778}{fprintf} (\hyperlink{analyseIMUData_8m_ad0a9596430175bf14f6a53178dc5e809_ad0a9596430175bf14f6a53178dc5e809}{file\+I\+D},'\#ifndef S\+I\+G\+\_\+\+O\+R\+I\+E\+N\+T\+A\+T\+I\+O\+N\+\_\+\+O\+R\+I\+E\+N\+T\+A\+T\+I\+O\+N\+D\+E\+F\+I\+N\+E\+S\+\_\+\+H\+\_\+\textbackslash{}n')
+\item 
+\hyperlink{analyseIMUData_8m_a10a5772b6bfdb25abba1fffdb5f6c269_a10a5772b6bfdb25abba1fffdb5f6c269}{fprintf} (\hyperlink{analyseIMUData_8m_ad0a9596430175bf14f6a53178dc5e809_ad0a9596430175bf14f6a53178dc5e809}{file\+I\+D},'\#define S\+I\+G\+\_\+\+O\+R\+I\+E\+N\+T\+A\+T\+I\+O\+N\+\_\+\+O\+R\+I\+E\+N\+T\+A\+T\+I\+O\+N\+D\+E\+F\+I\+N\+E\+S\+\_\+\+H\+\_\+\textbackslash{}n')
+\item 
+Acceleration sensor \hyperlink{analyseIMUData_8m_aecf17ce342fc0695ec6a4daec89f6779_aecf17ce342fc0695ec6a4daec89f6779}{hist} (ax.\+signals.\+values(\+:), 50)
+\item 
+\hyperlink{analyseIMUData_8m_a5d0df78d6f5fd4646dce874ef5759846_a5d0df78d6f5fd4646dce874ef5759846}{hist} (az.\+signals.\+values(\+:), 50)
+\item 
+\hyperlink{analyseIMUData_8m_a8215ed9bb44f07f9e25c7b1b3ac5fa4a_a8215ed9bb44f07f9e25c7b1b3ac5fa4a}{hist} (mx.\+signals.\+values(\+:), 50)
+\item 
+\hyperlink{analyseIMUData_8m_a2c56e45e2fa53c1e76d4bcc3efbb3c16_a2c56e45e2fa53c1e76d4bcc3efbb3c16}{hist} (mz.\+signals.\+values(\+:), 50)
+\item 
+\hyperlink{analyseIMUData_8m_a2925406469876cdf4e6d39b81c768702_a2925406469876cdf4e6d39b81c768702}{hist} (pitch.\+signals.\+values(\+:), 50)
+\item 
+\hyperlink{analyseIMUData_8m_ae8be96cfc1279e0d236df8458707ae8e_ae8be96cfc1279e0d236df8458707ae8e}{hist} (yaw.\+signals.\+values(\+:), 50)
+\item 
+\hyperlink{analyseIMUData_8m_a92c879a279872592cf5f00b6a99aa759_a92c879a279872592cf5f00b6a99aa759}{plot} (Comp\+\_\+pitch.\+time, Comp\+\_\+pitch.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_a2ccee88687bbb1010c6d75191ac05839_a2ccee88687bbb1010c6d75191ac05839}{plot} (Comp\+\_\+roll.\+time, Comp\+\_\+roll.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_afb32ec01a703a20ec00d6ca1c5e393ca_afb32ec01a703a20ec00d6ca1c5e393ca}{plot} (Comp\+\_\+yaw.\+time, Comp\+\_\+yaw.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_a3189db90a10211c31a47449d1ad584e9_a3189db90a10211c31a47449d1ad584e9}{plot} (Kalman\+\_\+pitch.\+time, Kalman\+\_\+pitch.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_a7fb346bf6562dd887887fde22ef42fe6_a7fb346bf6562dd887887fde22ef42fe6}{plot} (Kalman\+\_\+roll.\+time, Kalman\+\_\+roll.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_a2c227b5028a4e3c9ab98301dc857c162_a2c227b5028a4e3c9ab98301dc857c162}{plot} (Kalman\+\_\+yaw.\+time, Kalman\+\_\+yaw.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_afc9ccbbbcd353474855fc8c39fd7a25b_afc9ccbbbcd353474855fc8c39fd7a25b}{plot} (mx.\+time, mx.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_aea77f36d0059549b1cbbf25a440c0562_aea77f36d0059549b1cbbf25a440c0562}{plot} (my.\+time, my.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}{plot} (mz.\+time, mz.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_a2237ab44dbcc72d1a9ee8bfd89faed71_a2237ab44dbcc72d1a9ee8bfd89faed71}{title} ('Complementary filter') \hyperlink{analyseIMUData_8m_a20c1f07410fb9a27689b008d1707c375_a20c1f07410fb9a27689b008d1707c375}{xlabel}('time\mbox{[}s\mbox{]}')\%x-\/axis label ylabel('pitch\mbox{[}degree\mbox{]}')\%y-\/axis label subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_a74156cc2c2a3ef8c0944951d63cf0fc7_a74156cc2c2a3ef8c0944951d63cf0fc7}{title} ('Kalman filter') \hyperlink{analyseIMUData_8m_a20c1f07410fb9a27689b008d1707c375_a20c1f07410fb9a27689b008d1707c375}{xlabel}('time\mbox{[}s\mbox{]}')\%x-\/axis label ylabel('pitch\mbox{[}degree\mbox{]}')\%y-\/axis label subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_a6f62131082c3a710ad599e90858731e1_a6f62131082c3a710ad599e90858731e1}{title} ('Magnetic sensor') \hyperlink{analyseIMUData_8m_a20c1f07410fb9a27689b008d1707c375_a20c1f07410fb9a27689b008d1707c375}{xlabel}('time\mbox{[}s\mbox{]}')\%x-\/axis label ylabel('mag.\+field\mbox{[}Tesla\mbox{]}')\%y-\/axis label subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_ae60e99ae0c064d78c731e63a6df3afb8_ae60e99ae0c064d78c731e63a6df3afb8}{xlabel} (\{'Raw data of sensor ay'\mbox{[}'Mean\+: 'num2str(\hyperlink{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}{M})\mbox{]}\mbox{[}'Varianz\+: 'num2str(\hyperlink{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}{V})\mbox{]}\})\%x-\/axis label ylabel('Count of appearance')\%y-\/axis label\%\hyperlink{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}{plot} histogram of az and calculate meanvalue and variance subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_a2baf1d16ac9a7d8221dc0b14e20f3ef7_a2baf1d16ac9a7d8221dc0b14e20f3ef7}{xlabel} (\{'Raw data of sensor az'\mbox{[}'Mean\+: 'num2str(\hyperlink{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}{M})\mbox{]}\mbox{[}'Varianz\+: 'num2str(\hyperlink{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}{V})\mbox{]}\})\%x-\/axis label\%Magnetic sensor \hyperlink{analyseIMUData_8m_a0d1aed27cbaede136965faa781711afa_a0d1aed27cbaede136965faa781711afa}{figure}(2)\%\hyperlink{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}{plot} histogram of mx and calculate meanvalue and variance subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_affa8a9d1f33dea3fe413a63764a64cfc_affa8a9d1f33dea3fe413a63764a64cfc}{xlabel} (\{'Raw data of sensor my'\mbox{[}'Meanvalue\+: 'num2str(\hyperlink{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}{M})\mbox{]}\mbox{[}'Varianz\+: 'num2str(\hyperlink{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}{V})\mbox{]}\})\%x-\/axis label ylabel('Count of appearance')\%y-\/axis label\%\hyperlink{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}{plot} histogram of mz and calculate meanvalue and variance subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_adf8b963680aad1be39b12c872d3c19d6_adf8b963680aad1be39b12c872d3c19d6}{xlabel} (\{'Raw data of sensor mz'\mbox{[}'Meanvalue\+: 'num2str(\hyperlink{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}{M})\mbox{]}\mbox{[}'Variance\+: 'num2str(\hyperlink{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}{V})\mbox{]}\})\%x-\/axis label\%Gyroscope sensor \hyperlink{analyseIMUData_8m_a0d1aed27cbaede136965faa781711afa_a0d1aed27cbaede136965faa781711afa}{figure}(3)\%\hyperlink{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}{plot} histogram of pitch and calculate meanvalue and variance subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_a8e2f093d71fdced404db3383e85de35a_a8e2f093d71fdced404db3383e85de35a}{xlabel} (\{'Raw data of sensor roll rate'\mbox{[}'Meanvalue\+: 'num2str(\hyperlink{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}{M})\mbox{]}\mbox{[}'Varianz\+: 'num2str(\hyperlink{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}{V})\mbox{]}\})\%x-\/axis label ylabel('Count of appearance')\%y-\/axis label\%\hyperlink{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}{plot} histogram of yaw and calculate meanvalue and variance subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_aad2ddc223d0e8dc07a3bee20cd8d37e2_aad2ddc223d0e8dc07a3bee20cd8d37e2}{xlabel} (\{'Raw data of sensor yaw rate'\mbox{[}'Meanvalue\+: 'num2str(\hyperlink{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}{M})\mbox{]}\mbox{[}'Variance\+: 'num2str(\hyperlink{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}{V})\mbox{]}\})\%x-\/axis label\%Complementary filter \hyperlink{analyseIMUData_8m_a0d1aed27cbaede136965faa781711afa_a0d1aed27cbaede136965faa781711afa}{figure}(4) subplot(3
+\item 
+\hyperlink{analyseIMUData_8m_a20c1f07410fb9a27689b008d1707c375_a20c1f07410fb9a27689b008d1707c375}{xlabel} ('time\mbox{[}s\mbox{]}')\%x-\/axis label ylabel('roll\mbox{[}degree\mbox{]}')\%y-\/axis label subplot(3 =max(mz.\+signals.\+values)$\ast$1000000
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{analyseIMUData_8m_ad0a9596430175bf14f6a53178dc5e809_ad0a9596430175bf14f6a53178dc5e809}{file\+I\+D} = fopen(\hyperlink{analyseIMUData_8m_a428eb036606ff69801d5ba8a883c44de_a428eb036606ff69801d5ba8a883c44de}{header\+File\+Name},'w')
+\item 
+\hyperlink{analyseIMUData_8m_a428eb036606ff69801d5ba8a883c44de_a428eb036606ff69801d5ba8a883c44de}{header\+File\+Name} = 'Orientation\+Defines.\+h'
+\item 
+\hyperlink{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}{M} =mean(ax.\+signals.\+values(\+:))
+\item 
+\hyperlink{analyseIMUData_8m_a9ed3e2d6743288bd0d2bd665bd313f3d_a9ed3e2d6743288bd0d2bd665bd313f3d}{maxx} =max(mx.\+signals.\+values)$\ast$1000000
+\item 
+\hyperlink{analyseIMUData_8m_a249b7c800ca83d50b15a3519e3c2cf0e_a249b7c800ca83d50b15a3519e3c2cf0e}{maxy} =max(my.\+signals.\+values)$\ast$1000000
+\item 
+\hyperlink{analyseIMUData_8m_ae953e00e4ed190e46daf07f9f3da2d52_ae953e00e4ed190e46daf07f9f3da2d52}{minx} =min(mx.\+signals.\+values)$\ast$1000000
+\item 
+\hyperlink{analyseIMUData_8m_a78a3361d0d025481aa6c00d9700e6028_a78a3361d0d025481aa6c00d9700e6028}{miny} =min(my.\+signals.\+values)$\ast$1000000
+\item 
+\hyperlink{analyseIMUData_8m_a3bf8a6f9ddbcddbe0ce3a065504ad7f3_a3bf8a6f9ddbcddbe0ce3a065504ad7f3}{minz} =min(mz.\+signals.\+values)$\ast$1000000
+\item 
+\hyperlink{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}{V} =var(ax.\+signals.\+values(\+:))
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{analyseIMUData_8m_a698ea3a4d11997db2456cb5340d44a90_a698ea3a4d11997db2456cb5340d44a90}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!disp@{disp}}
+\index{disp@{disp}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}disp (
+\begin{DoxyParamCaption}
+\item[{'Calibration Data\+:'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a698ea3a4d11997db2456cb5340d44a90_a698ea3a4d11997db2456cb5340d44a90}
+\hypertarget{analyseIMUData_8m_ade097ea1aad8722bb547c26e01503180_ade097ea1aad8722bb547c26e01503180}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!disp@{disp}}
+\index{disp@{disp}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}disp (
+\begin{DoxyParamCaption}
+\item[{'}]{ = {\ttfamily ================'}}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_ade097ea1aad8722bb547c26e01503180_ade097ea1aad8722bb547c26e01503180}
+\hypertarget{analyseIMUData_8m_a84bce1e5da9c56811356bb401f81c5d6_a84bce1e5da9c56811356bb401f81c5d6}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!disp@{disp}}
+\index{disp@{disp}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}disp (
+\begin{DoxyParamCaption}
+\item[{'Generating Calibration-\/Header-\/File'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a84bce1e5da9c56811356bb401f81c5d6_a84bce1e5da9c56811356bb401f81c5d6}
+\hypertarget{analyseIMUData_8m_a01cca4aef46ad789d4ed4815decaadb7_a01cca4aef46ad789d4ed4815decaadb7}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!disp@{disp}}
+\index{disp@{disp}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}disp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a01cca4aef46ad789d4ed4815decaadb7_a01cca4aef46ad789d4ed4815decaadb7}
+\hypertarget{analyseIMUData_8m_a0d1aed27cbaede136965faa781711afa_a0d1aed27cbaede136965faa781711afa}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!figure@{figure}}
+\index{figure@{figure}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}Acceleration sensor figure (
+\begin{DoxyParamCaption}
+\item[{1}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a0d1aed27cbaede136965faa781711afa_a0d1aed27cbaede136965faa781711afa}
+\hypertarget{analyseIMUData_8m_aa2746ddf3ca9b8454b1ba2969534de4d_aa2746ddf3ca9b8454b1ba2969534de4d}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!fprintf@{fprintf}}
+\index{fprintf@{fprintf}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{fprintf}]{\setlength{\rightskip}{0pt plus 5cm}fprintf (
+\begin{DoxyParamCaption}
+\item[{'\textbackslash{}n'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_aa2746ddf3ca9b8454b1ba2969534de4d_aa2746ddf3ca9b8454b1ba2969534de4d}
+\hypertarget{analyseIMUData_8m_aeb55db8de3e8ff1f57a98fad26728b5f_aeb55db8de3e8ff1f57a98fad26728b5f}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!fprintf@{fprintf}}
+\index{fprintf@{fprintf}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{fprintf}]{\setlength{\rightskip}{0pt plus 5cm}fprintf (
+\begin{DoxyParamCaption}
+\item[{{\bf file\+I\+D}}]{, }
+\item[{'\textbackslash{}n'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_aeb55db8de3e8ff1f57a98fad26728b5f_aeb55db8de3e8ff1f57a98fad26728b5f}
+\hypertarget{analyseIMUData_8m_afd9f463a5f2fb3748d515cc69e9be778_afd9f463a5f2fb3748d515cc69e9be778}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!fprintf@{fprintf}}
+\index{fprintf@{fprintf}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{fprintf}]{\setlength{\rightskip}{0pt plus 5cm}fprintf (
+\begin{DoxyParamCaption}
+\item[{{\bf file\+I\+D}}]{, }
+\item[{'\#ifndef S\+I\+G\+\_\+\+O\+R\+I\+E\+N\+T\+A\+T\+I\+O\+N\+\_\+\+O\+R\+I\+E\+N\+T\+A\+T\+I\+O\+N\+D\+E\+F\+I\+N\+E\+S\+\_\+\+H\+\_\+\textbackslash{}n'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_afd9f463a5f2fb3748d515cc69e9be778_afd9f463a5f2fb3748d515cc69e9be778}
+\hypertarget{analyseIMUData_8m_a10a5772b6bfdb25abba1fffdb5f6c269_a10a5772b6bfdb25abba1fffdb5f6c269}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!fprintf@{fprintf}}
+\index{fprintf@{fprintf}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{fprintf}]{\setlength{\rightskip}{0pt plus 5cm}fprintf (
+\begin{DoxyParamCaption}
+\item[{{\bf file\+I\+D}}]{, }
+\item[{'\#define S\+I\+G\+\_\+\+O\+R\+I\+E\+N\+T\+A\+T\+I\+O\+N\+\_\+\+O\+R\+I\+E\+N\+T\+A\+T\+I\+O\+N\+D\+E\+F\+I\+N\+E\+S\+\_\+\+H\+\_\+\textbackslash{}n'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a10a5772b6bfdb25abba1fffdb5f6c269_a10a5772b6bfdb25abba1fffdb5f6c269}
+\hypertarget{analyseIMUData_8m_aecf17ce342fc0695ec6a4daec89f6779_aecf17ce342fc0695ec6a4daec89f6779}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!hist@{hist}}
+\index{hist@{hist}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{hist}]{\setlength{\rightskip}{0pt plus 5cm}Acceleration sensor hist (
+\begin{DoxyParamCaption}
+\item[{ax.\+signals.}]{values\+:, }
+\item[{50}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_aecf17ce342fc0695ec6a4daec89f6779_aecf17ce342fc0695ec6a4daec89f6779}
+\hypertarget{analyseIMUData_8m_a5d0df78d6f5fd4646dce874ef5759846_a5d0df78d6f5fd4646dce874ef5759846}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!hist@{hist}}
+\index{hist@{hist}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{hist}]{\setlength{\rightskip}{0pt plus 5cm}hist (
+\begin{DoxyParamCaption}
+\item[{az.\+signals.}]{values\+:, }
+\item[{50}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a5d0df78d6f5fd4646dce874ef5759846_a5d0df78d6f5fd4646dce874ef5759846}
+\hypertarget{analyseIMUData_8m_a8215ed9bb44f07f9e25c7b1b3ac5fa4a_a8215ed9bb44f07f9e25c7b1b3ac5fa4a}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!hist@{hist}}
+\index{hist@{hist}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{hist}]{\setlength{\rightskip}{0pt plus 5cm}hist (
+\begin{DoxyParamCaption}
+\item[{mx.\+signals.}]{values\+:, }
+\item[{50}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a8215ed9bb44f07f9e25c7b1b3ac5fa4a_a8215ed9bb44f07f9e25c7b1b3ac5fa4a}
+\hypertarget{analyseIMUData_8m_a2c56e45e2fa53c1e76d4bcc3efbb3c16_a2c56e45e2fa53c1e76d4bcc3efbb3c16}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!hist@{hist}}
+\index{hist@{hist}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{hist}]{\setlength{\rightskip}{0pt plus 5cm}hist (
+\begin{DoxyParamCaption}
+\item[{mz.\+signals.}]{values\+:, }
+\item[{50}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a2c56e45e2fa53c1e76d4bcc3efbb3c16_a2c56e45e2fa53c1e76d4bcc3efbb3c16}
+\hypertarget{analyseIMUData_8m_a2925406469876cdf4e6d39b81c768702_a2925406469876cdf4e6d39b81c768702}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!hist@{hist}}
+\index{hist@{hist}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{hist}]{\setlength{\rightskip}{0pt plus 5cm}hist (
+\begin{DoxyParamCaption}
+\item[{pitch.\+signals.}]{values\+:, }
+\item[{50}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a2925406469876cdf4e6d39b81c768702_a2925406469876cdf4e6d39b81c768702}
+\hypertarget{analyseIMUData_8m_ae8be96cfc1279e0d236df8458707ae8e_ae8be96cfc1279e0d236df8458707ae8e}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!hist@{hist}}
+\index{hist@{hist}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{hist}]{\setlength{\rightskip}{0pt plus 5cm}hist (
+\begin{DoxyParamCaption}
+\item[{yaw.\+signals.}]{values\+:, }
+\item[{50}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_ae8be96cfc1279e0d236df8458707ae8e_ae8be96cfc1279e0d236df8458707ae8e}
+\hypertarget{analyseIMUData_8m_a92c879a279872592cf5f00b6a99aa759_a92c879a279872592cf5f00b6a99aa759}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{Comp\+\_\+pitch.}]{time, }
+\item[{Comp\+\_\+pitch.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a92c879a279872592cf5f00b6a99aa759_a92c879a279872592cf5f00b6a99aa759}
+\hypertarget{analyseIMUData_8m_a2ccee88687bbb1010c6d75191ac05839_a2ccee88687bbb1010c6d75191ac05839}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{Comp\+\_\+roll.}]{time, }
+\item[{Comp\+\_\+roll.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a2ccee88687bbb1010c6d75191ac05839_a2ccee88687bbb1010c6d75191ac05839}
+\hypertarget{analyseIMUData_8m_afb32ec01a703a20ec00d6ca1c5e393ca_afb32ec01a703a20ec00d6ca1c5e393ca}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{Comp\+\_\+yaw.}]{time, }
+\item[{Comp\+\_\+yaw.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_afb32ec01a703a20ec00d6ca1c5e393ca_afb32ec01a703a20ec00d6ca1c5e393ca}
+\hypertarget{analyseIMUData_8m_a3189db90a10211c31a47449d1ad584e9_a3189db90a10211c31a47449d1ad584e9}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{Kalman\+\_\+pitch.}]{time, }
+\item[{Kalman\+\_\+pitch.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a3189db90a10211c31a47449d1ad584e9_a3189db90a10211c31a47449d1ad584e9}
+\hypertarget{analyseIMUData_8m_a7fb346bf6562dd887887fde22ef42fe6_a7fb346bf6562dd887887fde22ef42fe6}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{Kalman\+\_\+roll.}]{time, }
+\item[{Kalman\+\_\+roll.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a7fb346bf6562dd887887fde22ef42fe6_a7fb346bf6562dd887887fde22ef42fe6}
+\hypertarget{analyseIMUData_8m_a2c227b5028a4e3c9ab98301dc857c162_a2c227b5028a4e3c9ab98301dc857c162}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{Kalman\+\_\+yaw.}]{time, }
+\item[{Kalman\+\_\+yaw.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a2c227b5028a4e3c9ab98301dc857c162_a2c227b5028a4e3c9ab98301dc857c162}
+\hypertarget{analyseIMUData_8m_afc9ccbbbcd353474855fc8c39fd7a25b_afc9ccbbbcd353474855fc8c39fd7a25b}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{mx.}]{time, }
+\item[{mx.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_afc9ccbbbcd353474855fc8c39fd7a25b_afc9ccbbbcd353474855fc8c39fd7a25b}
+\hypertarget{analyseIMUData_8m_aea77f36d0059549b1cbbf25a440c0562_aea77f36d0059549b1cbbf25a440c0562}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{my.}]{time, }
+\item[{my.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_aea77f36d0059549b1cbbf25a440c0562_aea77f36d0059549b1cbbf25a440c0562}
+\hypertarget{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!plot@{plot}}
+\index{plot@{plot}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (
+\begin{DoxyParamCaption}
+\item[{mz.}]{time, }
+\item[{mz.\+signals.}]{values\+:}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a6e7c4f42f0f4273db75b805ba12ac0eb_a6e7c4f42f0f4273db75b805ba12ac0eb}
+\hypertarget{analyseIMUData_8m_a2237ab44dbcc72d1a9ee8bfd89faed71_a2237ab44dbcc72d1a9ee8bfd89faed71}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!title@{title}}
+\index{title@{title}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title (
+\begin{DoxyParamCaption}
+\item[{'Complementary filter'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a2237ab44dbcc72d1a9ee8bfd89faed71_a2237ab44dbcc72d1a9ee8bfd89faed71}
+\hypertarget{analyseIMUData_8m_a74156cc2c2a3ef8c0944951d63cf0fc7_a74156cc2c2a3ef8c0944951d63cf0fc7}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!title@{title}}
+\index{title@{title}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title (
+\begin{DoxyParamCaption}
+\item[{'Kalman filter'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a74156cc2c2a3ef8c0944951d63cf0fc7_a74156cc2c2a3ef8c0944951d63cf0fc7}
+\hypertarget{analyseIMUData_8m_a6f62131082c3a710ad599e90858731e1_a6f62131082c3a710ad599e90858731e1}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!title@{title}}
+\index{title@{title}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title (
+\begin{DoxyParamCaption}
+\item[{'Magnetic sensor'}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a6f62131082c3a710ad599e90858731e1_a6f62131082c3a710ad599e90858731e1}
+\hypertarget{analyseIMUData_8m_ae60e99ae0c064d78c731e63a6df3afb8_ae60e99ae0c064d78c731e63a6df3afb8}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (
+\begin{DoxyParamCaption}
+\item[{\{'Raw data of sensor ay'\mbox{[}'Mean\+: 'num2str({\bf M})\mbox{]}\mbox{[}'Varianz\+: 'num2str({\bf V})\mbox{]}\}}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_ae60e99ae0c064d78c731e63a6df3afb8_ae60e99ae0c064d78c731e63a6df3afb8}
+\hypertarget{analyseIMUData_8m_a2baf1d16ac9a7d8221dc0b14e20f3ef7_a2baf1d16ac9a7d8221dc0b14e20f3ef7}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (
+\begin{DoxyParamCaption}
+\item[{\{'Raw data of sensor az'\mbox{[}'Mean\+: 'num2str({\bf M})\mbox{]}\mbox{[}'Varianz\+: 'num2str({\bf V})\mbox{]}\}}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a2baf1d16ac9a7d8221dc0b14e20f3ef7_a2baf1d16ac9a7d8221dc0b14e20f3ef7}
+\hypertarget{analyseIMUData_8m_affa8a9d1f33dea3fe413a63764a64cfc_affa8a9d1f33dea3fe413a63764a64cfc}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (
+\begin{DoxyParamCaption}
+\item[{\{'Raw data of sensor my'\mbox{[}'Meanvalue\+: 'num2str({\bf M})\mbox{]}\mbox{[}'Varianz\+: 'num2str({\bf V})\mbox{]}\}}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_affa8a9d1f33dea3fe413a63764a64cfc_affa8a9d1f33dea3fe413a63764a64cfc}
+\hypertarget{analyseIMUData_8m_adf8b963680aad1be39b12c872d3c19d6_adf8b963680aad1be39b12c872d3c19d6}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (
+\begin{DoxyParamCaption}
+\item[{\{'Raw data of sensor mz'\mbox{[}'Meanvalue\+: 'num2str({\bf M})\mbox{]}\mbox{[}'Variance\+: 'num2str({\bf V})\mbox{]}\}}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_adf8b963680aad1be39b12c872d3c19d6_adf8b963680aad1be39b12c872d3c19d6}
+\hypertarget{analyseIMUData_8m_a8e2f093d71fdced404db3383e85de35a_a8e2f093d71fdced404db3383e85de35a}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (
+\begin{DoxyParamCaption}
+\item[{\{'Raw data of sensor roll rate'\mbox{[}'Meanvalue\+: 'num2str({\bf M})\mbox{]}\mbox{[}'Varianz\+: 'num2str({\bf V})\mbox{]}\}}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_a8e2f093d71fdced404db3383e85de35a_a8e2f093d71fdced404db3383e85de35a}
+\hypertarget{analyseIMUData_8m_aad2ddc223d0e8dc07a3bee20cd8d37e2_aad2ddc223d0e8dc07a3bee20cd8d37e2}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (
+\begin{DoxyParamCaption}
+\item[{\{'Raw data of sensor yaw rate'\mbox{[}'Meanvalue\+: 'num2str({\bf M})\mbox{]}\mbox{[}'Variance\+: 'num2str({\bf V})\mbox{]}\}}]{}
+\end{DoxyParamCaption}
+)}}\label{analyseIMUData_8m_aad2ddc223d0e8dc07a3bee20cd8d37e2_aad2ddc223d0e8dc07a3bee20cd8d37e2}
+\hypertarget{analyseIMUData_8m_a20c1f07410fb9a27689b008d1707c375_a20c1f07410fb9a27689b008d1707c375}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (
+\begin{DoxyParamCaption}
+\item[{'time'}]{\mbox{[}s\mbox{]}}
+\end{DoxyParamCaption}
+) =max(mz.\+signals.\+values)$\ast$1000000}}\label{analyseIMUData_8m_a20c1f07410fb9a27689b008d1707c375_a20c1f07410fb9a27689b008d1707c375}
+
+
+\subsection{Variable Documentation}
+\hypertarget{analyseIMUData_8m_ad0a9596430175bf14f6a53178dc5e809_ad0a9596430175bf14f6a53178dc5e809}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!file\+I\+D@{file\+I\+D}}
+\index{file\+I\+D@{file\+I\+D}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{file\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}file\+I\+D = fopen({\bf header\+File\+Name},'w')}}\label{analyseIMUData_8m_ad0a9596430175bf14f6a53178dc5e809_ad0a9596430175bf14f6a53178dc5e809}
+
+
+Definition at line 178 of file analyse\+I\+M\+U\+Data.\+m.
+
+\hypertarget{analyseIMUData_8m_a428eb036606ff69801d5ba8a883c44de_a428eb036606ff69801d5ba8a883c44de}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!header\+File\+Name@{header\+File\+Name}}
+\index{header\+File\+Name@{header\+File\+Name}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{header\+File\+Name}]{\setlength{\rightskip}{0pt plus 5cm}header\+File\+Name = 'Orientation\+Defines.\+h'}}\label{analyseIMUData_8m_a428eb036606ff69801d5ba8a883c44de_a428eb036606ff69801d5ba8a883c44de}
+
+
+Definition at line 1 of file analyse\+I\+M\+U\+Data.\+m.
+
+\hypertarget{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!M@{M}}
+\index{M@{M}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{M}]{\setlength{\rightskip}{0pt plus 5cm}M =mean(ax.\+signals.\+values(\+:))}}\label{analyseIMUData_8m_aad05f78187c942f9dd521605fa81f1ba_aad05f78187c942f9dd521605fa81f1ba}
+
+
+Definition at line 8 of file analyse\+I\+M\+U\+Data.\+m.
+
+\hypertarget{analyseIMUData_8m_a9ed3e2d6743288bd0d2bd665bd313f3d_a9ed3e2d6743288bd0d2bd665bd313f3d}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!maxx@{maxx}}
+\index{maxx@{maxx}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{maxx}]{\setlength{\rightskip}{0pt plus 5cm}maxx =max(mx.\+signals.\+values)$\ast$1000000}}\label{analyseIMUData_8m_a9ed3e2d6743288bd0d2bd665bd313f3d_a9ed3e2d6743288bd0d2bd665bd313f3d}
+
+
+Definition at line 159 of file analyse\+I\+M\+U\+Data.\+m.
+
+\hypertarget{analyseIMUData_8m_a249b7c800ca83d50b15a3519e3c2cf0e_a249b7c800ca83d50b15a3519e3c2cf0e}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!maxy@{maxy}}
+\index{maxy@{maxy}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{maxy}]{\setlength{\rightskip}{0pt plus 5cm}maxy =max(my.\+signals.\+values)$\ast$1000000}}\label{analyseIMUData_8m_a249b7c800ca83d50b15a3519e3c2cf0e_a249b7c800ca83d50b15a3519e3c2cf0e}
+
+
+Definition at line 157 of file analyse\+I\+M\+U\+Data.\+m.
+
+\hypertarget{analyseIMUData_8m_ae953e00e4ed190e46daf07f9f3da2d52_ae953e00e4ed190e46daf07f9f3da2d52}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!minx@{minx}}
+\index{minx@{minx}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{minx}]{\setlength{\rightskip}{0pt plus 5cm}minx =min(mx.\+signals.\+values)$\ast$1000000}}\label{analyseIMUData_8m_ae953e00e4ed190e46daf07f9f3da2d52_ae953e00e4ed190e46daf07f9f3da2d52}
+
+
+Definition at line 160 of file analyse\+I\+M\+U\+Data.\+m.
+
+\hypertarget{analyseIMUData_8m_a78a3361d0d025481aa6c00d9700e6028_a78a3361d0d025481aa6c00d9700e6028}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!miny@{miny}}
+\index{miny@{miny}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{miny}]{\setlength{\rightskip}{0pt plus 5cm}miny =min(my.\+signals.\+values)$\ast$1000000}}\label{analyseIMUData_8m_a78a3361d0d025481aa6c00d9700e6028_a78a3361d0d025481aa6c00d9700e6028}
+
+
+Definition at line 158 of file analyse\+I\+M\+U\+Data.\+m.
+
+\hypertarget{analyseIMUData_8m_a3bf8a6f9ddbcddbe0ce3a065504ad7f3_a3bf8a6f9ddbcddbe0ce3a065504ad7f3}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!minz@{minz}}
+\index{minz@{minz}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{minz}]{\setlength{\rightskip}{0pt plus 5cm}minz =min(mz.\+signals.\+values)$\ast$1000000}}\label{analyseIMUData_8m_a3bf8a6f9ddbcddbe0ce3a065504ad7f3_a3bf8a6f9ddbcddbe0ce3a065504ad7f3}
+
+
+Definition at line 156 of file analyse\+I\+M\+U\+Data.\+m.
+
+\hypertarget{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}{\index{analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}!V@{V}}
+\index{V@{V}!analyse\+I\+M\+U\+Data.\+m@{analyse\+I\+M\+U\+Data.\+m}}
+\subsubsection[{V}]{\setlength{\rightskip}{0pt plus 5cm}V =var(ax.\+signals.\+values(\+:))}}\label{analyseIMUData_8m_ac0055fa4cdc19a2690bfee3643413a7d_ac0055fa4cdc19a2690bfee3643413a7d}
+
+
+Definition at line 9 of file analyse\+I\+M\+U\+Data.\+m.
+

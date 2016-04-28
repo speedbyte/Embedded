@@ -1,0 +1,7 @@
+<map id="g_sigFil_getImuValuesUnfiltered_st" name="g_sigFil_getImuValuesUnfiltered_st">
+<area shape="rect" id="node2" href="$Orientation_8h_a8ea5176a4b827a6f692fb6802c4378fa.html#a8ea5176a4b827a6f692fb6802c4378fa" title="Calculation of reference values. " alt="" coords="281,5,464,47"/>
+<area shape="rect" id="node3" href="$Orientation_8c_a9332cc50407301b10a2379e1cfa7db28.html#a9332cc50407301b10a2379e1cfa7db28" title="Trigger IMU reading. " alt="" coords="289,71,456,98"/>
+<area shape="rect" id="node4" href="$Orientation_8h_ad6f7e5ebba85a9e7c23427803f77dc2f.html#ad6f7e5ebba85a9e7c23427803f77dc2f" title="Trigger of Kalman&#45;Filter calculation. " alt="" coords="512,42,737,69"/>
+<area shape="rect" id="node6" href="$Orientation_8h_a99b95124924a04fee17327b71cabe123.html#a99b95124924a04fee17327b71cabe123" title="Trigger of Complementary&#45;Filter calculation. " alt="" coords="528,93,721,135"/>
+<area shape="rect" id="node5" href="$main_8c_a840291bc02cba5474a4cb46a9b9566fe.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="785,71,836,98"/>
+</map>

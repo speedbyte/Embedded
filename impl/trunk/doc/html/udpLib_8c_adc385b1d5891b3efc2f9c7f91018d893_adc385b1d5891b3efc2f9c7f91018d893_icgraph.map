@@ -1,0 +1,19 @@
+<map id="l_findSocket_i16" name="l_findSocket_i16">
+<area shape="rect" id="node2" href="$udpLib_8h_a7637578f6230876a656d097956087ae0.html#a7637578f6230876a656d097956087ae0" title="Closes the given socket and cleans up. " alt="" coords="176,56,364,83"/>
+<area shape="rect" id="node4" href="$udpLib_8h_a3bcf5bf8c07f257cd13d2c94a9ce6d4f.html#a3bcf5bf8c07f257cd13d2c94a9ce6d4f" title="Sends a packet of data via a given UDP&#45;Socket. " alt="" coords="177,157,363,184"/>
+<area shape="rect" id="node10" href="$udpLib_8h_ae2c1f15f17730f3794e20be65106a963.html#ae2c1f15f17730f3794e20be65106a963" title="Reads a packet of data via a given UDP&#45;Socket. " alt="" coords="172,335,368,361"/>
+<area shape="rect" id="node16" href="$udpLib_8h_a9a1478b5b50fab3e48f1918b065bcc9e.html#a9a1478b5b50fab3e48f1918b065bcc9e" title="Configures a given UDP&#45;Socket to communicate with a specific remote host. " alt="" coords="174,233,366,260"/>
+<area shape="rect" id="node3" href="$udpImuSocket_8c_a343acfd8b3b5308d6c94bbf40efbbac5.html#a343acfd8b3b5308d6c94bbf40efbbac5" title="mdlTerminate" alt="" coords="479,5,580,32"/>
+<area shape="rect" id="node5" href="$udpImuLib_8h_a5aed7fe7dfcd9ee05454d2ca222dd4f3.html#a5aed7fe7dfcd9ee05454d2ca222dd4f3" title="Sends a packet of IMU data with the current unuix&#45;timestamp via a given UDP&#45;Socket. " alt="" coords="431,56,628,83"/>
+<area shape="rect" id="node6" href="$udpLib_8h_aa92d30d310ed7c447f8323d3abe10f35.html#aa92d30d310ed7c447f8323d3abe10f35" title="Sends a packet of data with timestamp via a given UDP&#45;Socket. " alt="" coords="416,107,643,133"/>
+<area shape="rect" id="node7" href="$udpSigLib_8h_a662f398ba9844156271a729363b6b4bd.html#a662f398ba9844156271a729363b6b4bd" title="Sends a packet of IMU data with the current unuix&#45;timestamp via a given UDP&#45;Socket. " alt="" coords="432,157,627,184"/>
+<area shape="rect" id="node8" href="$udpSigLib_8h_af61d04b0beb193be3fdc57b6aad27ee4.html#af61d04b0beb193be3fdc57b6aad27ee4" title="Sends a packet of IMU data with the current unuix&#45;timestamp via a given UDP&#45;Socket. " alt="" coords="421,208,637,235"/>
+<area shape="rect" id="node9" href="$main_8c_a840291bc02cba5474a4cb46a9b9566fe.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="710,208,761,235"/>
+<area shape="rect" id="node11" href="$udpImuLib_8h_a950c3c02f670a48965dc6d6c5130ac8b.html#a950c3c02f670a48965dc6d6c5130ac8b" title="Receives a packet of IMU data with the current via a given UDP&#45;Socket. " alt="" coords="432,309,627,336"/>
+<area shape="rect" id="node13" href="$udpSigLib_8h_a1a7106a477c6333bc258e5631f751635.html#a1a7106a477c6333bc258e5631f751635" title="Receives a packet of SIG data with the current via a given UDP&#45;Socket. " alt="" coords="434,360,625,387"/>
+<area shape="rect" id="node14" href="$udpSigLib_8h_abf4dac6b7984656845b4c3d0d2168a7c.html#abf4dac6b7984656845b4c3d0d2168a7c" title="Receives a packet of SIG data with the current via a given UDP&#45;Socket. " alt="" coords="423,411,636,437"/>
+<area shape="rect" id="node12" href="$udpImuSocket_8c_ab6c8c16502dd4374f9f36cfd58cbbd15.html#ab6c8c16502dd4374f9f36cfd58cbbd15" title="mdlOutputs" alt="" coords="691,309,780,336"/>
+<area shape="rect" id="node15" href="$udpSigSocket_8c_ab6c8c16502dd4374f9f36cfd58cbbd15.html#ab6c8c16502dd4374f9f36cfd58cbbd15" title="mdlOutputs" alt="" coords="691,411,780,437"/>
+<area shape="rect" id="node17" href="$udpLib_8h_af56c173f4b3218ace62bff967eacac4d.html#af56c173f4b3218ace62bff967eacac4d" title="Creates, inits and configures an UDP&#45;Socket for a symmetric connection setup. " alt="" coords="426,259,633,285"/>
+<area shape="rect" id="node18" href="$udpImuSocket_8c_a0dd07daf338cf84d1aee4bb8b6771720.html#a0dd07daf338cf84d1aee4bb8b6771720" title="mdlStart" alt="" coords="700,259,771,285"/>
+</map>

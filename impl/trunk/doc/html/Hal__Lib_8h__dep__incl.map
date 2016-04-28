@@ -1,0 +1,5 @@
+<map id="hal/IMU/Lib/Hal_Lib.h" name="hal/IMU/Lib/Hal_Lib.h">
+<area shape="rect" id="node2" href="$barometer_8c.html" title="hal/IMU/barometer/barometer.c" alt="" coords="5,80,208,107"/>
+<area shape="rect" id="node3" href="$Gyro_8c.html" title="hal/IMU/gyro/Gyro.c" alt="" coords="233,80,373,107"/>
+<area shape="rect" id="node4" href="$Hal__Lib_8c.html" title="hal/IMU/Lib/Hal_Lib.c" alt="" coords="397,80,545,107"/>
+</map>

@@ -1,0 +1,791 @@
+\hypertarget{udpLib_8h}{\section{matlab/udp\+Lib.h File Reference}
+\label{udpLib_8h}\index{matlab/udp\+Lib.\+h@{matlab/udp\+Lib.\+h}}
+}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structhalMatlab__socketData}{hal\+Matlab\+\_\+socket\+Data}
+\begin{DoxyCompactList}\small\item\em Container for Udp-\/\+Socket data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I8}~-\/1
+\item 
+\#define \hyperlink{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+F\+A\+I\+L\+E\+D\+\_\+\+U\+I8}~1
+\item 
+\#define \hyperlink{udpLib_8h_ad5bf698c81c5fe64983232fc16e5de0e_ad5bf698c81c5fe64983232fc16e5de0e}{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+O\+F\+\_\+\+S\+O\+C\+K\+E\+T\+S\+\_\+\+U\+I8}~8
+\item 
+\#define \hyperlink{udpLib_8h_ad46b8db56c7a242ce87f3a6f4999828d_ad46b8db56c7a242ce87f3a6f4999828d}{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+U\+I16}~512
+\item 
+\#define \hyperlink{udpLib_8h_aff03d58e9e7bb99788891af45d2c4c16_aff03d58e9e7bb99788891af45d2c4c16}{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+R\+E\+C\+V\+\_\+\+P\+O\+R\+T\+\_\+\+D\+I\+S\+T\+\_\+\+U\+I8}~100
+\item 
+\#define \hyperlink{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+U\+C\+C\+E\+S\+S\+\_\+\+U\+I8}~0
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{udpLib_8h_a7637578f6230876a656d097956087ae0_a7637578f6230876a656d097956087ae0}{g\+\_\+hal\+Matlab\+\_\+close\+Socket\+\_\+bl} (int f\+\_\+socket\+Handler\+\_\+i32)
+\begin{DoxyCompactList}\small\item\em Closes the given socket and cleans up. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{udpLib_8h_a9a1478b5b50fab3e48f1918b065bcc9e_a9a1478b5b50fab3e48f1918b065bcc9e}{g\+\_\+hal\+Matlab\+\_\+config\+Socket\+\_\+bl} (int f\+\_\+socket\+Handler\+\_\+i32, const unsigned char $\ast$const f\+\_\+dest\+Ipv4\+\_\+rg4ui8, unsigned short f\+\_\+dest\+Port\+\_\+ui16)
+\begin{DoxyCompactList}\small\item\em Configures a given U\+D\+P-\/\+Socket to communicate with a specific remote host. \end{DoxyCompactList}\item 
+int \hyperlink{udpLib_8h_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d}{g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32} (const unsigned char $\ast$const f\+\_\+dest\+Ipv4\+\_\+rg4ui8, unsigned short f\+\_\+udp\+Connection\+Port\+\_\+ui16)
+\begin{DoxyCompactList}\small\item\em Creates, inits and configures an U\+D\+P-\/\+Socket for a symmetric connection setup. \end{DoxyCompactList}\item 
+int \hyperlink{udpLib_8h_ae4db0dc04a7a7f7b01cf95c393701204_ae4db0dc04a7a7f7b01cf95c393701204}{g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32} (unsigned short f\+\_\+udp\+Listen\+Port\+\_\+ui16)
+\begin{DoxyCompactList}\small\item\em Create and init an U\+D\+P-\/\+Socket for given incoming port. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{udpLib_8h_ae2c1f15f17730f3794e20be65106a963_ae2c1f15f17730f3794e20be65106a963}{g\+\_\+hal\+Matlab\+\_\+recv\+Packet\+\_\+ui32} (int f\+\_\+socket\+Handler\+\_\+i32, unsigned char $\ast$const f\+\_\+recv\+Buffer\+\_\+pui8, unsigned int f\+\_\+recv\+Buffer\+Size\+\_\+ui32)
+\begin{DoxyCompactList}\small\item\em Reads a packet of data via a given U\+D\+P-\/\+Socket. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{udpLib_8h_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_a3bcf5bf8c07f257cd13d2c94a9ce6d4f}{g\+\_\+hal\+Matlab\+\_\+send\+Packet\+\_\+bl} (int f\+\_\+socket\+Handler\+\_\+i32, const unsigned char $\ast$const f\+\_\+send\+Buffer\+\_\+pui8, unsigned int f\+\_\+send\+Buffer\+Size\+\_\+ui32)
+\begin{DoxyCompactList}\small\item\em Sends a packet of data via a given U\+D\+P-\/\+Socket. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{udpLib_8h_aa92d30d310ed7c447f8323d3abe10f35_aa92d30d310ed7c447f8323d3abe10f35}{g\+\_\+hal\+Matlab\+\_\+send\+Rt\+Data\+Packet\+\_\+bl} (int f\+\_\+socket\+Handler\+\_\+i32, const unsigned char $\ast$const f\+\_\+send\+Buffer\+\_\+pui8, unsigned int f\+\_\+send\+Buffer\+Size\+\_\+ui32)
+\begin{DoxyCompactList}\small\item\em Sends a packet of data with timestamp via a given U\+D\+P-\/\+Socket. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I8}}
+\index{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I8}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I8}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I8~-\/1}}\label{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}
+
+
+Definition at line 21 of file udp\+Lib.\+h.
+
+\hypertarget{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+F\+A\+I\+L\+E\+D\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+F\+A\+I\+L\+E\+D\+\_\+\+U\+I8}}
+\index{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+F\+A\+I\+L\+E\+D\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+F\+A\+I\+L\+E\+D\+\_\+\+U\+I8}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+F\+A\+I\+L\+E\+D\+\_\+\+U\+I8}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+F\+A\+I\+L\+E\+D\+\_\+\+U\+I8~1}}\label{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}
+
+
+Definition at line 20 of file udp\+Lib.\+h.
+
+\hypertarget{udpLib_8h_ad5bf698c81c5fe64983232fc16e5de0e_ad5bf698c81c5fe64983232fc16e5de0e}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+O\+F\+\_\+\+S\+O\+C\+K\+E\+T\+S\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+O\+F\+\_\+\+S\+O\+C\+K\+E\+T\+S\+\_\+\+U\+I8}}
+\index{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+O\+F\+\_\+\+S\+O\+C\+K\+E\+T\+S\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+O\+F\+\_\+\+S\+O\+C\+K\+E\+T\+S\+\_\+\+U\+I8}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+O\+F\+\_\+\+S\+O\+C\+K\+E\+T\+S\+\_\+\+U\+I8}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+O\+F\+\_\+\+S\+O\+C\+K\+E\+T\+S\+\_\+\+U\+I8~8}}\label{udpLib_8h_ad5bf698c81c5fe64983232fc16e5de0e_ad5bf698c81c5fe64983232fc16e5de0e}
+
+
+Definition at line 15 of file udp\+Lib.\+h.
+
+\hypertarget{udpLib_8h_ad46b8db56c7a242ce87f3a6f4999828d_ad46b8db56c7a242ce87f3a6f4999828d}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+U\+I16@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+U\+I16}}
+\index{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+U\+I16@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+U\+I16}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+U\+I16}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+U\+I16~512}}\label{udpLib_8h_ad46b8db56c7a242ce87f3a6f4999828d_ad46b8db56c7a242ce87f3a6f4999828d}
+
+
+Definition at line 17 of file udp\+Lib.\+h.
+
+\hypertarget{udpLib_8h_aff03d58e9e7bb99788891af45d2c4c16_aff03d58e9e7bb99788891af45d2c4c16}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+R\+E\+C\+V\+\_\+\+P\+O\+R\+T\+\_\+\+D\+I\+S\+T\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+R\+E\+C\+V\+\_\+\+P\+O\+R\+T\+\_\+\+D\+I\+S\+T\+\_\+\+U\+I8}}
+\index{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+R\+E\+C\+V\+\_\+\+P\+O\+R\+T\+\_\+\+D\+I\+S\+T\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+R\+E\+C\+V\+\_\+\+P\+O\+R\+T\+\_\+\+D\+I\+S\+T\+\_\+\+U\+I8}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+R\+E\+C\+V\+\_\+\+P\+O\+R\+T\+\_\+\+D\+I\+S\+T\+\_\+\+U\+I8}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+E\+N\+D\+\_\+\+R\+E\+C\+V\+\_\+\+P\+O\+R\+T\+\_\+\+D\+I\+S\+T\+\_\+\+U\+I8~100}}\label{udpLib_8h_aff03d58e9e7bb99788891af45d2c4c16_aff03d58e9e7bb99788891af45d2c4c16}
+
+
+Definition at line 16 of file udp\+Lib.\+h.
+
+\hypertarget{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+U\+C\+C\+E\+S\+S\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+U\+C\+C\+E\+S\+S\+\_\+\+U\+I8}}
+\index{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+U\+C\+C\+E\+S\+S\+\_\+\+U\+I8@{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+U\+C\+C\+E\+S\+S\+\_\+\+U\+I8}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+U\+C\+C\+E\+S\+S\+\_\+\+U\+I8}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+H\+A\+L\+\_\+\+M\+A\+T\+L\+A\+B\+\_\+\+S\+U\+C\+C\+E\+S\+S\+\_\+\+U\+I8~0}}\label{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}
+
+
+Definition at line 19 of file udp\+Lib.\+h.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{udpLib_8h_a7637578f6230876a656d097956087ae0_a7637578f6230876a656d097956087ae0}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+close\+Socket\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+close\+Socket\+\_\+bl}}
+\index{g\+\_\+hal\+Matlab\+\_\+close\+Socket\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+close\+Socket\+\_\+bl}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+close\+Socket\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Matlab\+\_\+close\+Socket\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{int}]{f\+\_\+socket\+Handler\+\_\+i32}
+\end{DoxyParamCaption}
+)}}\label{udpLib_8h_a7637578f6230876a656d097956087ae0_a7637578f6230876a656d097956087ae0}
+
+
+Closes the given socket and cleans up. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/17
+\end{DoxyDate}
+This function closes a given U\+D\+P-\/\+Socket properly and does cleanup, if necessary.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+socket\+Handler\+\_\+i32} & specifies socket handler number to be closed \\
+\hline
+\mbox{\tt out}  & {\em returns} & a boolean value, indicating the occurrence of failures~\newline
+ 0 .... indicates success (no errors)~\newline
+ 1 .... indicates failed (some errors)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 298 of file udp\+Lib.\+c.
+
+
+\begin{DoxyCode}
+299 \{
+300     \textcolor{keywordtype}{signed} \textcolor{keywordtype}{short} l\_socketSlotNumber\_i16 = 0;
+301 
+302     \textcolor{comment}{// get slot number of requested socket handler}
+303     \textcolor{keywordflow}{if} ( ( l\_socketSlotNumber\_i16 = \hyperlink{udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893_adc385b1d5891b3efc2f9c7f91018d893}{l\_findSocket\_i16}(f\_socketHandler\_i32) ) < 0 )
+304     \{
+305         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{M\_HAL\_MATLAB\_FAILED\_UI8};
+306     \}
+307 
+308 \textcolor{preprocessor}{#ifdef \_\_linux\_\_}
+309     \textcolor{comment}{/* close socket */}
+310     close( \hyperlink{udpLib_8c_abb82dbc5b02faadb76c5eee87d1e8284_abb82dbc5b02faadb76c5eee87d1e8284}{m\_socketManagementBuffer\_rg8st}[l\_socketSlotNumber\_i16].
+      socketHandler\_i32 );
+311 \textcolor{preprocessor}{#elif \_WIN32}
+312     closesocket(\hyperlink{udpLib_8c_abb82dbc5b02faadb76c5eee87d1e8284_abb82dbc5b02faadb76c5eee87d1e8284}{m\_socketManagementBuffer\_rg8st}[l\_socketSlotNumber\_i16].
+      socketHandler\_i32);
+313     WSACleanup();
+314 \textcolor{preprocessor}{#endif}
+315     \textcolor{comment}{/* free slot */}
+316     \hyperlink{udpLib_8c_abb82dbc5b02faadb76c5eee87d1e8284_abb82dbc5b02faadb76c5eee87d1e8284}{m\_socketManagementBuffer\_rg8st}[l\_socketSlotNumber\_i16].
+      \hyperlink{structhalMatlab__socketData_a60bb1e30d40ee435f1f9501933aba991_a60bb1e30d40ee435f1f9501933aba991}{socketHandler\_i32} = 0;
+317 
+318     \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{M\_HAL\_MATLAB\_SUCCESS\_UI8};
+319 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{udpLib_8h_a7637578f6230876a656d097956087ae0_a7637578f6230876a656d097956087ae0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{udpLib_8h_a7637578f6230876a656d097956087ae0_a7637578f6230876a656d097956087ae0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpLib_8h_a9a1478b5b50fab3e48f1918b065bcc9e_a9a1478b5b50fab3e48f1918b065bcc9e}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+config\+Socket\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+config\+Socket\+\_\+bl}}
+\index{g\+\_\+hal\+Matlab\+\_\+config\+Socket\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+config\+Socket\+\_\+bl}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+config\+Socket\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Matlab\+\_\+config\+Socket\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{int}]{f\+\_\+socket\+Handler\+\_\+i32, }
+\item[{const unsigned char $\ast$const}]{f\+\_\+dest\+Ipv4\+\_\+rg4ui8, }
+\item[{unsigned short}]{f\+\_\+dest\+Port\+\_\+ui16}
+\end{DoxyParamCaption}
+)}}\label{udpLib_8h_a9a1478b5b50fab3e48f1918b065bcc9e_a9a1478b5b50fab3e48f1918b065bcc9e}
+
+
+Configures a given U\+D\+P-\/\+Socket to communicate with a specific remote host. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/17
+\end{DoxyDate}
+This function sets the properties and binding of the given socket such that a proper communication with the destination address and destination port can be established.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+socket\+Handler\+\_\+i32} & specifies socket handler number used for the data transmission \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+dest\+Ipv4\+\_\+rg4ui8} & is a preallocated array of 4 bytes, each byte is one quadlet of a I\+Pv4 address \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+dest\+Port\+\_\+ui16} & determines the port number of the remote host that shall be used for the data transmission \\
+\hline
+\mbox{\tt out}  & {\em returns} & a boolean value, indicating the occurrence of failures~\newline
+ 0 .... indicates success (no errors)~\newline
+ 1 .... indicates failed (some errors)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 535 of file udp\+Lib.\+c.
+
+
+\begin{DoxyCode}
+538 \{
+539     \textcolor{keywordtype}{signed} \textcolor{keywordtype}{short}            l\_socketSlotNumber\_i16  = 0;
+540     \hyperlink{structhalMatlab__socketData}{halMatlab\_socketData}*   l\_socketConfig\_pst      = 0;
+541     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}            l\_ipv4Addr\_ui32         = 0;
+542 
+543     \textcolor{comment}{// get slot number of requested socket handler}
+544     \textcolor{keywordflow}{if} ( ( l\_socketSlotNumber\_i16 = \hyperlink{udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893_adc385b1d5891b3efc2f9c7f91018d893}{l\_findSocket\_i16}(f\_socketHandler\_i32) ) < 0 )
+545     \{
+546         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{M\_HAL\_MATLAB\_FAILED\_UI8};
+547     \}
+548 
+549     \textcolor{comment}{// get a pointer to the specific socket config data (for code-readability)}
+550     l\_socketConfig\_pst = &(\hyperlink{udpLib_8c_abb82dbc5b02faadb76c5eee87d1e8284_abb82dbc5b02faadb76c5eee87d1e8284}{m\_socketManagementBuffer\_rg8st}[
+      l\_socketSlotNumber\_i16]);
+551 
+552     \textcolor{comment}{// set values in l\_socketConfig\_pst->sockAddrRemote\_st}
+553     memset((\textcolor{keywordtype}{char}*) &l\_socketConfig\_pst->\hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st}, 0, \textcolor{keyword}{sizeof}(l\_socketConfig\_pst->
+      \hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st}));
+554     l\_socketConfig\_pst->\hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st}.sin\_family = AF\_INET;
+555     l\_socketConfig\_pst->\hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st}.sin\_port = htons(f\_destPort\_ui16);
+556 
+557     \textcolor{comment}{// assemble 4 bytes of IPv4 address into one 32bit value}
+558     l\_ipv4Addr\_ui32 =       ( f\_destIpv4\_rg4ui8[0] << 24 )
+559                         +   ( f\_destIpv4\_rg4ui8[1] << 16 )
+560                         +   ( f\_destIpv4\_rg4ui8[2] << 8 )
+561                         +   ( f\_destIpv4\_rg4ui8[3] );
+562 
+563     l\_socketConfig\_pst->\hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st}.sin\_addr.s\_addr = htonl( l\_ipv4Addr\_ui32 );
+564 
+565     \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{M\_HAL\_MATLAB\_SUCCESS\_UI8};
+566 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{udpLib_8h_a9a1478b5b50fab3e48f1918b065bcc9e_a9a1478b5b50fab3e48f1918b065bcc9e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h_a9a1478b5b50fab3e48f1918b065bcc9e_a9a1478b5b50fab3e48f1918b065bcc9e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpLib_8h_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32@{g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32}}
+\index{g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32@{g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+hal\+Matlab\+\_\+init\+Connection\+\_\+i32 (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$const}]{f\+\_\+dest\+Ipv4\+\_\+rg4ui8, }
+\item[{unsigned short}]{f\+\_\+udp\+Connection\+Port\+\_\+ui16}
+\end{DoxyParamCaption}
+)}}\label{udpLib_8h_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d}
+
+
+Creates, inits and configures an U\+D\+P-\/\+Socket for a symmetric connection setup. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/19
+\end{DoxyDate}
+This function creates a U\+D\+P-\/\+Socket with for a given remote machine (destination ip) and a given standard listen port (given port is supposed to be used as listen port on both machines\+: this machine and remote machine!)~\newline
+\begin{DoxyVerb}*          Example:
+*          ----------------------+ <Remote machine<  +-----------------------
+*                                | <sends to 5000 <  |
+*              Listen-Port: 5000 o<---<----<----<----o Outgoing port: 23413
+*                                |                   |
+*           Outgoing-Port: 23413 o---->---->---->--->o Listen-Port: 5000
+*                                |  >Local machine>  |
+*          ----------------------+  >sends to 5000>  +-----------------------
+*              Local machine                               Remote machine
+*          \end{DoxyVerb}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+dest\+Ipv4\+\_\+rg4ui8} & specifies the I\+Pv4 number of the remote machine \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+udp\+Listen\+Port\+\_\+ui16} & specifies the port number of the U\+D\+P connection that is used to listen for incoming messages and as destination port for the remote machine \\
+\hline
+\mbox{\tt out}  & {\em returns} & the requested socket handler number. -\/1 if no socket slot is free (max number of sockets opened)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 243 of file udp\+Lib.\+c.
+
+
+\begin{DoxyCode}
+244 \{
+245     \textcolor{keywordtype}{int} l\_socketHandler\_i32;
+246 
+247     \textcolor{comment}{// create socket}
+248     \textcolor{keywordflow}{if} ( ( l\_socketHandler\_i32 = \hyperlink{udpLib_8c_ae4db0dc04a7a7f7b01cf95c393701204_ae4db0dc04a7a7f7b01cf95c393701204}{g\_halMatlab\_initSocket\_i32}(
+      f\_udpConnectionPort\_ui16) ) <= 0 )
+249     \{
+250         \textcolor{comment}{// error occurred}
+251         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{M\_HAL\_MATLAB\_ERROR\_I8};
+252     \}
+253 
+254     \textcolor{comment}{/*}
+255 \textcolor{comment}{     * configure socket for a symmetric connection}
+256 \textcolor{comment}{     * -> listen-port = send-port for both sides}
+257 \textcolor{comment}{     *}
+258 \textcolor{comment}{     *  Example:}
+259 \textcolor{comment}{     *  ----------------------+ <Remote machine<  +-----------------------}
+260 \textcolor{comment}{     *                        | <sends to 5000 <  |}
+261 \textcolor{comment}{     *      Listen-Port: 5000 o<---<----<----<----o Outgoing port: 23413}
+262 \textcolor{comment}{     *                        |                   |}
+263 \textcolor{comment}{     *   Outgoing-Port: 23413 o---->---->---->--->o Listen-Port: 5000}
+264 \textcolor{comment}{     *                        |  >Local machine>  |}
+265 \textcolor{comment}{     *  ----------------------+  >sends to 5000>  +-----------------------}
+266 \textcolor{comment}{     *     Local machine                               Remote machine}
+267 \textcolor{comment}{     *}
+268 \textcolor{comment}{     */}
+269     \textcolor{keywordflow}{if} ( \hyperlink{udpLib_8c_a9a1478b5b50fab3e48f1918b065bcc9e_a9a1478b5b50fab3e48f1918b065bcc9e}{g\_halMatlab\_configSocket\_bl}(l\_socketHandler\_i32, f\_destIpv4\_rg4ui8, 
+      f\_udpConnectionPort\_ui16) != \hyperlink{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{M\_HAL\_MATLAB\_SUCCESS\_UI8} )
+270     \{
+271         \textcolor{comment}{// error occurred}
+272         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{M\_HAL\_MATLAB\_ERROR\_I8};
+273     \}
+274 
+275     \textcolor{keywordflow}{return} l\_socketHandler\_i32;
+276 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{udpLib_8h_af56c173f4b3218ace62bff967eacac4d_af56c173f4b3218ace62bff967eacac4d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpLib_8h_ae4db0dc04a7a7f7b01cf95c393701204_ae4db0dc04a7a7f7b01cf95c393701204}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32@{g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32}}
+\index{g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32@{g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+hal\+Matlab\+\_\+init\+Socket\+\_\+i32 (
+\begin{DoxyParamCaption}
+\item[{unsigned short}]{f\+\_\+udp\+Listen\+Port\+\_\+ui16}
+\end{DoxyParamCaption}
+)}}\label{udpLib_8h_ae4db0dc04a7a7f7b01cf95c393701204_ae4db0dc04a7a7f7b01cf95c393701204}
+
+
+Create and init an U\+D\+P-\/\+Socket for given incoming port. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/17
+\end{DoxyDate}
+This function creates a U\+D\+P-\/\+Socket with a given incoming port. \begin{DoxyVerb}\param[in]  f_udpListenPort_ui16 specifies the port number of the UDP
+            socket to listen to
+\param[out] returns the requested socket handler number. -1 if no
+            socket slot is free (max number of sockets opened)
+\end{DoxyVerb}
+
+
+Definition at line 156 of file udp\+Lib.\+c.
+
+
+\begin{DoxyCode}
+157 \{
+158     \textcolor{keywordtype}{signed} \textcolor{keywordtype}{short}            l\_socketSlotCtr\_i16 = 0;
+159     \hyperlink{structhalMatlab__socketData}{halMatlab\_socketData}*   l\_freeSocketSlot\_pst;
+160 \textcolor{preprocessor}{#ifdef \_WIN32}
+161     WSADATA wsa;
+162 \textcolor{preprocessor}{#endif}
+163     
+164     \textcolor{keywordflow}{if} ( (l\_socketSlotCtr\_i16 = \hyperlink{udpLib_8c_a93bb1cc728a2a251c56b849c52a64f9a_a93bb1cc728a2a251c56b849c52a64f9a}{l\_findFreeSocketSlot\_i16}()) < 0)
+165     \{
+166         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{M\_HAL\_MATLAB\_ERROR\_I8};
+167     \}
+168 
+169 
+170     l\_freeSocketSlot\_pst = &\hyperlink{udpLib_8c_abb82dbc5b02faadb76c5eee87d1e8284_abb82dbc5b02faadb76c5eee87d1e8284}{m\_socketManagementBuffer\_rg8st}[
+      l\_socketSlotCtr\_i16];
+171 
+172     \textcolor{comment}{//windows specific startup requirements}
+173 \textcolor{preprocessor}{#ifdef \_WIN32}
+174     \textcolor{keywordflow}{if} (WSAStartup(MAKEWORD(2,2),&wsa) != 0)
+175     \{
+176         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{M\_HAL\_MATLAB\_ERROR\_I8};
+177     \}
+178 \textcolor{preprocessor}{#endif}
+179     \textcolor{comment}{// open socket}
+180     \textcolor{keywordflow}{if} ( (l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a60bb1e30d40ee435f1f9501933aba991_a60bb1e30d40ee435f1f9501933aba991}{socketHandler\_i32} = socket(AF\_INET, SOCK\_DGRAM, 
+      IPPROTO\_UDP)) == -1 )
+181     \{
+182         l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a60bb1e30d40ee435f1f9501933aba991_a60bb1e30d40ee435f1f9501933aba991}{socketHandler\_i32} = 0;
+183         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{M\_HAL\_MATLAB\_ERROR\_I8};
+184     \}
+185 
+186     \textcolor{comment}{// bind ip}
+187     \textcolor{comment}{// -->zero out the structure}
+188     memset( (\textcolor{keywordtype}{char}*)&(l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a879fc935cde2c09c6c02cf6e6ecafb86_a879fc935cde2c09c6c02cf6e6ecafb86}{sockAddrListen\_st}), 0, \textcolor{keyword}{sizeof}(
+      l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a879fc935cde2c09c6c02cf6e6ecafb86_a879fc935cde2c09c6c02cf6e6ecafb86}{sockAddrListen\_st}) );
+189 
+190     l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a879fc935cde2c09c6c02cf6e6ecafb86_a879fc935cde2c09c6c02cf6e6ecafb86}{sockAddrListen\_st}.sin\_family         = AF\_INET;
+191     l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a879fc935cde2c09c6c02cf6e6ecafb86_a879fc935cde2c09c6c02cf6e6ecafb86}{sockAddrListen\_st}.sin\_port       = htons((uint16\_t)
+      f\_udpListenPort\_ui16);
+192     l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a879fc935cde2c09c6c02cf6e6ecafb86_a879fc935cde2c09c6c02cf6e6ecafb86}{sockAddrListen\_st}.sin\_addr.s\_addr = htonl(INADDR\_ANY);
+193 
+194     \textcolor{comment}{//bind socket to port}
+195     \textcolor{keywordflow}{if}( bind(   l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a60bb1e30d40ee435f1f9501933aba991_a60bb1e30d40ee435f1f9501933aba991}{socketHandler\_i32} ,
+196                 (\textcolor{keyword}{struct} sockaddr*)&(l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a879fc935cde2c09c6c02cf6e6ecafb86_a879fc935cde2c09c6c02cf6e6ecafb86}{sockAddrListen\_st}),
+197                 \textcolor{keyword}{sizeof}(l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a879fc935cde2c09c6c02cf6e6ecafb86_a879fc935cde2c09c6c02cf6e6ecafb86}{sockAddrListen\_st})
+198                 )
+199         == -1 )
+200     \{
+201         l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a60bb1e30d40ee435f1f9501933aba991_a60bb1e30d40ee435f1f9501933aba991}{socketHandler\_i32} = 0;
+202         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{M\_HAL\_MATLAB\_ERROR\_I8};
+203     \}
+204 
+205     \textcolor{keywordflow}{return} l\_freeSocketSlot\_pst->\hyperlink{structhalMatlab__socketData_a60bb1e30d40ee435f1f9501933aba991_a60bb1e30d40ee435f1f9501933aba991}{socketHandler\_i32};
+206 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h_ae4db0dc04a7a7f7b01cf95c393701204_ae4db0dc04a7a7f7b01cf95c393701204_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h_ae4db0dc04a7a7f7b01cf95c393701204_ae4db0dc04a7a7f7b01cf95c393701204_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpLib_8h_ae2c1f15f17730f3794e20be65106a963_ae2c1f15f17730f3794e20be65106a963}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+recv\+Packet\+\_\+ui32@{g\+\_\+hal\+Matlab\+\_\+recv\+Packet\+\_\+ui32}}
+\index{g\+\_\+hal\+Matlab\+\_\+recv\+Packet\+\_\+ui32@{g\+\_\+hal\+Matlab\+\_\+recv\+Packet\+\_\+ui32}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+recv\+Packet\+\_\+ui32}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Matlab\+\_\+recv\+Packet\+\_\+ui32 (
+\begin{DoxyParamCaption}
+\item[{int}]{f\+\_\+socket\+Handler\+\_\+i32, }
+\item[{unsigned char $\ast$const}]{f\+\_\+recv\+Buffer\+\_\+pui8, }
+\item[{unsigned int}]{f\+\_\+recv\+Buffer\+Size\+\_\+ui32}
+\end{DoxyParamCaption}
+)}}\label{udpLib_8h_ae2c1f15f17730f3794e20be65106a963_ae2c1f15f17730f3794e20be65106a963}
+
+
+Reads a packet of data via a given U\+D\+P-\/\+Socket. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/17
+\end{DoxyDate}
+This function reads a data packet via a given U\+D\+P-\/\+Socket. \begin{DoxyVerb}\param[in]  f_socketHandler_i32 specifies socket handler number used
+            for the data transmission
+\param[in]  f_sendBuffer_pui8 is a pointer to the receiving buffer
+\param[in]  f_sendBufferSize_ui32 size (in bytes) of the receiving
+            buffer
+\end{DoxyVerb}
+ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+blocking\+\_\+bl} & defines the blocking behavior of the U\+D\+P packet reading.~\newline
+ == 0 ... function blocks until packet received (default) != 0 ... function is non-\/blocking \\
+\hline
+\mbox{\tt out}  & {\em returns} & the number of payload bytes written to the receiving buffer. returns -\/1 in case of an error.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 471 of file udp\+Lib.\+c.
+
+
+\begin{DoxyCode}
+474 \{
+475     \textcolor{keywordtype}{signed} \textcolor{keywordtype}{short}            l\_socketSlotNumber\_i16  = 0;
+476     \hyperlink{structhalMatlab__socketData}{halMatlab\_socketData}*   l\_socketConfig\_pst      = 0;
+477     \textcolor{keywordtype}{int}                     l\_recvFromFlag\_i32      = 0;    \textcolor{comment}{// blocking behavior (standard)}
+478     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}            l\_socketStructSize\_ui32 = 0;
+479 
+480     \textcolor{comment}{// get slot number of requested socket handler}
+481     \textcolor{keywordflow}{if} ( ( l\_socketSlotNumber\_i16 = \hyperlink{udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893_adc385b1d5891b3efc2f9c7f91018d893}{l\_findSocket\_i16}(f\_socketHandler\_i32) ) < 0 )
+482     \{
+483         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{M\_HAL\_MATLAB\_FAILED\_UI8};
+484     \}
+485 
+486     \textcolor{comment}{// get a pointer to the specific socket config data (for code-readability)}
+487     l\_socketConfig\_pst = &(\hyperlink{udpLib_8c_abb82dbc5b02faadb76c5eee87d1e8284_abb82dbc5b02faadb76c5eee87d1e8284}{m\_socketManagementBuffer\_rg8st}[
+      l\_socketSlotNumber\_i16]);
+488 
+489 \textcolor{comment}{//  // define blocking behavior of receive-function}
+490 \textcolor{comment}{//  if ( f\_blocking\_bl != 0 )}
+491 \textcolor{comment}{//  \{}
+492 \textcolor{comment}{//      // non-blocking behavior}
+493 \textcolor{comment}{//      l\_recvFromFlag\_i32 = MSG\_DONTWAIT;}
+494 \textcolor{comment}{//  \}else\{}
+495 \textcolor{comment}{//      // blocking behavior (standard)}
+496 \textcolor{comment}{//      l\_recvFromFlag\_i32 = 0;}
+497 \textcolor{comment}{//  \}}
+498 
+499     \textcolor{comment}{// recv telegram (blocking!)}
+500     l\_socketStructSize\_ui32 = \textcolor{keyword}{sizeof}(l\_socketConfig\_pst->\hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st});
+501     \textcolor{keywordflow}{return} recvfrom(    f\_socketHandler\_i32,
+502                         f\_recvBuffer\_pui8,
+503                         f\_recvBufferSize\_ui32,
+504                         l\_recvFromFlag\_i32,
+505                         (\textcolor{keyword}{struct} sockaddr *)&l\_socketConfig\_pst->
+      \hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st},
+506                         &l\_socketStructSize\_ui32);
+507 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h_ae2c1f15f17730f3794e20be65106a963_ae2c1f15f17730f3794e20be65106a963_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h_ae2c1f15f17730f3794e20be65106a963_ae2c1f15f17730f3794e20be65106a963_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpLib_8h_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_a3bcf5bf8c07f257cd13d2c94a9ce6d4f}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+send\+Packet\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+send\+Packet\+\_\+bl}}
+\index{g\+\_\+hal\+Matlab\+\_\+send\+Packet\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+send\+Packet\+\_\+bl}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+send\+Packet\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Matlab\+\_\+send\+Packet\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{int}]{f\+\_\+socket\+Handler\+\_\+i32, }
+\item[{const unsigned char $\ast$const}]{f\+\_\+send\+Buffer\+\_\+pui8, }
+\item[{unsigned int}]{f\+\_\+send\+Buffer\+Size\+\_\+ui32}
+\end{DoxyParamCaption}
+)}}\label{udpLib_8h_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_a3bcf5bf8c07f257cd13d2c94a9ce6d4f}
+
+
+Sends a packet of data via a given U\+D\+P-\/\+Socket. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/17
+\end{DoxyDate}
+This function sends a data packet via a given U\+D\+P-\/\+Socket. The payload is the given send buffer.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+socket\+Handler\+\_\+i32} & specifies socket handler number used for the data transmission \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+send\+Buffer\+\_\+pui8} & is a pointer to the sending buffer containing the relevant payload data \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+send\+Buffer\+Size\+\_\+ui32} & specifies the number of payload bytes in the sending buffer \\
+\hline
+\mbox{\tt out}  & {\em returns} & a boolean value, indicating the occurrence of failures~\newline
+ 0 .... indicates success (no errors)~\newline
+ 1 .... indicates failed (some errors)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 345 of file udp\+Lib.\+c.
+
+
+\begin{DoxyCode}
+349 \{
+350     \textcolor{keywordtype}{int}                     l\_sendSuccess\_i32       = -1;
+351     \textcolor{keywordtype}{signed} \textcolor{keywordtype}{short}            l\_socketSlotNumber\_i16  = 0;
+352     \hyperlink{structhalMatlab__socketData}{halMatlab\_socketData}*   l\_socketConfig\_pst      = 0;
+353     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}            l\_socketStructSize\_ui32 = 0;
+354 
+355     \textcolor{comment}{// get slot number of requested socket handler}
+356     \textcolor{keywordflow}{if} ( ( l\_socketSlotNumber\_i16 = \hyperlink{udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893_adc385b1d5891b3efc2f9c7f91018d893}{l\_findSocket\_i16}(f\_socketHandler\_i32) ) < 0 )
+357     \{
+358         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{M\_HAL\_MATLAB\_FAILED\_UI8};
+359     \}
+360 
+361     \textcolor{comment}{// get a pointer to the specific socket config data (for code-readability)}
+362     l\_socketConfig\_pst = &(\hyperlink{udpLib_8c_abb82dbc5b02faadb76c5eee87d1e8284_abb82dbc5b02faadb76c5eee87d1e8284}{m\_socketManagementBuffer\_rg8st}[
+      l\_socketSlotNumber\_i16]);
+363 
+364     \textcolor{comment}{// send telegram}
+365     l\_socketStructSize\_ui32 = \textcolor{keyword}{sizeof}(l\_socketConfig\_pst->\hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st});
+366     l\_sendSuccess\_i32 = sendto( f\_socketHandler\_i32,
+367                                 f\_sendBuffer\_pui8,
+368                                 f\_sendBufferSize\_ui32,
+369                                 0 ,
+370                                 (\textcolor{keyword}{struct} sockaddr *)&l\_socketConfig\_pst->
+      \hyperlink{structhalMatlab__socketData_aa9b77c362396cf1fbb78dd9688da4a0d_aa9b77c362396cf1fbb78dd9688da4a0d}{sockAddrRemote\_st},
+371                                 l\_socketStructSize\_ui32 );
+372 
+373     \textcolor{keywordflow}{if} ( l\_sendSuccess\_i32 == \hyperlink{udpLib_8h_a369e8129852ac758ee8acf20d3daf63d_a369e8129852ac758ee8acf20d3daf63d}{M\_HAL\_MATLAB\_ERROR\_I8} )
+374     \{
+375         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{M\_HAL\_MATLAB\_FAILED\_UI8};
+376     \}\textcolor{keywordflow}{else}\{
+377         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{M\_HAL\_MATLAB\_SUCCESS\_UI8};
+378     \}
+379 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{udpLib_8h_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{udpLib_8h_aa92d30d310ed7c447f8323d3abe10f35_aa92d30d310ed7c447f8323d3abe10f35}{\index{udp\+Lib.\+h@{udp\+Lib.\+h}!g\+\_\+hal\+Matlab\+\_\+send\+Rt\+Data\+Packet\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+send\+Rt\+Data\+Packet\+\_\+bl}}
+\index{g\+\_\+hal\+Matlab\+\_\+send\+Rt\+Data\+Packet\+\_\+bl@{g\+\_\+hal\+Matlab\+\_\+send\+Rt\+Data\+Packet\+\_\+bl}!udp\+Lib.\+h@{udp\+Lib.\+h}}
+\subsubsection[{g\+\_\+hal\+Matlab\+\_\+send\+Rt\+Data\+Packet\+\_\+bl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int g\+\_\+hal\+Matlab\+\_\+send\+Rt\+Data\+Packet\+\_\+bl (
+\begin{DoxyParamCaption}
+\item[{int}]{f\+\_\+socket\+Handler\+\_\+i32, }
+\item[{const unsigned char $\ast$const}]{f\+\_\+send\+Buffer\+\_\+pui8, }
+\item[{unsigned int}]{f\+\_\+send\+Buffer\+Size\+\_\+ui32}
+\end{DoxyParamCaption}
+)}}\label{udpLib_8h_aa92d30d310ed7c447f8323d3abe10f35_aa92d30d310ed7c447f8323d3abe10f35}
+
+
+Sends a packet of data with timestamp via a given U\+D\+P-\/\+Socket. 
+
+
+
+ \begin{DoxyAuthor}{Author}
+Juergen Schmidt (juscgs00) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014/05/17
+\end{DoxyDate}
+This function sends a data packet via a given U\+D\+P-\/\+Socket. The current timestamp is added to the payload to get some sort of realtime behavior.~\newline
+ Remark\+: This function is intended to be use in combination with an corresponding M\+A\+T\+L\+A\+B Simulink Block for a soft realtime data transmission (time-\/stamped data).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em f\+\_\+socket\+Handler\+\_\+i32} & specifies socket handler number used for the data transmission \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+send\+Buffer\+\_\+pui8} & is a pointer to the sending buffer containing the relevant payload data \\
+\hline
+\mbox{\tt in}  & {\em f\+\_\+send\+Buffer\+Size\+\_\+ui32} & specifies the number of payload bytes in the sending buffer \\
+\hline
+\mbox{\tt out}  & {\em returns} & a boolean value, indicating the occurrence of failures~\newline
+ 0 .... indicates success (no errors)~\newline
+ 1 .... indicates failed (some errors)\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 409 of file udp\+Lib.\+c.
+
+
+\begin{DoxyCode}
+412 \{
+413     \textcolor{keyword}{struct }timespec         l\_timestamp\_st;
+414     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}           l\_sendBuffer\_rgXi8[
+      \hyperlink{udpLib_8h_ad46b8db56c7a242ce87f3a6f4999828d_ad46b8db56c7a242ce87f3a6f4999828d}{M\_HAL\_MATLAB\_SEND\_BUFFER\_SIZE\_UI16}];
+415     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}            l\_sizePayload\_ui32      = 0;
+416 
+417     \textcolor{comment}{/*}
+418 \textcolor{comment}{     * first of all: get an accurate timestamp for this data telegram}
+419 \textcolor{comment}{     * Hint: ensure that 'librt' is also linked in the project!}
+420 \textcolor{comment}{     *       Eclipse: Goto Project->Properties.}
+421 \textcolor{comment}{     *                Select C/C++-Build->Settings}
+422 \textcolor{comment}{     *                Select tab view 'Tool Settings'.}
+423 \textcolor{comment}{     *                Select 'Cross G++ Linker'->Libraries}
+424 \textcolor{comment}{     *                and add the entry 'rt' to 'Libraries (-l)'}
+425 \textcolor{comment}{     *}
+426 \textcolor{comment}{     *       GCC on the commandline: simply add '-lrt' to your gcc options}
+427 \textcolor{comment}{     */}
+428     \textcolor{keywordflow}{if} ( clock\_gettime(CLOCK\_REALTIME, &l\_timestamp\_st) != 
+      \hyperlink{udpLib_8h_ad333b364a4a2985b07139f12f7fc585c_ad333b364a4a2985b07139f12f7fc585c}{M\_HAL\_MATLAB\_SUCCESS\_UI8})
+429     \{
+430         \textcolor{keywordflow}{return} \hyperlink{udpLib_8h_a993d0366460aefd26c70cd1b73864878_a993d0366460aefd26c70cd1b73864878}{M\_HAL\_MATLAB\_FAILED\_UI8};
+431     \}
+432 
+433     \textcolor{comment}{// add timestamp to payload data}
+434     memcpy( l\_sendBuffer\_rgXi8,
+435             &l\_timestamp\_st,
+436             \textcolor{keyword}{sizeof}(l\_timestamp\_st) );
+437     memcpy( (l\_sendBuffer\_rgXi8+\textcolor{keyword}{sizeof}(l\_timestamp\_st)),
+438             f\_sendBuffer\_pui8,
+439             f\_sendBufferSize\_ui32 );
+440 
+441     \textcolor{comment}{// adjust size of telegram's payload (due to added timestamp)}
+442     l\_sizePayload\_ui32 = f\_sendBufferSize\_ui32 + \textcolor{keyword}{sizeof}(l\_timestamp\_st);
+443 
+444     \textcolor{keywordflow}{return} \hyperlink{udpLib_8c_a3bcf5bf8c07f257cd13d2c94a9ce6d4f_a3bcf5bf8c07f257cd13d2c94a9ce6d4f}{g\_halMatlab\_sendPacket\_bl}(f\_socketHandler\_i32, l\_sendBuffer\_rgXi8, 
+      l\_sizePayload\_ui32);
+445 \}
+\end{DoxyCode}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{udpLib_8h_aa92d30d310ed7c447f8323d3abe10f35_aa92d30d310ed7c447f8323d3abe10f35_cgraph}
+\end{center}
+\end{figure}
+
+

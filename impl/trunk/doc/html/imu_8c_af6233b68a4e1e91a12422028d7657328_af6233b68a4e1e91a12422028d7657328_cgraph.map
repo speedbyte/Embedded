@@ -1,0 +1,9 @@
+<map id="g_halImu_initImuSensors_bl" name="g_halImu_initImuSensors_bl">
+<area shape="rect" id="node2" href="$accMag_8c_ab936c0ac53ff9ba47a138e841a6ba474.html#ab936c0ac53ff9ba47a138e841a6ba474" title="Initialize sensor. " alt="" coords="240,56,423,83"/>
+<area shape="rect" id="node7" href="$barometer_8c_ad88d1c24fdc55593e80896c8d4637f05.html#ad88d1c24fdc55593e80896c8d4637f05" title="Initialize Barometer chip. " alt="" coords="475,107,630,133"/>
+<area shape="rect" id="node8" href="$Gyro_8c_a3dd13505bea06ab0684a22d8929d4831.html#a3dd13505bea06ab0684a22d8929d4831" title="Initialize Gyroscope chip. " alt="" coords="253,157,410,184"/>
+<area shape="rect" id="node3" href="$accMag_8c_abaacf0917ab7bbc9b9d13b9aeb31afd1.html#abaacf0917ab7bbc9b9d13b9aeb31afd1" title="Wrapper function to read a single byte register of LSM303D. " alt="" coords="489,5,616,32"/>
+<area shape="rect" id="node6" href="$accMag_8c_af4a867d90abb126d82ba14ea2619f305.html#af4a867d90abb126d82ba14ea2619f305" title="Wrapper function to write a single byte register of LSM303D. " alt="" coords="471,56,635,83"/>
+<area shape="rect" id="node4" href="$LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321.html#aa6892bf4aea7f232d9b0ff2dbf8a9321" title="Write&#45;function for I2C Bus. " alt="" coords="683,81,823,108"/>
+<area shape="rect" id="node5" href="$LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e.html#a107ee9f1e4646733ac3ef6addf0def7e" title="Read&#45;function for I2C&#45;Bus. " alt="" coords="683,5,823,32"/>
+</map>

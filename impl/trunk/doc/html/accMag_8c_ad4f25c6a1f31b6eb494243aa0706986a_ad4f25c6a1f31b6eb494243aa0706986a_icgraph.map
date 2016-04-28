@@ -1,0 +1,13 @@
+<map id="g_halAccmag_getMagVector_st" name="g_halAccmag_getMagVector_st">
+<area shape="rect" id="node2" href="$imu_8h_a50e5767c3976aef087ea1e9d4ed784f2.html#a50e5767c3976aef087ea1e9d4ed784f2" title="Trigger magnitude reading. " alt="" coords="260,5,468,32"/>
+<area shape="rect" id="node3" href="$imu_8h_a561a32c02cc4322ecd90c6b1ba31c560.html#a561a32c02cc4322ecd90c6b1ba31c560" title="Trigger IMU reading. " alt="" coords="261,56,467,83"/>
+<area shape="rect" id="node4" href="$ImuFilter_8c_afcff95cc27d2f6b3f0c218910121c2ab.html#afcff95cc27d2f6b3f0c218910121c2ab" title="Offset correction of the Gyroscope. " alt="" coords="516,19,687,61"/>
+<area shape="rect" id="node8" href="$Imufilter_8h_a092ccb8dc97da30e6d9b72a2ce9a999e.html#a092ccb8dc97da30e6d9b72a2ce9a999e" title="Trigger IMU reading. " alt="" coords="518,85,685,112"/>
+<area shape="rect" id="node5" href="$Imufilter_8h_a04ced184c1622d6ae5c947f73e1d752f.html#a04ced184c1622d6ae5c947f73e1d752f" title="Bypass the initialization of the IMU. " alt="" coords="736,27,916,53"/>
+<area shape="rect" id="node6" href="$Orientation_8h_aa0c1eb4474b4c8e0d3d09e3b09b66452.html#aa0c1eb4474b4c8e0d3d09e3b09b66452" title="Bypass the initialization of the IMU. " alt="" coords="987,31,1169,57"/>
+<area shape="rect" id="node7" href="$main_8c_a840291bc02cba5474a4cb46a9b9566fe.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="1239,85,1289,112"/>
+<area shape="rect" id="node9" href="$Orientation_8h_a8ea5176a4b827a6f692fb6802c4378fa.html#a8ea5176a4b827a6f692fb6802c4378fa" title="Calculation of reference values. " alt="" coords="735,78,917,119"/>
+<area shape="rect" id="node10" href="$Orientation_8c_a9332cc50407301b10a2379e1cfa7db28.html#a9332cc50407301b10a2379e1cfa7db28" title="Trigger IMU reading. " alt="" coords="743,144,909,171"/>
+<area shape="rect" id="node11" href="$Orientation_8h_ad6f7e5ebba85a9e7c23427803f77dc2f.html#ad6f7e5ebba85a9e7c23427803f77dc2f" title="Trigger of Kalman&#45;Filter calculation. " alt="" coords="965,85,1191,112"/>
+<area shape="rect" id="node12" href="$Orientation_8h_a99b95124924a04fee17327b71cabe123.html#a99b95124924a04fee17327b71cabe123" title="Trigger of Complementary&#45;Filter calculation. " alt="" coords="981,137,1175,178"/>
+</map>

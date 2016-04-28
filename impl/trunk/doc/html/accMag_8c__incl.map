@@ -1,0 +1,5 @@
+<map id="hal/IMU/accMag/accMag.c" name="hal/IMU/accMag/accMag.c">
+<area shape="rect" id="node2" href="$LLD__I2C_8h.html" title="../../LLD_IF/LLD_I2C.h" alt="" coords="5,80,161,107"/>
+<area shape="rect" id="node3" href="$accMag_8h.html" title="accMag.h" alt="" coords="185,80,264,107"/>
+<area shape="rect" id="node4" href="$accMag__registers_8h.html" title="accMag_registers.h" alt="" coords="157,155,293,181"/>
+</map>

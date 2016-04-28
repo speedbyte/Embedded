@@ -1,0 +1,6 @@
+<map id="g_halGps_getData_i32" name="g_halGps_getData_i32">
+<area shape="rect" id="node2" href="$LLD__UART_8c_a8154946dd2ae6c37a2bd86dd7896ee73.html#a8154946dd2ae6c37a2bd86dd7896ee73" title="Function reads one Byte from the Filepointer. " alt="" coords="222,5,377,32"/>
+<area shape="rect" id="node4" href="$GPS_8c_a0bf6b6abfd6136e50bd5d35a76ee8d0b.html#a0bf6b6abfd6136e50bd5d35a76ee8d0b" title="Reset Values of Message 1. " alt="" coords="208,56,391,83"/>
+<area shape="rect" id="node5" href="$GPS_8c_aa9c4ab6055264c0121813e5233cd3de0.html#aa9c4ab6055264c0121813e5233cd3de0" title="Reset Values of Message 2. " alt="" coords="208,107,391,133"/>
+<area shape="rect" id="node3" href="$LLD__UART_8c_a62a31e2d88aae4db26d8d9dc33e22efe.html#a62a31e2d88aae4db26d8d9dc33e22efe" title="Function opens a Hardware interface as Filepointer. " alt="" coords="439,5,597,32"/>
+</map>
