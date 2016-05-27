@@ -1,5 +1,9 @@
 # Invoke this file by using the command make MAKECMDGOALS=target
 
+PWD=$(shell pwd)
+TOP=$(PWD)/../..
+export TOP
+
 # Default target.
 all: begin makeversion gccversion product end
 
