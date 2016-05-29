@@ -25,7 +25,7 @@
 extern float g_halADC_get_ui16(unsigned char );
 
 #define REMOTE_PORT 5000
-#define REMOTE_ADDR "192.168.242.1"
+#define REMOTE_ADDR "192.168.22.160"
 
 typedef enum enumTestCases
 {
@@ -48,6 +48,7 @@ typedef enum enumTestCases
 	TESTMOTORPWM,
 	TESTMOTORISR,
 	TESTMOTORTXT,
+	TESTGUI,
 	TESTEND
 } enumTestcases;
 
@@ -106,6 +107,8 @@ int main() {
 				runCommand = TESTMOTORISR;
 		else if ( strcmp(testValue,"testmotortxt")  == 0 )
 					runCommand = TESTMOTORTXT;
+		else if( strcmp(testValue,"testgui") == 0 )
+					runCommand = TESTGUI;
 
 		switch (runCommand)
 		{
@@ -906,6 +909,51 @@ int main() {
 				printf("Nothing found");
 				break;
 			}
+
+
+		case TESTGUI:
+					{
+						printf("Sending random numbers to test gui");
+						int clientSocket;
+
+						struct sockaddr_in serverAddress;
+						socklen_t addressSize;
+
+						/*Create UDP socket*/
+						clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+
+						serverAddress.sin_family = PF_INET;
+						serverAddress.sin_port = htons(REMOTE_PORT);
+						serverAddress.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
+
+						memset(serverAddress.sin_zero, '\0', sizeof(serverAddress.sin_zero));
+
+						/*Initialize size variable to be used later on*/
+						addressSize = sizeof(serverAddress);
+
+						printf("Start Sending Messages\n");
+
+						int i = kbhit();
+						while(i != 'q')
+						{
+							sleep(1);
+
+							int random = rand()%15000;
+							char randomToSend[15000];
+
+							sprintf(randomToSend,"%d\n",random);
+
+							/* Send N bytes of BUF on socket FD to peer at address ADDR (which is
+							   ADDR_LEN bytes long).  Returns the number sent, or -1 for errors.
+
+							   This function is a cancellation point and therefore not marked with
+							   __THROW.  */
+							sendto(clientSocket, randomToSend, sizeof(randomToSend), 0,
+									(struct sockaddr *)&serverAddress,addressSize);
+							printf("And send again....\n");
+						}
+						break;
+					}
 		}
 	}//end while(1)
 	return 0;
@@ -940,7 +988,7 @@ int readTestcaseFile(char testcase[] , int lenght){
 				if(fullLine[i] == '\0'){
 					fullLine[i]= '=';
 					i++;
-					fullLine[i]= '0';
+					fullLine[i]= '1'; //Set to 1 if you dont want to set the test to 0 in _testcase
 					i++;
 					fullLine[i]= '\n';
 					i++;
