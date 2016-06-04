@@ -25,7 +25,7 @@
 extern float g_halADC_get_ui16(unsigned char );
 
 #define REMOTE_PORT 5000
-#define REMOTE_ADDR "192.168.22.160"
+#define REMOTE_ADDR "192.168.22.159"
 
 typedef enum enumTestCases
 {
@@ -938,19 +938,18 @@ int main() {
 						{
 							sleep(1);
 
-							int random = rand()%15000;
-							char randomToSend[15000];
+							int random = rand()%150;
+							char randomToSend[3];
+
+
 
 							sprintf(randomToSend,"%d\n",random);
 
-							/* Send N bytes of BUF on socket FD to peer at address ADDR (which is
-							   ADDR_LEN bytes long).  Returns the number sent, or -1 for errors.
 
-							   This function is a cancellation point and therefore not marked with
-							   __THROW.  */
 							sendto(clientSocket, randomToSend, sizeof(randomToSend), 0,
 									(struct sockaddr *)&serverAddress,addressSize);
 							printf("And send again....\n");
+
 						}
 						break;
 					}

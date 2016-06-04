@@ -62,7 +62,7 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.1014149987" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.815600116" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1962287603" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder arguments="-f Makefile MAKECMDGOAL=target TOP=${ProjDirPath}" buildPath="${ProjDirPath}/impl/trunk/" cleanBuildTarget="clean" command="make" id="cdt.managedbuild.builder.gnu.cross.1325342624" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<builder arguments="" buildPath="${ProjDirPath}/impl/trunk/" cleanBuildTarget="clean" command="make" id="cdt.managedbuild.builder.gnu.cross.1325342624" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1787134642" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option id="gnu.c.compiler.option.include.paths.1409189856" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.545413800" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
