@@ -1,0 +1,2 @@
+set(LIBRARY_SOURCES GPIO.c)
+add_library(GPIO.lib ${LIBRARY_SOURCES})
