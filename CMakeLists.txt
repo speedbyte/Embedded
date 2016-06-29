@@ -54,7 +54,7 @@ set (EXTRA_LIBS ${EXTRA_LIBS} ADC.lib BATTERY.lib GPIO.lib GPS.lib IMU.lib LASER
 add_executable(HELIKOPTER ${CMAKE_SOURCE_DIR}/impl/trunk/MAIN/main.c)
 target_link_libraries(HELIKOPTER ${EXTRA_LIBS} ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY})
 
-add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND scp HELIKOPTER pi@192.168.22.161:/home/pi/HELIKOPTER )
+add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND scp HELIKOPTER pi@192.168.178.161:/home/pi/HELIKOPTER )
 
 # ------------------------- Begin Generic CMake Variable Logging ------------------
 

@@ -62,11 +62,11 @@ int main() {
 		int testValueLenght =20;
 		char testValue[testValueLenght];
 		int isSelected = 0;
-
-		do{
-			sleep(2);
-			isSelected = readTestcaseFile(&testValue[0] ,testValueLenght);
-		}while (isSelected != 1);
+		scanf("%s",testValue);
+//		do{
+//			sleep(2);
+//			isSelected = readTestcaseFile(&testValue[0] ,testValueLenght);
+//		}while (isSelected != 1);
 
 		printf("Received string is %s\n", testValue);
 		if ( strcmp(testValue,"testadc")  == 0 )
