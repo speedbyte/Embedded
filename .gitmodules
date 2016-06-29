@@ -1,4 +1,3 @@
 [submodule "helikopter-tools"]
 	path = helikopter-tools
 	url = git://github.com/raspberrypi/tools.git
-        branch = f564210
