@@ -56,16 +56,16 @@ typedef enum enumTestCases
 static char str[500];
 static char str2[500];
 
-int main() {
+int main(char *argv, int argc) {
     while(1){
         enumTestcases runCommand = 0;
-        int testValueLenght =20;
-        char testValue[testValueLenght];
+        int testValueLength =20;
+        char testValue[testValueLength];
         int isSelected = 0;
         scanf("%s",testValue);
 //        do{
 //            sleep(2);
-//            isSelected = readTestcaseFile(&testValue[0] ,testValueLenght);
+//            isSelected = readTestcaseFile(&testValue[0] ,testValueLength);
 //        }while (isSelected != 1);
 
         printf("Received string is %s\n", testValue);
@@ -855,8 +855,8 @@ int main() {
             case TESTMOTORTXT:
                     {
                         FILE *testFile;
-                        int lineLenght =80;
-                        char line[lineLenght];
+                        int lineLength =80;
+                        char line[lineLength];
                         int delayS=1;
                         time_t timeStamp , currentTime;
 
@@ -888,7 +888,7 @@ int main() {
                             time(&currentTime);
                             if( difftime(currentTime, timeStamp) >= delayS){
                                 time(&timeStamp);
-                                if((fgets(line, lineLenght, testFile)) != NULL)
+                                if((fgets(line, lineLength, testFile)) != NULL)
                                 {
                                     printf("\n%s", line);
                                     delayS = decodeline(&line[0], sizeof(line));
@@ -960,11 +960,11 @@ int main() {
 
 
 
-int readTestcaseFile(char testcase[] , int lenght){
+int readTestcaseFile(char testcase[] , int length){
     FILE *testCasesFile;
     int isSelected =0;
     char* stringToken;
-    char charIsSelected[lenght];
+    char charIsSelected[length];
     char fullLine[30];
     int i;
 
@@ -973,7 +973,7 @@ int readTestcaseFile(char testcase[] , int lenght){
         exit(0);
     }
 
-    while((fgets(testcase, lenght, testCasesFile)) != NULL){
+    while((fgets(testcase, length, testCasesFile)) != NULL){
         stringToken= strtok(testcase, "=\n");
         strcpy(testcase, stringToken);
 
@@ -1028,7 +1028,7 @@ int kbhit(void)
 }
 
 
-int decodeline(char line[], int lineLenght){
+int decodeline(char line[], int lineLength){
     int motorNumber;
     char controllChar;
     int pwmValue;
@@ -1037,9 +1037,9 @@ int decodeline(char line[], int lineLenght){
     char *pNext;
     char* stringToken;
 
-    char charMotorNumber[lineLenght];
-    char charPwmValue[lineLenght];
-    char charDelay[lineLenght];
+    char charMotorNumber[lineLength];
+    char charPwmValue[lineLength];
+    char charDelay[lineLength];
 
     if(line[0] == '#'){
         controllChar = line[2];
