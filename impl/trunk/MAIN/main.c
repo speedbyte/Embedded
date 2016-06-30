@@ -25,7 +25,7 @@
 extern float g_halADC_get_ui16(unsigned char );
 
 #define REMOTE_PORT 5000
-#define REMOTE_ADDR "192.168.22.159"
+#define REMOTE_ADDR "192.168.22.160"
 
 typedef enum enumTestCases
 {
@@ -49,6 +49,7 @@ typedef enum enumTestCases
     TESTMOTORISR,
     TESTMOTORTXT,
     TESTGUI,
+	TESTSINGLESENSOR,
     TESTEND
 } enumTestcases;
 
@@ -61,10 +62,29 @@ int main(int argc, char *argv[]) {
         enumTestcases runCommand = 0;
         int testValueLength =20;
         char testValue[testValueLength];
-        int isSelected = 0;
-        puts(argv[0]);
+        struct sockaddr_in remoteHostAddr;
+        int clientSocket = 0;
+        char serverAddressString[20];
+        sprintf(serverAddressString, REMOTE_ADDR);
+        socklen_t addressSize;
+
+        if ( argc == 2)
+        {
+            sprintf(serverAddressString, argv[1]);
+        	printf("%s %d", serverAddressString, strlen(serverAddressString));
+            //puts(argv[0]);
+        }
+        memset(remoteHostAddr.sin_zero, '\0', sizeof(remoteHostAddr.sin_zero));
+        remoteHostAddr.sin_family = PF_INET;
+        remoteHostAddr.sin_port = htons(REMOTE_PORT);
+        (void)inet_aton(serverAddressString, &remoteHostAddr.sin_addr); //dot to integer and then host to network byte order
+        clientSocket = socket(PF_INET, SOCK_DGRAM, 0);
+        /*Initialize size variable to be used later on*/
+        addressSize = sizeof(remoteHostAddr);
+
         scanf("%s",testValue);
-//        do{
+
+        //        do{
 //            sleep(2);
 //            isSelected = readTestcaseFile(&testValue[0] ,testValueLength);
 //        }while (isSelected != 1);
@@ -110,6 +130,8 @@ int main(int argc, char *argv[]) {
                     runCommand = TESTMOTORTXT;
         else if( strcmp(testValue,"testgui") == 0 )
                     runCommand = TESTGUI;
+        else if( strcmp(testValue,"testsinglesensor") == 0 )
+                    runCommand = TESTSINGLESENSOR;
 
         switch (runCommand)
         {
@@ -255,9 +277,9 @@ int main(int argc, char *argv[]) {
             case TESTMATLABKALMAN:
             {
                 printf("Starting Kalman Orientation Matlab Test\n");
-                unsigned char    l_remoteHostAddr_rg4ui8[4]     = {192,168,22,160};
-                unsigned short    l_remoteHostPort_ui16        = 5000;
-                int                l_udpSocket_i32;
+                unsigned char   l_remoteHostAddr_rg4ui8[4]     = {192,168,22,160};
+                unsigned short  l_remoteHostPort_ui16        = 5000;
+                int             l_udpSocket_i32;
                 unsigned int    l_sendState_bl;
 
                 sigOri_orientationAngles    l_kalmanAngles_st;
@@ -308,7 +330,6 @@ int main(int argc, char *argv[]) {
                     printf( "Init failed!\n" );
                     return 1;
                 }
-
                 int i = kbhit();
                 while(i != 'q')
                 {
@@ -322,9 +343,7 @@ int main(int argc, char *argv[]) {
                         printf( "MAG update failed!\n" );
                         return 1;
                     }
-
                     l_sensorData_st = g_halAccmag_getAccMagContainer_st();
-
                     printf("Acc - x:%f y:%lf z:%f | Mag - x:%.10f y:%.10f z:%.10f\n",
                             l_sensorData_st.acc.x_f64,
                             l_sensorData_st.acc.y_f64,
@@ -333,7 +352,6 @@ int main(int argc, char *argv[]) {
                             l_sensorData_st.mag.y_f64,
                             l_sensorData_st.mag.z_f64
                             );
-
                     usleep( 250000 );
                 }
                 break;
@@ -358,8 +376,6 @@ int main(int argc, char *argv[]) {
                     temp=g_halBaro_getTemperature_f64();
                     printf("Pressure: %5.3f    ;    Temperature:  %5.3f\n",pressure,temp);
                     usleep(100000);
-
-
                     g_halGyro_readGyroscopeFromI2C_i32();
                     usleep(100000);
                     g_halGyro_readTemperatureFromI2C_i32();
@@ -438,22 +454,16 @@ int main(int argc, char *argv[]) {
             case TESTUDP:
             {
                 printf("simple send udp test...");
-                int clientSocket;
                 char message[20] = "Hello\n";
-                struct sockaddr_in serverAddress;
-                socklen_t addressSize;
 
                 /*Create UDP socket*/
                 clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-                serverAddress.sin_family = PF_INET;
-                serverAddress.sin_port = htons(REMOTE_PORT);
-                serverAddress.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
+                remoteHostAddr.sin_family = PF_INET;
+                remoteHostAddr.sin_port = htons(REMOTE_PORT);
+                remoteHostAddr.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
 
-                memset(serverAddress.sin_zero, '\0', sizeof(serverAddress.sin_zero));
-
-                /*Initialize size variable to be used later on*/
-                addressSize = sizeof(serverAddress);
+                memset(remoteHostAddr.sin_zero, '\0', sizeof(remoteHostAddr.sin_zero));
 
                 printf("Start Sending Messages\n");
 
@@ -461,13 +471,8 @@ int main(int argc, char *argv[]) {
                 while(i != 'q')
                 {
                     sleep(1);
-                    /* Send N bytes of BUF on socket FD to peer at address ADDR (which is
-                       ADDR_LEN bytes long).  Returns the number sent, or -1 for errors.
-
-                       This function is a cancellation point and therefore not marked with
-                       __THROW.  */
                     sendto(clientSocket, message, sizeof(message), 0,
-                            (struct sockaddr *)&serverAddress,addressSize);
+                            (struct sockaddr *)&remoteHostAddr,addressSize);
                     printf("And send again....\n");
                 }
                 break;
@@ -480,23 +485,9 @@ int main(int argc, char *argv[]) {
                 halImu_orientationValues    l_imuStates_st;
                 halMatlab_rtSigAllStatePayload    l_rtCompleteSigPayload_st;
 
-
                 struct timespec                    l_timestamp_st;
 
-
                 printf("Starting Transfer matlab data on udp test\n");
-
-                int val=0;
-                int socketclient = 0;
-                struct sockaddr_in remoteaddress;
-
-                remoteaddress.sin_family = PF_INET;
-                remoteaddress.sin_port = htons(REMOTE_PORT);
-
-                (void)inet_aton(REMOTE_ADDR, &remoteaddress.sin_addr); //dot to integer and then host to network byte order
-
-                socketclient = socket(PF_INET, SOCK_DGRAM, 0);
-
 
                 g_sigOri_initMatrices_bl();
                 g_sigOri_initImuSensors_bl();
@@ -508,21 +499,9 @@ int main(int argc, char *argv[]) {
                     g_sigOri_calcComplementaryOrientation_bl();
 
                     l_kalmanAngles_st     = g_sigOri_getAnglesKalman_bl();
-                    l_compAngles_st        = g_sigOri_getAnglesComplementary_bl();
-                    l_imuStates_st         = g_halImu_getImuValues_str();
+                    l_compAngles_st       = g_sigOri_getAnglesComplementary_bl();
+                    l_imuStates_st        = g_halImu_getImuValues_str();
 
-
-                    /*
-                     * first of all: get an accurate timestamp for this data telegram
-                     * Hint: ensure that 'librt' is also linked in the project!
-                     *       Eclipse: Goto Project->Properties.
-                     *                Select C/C++-Build->Settings
-                     *                Select tab view 'Tool Settings'.
-                     *                Select 'Cross G++ Linker'->Libraries
-                     *                and add the entry 'rt' to 'Libraries (-l)'
-                     *
-                     *       GCC on the commandline: simply add '-lrt' to your gcc options
-                     */
                     if ( clock_gettime(CLOCK_REALTIME, &l_timestamp_st) != M_HAL_MATLAB_SUCCESS_UI8)
                     {
                         return M_HAL_MATLAB_FAILED_UI8;
@@ -563,97 +542,11 @@ int main(int argc, char *argv[]) {
                     puts(str);
 
                     //printf("Sending time %d and Temperature %f\n", l_rtCompleteSigPayload_st.timestamp_st.tv_sec, l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
-                    sendto(socketclient, (unsigned char *)&l_rtCompleteSigPayload_st , (size_t)sizeof( l_rtCompleteSigPayload_st ),  0, (struct sockaddr *)&remoteaddress, sizeof(remoteaddress));
-
+                    sendto(clientSocket, (unsigned char *)&l_rtCompleteSigPayload_st , (size_t)sizeof( l_rtCompleteSigPayload_st ),  0, (struct sockaddr *)&remoteHostAddr, addressSize);
                     usleep( 50000 ); //20ms = 50Hz
                 }
                 // close udp connection
-                close(socketclient);
-                break;
-            }
-            case ALLANGLES:
-            {
-                sigOri_orientationAngles    l_GyroPerStepAngles_st;
-                sigOri_orientationAngles    l_AccMagAngles_st;
-                sigOri_orientationAngles    l_kalmanAngles_st;
-                sigOri_orientationAngles    l_compAngles_st;
-                halImu_orientationValues    l_imuStates_st;
-
-                halMatlab_rtSigRollPitchYawStatePayload    l_rtRollPitchYawSigPayload_st;
-
-                struct timespec                    l_timestamp_st;
-
-                printf("Starting Transfer matlab data on all angles\n");
-
-                int val=0;
-                int socketclient = 0;
-                struct sockaddr_in remoteaddress;
-
-                remoteaddress.sin_family = PF_INET;
-                remoteaddress.sin_port = htons(REMOTE_PORT);
-
-                (void)inet_aton(REMOTE_ADDR, &remoteaddress.sin_addr); //dot to integer and then host to network byte order
-
-                socketclient = socket(PF_INET, SOCK_DGRAM, 0);
-
-                g_sigOri_initMatrices_bl();
-                g_sigOri_initImuSensors_bl();
-
-                int i = kbhit();
-                while(i != 'q')
-                {
-                    g_sigOri_calcKalmanOrientation_bl();
-                    g_sigOri_calcComplementaryOrientation_bl();
-
-                    l_imuStates_st         = g_halImu_getImuValues_str();
-                    l_GyroPerStepAngles_st = g_sigOri_getAnglesGyroPerStep_bl();
-                    l_AccMagAngles_st = g_sigOri_getAnglesAccMagCalc_bl();
-                    l_kalmanAngles_st     = g_sigOri_getAnglesKalman_bl();
-                    l_compAngles_st        = g_sigOri_getAnglesComplementary_bl();
-
-
-                    if ( clock_gettime(CLOCK_REALTIME, &l_timestamp_st) != M_HAL_MATLAB_SUCCESS_UI8)
-                    {
-                        return M_HAL_MATLAB_FAILED_UI8;
-                    }
-
-                    clock_gettime(CLOCK_REALTIME, &l_timestamp_st);
-
-                    //assmeble timestamp and
-                    l_rtRollPitchYawSigPayload_st.timestamp_st                 = l_timestamp_st;
-                    l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st         = l_imuStates_st.gyro;
-                    l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st    = l_GyroPerStepAngles_st;
-                    l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st         = l_AccMagAngles_st;
-                    l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st         = l_kalmanAngles_st;
-                    l_rtRollPitchYawSigPayload_st.angleFromcomplementarySigState_st    = l_compAngles_st;
-
-
-                    printf("START MEASUREMENT\n");
-                    sprintf(str, "sec =  %d, nano = %d",
-                            l_rtRollPitchYawSigPayload_st.timestamp_st.tv_sec, l_rtRollPitchYawSigPayload_st.timestamp_st.tv_nsec);
-                    puts(str);
-                    sprintf(str, "Raw GYro Angular velocity roll %f, pitch %f yaw  %f",
-                            l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st.roll_f64, l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st.yaw_f64 );
-                    puts(str);
-                    sprintf(str, "Gyro Angles roll %f, pitch %f yaw  %f",
-                            l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st.roll_f64, l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st.yaw_f64 );
-                    puts(str);
-                    sprintf(str, "ACC MAG CALC Angles roll %f, pitch %f yaw  %f",
-                            l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st.roll_f64, l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st.yaw_f64 );
-                    puts(str);
-                    sprintf(str, "COMPLEMENTARY Angles roll %f, pitch %f yaw %f",
-                            l_rtRollPitchYawSigPayload_st.angleFromcomplementarySigState_st.roll_f64, l_rtRollPitchYawSigPayload_st.angleFromcomplementarySigState_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angleFromcomplementarySigState_st.yaw_f64);
-                    puts(str);
-                    sprintf(str, "KALMAN Angles roll %f, pitch %f yaw %f",
-                            l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st.roll_f64, l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st.pitch_f64, l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st.yaw_f64);
-                    puts(str);
-
-                    sendto(socketclient, (unsigned char *)&l_rtRollPitchYawSigPayload_st , (size_t)sizeof( l_rtRollPitchYawSigPayload_st ),  0, (struct sockaddr *)&remoteaddress, sizeof(remoteaddress));
-
-                    usleep( 50000 ); //20ms = 50Hz
-                }
-                // close udp connection
-                close(socketclient);
+                close(clientSocket);
                 break;
             }
             case TESTALLSENSORDATA:
@@ -701,11 +594,10 @@ int main(int argc, char *argv[]) {
                     }
                     usleep( 20000 ); //20ms = 50Hz
                 }
-            // close udp connection
-            g_halMatlab_closeSocket_bl(l_udpSocket_i32);
-            break;
+				// close udp connection
+				g_halMatlab_closeSocket_bl(l_udpSocket_i32);
+				break;
             }
-
             case TESTMOTORPWM:
             {
                 char BLCtrlADRExecuteOrder[DEFMotorsCount];
@@ -728,233 +620,227 @@ int main(int argc, char *argv[]) {
                         g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[i],&sendBuffer[0],1);
                         usleep(10);//10us delay for HW Driver
                     }
-
                     usleep(10000);//10ms
-
                     pwmValue = pwmValue + STEPSIZE;
                     if(pwmValue > MAXPWMVALUE )
                     {
                         j = 1;
                     }
-
                 }
-
             break;
             }
             case TESTMOTORISR:
-                    {    //starts with first press of + or - than enter
-                        //leave with pressing 'q'
-                        printf("Start Testing Motors with ISR");
-                        InitMotor(9000);
+			{    //starts with first press of + or - than enter
+				//leave with pressing 'q'
+				printf("Start Testing Motors with ISR");
+				InitMotor(9000);
 
-                        int sendValue=DEFMotorSetpointMIN;
-                        int i = kbhit();
-                        while(i != 'q'){
-                            if(GetFlagRunSendPwmToMotor() == 1){
-                                sendPwmToMotor();
-                            }
+				int sendValue=DEFMotorSetpointMIN;
+				int i = kbhit();
+				while(i != 'q'){
+					if(GetFlagRunSendPwmToMotor() == 1){
+						sendPwmToMotor();
+					}
+					i = kbhit();
+					int value;
+					if(i == '+'){
+						int k = kbhit();
+						switch (k){
+						case '0':
+							value = GetPwmMotor(0);
+							(value < 100) ? value++ : (value=100);
+							SetPwmMotor(DEFMotorNo1_PWM, value ,0);
+							break;
+						case '1':
+							value = GetPwmMotor(1);
+							(value < 100)? value++: (value=100);
+							SetPwmMotor(DEFMotorNo2_PWM, value ,0);
+							break;
+						case '2':
+							value = GetPwmMotor(2);
+							(value < 100)? value++: (value=100);
+							SetPwmMotor(DEFMotorNo3_PWM, value ,0);
+							break;
+						case '3':
+							value = GetPwmMotor(3);
+							(value < 100)? value++: (value=100);
+							SetPwmMotor(DEFMotorNo4_PWM, value ,0);
+							break;
+						case '4':
+							value = GetPwmMotor(4);
+							(value < 100)? value++: (value=100);
+							SetPwmMotor(DEFMotorNo5_PWM, value ,0);
+							break;
+						case '5':
+							value = GetPwmMotor(5);
+							(value < 100)? value++: (value=100);
+							SetPwmMotor(DEFMotorNo6_PWM, value ,0);
+							break;
+						case '6':
+							value = GetPwmMotor(6);
+							(value < 100)? value++: (value=100);
+							SetPwmMotor(DEFMotorNo7_PWM, value ,0);
+							break;
+						case '7':
+							value = GetPwmMotor(7);
+							(value < 100)? value++: (value=100);
+							SetPwmMotor(DEFMotorNo8_PWM, value ,0);
+							break;
+						default:
+							break;
+						}
+					}else if(i == 45){
+						int k = kbhit();
+						switch (k){
+						case '0':
+							value = GetPwmMotor(0);
+							value > 0? value--: (value=DEFMotorSetpointMIN);
+							SetPwmMotor(DEFMotorNo1_PWM, value ,0);
+							break;
+						case '1':
+							value = GetPwmMotor(1);
+							value > 0? value--: (value=DEFMotorSetpointMIN);
+							SetPwmMotor(DEFMotorNo2_PWM, value ,0);
+							break;
+						case '2':
+							value = GetPwmMotor(2);
+							value > 0? value--: (value=DEFMotorSetpointMIN);
+							SetPwmMotor(DEFMotorNo3_PWM, value ,0);
+							break;
+						case '3':
+							value = GetPwmMotor(3);
+							value > 0? value--: (value=DEFMotorSetpointMIN);
+							SetPwmMotor(DEFMotorNo4_PWM, value ,0);
+							break;
+						case '4':
+							value = GetPwmMotor(4);
+							value > 0? value--: (value=DEFMotorSetpointMIN);
+							SetPwmMotor(DEFMotorNo5_PWM, value ,0);
+							break;
+						case '5':
+							value = GetPwmMotor(5);
+							value > 0? value--: (value=DEFMotorSetpointMIN);
+							SetPwmMotor(DEFMotorNo6_PWM, value ,0);
+							break;
+						case '6':
+							value = GetPwmMotor(6);
+							value > 0? value--: (value=DEFMotorSetpointMIN);
+							SetPwmMotor(DEFMotorNo7_PWM, value ,0);
+							break;
+						case '7':
+							value = GetPwmMotor(7);
+							value > 0? value--: (value=DEFMotorSetpointMIN);
+							SetPwmMotor(DEFMotorNo8_PWM, value ,0);
+							break;
+						}
+					}
+					/* Do Other Things*/
+				}
 
-                            i = kbhit();
-                            int value;
-                            if(i == '+'){
-                                int k = kbhit();
-                                switch (k){
-                                case '0':
-                                    value = GetPwmMotor(0);
-                                    (value < 100) ? value++ : (value=100);
-                                    SetPwmMotor(DEFMotorNo1_PWM, value ,0);
-                                    break;
-                                case '1':
-                                    value = GetPwmMotor(1);
-                                    (value < 100)? value++: (value=100);
-                                    SetPwmMotor(DEFMotorNo2_PWM, value ,0);
-                                    break;
-                                case '2':
-                                    value = GetPwmMotor(2);
-                                    (value < 100)? value++: (value=100);
-                                    SetPwmMotor(DEFMotorNo3_PWM, value ,0);
-                                    break;
-                                case '3':
-                                    value = GetPwmMotor(3);
-                                    (value < 100)? value++: (value=100);
-                                    SetPwmMotor(DEFMotorNo4_PWM, value ,0);
-                                    break;
-                                case '4':
-                                    value = GetPwmMotor(4);
-                                    (value < 100)? value++: (value=100);
-                                    SetPwmMotor(DEFMotorNo5_PWM, value ,0);
-                                    break;
-                                case '5':
-                                    value = GetPwmMotor(5);
-                                    (value < 100)? value++: (value=100);
-                                    SetPwmMotor(DEFMotorNo6_PWM, value ,0);
-                                    break;
-                                case '6':
-                                    value = GetPwmMotor(6);
-                                    (value < 100)? value++: (value=100);
-                                    SetPwmMotor(DEFMotorNo7_PWM, value ,0);
-                                    break;
-                                case '7':
-                                    value = GetPwmMotor(7);
-                                    (value < 100)? value++: (value=100);
-                                    SetPwmMotor(DEFMotorNo8_PWM, value ,0);
-                                    break;
-                                default:
-                                    break;
-                                }
-                            }else if(i == 45){
-                                int k = kbhit();
-                                switch (k){
-                                case '0':
-                                    value = GetPwmMotor(0);
-                                    value > 0? value--: (value=DEFMotorSetpointMIN);
-                                    SetPwmMotor(DEFMotorNo1_PWM, value ,0);
-                                    break;
-                                case '1':
-                                    value = GetPwmMotor(1);
-                                    value > 0? value--: (value=DEFMotorSetpointMIN);
-                                    SetPwmMotor(DEFMotorNo2_PWM, value ,0);
-                                    break;
-                                case '2':
-                                    value = GetPwmMotor(2);
-                                    value > 0? value--: (value=DEFMotorSetpointMIN);
-                                    SetPwmMotor(DEFMotorNo3_PWM, value ,0);
-                                    break;
-                                case '3':
-                                    value = GetPwmMotor(3);
-                                    value > 0? value--: (value=DEFMotorSetpointMIN);
-                                    SetPwmMotor(DEFMotorNo4_PWM, value ,0);
-                                    break;
-                                case '4':
-                                    value = GetPwmMotor(4);
-                                    value > 0? value--: (value=DEFMotorSetpointMIN);
-                                    SetPwmMotor(DEFMotorNo5_PWM, value ,0);
-                                    break;
-                                case '5':
-                                    value = GetPwmMotor(5);
-                                    value > 0? value--: (value=DEFMotorSetpointMIN);
-                                    SetPwmMotor(DEFMotorNo6_PWM, value ,0);
-                                    break;
-                                case '6':
-                                    value = GetPwmMotor(6);
-                                    value > 0? value--: (value=DEFMotorSetpointMIN);
-                                    SetPwmMotor(DEFMotorNo7_PWM, value ,0);
-                                    break;
-                                case '7':
-                                    value = GetPwmMotor(7);
-                                    value > 0? value--: (value=DEFMotorSetpointMIN);
-                                    SetPwmMotor(DEFMotorNo8_PWM, value ,0);
-                                    break;
-                                }
-                            }
-                            /* Do Other Things*/
-                        }
-
-                    break;
-                    }
-
+			break;
+			}
             case TESTMOTORTXT:
-                    {
-                        FILE *testFile;
-                        int lineLength =80;
-                        char line[lineLength];
-                        int delayS=1;
-                        time_t timeStamp , currentTime;
+			{
+				FILE *testFile;
+				int lineLength =80;
+				char line[lineLength];
+				int delayS=1;
+				time_t timeStamp , currentTime;
 
 
-                        printf("Start Testing Motors reading txt file\n");
+				printf("Start Testing Motors reading txt file\n");
 
-                        InitMotor(9000);
+				InitMotor(9000);
 
-                        //Wait 1 Sec
-                        time(&timeStamp);
-                        time(&currentTime);
-                        if( difftime(currentTime, timeStamp) >= 1){
-                            if(GetFlagRunSendPwmToMotor() == 1){
-                                sendPwmToMotor();
-                            }
-                        }
-                        if ((testFile = fopen("/home/pi/testfiles/MotorTest.txt", "r")) == NULL){
-                            fprintf(stderr, "File kann nicht geöffnet werden");
-                            exit(0);
-                        }
+				//Wait 1 Sec
+				time(&timeStamp);
+				time(&currentTime);
+				if( difftime(currentTime, timeStamp) >= 1){
+					if(GetFlagRunSendPwmToMotor() == 1){
+						sendPwmToMotor();
+					}
+				}
+				if ((testFile = fopen("/home/pi/testfiles/MotorTest.txt", "r")) == NULL){
+					fprintf(stderr, "File kann nicht geöffnet werden");
+					exit(0);
+				}
 
-                        time(&timeStamp);
+				time(&timeStamp);
 
-                        while(1){ // test ends when end of file reached
-                            if(GetFlagRunSendPwmToMotor() == 1){
-                                sendPwmToMotor();
-                            }
+				while(1){ // test ends when end of file reached
+					if(GetFlagRunSendPwmToMotor() == 1){
+						sendPwmToMotor();
+					}
 
-                            time(&currentTime);
-                            if( difftime(currentTime, timeStamp) >= delayS){
-                                time(&timeStamp);
-                                if((fgets(line, lineLength, testFile)) != NULL)
-                                {
-                                    printf("\n%s", line);
-                                    delayS = decodeline(&line[0], sizeof(line));
-                                }else{
-                                    break;
-                                }
-                            }
-                        }
+					time(&currentTime);
+					if( difftime(currentTime, timeStamp) >= delayS){
+						time(&timeStamp);
+						if((fgets(line, lineLength, testFile)) != NULL)
+						{
+							printf("\n%s", line);
+							delayS = decodeline(&line[0], sizeof(line));
+						}else{
+							break;
+						}
+					}
+				}
+				break;
+			}
+        case TESTGUI:
+			{
+				printf("Start Sending Messages\n");
+				int i = kbhit();
+				int writtencharacters;
+				while(i != 'q')
+				{
+					sleep(1);
+					int random = rand()%1500;
+					char randomToSend[20];
+					writtencharacters = sprintf(randomToSend,"%d\n",random);
+					sendto(clientSocket, randomToSend, writtencharacters, 0,
+							(struct sockaddr *)&remoteHostAddr,addressSize);
+					printf("And send again....%d\n", random);
+				}
+				break;
+			}
+        case TESTSINGLESENSOR:
+			{
+				printf("Lets send some cool data \n");
+				int writtencharacters;
+				halImu_orientationValues l_imuMeasurements_st;
+				g_halImu_initImuSensors_bl();
+				printf("Start Sending Messages\n");
+				char imu_x[16];
+				int i = kbhit();
+				while(i != 'q')
+				{
+					sleep(1);
+					g_halImu_triggerImuReading_bl();
+					g_halImu_triggerBaroReading_bl();
+					g_halImu_triggerGyroReading_bl();
+					g_halImu_triggerAccReading_bl();
 
+					l_imuMeasurements_st=g_halImu_getImuValues_str();
 
+					printf("Acc X %f \n", l_imuMeasurements_st.acc.x_f64);
 
-                        break;
-                    }
+					float k = l_imuMeasurements_st.acc.x_f64;
+					writtencharacters = sprintf(imu_x,"%f \n",k);
+					printf(imu_x,'\n'); //this prints the right number
 
+					sendto(clientSocket, imu_x, writtencharacters, 0,
+						   (struct sockaddr *)&remoteHostAddr,addressSize);
+					printf("And send again....\n");
+				}
+				break;
+			}
             default:
             case TESTEND:
             {
                 printf("Nothing found");
                 break;
             }
-
-
-        case TESTGUI:
-                    {
-                        printf("Sending random numbers to test gui");
-                        int clientSocket;
-
-                        struct sockaddr_in serverAddress;
-                        socklen_t addressSize;
-
-                        /*Create UDP socket*/
-                        clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-                        serverAddress.sin_family = PF_INET;
-                        serverAddress.sin_port = htons(REMOTE_PORT);
-                        serverAddress.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
-
-                        memset(serverAddress.sin_zero, '\0', sizeof(serverAddress.sin_zero));
-
-                        /*Initialize size variable to be used later on*/
-                        addressSize = sizeof(serverAddress);
-
-                        printf("Start Sending Messages\n");
-
-                        int i = kbhit();
-                        while(i != 'q')
-                        {
-                            sleep(1);
-
-                            int random = rand()%150;
-                            char randomToSend[3];
-
-
-
-                            sprintf(randomToSend,"%d\n",random);
-
-
-                            sendto(clientSocket, randomToSend, sizeof(randomToSend), 0,
-                                    (struct sockaddr *)&serverAddress,addressSize);
-                            printf("And send again....\n");
-
-                        }
-                        break;
-                    }
-        }
+       }
     }//end while(1)
     return 0;
 }
@@ -1132,7 +1018,6 @@ int decodeline(char line[], int lineLength){
     }//if
     return delay;
 }
-
 
 int calcPwmValue(char controllChar , int motorNumber, int pwmValue){
     switch(controllChar){

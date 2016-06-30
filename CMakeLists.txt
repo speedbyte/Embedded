@@ -10,6 +10,7 @@ include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro
 option(DO_TARGET_CONNECT "If the target needs to be connected")
 set(DO_TARGET_CONNECT ON)
 
+set(CMAKE_VERBOSE_MAKEFILE on)
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_C_COMPILER ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc)
 set(CMAKE_AR ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ar)
@@ -56,10 +57,14 @@ set (EXTRA_LIBS ${EXTRA_LIBS} ADC.lib BATTERY.lib GPIO.lib GPS.lib IMU.lib LASER
 
 add_executable(HELIKOPTER ${CMAKE_SOURCE_DIR}/impl/trunk/MAIN/main.c)
 target_link_libraries(HELIKOPTER ${EXTRA_LIBS} ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY})
+add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING")
 
 if (DO_TARGET_CONNECT)
+# execute_process(COMMAND ls _NPROCESSORS_ONLN OUTPUT_VARIABLE NB_PROCESSOR)
 # To automate the login processs, add helikopter to /etc/hosts and do a ssh-copy-id to pi@helikopter
+#add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND ssh pi@helikopter \"bash -c pgrep --help\")
 add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND scp HELIKOPTER pi@helikopter:/home/pi/HELIKOPTER )
+add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND ssh pi@helikopter \"ls | grep HELIKOPTER \")
 endif (DO_TARGET_CONNECT)
 
 # ------------------------- Begin Generic CMake Variable Logging ------------------
