@@ -205,25 +205,25 @@
 #define IS_PARAM_DOUBLE(pVal) (mxIsNumeric(pVal) && !mxIsLogical(pVal) &&\
 !mxIsEmpty(pVal) && !mxIsSparse(pVal) && !mxIsComplex(pVal) && mxIsDouble(pVal))
 
-#define REMOTE_HOST_IPADDR_RG4UI8	{192,168,22,161}
-#define REMOTE_HOST_PORT_UI16		5000
+#define REMOTE_HOST_IPADDR_RG4UI8    {192,168,22,161}
+#define REMOTE_HOST_PORT_UI16        5000
 
-static int	m_simSocket_i32 = 0;
+static int    m_simSocket_i32 = 0;
 static struct timespec tp;
 #define BUFFER_SIZE 200
 
-WSADATA w;							/* Used to open windows connection */
-int a1=0, a2=0, a3=0, a4=0;			/* Components of address in xxx.xxx.xxx.xxx form */
-int client_length;					/* Length of client struct */
-int bytes_received;					/* Bytes received from client */
-SOCKET sd;							/* Socket descriptor of server */
-struct sockaddr_in server;			/* Information about the server */
-struct sockaddr_in client;			/* Information about the client */
-char buffer[BUFFER_SIZE];			/* Where to store received data */
+WSADATA w;                            /* Used to open windows connection */
+int a1=0, a2=0, a3=0, a4=0;            /* Components of address in xxx.xxx.xxx.xxx form */
+int client_length;                    /* Length of client struct */
+int bytes_received;                    /* Bytes received from client */
+SOCKET sd;                            /* Socket descriptor of server */
+struct sockaddr_in server;            /* Information about the server */
+struct sockaddr_in client;            /* Information about the client */
+char buffer[BUFFER_SIZE];            /* Where to store received data */
 char str[BUFFER_SIZE*5];
-struct hostent *hp;					/* Information about this computer */
-char host_name[256];				/* Name of the server */
-time_t current_time;				/* Current time */
+struct hostent *hp;                    /* Information about this computer */
+char host_name[256];                /* Name of the server */
+time_t current_time;                /* Current time */
 static int i = 0;
 
 static void mdlTerminate(SimStruct *S);
@@ -232,14 +232,14 @@ static void mdlTerminate(SimStruct *S);
 // local redefinition for Windows-Systems
 //int clock_gettime(clockid_t clk_id, struct timespec *res)
 //{
-//	struct timespec l_timestampDummy_st;
+//    struct timespec l_timestampDummy_st;
 //
-//	l_timestampDummy_st.tv_sec = 0;
-//	l_timestampDummy_st.tv_nsec = 0;
+//    l_timestampDummy_st.tv_sec = 0;
+//    l_timestampDummy_st.tv_nsec = 0;
 //
 //    *res = l_timestampDummy_st;
 //
-//	return 0;
+//    return 0;
 //}
 LARGE_INTEGER
 getFILETIMEoffset()
@@ -318,23 +318,23 @@ int clock_gettime(int X, struct timeval *tv)
      /* All parameters must match the S-function Builder Dialog */
      
 
-	 {
-	  const mxArray *pVal0 = ssGetSFcnParam(S,0);
-	  if (!IS_PARAM_DOUBLE(pVal0)) {
-	    validParam = true;
-	    paramIndex = 0;
-	    goto EXIT_POINT;
-	  }
-	 }
+     {
+      const mxArray *pVal0 = ssGetSFcnParam(S,0);
+      if (!IS_PARAM_DOUBLE(pVal0)) {
+        validParam = true;
+        paramIndex = 0;
+        goto EXIT_POINT;
+      }
+     }
 
-	 {
-	  const mxArray *pVal1 = ssGetSFcnParam(S,1);
-	  if (!IS_PARAM_DOUBLE(pVal1)) {
-	    validParam = true;
-	    paramIndex = 1;
-	    goto EXIT_POINT;
-	  }
-	 }
+     {
+      const mxArray *pVal1 = ssGetSFcnParam(S,1);
+      if (!IS_PARAM_DOUBLE(pVal1)) {
+        validParam = true;
+        paramIndex = 1;
+        goto EXIT_POINT;
+      }
+     }
       
      EXIT_POINT:
       if (validParam) {
@@ -343,9 +343,9 @@ int clock_gettime(int X, struct timeval *tv)
                   "information specified in the S-function Builder dialog. "
                   "For non-double parameters you will need to cast them using int8, int16, "
                   "int32, uint8, uint16, uint32 or boolean.", paramIndex + 1);
-	  ssSetErrorStatus(S,parameterErrorMsg);
+      ssSetErrorStatus(S,parameterErrorMsg);
       }
-	return;
+    return;
     }
  #endif /* MDL_CHECK_PARAMETERS */
 /* Function: mdlInitializeSizes ===============================================
@@ -358,14 +358,14 @@ static void mdlInitializeSizes(SimStruct *S)
     DECL_AND_INIT_DIMSINFO(outputDimsInfo);
     ssSetNumSFcnParams(S, NPARAMS);  /* Number of expected parameters */
       #if defined(MATLAB_MEX_FILE)
-	if (ssGetNumSFcnParams(S) == ssGetSFcnParamsCount(S)) {
-	  mdlCheckParameters(S);
-	  if (ssGetErrorStatus(S) != NULL) {
-	    return;
-	  }
-	 } else {
-	   return; /* Parameter mismatch will be reported by Simulink */
-	 }
+    if (ssGetNumSFcnParams(S) == ssGetSFcnParamsCount(S)) {
+      mdlCheckParameters(S);
+      if (ssGetErrorStatus(S) != NULL) {
+        return;
+      }
+     } else {
+       return; /* Parameter mismatch will be reported by Simulink */
+     }
       #endif
 
     ssSetNumContStates(S, NUM_CONT_STATES);
@@ -412,7 +412,7 @@ static void mdlInitializeSizes(SimStruct *S)
 
     /* Take care when specifying exception free code - see sfuntmpl_doc.c */
     ssSetOptions(S, (SS_OPTION_EXCEPTION_FREE_CODE |
-		     SS_OPTION_WORKS_WITH_CODE_REUSE));
+             SS_OPTION_WORKS_WITH_CODE_REUSE));
 }
 
 /* Function: mdlInitializeSampleTimes =========================================
@@ -442,57 +442,57 @@ static void mdlInitializeSampleTimes(SimStruct *S)
    */
   static void mdlStart(SimStruct *S)
   {
-	unsigned char l_remoteIpAddr_rg4ui8[4] = REMOTE_HOST_IPADDR_RG4UI8;
-	double* l_listenPort_pf64;
+    unsigned char l_remoteIpAddr_rg4ui8[4] = REMOTE_HOST_IPADDR_RG4UI8;
+    double* l_listenPort_pf64;
     
-	//get smaple time, configured in block parameters
-	l_listenPort_pf64 = mxGetPr( ssGetSFcnParam(S, 1) );
-	printf("Listening to port %lf\n",*l_listenPort_pf64);
-	  
-	/* Open windows connection */
-	if (WSAStartup(0x0101, &w) != 0)
-	{
-		fprintf(stderr, "Could not open Windows connection.\n");
-		exit(0);
-	}
+    //get smaple time, configured in block parameters
+    l_listenPort_pf64 = mxGetPr( ssGetSFcnParam(S, 1) );
+    printf("Listening to port %lf\n",*l_listenPort_pf64);
+      
+    /* Open windows connection */
+    if (WSAStartup(0x0101, &w) != 0)
+    {
+        fprintf(stderr, "Could not open Windows connection.\n");
+        exit(0);
+    }
 
-	/* Open a datagram socket */
-	sd = socket(AF_INET, SOCK_DGRAM, 0);
-	if (sd == INVALID_SOCKET)
-	{
-		fprintf(stderr, "Could not create socket.\n");
-		WSACleanup();
-		exit(0);
-	}
+    /* Open a datagram socket */
+    sd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sd == INVALID_SOCKET)
+    {
+        fprintf(stderr, "Could not create socket.\n");
+        WSACleanup();
+        exit(0);
+    }
 
-	/* Clear out server struct */
-	memset((void *)&server, '\0', sizeof(struct sockaddr_in));
+    /* Clear out server struct */
+    memset((void *)&server, '\0', sizeof(struct sockaddr_in));
 
-	/* Set family and port */
-	server.sin_family = AF_INET;
-	server.sin_port = htons(REMOTE_HOST_PORT_UI16);
-	server.sin_addr.S_un.S_un_b.s_b1 = (unsigned char)a1;
-	server.sin_addr.S_un.S_un_b.s_b2 = (unsigned char)a2;
-	server.sin_addr.S_un.S_un_b.s_b3 = (unsigned char)a3;
-	server.sin_addr.S_un.S_un_b.s_b4 = (unsigned char)a4;
-	/* Bind address to socket */
-	if (bind(sd, (struct sockaddr *)&server, sizeof(struct sockaddr_in)) == -1)
-	{
-		fprintf(stderr, "Could not bind name to socket.\n");
-		closesocket(sd);
-		WSACleanup();
-		exit(0);
-	}
+    /* Set family and port */
+    server.sin_family = AF_INET;
+    server.sin_port = htons(REMOTE_HOST_PORT_UI16);
+    server.sin_addr.S_un.S_un_b.s_b1 = (unsigned char)a1;
+    server.sin_addr.S_un.S_un_b.s_b2 = (unsigned char)a2;
+    server.sin_addr.S_un.S_un_b.s_b3 = (unsigned char)a3;
+    server.sin_addr.S_un.S_un_b.s_b4 = (unsigned char)a4;
+    /* Bind address to socket */
+    if (bind(sd, (struct sockaddr *)&server, sizeof(struct sockaddr_in)) == -1)
+    {
+        fprintf(stderr, "Could not bind name to socket.\n");
+        closesocket(sd);
+        WSACleanup();
+        exit(0);
+    }
 
-	/* Print out server information */
-	printf("Server running on %u.%u.%u.%u\n", (unsigned char)server.sin_addr.S_un.S_un_b.s_b1,
-											  (unsigned char)server.sin_addr.S_un.S_un_b.s_b2,
-											  (unsigned char)server.sin_addr.S_un.S_un_b.s_b3,
-											  (unsigned char)server.sin_addr.S_un.S_un_b.s_b4);
-	printf("Press CTRL + C to quit\n");
+    /* Print out server information */
+    printf("Server running on %u.%u.%u.%u\n", (unsigned char)server.sin_addr.S_un.S_un_b.s_b1,
+                                              (unsigned char)server.sin_addr.S_un.S_un_b.s_b2,
+                                              (unsigned char)server.sin_addr.S_un.S_un_b.s_b3,
+                                              (unsigned char)server.sin_addr.S_un.S_un_b.s_b4);
+    printf("Press CTRL + C to quit\n");
 
-	//      m_simSocket_i32 = g_halMatlab_initConnection_i32( l_remoteIpAddr_rg4ui8 , (unsigned short)*l_listenPort_pf64);
-	//      printf("socket number  %d\n",m_simSocket_i32);
+    //      m_simSocket_i32 = g_halMatlab_initConnection_i32( l_remoteIpAddr_rg4ui8 , (unsigned short)*l_listenPort_pf64);
+    //      printf("socket number  %d\n",m_simSocket_i32);
     
   }
 #endif /*  MDL_START */
@@ -526,69 +526,69 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     const real_T  *ListenPort  = (const real_T *)mxGetData(PARAM_DEF1(S));
     int j = 0;
 
-    halMatlab_rtSigAllStatePayload 		l_udpPayload_st;
+    halMatlab_rtSigAllStatePayload         l_udpPayload_st;
     clock_gettime(CLOCK_REALTIME, &tp);
 
-	client_length = (int)sizeof(struct sockaddr_in);
+    client_length = (int)sizeof(struct sockaddr_in);
 
-	/* Receive bytes from client */
-	bytes_received = recvfrom(sd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&client, &client_length);
+    /* Receive bytes from client */
+    bytes_received = recvfrom(sd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&client, &client_length);
     memcpy( &l_udpPayload_st, buffer, sizeof(halMatlab_rtSigAllStatePayload));    
     printf("Remote time: %lu.%lu\n", l_udpPayload_st.timestamp_st.tv_sec,l_udpPayload_st.timestamp_st.tv_nsec);
     printf("Current time: %ld.%ld\n", tp.tv_sec,tp.tv_nsec);
-	printf("Recvd bytes %d Expected bytes%d\n", bytes_received, sizeof(l_udpPayload_st));
-	if (bytes_received < 0)
-	{
-		fprintf(stderr, "Could not receive datagram.\n");
-		closesocket(sd);
-		WSACleanup();
-		exit(0);
-	}
-	sprintf(str, "sec = %d, nano = %lu\nacc = %f %f %f\nmag = %f %f %f\nyaw, pitch, roll = %f %f %f\ntemperature = %f\npressure = %f\n",
-			l_udpPayload_st.timestamp_st.tv_sec,
-			l_udpPayload_st.timestamp_st.tv_nsec,
-			l_udpPayload_st.imuState_st.acc.x_f64, l_udpPayload_st.imuState_st.acc.y_f64, l_udpPayload_st.imuState_st.acc.z_f64,
-			l_udpPayload_st.imuState_st.mag.x_f64, l_udpPayload_st.imuState_st.mag.y_f64, l_udpPayload_st.imuState_st.mag.z_f64,
-			l_udpPayload_st.imuState_st.gyro.l_yaw_f64, l_udpPayload_st.imuState_st.gyro.l_pitch_f64, l_udpPayload_st.imuState_st.gyro.l_roll_f64,
-			l_udpPayload_st.imuState_st.temperature_f64, l_udpPayload_st.imuState_st.pressure_f64);
-	printf("Received string = %s", str);
+    printf("Recvd bytes %d Expected bytes%d\n", bytes_received, sizeof(l_udpPayload_st));
+    if (bytes_received < 0)
+    {
+        fprintf(stderr, "Could not receive datagram.\n");
+        closesocket(sd);
+        WSACleanup();
+        exit(0);
+    }
+    sprintf(str, "sec = %d, nano = %lu\nacc = %f %f %f\nmag = %f %f %f\nyaw, pitch, roll = %f %f %f\ntemperature = %f\npressure = %f\n",
+            l_udpPayload_st.timestamp_st.tv_sec,
+            l_udpPayload_st.timestamp_st.tv_nsec,
+            l_udpPayload_st.imuState_st.acc.x_f64, l_udpPayload_st.imuState_st.acc.y_f64, l_udpPayload_st.imuState_st.acc.z_f64,
+            l_udpPayload_st.imuState_st.mag.x_f64, l_udpPayload_st.imuState_st.mag.y_f64, l_udpPayload_st.imuState_st.mag.z_f64,
+            l_udpPayload_st.imuState_st.gyro.l_yaw_f64, l_udpPayload_st.imuState_st.gyro.l_pitch_f64, l_udpPayload_st.imuState_st.gyro.l_roll_f64,
+            l_udpPayload_st.imuState_st.temperature_f64, l_udpPayload_st.imuState_st.pressure_f64);
+    printf("Received string = %s", str);
 
-	for ( j = 0; j < sizeof(l_udpPayload_st); j++)
+    for ( j = 0; j < sizeof(l_udpPayload_st); j++)
     {
         //printf("%02X", buffer[j]);
     }
-//	  l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
+//      l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
       
-  	Raw_Accelerometer_xyz[0] = l_udpPayload_st.imuState_st.acc.x_f64;
-  	Raw_Accelerometer_xyz[1] = l_udpPayload_st.imuState_st.acc.y_f64;
-  	Raw_Accelerometer_xyz[2] = l_udpPayload_st.imuState_st.acc.z_f64;
+      Raw_Accelerometer_xyz[0] = l_udpPayload_st.imuState_st.acc.x_f64;
+      Raw_Accelerometer_xyz[1] = l_udpPayload_st.imuState_st.acc.y_f64;
+      Raw_Accelerometer_xyz[2] = l_udpPayload_st.imuState_st.acc.z_f64;
     printf("Acc: %f\n", Raw_Accelerometer_xyz[0]);
-  	// (double)rand()*100/(double)RAND_MAX;
-  	Raw_Gyrometer_rpy[0] = l_udpPayload_st.imuState_st.gyro.l_roll_f64;
-  	Raw_Gyrometer_rpy[1] = l_udpPayload_st.imuState_st.gyro.l_pitch_f64;
-  	Raw_Gyrometer_rpy[2] = l_udpPayload_st.imuState_st.gyro.l_yaw_f64;
+      // (double)rand()*100/(double)RAND_MAX;
+      Raw_Gyrometer_rpy[0] = l_udpPayload_st.imuState_st.gyro.l_roll_f64;
+      Raw_Gyrometer_rpy[1] = l_udpPayload_st.imuState_st.gyro.l_pitch_f64;
+      Raw_Gyrometer_rpy[2] = l_udpPayload_st.imuState_st.gyro.l_yaw_f64;
 
-  	Raw_Compass_xyz[0] = l_udpPayload_st.imuState_st.mag.x_f64;
-  	Raw_Compass_xyz[1] = l_udpPayload_st.imuState_st.mag.y_f64;
-  	Raw_Compass_xyz[2] = l_udpPayload_st.imuState_st.mag.z_f64;
+      Raw_Compass_xyz[0] = l_udpPayload_st.imuState_st.mag.x_f64;
+      Raw_Compass_xyz[1] = l_udpPayload_st.imuState_st.mag.y_f64;
+      Raw_Compass_xyz[2] = l_udpPayload_st.imuState_st.mag.z_f64;
 
-  	Raw_Barometer_z[0] = l_udpPayload_st.imuState_st.pressure_f64;
+      Raw_Barometer_z[0] = l_udpPayload_st.imuState_st.pressure_f64;
 
-  	Raw_Temperature[0] = l_udpPayload_st.imuState_st.temperature_f64;
+      Raw_Temperature[0] = l_udpPayload_st.imuState_st.temperature_f64;
       
     Kalman_Angles_rpy[0] = l_udpPayload_st.kalmanSigState_st.roll_f64;
-  	Kalman_Angles_rpy[1] = l_udpPayload_st.kalmanSigState_st.pitch_f64;
-  	Kalman_Angles_rpy[2] = l_udpPayload_st.kalmanSigState_st.yaw_f64;
+      Kalman_Angles_rpy[1] = l_udpPayload_st.kalmanSigState_st.pitch_f64;
+      Kalman_Angles_rpy[2] = l_udpPayload_st.kalmanSigState_st.yaw_f64;
       
     Complementary_Angles_rpy[0] = l_udpPayload_st.complementarySigState_st.roll_f64;
-  	Complementary_Angles_rpy[1] = l_udpPayload_st.complementarySigState_st.pitch_f64;
-  	Complementary_Angles_rpy[2] = l_udpPayload_st.complementarySigState_st.yaw_f64;
+      Complementary_Angles_rpy[1] = l_udpPayload_st.complementarySigState_st.pitch_f64;
+      Complementary_Angles_rpy[2] = l_udpPayload_st.complementarySigState_st.yaw_f64;
 
-	i++;
-	if ( i == 5 )
-	{
-		return;
-	}
+    i++;
+    if ( i == 5 )
+    {
+        return;
+    }
 }
 
 

@@ -51,7 +51,7 @@ static int l_succeded_i32;
  ********************************************************************** */
 unsigned int g_halGps_getTime_ui32(void)
 {
-	return l_time_ui32;
+    return l_time_ui32;
 }
 
 
@@ -72,7 +72,7 @@ unsigned int g_halGps_getTime_ui32(void)
  ********************************************************************** */
 struct strPosition g_halGps_getLongitude_st(void)
 {
-	return l_gps_longitude_st;
+    return l_gps_longitude_st;
 }
 
 
@@ -93,7 +93,7 @@ struct strPosition g_halGps_getLongitude_st(void)
  ********************************************************************** */
 struct strPosition g_halGps_getLatitude_st(void)
 {
-	return l_gps_latitude_st;
+    return l_gps_latitude_st;
 }
 
 /*!**********************************************************************
@@ -114,7 +114,7 @@ struct strPosition g_halGps_getLatitude_st(void)
  ********************************************************************** */
 char g_halGps_getFix_ch(void)
 {
-	return l_fix_ch;
+    return l_fix_ch;
 }
 
 /*!**********************************************************************
@@ -135,7 +135,7 @@ char g_halGps_getFix_ch(void)
  ********************************************************************** */
 double g_halGps_getVelocity_f64(void)
 {
-	return l_velocity_f64;
+    return l_velocity_f64;
 }
 
 /*!**********************************************************************
@@ -156,7 +156,7 @@ double g_halGps_getVelocity_f64(void)
  ********************************************************************** */
 double g_halGps_getDirection_f64(void)
 {
-	return l_direction_f64;
+    return l_direction_f64;
 }
 
 /*!**********************************************************************
@@ -177,7 +177,7 @@ double g_halGps_getDirection_f64(void)
  ********************************************************************** */
 unsigned int g_halGps_getDate_ui32(void)
 {
-	return l_date_ui32;
+    return l_date_ui32;
 }
 
 /*!**********************************************************************
@@ -197,7 +197,7 @@ unsigned int g_halGps_getDate_ui32(void)
  ********************************************************************** */
 double g_halGps_getHeight_f64(void)
 {
-	return l_height_f64;
+    return l_height_f64;
 }
 
 /*!**********************************************************************
@@ -217,7 +217,7 @@ double g_halGps_getHeight_f64(void)
  ********************************************************************** */
 double g_halGps_getGeoid_f64(void)
 {
-	return l_geoid_f64;
+    return l_geoid_f64;
 }
 
 /*!**********************************************************************
@@ -237,17 +237,17 @@ double g_halGps_getGeoid_f64(void)
  ********************************************************************** */
 void l_resetMessage1Values_vd(void)
 {
-	l_time_ui32=0;
-	l_gps_longitude_st.l_degree_ui32=0;
-	l_gps_longitude_st.l_minutes_ui32=0;
-	l_gps_longitude_st.l_seconds_f64=0;
-	l_gps_longitude_st.l_cardinalDirection_ch=' ';
-	l_gps_latitude_st.l_degree_ui32=0;
-	l_gps_latitude_st.l_minutes_ui32=0;
-	l_gps_latitude_st.l_seconds_f64=0;
-	l_gps_latitude_st.l_cardinalDirection_ch=' ';
-	l_height_f64=0;
-	l_geoid_f64=0;
+    l_time_ui32=0;
+    l_gps_longitude_st.l_degree_ui32=0;
+    l_gps_longitude_st.l_minutes_ui32=0;
+    l_gps_longitude_st.l_seconds_f64=0;
+    l_gps_longitude_st.l_cardinalDirection_ch=' ';
+    l_gps_latitude_st.l_degree_ui32=0;
+    l_gps_latitude_st.l_minutes_ui32=0;
+    l_gps_latitude_st.l_seconds_f64=0;
+    l_gps_latitude_st.l_cardinalDirection_ch=' ';
+    l_height_f64=0;
+    l_geoid_f64=0;
 }
 
 /*!**********************************************************************
@@ -267,19 +267,19 @@ void l_resetMessage1Values_vd(void)
  ********************************************************************** */
 void l_resetMessage2Values_vd(void)
 {
-	l_time_ui32=0;
-	l_fix_ch=' ';
-	l_gps_longitude_st.l_degree_ui32=0;
-	l_gps_longitude_st.l_minutes_ui32=0;
-	l_gps_longitude_st.l_seconds_f64=0;
-	l_gps_longitude_st.l_cardinalDirection_ch=' ';
-	l_gps_latitude_st.l_degree_ui32=0;
-	l_gps_latitude_st.l_minutes_ui32=0;
-	l_gps_latitude_st.l_seconds_f64=0;
-	l_gps_latitude_st.l_cardinalDirection_ch=' ';
-	l_velocity_f64=0;
-	l_direction_f64=0;
-	l_date_ui32=0;
+    l_time_ui32=0;
+    l_fix_ch=' ';
+    l_gps_longitude_st.l_degree_ui32=0;
+    l_gps_longitude_st.l_minutes_ui32=0;
+    l_gps_longitude_st.l_seconds_f64=0;
+    l_gps_longitude_st.l_cardinalDirection_ch=' ';
+    l_gps_latitude_st.l_degree_ui32=0;
+    l_gps_latitude_st.l_minutes_ui32=0;
+    l_gps_latitude_st.l_seconds_f64=0;
+    l_gps_latitude_st.l_cardinalDirection_ch=' ';
+    l_velocity_f64=0;
+    l_direction_f64=0;
+    l_date_ui32=0;
 }
 
 /*!**********************************************************************
@@ -315,279 +315,279 @@ void l_resetMessage2Values_vd(void)
 int g_halGps_getData_i32(void)
 {
 
-	l_rec_Data_ch=g_lldUart_readByte_ch();
+    l_rec_Data_ch=g_lldUart_readByte_ch();
 
-	if(!l_message_position_ch)//check which message is received
-	{
-		if(l_rec_Data_ch=='$')
-		{l_header_position_ch=1;l_succeded_i32=0;l_succeded_i32++;}
-		else if (l_header_position_ch==1 && l_rec_Data_ch=='G')
-		{l_header_position_ch=2;l_succeded_i32++;}
-		else if (l_header_position_ch==2 && l_rec_Data_ch=='P')
-		{l_header_position_ch=3;l_succeded_i32++;}
-		else if (l_header_position_ch==3 && l_rec_Data_ch=='G')
-		{l_header_position_ch=14;l_succeded_i32++;}
-		else if (l_header_position_ch==3 && l_rec_Data_ch=='R')
-		{l_header_position_ch=24;l_succeded_i32++;}
-		else if (l_header_position_ch==14 && l_rec_Data_ch=='G')
-		{l_header_position_ch=15;l_succeded_i32++;}
-		else if (l_header_position_ch==24 && l_rec_Data_ch=='M')
-		{l_header_position_ch=25;l_succeded_i32++;}
-		else if (l_header_position_ch==15 && l_rec_Data_ch=='A')
-		{	l_message_ch=1;l_resetMessage1Values_vd();l_data_position_ch=0;l_message_position_ch=1; l_succeded_i32++;}
-		else if (l_header_position_ch==25 && l_rec_Data_ch=='C')
-		{	l_message_ch=2;l_resetMessage2Values_vd();l_data_position_ch=0; l_message_position_ch=1; l_succeded_i32++;}
-	}
-	else
-	{
-		switch (l_message_ch)//check data within the two important messages
-		{
-		case 1://$GPGGA ,205003.000 ,4841.9261 ,N ,00918.7276 ,E ,1 ,06 ,1.12 ,283.5 ,M ,48.0 ,M , ,*6D        38
-			switch (l_rec_Data_ch)
-			{
-			case ',':
-				l_data_position_ch++;
-				l_fieldpointer_i32=0;
-				l_decimal_place_factor_i32=10;
-				break;
-			case 10://LF found
-				l_succeded_i32=l_succeded_i32+100;	//short comment
-				l_message_position_ch=0;
-				l_header_position_ch=0;
-				break;
-			default:
-				switch (l_data_position_ch)
-				{
-				case 1://Time
-					if(l_fieldpointer_i32<6)
-					{
-						l_time_ui32=l_time_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 2://Latitude
-					if(l_fieldpointer_i32<2)
-					{
-						l_gps_latitude_st.l_degree_ui32=l_gps_latitude_st.l_degree_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32<4)
-					{
-						l_gps_latitude_st.l_minutes_ui32=l_gps_latitude_st.l_minutes_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32>=5 && l_fieldpointer_i32<9)
-					{
-						l_gps_latitude_st.l_seconds_f64=l_gps_latitude_st.l_seconds_f64*10+(l_rec_Data_ch-48)*0.006;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 3://cardinal direction
-					if(l_fieldpointer_i32<1)
-					{
-						l_gps_latitude_st.l_cardinalDirection_ch=l_rec_Data_ch;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 4://Longitude
-					if(l_fieldpointer_i32<3)
-					{
-						l_gps_longitude_st.l_degree_ui32=l_gps_longitude_st.l_degree_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32<5)
-					{
-						l_gps_longitude_st.l_minutes_ui32=l_gps_longitude_st.l_minutes_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32>=6 && l_fieldpointer_i32<10)
-					{
-						l_gps_longitude_st.l_seconds_f64=l_gps_longitude_st.l_seconds_f64*10+(l_rec_Data_ch-48)*0.006;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 5://cardinal direction
-					if(l_fieldpointer_i32<1)
-					{
-						l_gps_longitude_st.l_cardinalDirection_ch=l_rec_Data_ch;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 9://Height
-					if(l_rec_Data_ch!='.' && l_fieldpointer_i32==0)
-					{
-						l_height_f64=l_height_f64*10+(double)(l_rec_Data_ch-48);
-						l_succeded_i32++;
+    if(!l_message_position_ch)//check which message is received
+    {
+        if(l_rec_Data_ch=='$')
+        {l_header_position_ch=1;l_succeded_i32=0;l_succeded_i32++;}
+        else if (l_header_position_ch==1 && l_rec_Data_ch=='G')
+        {l_header_position_ch=2;l_succeded_i32++;}
+        else if (l_header_position_ch==2 && l_rec_Data_ch=='P')
+        {l_header_position_ch=3;l_succeded_i32++;}
+        else if (l_header_position_ch==3 && l_rec_Data_ch=='G')
+        {l_header_position_ch=14;l_succeded_i32++;}
+        else if (l_header_position_ch==3 && l_rec_Data_ch=='R')
+        {l_header_position_ch=24;l_succeded_i32++;}
+        else if (l_header_position_ch==14 && l_rec_Data_ch=='G')
+        {l_header_position_ch=15;l_succeded_i32++;}
+        else if (l_header_position_ch==24 && l_rec_Data_ch=='M')
+        {l_header_position_ch=25;l_succeded_i32++;}
+        else if (l_header_position_ch==15 && l_rec_Data_ch=='A')
+        {    l_message_ch=1;l_resetMessage1Values_vd();l_data_position_ch=0;l_message_position_ch=1; l_succeded_i32++;}
+        else if (l_header_position_ch==25 && l_rec_Data_ch=='C')
+        {    l_message_ch=2;l_resetMessage2Values_vd();l_data_position_ch=0; l_message_position_ch=1; l_succeded_i32++;}
+    }
+    else
+    {
+        switch (l_message_ch)//check data within the two important messages
+        {
+        case 1://$GPGGA ,205003.000 ,4841.9261 ,N ,00918.7276 ,E ,1 ,06 ,1.12 ,283.5 ,M ,48.0 ,M , ,*6D        38
+            switch (l_rec_Data_ch)
+            {
+            case ',':
+                l_data_position_ch++;
+                l_fieldpointer_i32=0;
+                l_decimal_place_factor_i32=10;
+                break;
+            case 10://LF found
+                l_succeded_i32=l_succeded_i32+100;    //short comment
+                l_message_position_ch=0;
+                l_header_position_ch=0;
+                break;
+            default:
+                switch (l_data_position_ch)
+                {
+                case 1://Time
+                    if(l_fieldpointer_i32<6)
+                    {
+                        l_time_ui32=l_time_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 2://Latitude
+                    if(l_fieldpointer_i32<2)
+                    {
+                        l_gps_latitude_st.l_degree_ui32=l_gps_latitude_st.l_degree_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32<4)
+                    {
+                        l_gps_latitude_st.l_minutes_ui32=l_gps_latitude_st.l_minutes_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32>=5 && l_fieldpointer_i32<9)
+                    {
+                        l_gps_latitude_st.l_seconds_f64=l_gps_latitude_st.l_seconds_f64*10+(l_rec_Data_ch-48)*0.006;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 3://cardinal direction
+                    if(l_fieldpointer_i32<1)
+                    {
+                        l_gps_latitude_st.l_cardinalDirection_ch=l_rec_Data_ch;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 4://Longitude
+                    if(l_fieldpointer_i32<3)
+                    {
+                        l_gps_longitude_st.l_degree_ui32=l_gps_longitude_st.l_degree_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32<5)
+                    {
+                        l_gps_longitude_st.l_minutes_ui32=l_gps_longitude_st.l_minutes_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32>=6 && l_fieldpointer_i32<10)
+                    {
+                        l_gps_longitude_st.l_seconds_f64=l_gps_longitude_st.l_seconds_f64*10+(l_rec_Data_ch-48)*0.006;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 5://cardinal direction
+                    if(l_fieldpointer_i32<1)
+                    {
+                        l_gps_longitude_st.l_cardinalDirection_ch=l_rec_Data_ch;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 9://Height
+                    if(l_rec_Data_ch!='.' && l_fieldpointer_i32==0)
+                    {
+                        l_height_f64=l_height_f64*10+(double)(l_rec_Data_ch-48);
+                        l_succeded_i32++;
 
-					}
-					else if (l_rec_Data_ch=='.')
-					{
-						l_fieldpointer_i32++;
-					}
-					else
-					{
-						l_height_f64=l_height_f64+(double)(l_rec_Data_ch-48)/l_decimal_place_factor_i32;
-						l_decimal_place_factor_i32=l_decimal_place_factor_i32*10;
-						l_succeded_i32++;
-					}
-					break;
-				case 11://Geoid
-					if(l_rec_Data_ch!='.' && l_fieldpointer_i32==0)
-					{
-						l_geoid_f64=l_geoid_f64*10+(double)(l_rec_Data_ch-48);
-						l_succeded_i32++;
+                    }
+                    else if (l_rec_Data_ch=='.')
+                    {
+                        l_fieldpointer_i32++;
+                    }
+                    else
+                    {
+                        l_height_f64=l_height_f64+(double)(l_rec_Data_ch-48)/l_decimal_place_factor_i32;
+                        l_decimal_place_factor_i32=l_decimal_place_factor_i32*10;
+                        l_succeded_i32++;
+                    }
+                    break;
+                case 11://Geoid
+                    if(l_rec_Data_ch!='.' && l_fieldpointer_i32==0)
+                    {
+                        l_geoid_f64=l_geoid_f64*10+(double)(l_rec_Data_ch-48);
+                        l_succeded_i32++;
 
-					}
-					else if (l_rec_Data_ch=='.')
-					{
-						l_fieldpointer_i32++;
-					}
-					else
-					{
-						l_geoid_f64=l_geoid_f64+(double)(l_rec_Data_ch-48)/l_decimal_place_factor_i32;
-						l_decimal_place_factor_i32=l_decimal_place_factor_i32*10;
-						l_succeded_i32++;
-					}
-					break;
-				}
-				break;
-			}
-			break;
+                    }
+                    else if (l_rec_Data_ch=='.')
+                    {
+                        l_fieldpointer_i32++;
+                    }
+                    else
+                    {
+                        l_geoid_f64=l_geoid_f64+(double)(l_rec_Data_ch-48)/l_decimal_place_factor_i32;
+                        l_decimal_place_factor_i32=l_decimal_place_factor_i32*10;
+                        l_succeded_i32++;
+                    }
+                    break;
+                }
+                break;
+            }
+            break;
 
 
-		case 2://$GPRMC ,205003.000 ,A ,4841.9261 ,N ,00918.7276 ,E ,0.33 ,184.26 ,100415 , , , A*63      44- 46
-			switch (l_rec_Data_ch)
-			{
-			case ',':
-				l_data_position_ch++;
-				l_fieldpointer_i32=0;
-				l_decimal_place_factor_i32=10;
-				break;
-			case 10://LF found
-				l_succeded_i32=l_succeded_i32+200;
-				l_message_position_ch=0;
-				l_header_position_ch=0;
-				break;
-			default:
-				switch (l_data_position_ch)
-				{
-				case 1://Time
-					if(l_fieldpointer_i32<6)
-					{
-						l_time_ui32=l_time_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 2://Fix
-					if(l_fieldpointer_i32<2)
-					{
-						l_fix_ch=l_rec_Data_ch;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 3://Latitude
-					if(l_fieldpointer_i32<2)
-					{
-						l_gps_latitude_st.l_degree_ui32=l_gps_latitude_st.l_degree_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32<4)
-					{
-						l_gps_latitude_st.l_minutes_ui32=l_gps_latitude_st.l_minutes_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32>=5 && l_fieldpointer_i32<9)
-					{
-						l_gps_latitude_st.l_seconds_f64=l_gps_latitude_st.l_seconds_f64*10+(double)(l_rec_Data_ch-48)*0.006;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 4://cardinal direction
-					if(l_fieldpointer_i32<1)
-					{
-						l_gps_latitude_st.l_cardinalDirection_ch=l_rec_Data_ch;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 5://Longitude
-					if(l_fieldpointer_i32<3)
-					{
-						l_gps_longitude_st.l_degree_ui32=l_gps_longitude_st.l_degree_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32<5)
-					{
-						l_gps_longitude_st.l_minutes_ui32=l_gps_longitude_st.l_minutes_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32>=6 && l_fieldpointer_i32<10)
-					{
-						l_gps_longitude_st.l_seconds_f64=l_gps_longitude_st.l_seconds_f64*10+(double)(l_rec_Data_ch-48)*0.006;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 6://cardinal direction
-					if(l_fieldpointer_i32<1)
-					{
-						l_gps_longitude_st.l_cardinalDirection_ch=l_rec_Data_ch;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 7://Velocity
-					if(l_fieldpointer_i32<1)
-					{
-						l_velocity_f64=l_velocity_f64*10+(double)(l_rec_Data_ch-48)*0.01;
-						l_succeded_i32++;
-					}
-					else if(l_fieldpointer_i32>=2 && l_fieldpointer_i32<4)
-					{
-						l_velocity_f64=l_velocity_f64*10+(double)(l_rec_Data_ch-48)*0.01;
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				case 8://Direction
-					if(l_rec_Data_ch!='.' && l_fieldpointer_i32==0)
-					{
-						l_direction_f64=l_direction_f64*10+(double)(l_rec_Data_ch-48);
-						l_succeded_i32++;
+        case 2://$GPRMC ,205003.000 ,A ,4841.9261 ,N ,00918.7276 ,E ,0.33 ,184.26 ,100415 , , , A*63      44- 46
+            switch (l_rec_Data_ch)
+            {
+            case ',':
+                l_data_position_ch++;
+                l_fieldpointer_i32=0;
+                l_decimal_place_factor_i32=10;
+                break;
+            case 10://LF found
+                l_succeded_i32=l_succeded_i32+200;
+                l_message_position_ch=0;
+                l_header_position_ch=0;
+                break;
+            default:
+                switch (l_data_position_ch)
+                {
+                case 1://Time
+                    if(l_fieldpointer_i32<6)
+                    {
+                        l_time_ui32=l_time_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 2://Fix
+                    if(l_fieldpointer_i32<2)
+                    {
+                        l_fix_ch=l_rec_Data_ch;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 3://Latitude
+                    if(l_fieldpointer_i32<2)
+                    {
+                        l_gps_latitude_st.l_degree_ui32=l_gps_latitude_st.l_degree_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32<4)
+                    {
+                        l_gps_latitude_st.l_minutes_ui32=l_gps_latitude_st.l_minutes_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32>=5 && l_fieldpointer_i32<9)
+                    {
+                        l_gps_latitude_st.l_seconds_f64=l_gps_latitude_st.l_seconds_f64*10+(double)(l_rec_Data_ch-48)*0.006;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 4://cardinal direction
+                    if(l_fieldpointer_i32<1)
+                    {
+                        l_gps_latitude_st.l_cardinalDirection_ch=l_rec_Data_ch;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 5://Longitude
+                    if(l_fieldpointer_i32<3)
+                    {
+                        l_gps_longitude_st.l_degree_ui32=l_gps_longitude_st.l_degree_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32<5)
+                    {
+                        l_gps_longitude_st.l_minutes_ui32=l_gps_longitude_st.l_minutes_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32>=6 && l_fieldpointer_i32<10)
+                    {
+                        l_gps_longitude_st.l_seconds_f64=l_gps_longitude_st.l_seconds_f64*10+(double)(l_rec_Data_ch-48)*0.006;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 6://cardinal direction
+                    if(l_fieldpointer_i32<1)
+                    {
+                        l_gps_longitude_st.l_cardinalDirection_ch=l_rec_Data_ch;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 7://Velocity
+                    if(l_fieldpointer_i32<1)
+                    {
+                        l_velocity_f64=l_velocity_f64*10+(double)(l_rec_Data_ch-48)*0.01;
+                        l_succeded_i32++;
+                    }
+                    else if(l_fieldpointer_i32>=2 && l_fieldpointer_i32<4)
+                    {
+                        l_velocity_f64=l_velocity_f64*10+(double)(l_rec_Data_ch-48)*0.01;
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                case 8://Direction
+                    if(l_rec_Data_ch!='.' && l_fieldpointer_i32==0)
+                    {
+                        l_direction_f64=l_direction_f64*10+(double)(l_rec_Data_ch-48);
+                        l_succeded_i32++;
 
-					}
-					else if (l_rec_Data_ch=='.')
-					{
-						l_fieldpointer_i32++;
-					}
-					else
-					{
-						l_direction_f64=l_direction_f64+(double)(l_rec_Data_ch-48)/l_decimal_place_factor_i32;
-						l_decimal_place_factor_i32=l_decimal_place_factor_i32*10;
-						l_succeded_i32++;
-					}
-					break;
-				case 9://Date
-					if(l_fieldpointer_i32<6)
-					{
-						l_date_ui32=l_date_ui32*10+(l_rec_Data_ch-48);
-						l_succeded_i32++;
-					}
-					l_fieldpointer_i32++;
-					break;
-				}
-				break;
-			}
-			break;
-		}
-	}
-	return(l_succeded_i32);
+                    }
+                    else if (l_rec_Data_ch=='.')
+                    {
+                        l_fieldpointer_i32++;
+                    }
+                    else
+                    {
+                        l_direction_f64=l_direction_f64+(double)(l_rec_Data_ch-48)/l_decimal_place_factor_i32;
+                        l_decimal_place_factor_i32=l_decimal_place_factor_i32*10;
+                        l_succeded_i32++;
+                    }
+                    break;
+                case 9://Date
+                    if(l_fieldpointer_i32<6)
+                    {
+                        l_date_ui32=l_date_ui32*10+(l_rec_Data_ch-48);
+                        l_succeded_i32++;
+                    }
+                    l_fieldpointer_i32++;
+                    break;
+                }
+                break;
+            }
+            break;
+        }
+    }
+    return(l_succeded_i32);
 }

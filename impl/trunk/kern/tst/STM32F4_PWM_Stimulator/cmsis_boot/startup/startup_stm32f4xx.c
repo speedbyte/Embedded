@@ -293,7 +293,7 @@ void Default_Reset_Handler(void)
         "  LDR R1, [R0]\n"
         "  ORR R1, R1, #(0xF << 20)\n"
         "  STR R1, [R0]");
-#endif	
+#endif    
 
   /* Call the application's entry point.*/
   main();
@@ -408,10 +408,10 @@ void Default_Reset_Handler(void)
   */
 static void Default_Handler(void)
 {
-	/* Go into an infinite loop. */
-	while (1)
-	{
-	}
+    /* Go into an infinite loop. */
+    while (1)
+    {
+    }
 }
 
 /*********************** (C) COPYRIGHT 2009 Coocox ************END OF FILE*****/

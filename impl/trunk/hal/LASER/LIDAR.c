@@ -31,7 +31,7 @@ static double m_distance_f64;
 
 double g_LIDAR_getDistance_f64(void)
 {
-	return m_distance_f64;
+    return m_distance_f64;
 }
 
 
@@ -58,8 +58,8 @@ unsigned char l_WriteBuffer_ui8[2]={0,0};
 int l_DistInCm_i32 =  0;
 
 //Trigger Measurement of Distance (DC stabnilization cycle, Signal Acquisition, DataProcessing)
-l_WriteBuffer_ui8[0]=0x00; 								//write Reg 0x00
-l_WriteBuffer_ui8[1]=0x04; 								//with value 0x04
+l_WriteBuffer_ui8[0]=0x00;                                 //write Reg 0x00
+l_WriteBuffer_ui8[1]=0x04;                                 //with value 0x04
 if(g_lldI2c_WriteI2c0_bl(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, l_WriteBuffer_ui8, 2)!=0)
 {
 return -1;

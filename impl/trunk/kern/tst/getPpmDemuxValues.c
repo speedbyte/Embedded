@@ -27,9 +27,9 @@ int main( int argc, char **argv, char **envp )
     while (1) {
         unsigned long recvBytes=0;
 
-	/* evaluate only lower part of counter value (wrap around ever 4.2 seconds
-	 * is sufficient for this testing approach) 
-	 */
+    /* evaluate only lower part of counter value (wrap around ever 4.2 seconds
+     * is sufficient for this testing approach) 
+     */
         recvBytes = read( fd, &(localOutputBlock), sizeof(struct outputStruct) );
         newTime = (unsigned long long)localOutputBlock.timer_l; 
         printf("interrupts: %d, delta: %llu us\n", localOutputBlock.irqNum, newTime - oldTime );
