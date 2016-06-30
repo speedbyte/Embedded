@@ -56,12 +56,13 @@ typedef enum enumTestCases
 static char str[500];
 static char str2[500];
 
-int main(char *argv, int argc) {
+int main(int argc, char *argv[]) {
     while(1){
         enumTestcases runCommand = 0;
         int testValueLength =20;
         char testValue[testValueLength];
         int isSelected = 0;
+        puts(argv[0]);
         scanf("%s",testValue);
 //        do{
 //            sleep(2);
