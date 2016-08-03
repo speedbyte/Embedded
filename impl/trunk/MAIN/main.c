@@ -714,7 +714,7 @@ int main() {
 				int clientSocket;
 				struct sockaddr_in serverAdress;
 				socklen_t addressSize;
-				int accx,accy,accz,magx,magy,magz,gy,gp,gr,temp,press,clock;
+				int accx,accy,accz,magx,magy,magz,gy,gp,gr,temp,press,clock,m1,m2,m3,m4;
 
 				char imu_x[16];
 				char imu_y[16];
@@ -728,6 +728,10 @@ int main() {
 				char tmp[16];
 				char prs[16];
 				char ti[16];
+				char Motor1[16];
+				char Motor2[16];
+				char Motor3[16];
+				char Motor4[16];
 
 
 
@@ -779,6 +783,13 @@ int main() {
 					float t = l_imuMeasurements_st.temperature_f64;
 					float pr = l_imuMeasurements_st.pressure_f64;
 
+					//Todo Richtige Motordaten auslesen
+
+					int mot1 = 1234;
+					int mot2 = 1234;
+					int mot3 = 1234;
+					int mot4 = 1234;
+
 					clock = sprintf(ti,"Time%u\n",res);
 					accx = sprintf(imu_x,"AccX%f\n",ax);
 					accy = sprintf(imu_y,"AccY%f\n",ay);
@@ -794,7 +805,10 @@ int main() {
 
 					temp = sprintf(tmp,"Temp%f\n",t);
 					press = sprintf(prs, "Pres%f\n",pr);
-
+					m1 = sprintf(Motor1,"Mot1%u\n",mot1);
+					m2 = sprintf(Motor2,"Mot2%u\n",mot2);
+					m3 = sprintf(Motor3,"Mot3%u\n",mot3);
+					m4 = sprintf(Motor4,"Mot4%u\n",mot4);
 
 					printf(ti,'\n');
 					printf(imu_x, '\n');
@@ -808,7 +822,10 @@ int main() {
 					printf(g_r, '\n');
 					printf(tmp, '\n');
 					printf(prs, '\n');
-
+					printf(Motor1,'\n');
+					printf(Motor2,'\n');
+					printf(Motor3,'\n');
+					printf(Motor4,'\n');
 
 					//Timestamp
 					sendto(clientSocket,ti,sizeof(ti),0,(struct sockaddr *)&serverAdress,addressSize);
@@ -832,6 +849,11 @@ int main() {
 					sendto(clientSocket,tmp,temp,0,(struct sockaddr *)&serverAdress,addressSize);
 					sendto(clientSocket,prs,press,0,(struct sockaddr *)&serverAdress,addressSize);
 
+					// Motor Data
+					sendto(clientSocket,Motor1,m1,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,Motor2,m2,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,Motor3,m3,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,Motor4,m4,0,(struct sockaddr *)&serverAdress,addressSize);
 
 				}
 
