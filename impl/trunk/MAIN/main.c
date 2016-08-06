@@ -716,6 +716,7 @@ int main() {
 				socklen_t addressSize;
 				int accx,accy,accz,magx,magy,magz,gy,gp,gr,temp,press,clock,m1,m2,m3,m4;
 
+				char flag[6]="AFAF\n";
 				char imu_x[16];
 				char imu_y[16];
 				char imu_z[16];
@@ -732,6 +733,8 @@ int main() {
 				char Motor2[16];
 				char Motor3[16];
 				char Motor4[16];
+
+
 
 
 
@@ -810,6 +813,8 @@ int main() {
 					m3 = sprintf(Motor3,"Mot3%u\n",mot3);
 					m4 = sprintf(Motor4,"Mot4%u\n",mot4);
 
+
+					printf(flag,'\n');
 					printf(ti,'\n');
 					printf(imu_x, '\n');
 					printf(imu_x, '\n');
@@ -826,6 +831,11 @@ int main() {
 					printf(Motor2,'\n');
 					printf(Motor3,'\n');
 					printf(Motor4,'\n');
+
+					//FLAG AFAF
+
+					sendto(clientSocket,flag,sizeof(flag),0,(struct sockaddr *)&serverAdress,addressSize);
+
 
 					//Timestamp
 					sendto(clientSocket,ti,sizeof(ti),0,(struct sockaddr *)&serverAdress,addressSize);
