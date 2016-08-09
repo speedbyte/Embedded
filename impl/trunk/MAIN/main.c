@@ -49,8 +49,8 @@ typedef enum enumTestCases
     TESTMOTORISR,
     TESTMOTORTXT,
     TESTGUI,
-	TESTSINGLESENSOR,
-	FINALSENDING,
+    TESTSINGLESENSOR,
+    FINALSENDING,
     TESTEND
 } enumTestcases;
 
@@ -459,15 +459,6 @@ int main(int argc, char *argv[]) {
                 printf("simple send udp test...");
                 char message[20] = "Hello\n";
 
-                /*Create UDP socket*/
-                clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-                remoteHostAddr.sin_family = PF_INET;
-                remoteHostAddr.sin_port = htons(REMOTE_PORT);
-                remoteHostAddr.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
-
-                memset(remoteHostAddr.sin_zero, '\0', sizeof(remoteHostAddr.sin_zero));
-
                 printf("Start Sending Messages\n");
 
                 int i = kbhit();
@@ -863,29 +854,14 @@ int main(int argc, char *argv[]) {
 				char Motor3[16];
 				char Motor4[16];
 
-
-
-
-
 				//Trigger Sensors
 				halImu_orientationValues l_imuMeasurements_st;
 				g_halImu_initImuSensors_bl();
-
-				//Create UDP Socket
-
-				clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-				serverAdress.sin_family = PF_INET;
-				serverAdress.sin_port = htons(REMOTE_PORT);
-				serverAdress.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
-
-				memset(serverAdress.sin_zero, '\0',sizeof(serverAdress.sin_zero));
 
 				//Initialize size variable to be used later on
 				addressSize = sizeof(serverAdress);
 
 				printf("Start Sending Data \n");
-
 
 				while(1){
 					sleep(1);
