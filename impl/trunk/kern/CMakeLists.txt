@@ -1,0 +1,2 @@
+set (LIBRARY_SOURCES HAL_ADC.c)
+add_library(ADC.lib ${LIBRARY_SOURCES})
