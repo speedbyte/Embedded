@@ -50,6 +50,7 @@ typedef enum enumTestCases
     TESTMOTORTXT,
     TESTGUI,
 	TESTSINGLESENSOR,
+	FINALSENDING,
     TESTEND
 } enumTestcases;
 
@@ -84,7 +85,7 @@ int main(int argc, char *argv[]) {
 
         scanf("%s",testValue);
 
-        //        do{
+//        do{
 //            sleep(2);
 //            isSelected = readTestcaseFile(&testValue[0] ,testValueLength);
 //        }while (isSelected != 1);
@@ -132,6 +133,8 @@ int main(int argc, char *argv[]) {
                     runCommand = TESTGUI;
         else if( strcmp(testValue,"testsinglesensor") == 0 )
                     runCommand = TESTSINGLESENSOR;
+		else if( strcmp(testValue,"finalsending") == 0 )
+							runCommand = FINALSENDING;
 
         switch (runCommand)
         {
@@ -834,6 +837,172 @@ int main(int argc, char *argv[]) {
 				}
 				break;
 			}
+			case FINALSENDING:
+			{
+				printf("Start Sending SensorData \n");
+				int clientSocket;
+				struct sockaddr_in serverAdress;
+				socklen_t addressSize;
+				int accx,accy,accz,magx,magy,magz,gy,gp,gr,temp,press,clock,m1,m2,m3,m4;
+
+				char flag[6]="AFAF\n";
+				char imu_x[16];
+				char imu_y[16];
+				char imu_z[16];
+				char mag_x[16];
+				char mag_y[16];
+				char mag_z[16];
+				char g_y[16];
+				char g_p[16];
+				char g_r[16];
+				char tmp[16];
+				char prs[16];
+				char ti[16];
+				char Motor1[16];
+				char Motor2[16];
+				char Motor3[16];
+				char Motor4[16];
+
+
+
+
+
+				//Trigger Sensors
+				halImu_orientationValues l_imuMeasurements_st;
+				g_halImu_initImuSensors_bl();
+
+				//Create UDP Socket
+
+				clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+
+				serverAdress.sin_family = PF_INET;
+				serverAdress.sin_port = htons(REMOTE_PORT);
+				serverAdress.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
+
+				memset(serverAdress.sin_zero, '\0',sizeof(serverAdress.sin_zero));
+
+				//Initialize size variable to be used later on
+				addressSize = sizeof(serverAdress);
+
+				printf("Start Sending Data \n");
+
+
+				while(1){
+					sleep(1);
+					g_halImu_triggerImuReading_bl();
+					g_halImu_triggerBaroReading_bl();
+					g_halImu_triggerGyroReading_bl();
+					g_halImu_triggerAccReading_bl();
+
+					l_imuMeasurements_st=g_halImu_getImuValues_str();
+					time_t res = time(NULL);
+				    double result = res;
+
+
+
+					float ax = l_imuMeasurements_st.acc.x_f64;
+					float ay = l_imuMeasurements_st.acc.y_f64;
+					float az = l_imuMeasurements_st.acc.z_f64;
+
+					float mx = l_imuMeasurements_st.mag.x_f64;
+					float my = l_imuMeasurements_st.mag.y_f64;
+					float mz =l_imuMeasurements_st.mag.z_f64;
+
+					float y = l_imuMeasurements_st.gyro.yaw_f64;
+					float p = l_imuMeasurements_st.gyro.pitch_f64;
+					float r = l_imuMeasurements_st.gyro.roll_f64;
+
+					float t = l_imuMeasurements_st.temperature_f64;
+					float pr = l_imuMeasurements_st.pressure_f64;
+
+					//Todo Richtige Motordaten auslesen
+
+					int mot1 = 1234;
+					int mot2 = 1234;
+					int mot3 = 1234;
+					int mot4 = 1234;
+
+					clock = sprintf(ti,"Time%u\n",res);
+					accx = sprintf(imu_x,"AccX%f\n",ax);
+					accy = sprintf(imu_y,"AccY%f\n",ay);
+					accz = sprintf(imu_z,"AccZ%f\n",az);
+
+					magx = sprintf(mag_x,"MagX%f\n",mx);
+					magy = sprintf(mag_y,"MagY%f\n",my);
+					magz = sprintf(mag_z,"MagZ%f\n",mz);
+
+					gy = sprintf(g_y,"GyrY%f\n",y);
+					gp = sprintf(g_p,"GyrP%f\n",p);
+					gr = sprintf(g_r,"GyrR%f\n",r);
+
+					temp = sprintf(tmp,"Temp%f\n",t);
+					press = sprintf(prs, "Pres%f\n",pr);
+					m1 = sprintf(Motor1,"Mot1%u\n",mot1);
+					m2 = sprintf(Motor2,"Mot2%u\n",mot2);
+					m3 = sprintf(Motor3,"Mot3%u\n",mot3);
+					m4 = sprintf(Motor4,"Mot4%u\n",mot4);
+
+
+					printf(flag,'\n');
+					printf(ti,'\n');
+					printf(imu_x, '\n');
+					printf(imu_x, '\n');
+					printf(imu_z, '\n');
+					printf(mag_x, '\n');
+					printf(mag_y, '\n');
+					printf(mag_z, '\n');
+					printf(g_y, '\n');
+					printf(g_p, '\n');
+					printf(g_r, '\n');
+					printf(tmp, '\n');
+					printf(prs, '\n');
+					printf(Motor1,'\n');
+					printf(Motor2,'\n');
+					printf(Motor3,'\n');
+					printf(Motor4,'\n');
+
+					//FLAG AFAF
+
+					sendto(clientSocket,flag,sizeof(flag),0,(struct sockaddr *)&serverAdress,addressSize);
+
+
+					//Timestamp
+					sendto(clientSocket,ti,sizeof(ti),0,(struct sockaddr *)&serverAdress,addressSize);
+
+					//acceleration data
+					sendto(clientSocket,imu_x,accx,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,imu_y,accy,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,imu_z,accz,0,(struct sockaddr *)&serverAdress,addressSize);
+
+					//Mag data
+					sendto(clientSocket,mag_x,magx,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,mag_y,magy,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,mag_z,magz,0,(struct sockaddr *)&serverAdress,addressSize);
+
+					//Gyro Data
+					sendto(clientSocket,g_y,gy,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,g_p,gp,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,g_r,gr,0,(struct sockaddr *)&serverAdress,addressSize);
+
+					//Temperature and Pressure
+					sendto(clientSocket,tmp,temp,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,prs,press,0,(struct sockaddr *)&serverAdress,addressSize);
+
+					// Motor Data
+					sendto(clientSocket,Motor1,m1,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,Motor2,m2,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,Motor3,m3,0,(struct sockaddr *)&serverAdress,addressSize);
+					sendto(clientSocket,Motor4,m4,0,(struct sockaddr *)&serverAdress,addressSize);
+
+				}
+
+
+
+
+
+				break;
+			}
+
             default:
             case TESTEND:
             {
