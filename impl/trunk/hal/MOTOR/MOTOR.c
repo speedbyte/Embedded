@@ -22,12 +22,12 @@ char flagRunSendPwmToMotor;
  * \author Chris Mönch( chmoit00 )
  *
  * \brief calls init functions which needed for the motor driver:
- * 	SetFlagRunSendPwmToMotor(0);
- *	SetMotorExecutionOrder();
- *	SetPwmMotor(DEFMotorALL_PWM, DEFMotorSetpointMIN, 0);
- *	Last one always initMotorTimer()
- *	InitMotorTimer(microSeconds);
- *	SetFlagRunSendPwmToMotor(1);
+ *     SetFlagRunSendPwmToMotor(0);
+ *    SetMotorExecutionOrder();
+ *    SetPwmMotor(DEFMotorALL_PWM, DEFMotorSetpointMIN, 0);
+ *    Last one always initMotorTimer()
+ *    InitMotorTimer(microSeconds);
+ *    SetFlagRunSendPwmToMotor(1);
  *
  * \param[ in ] microSeconds - Time in uS when Timer expired.
  *
@@ -37,12 +37,12 @@ char flagRunSendPwmToMotor;
  * \endinternal
 *****************************************************************/
 void InitMotor(int microSeconds){
-	SetFlagRunSendPwmToMotor(0);
-	SetMotorExecutionOrder();
-	SetPwmMotor(DEFMotorALL_PWM, DEFMotorSetpointMIN, 0);
-	//Last one always initMotorTimer()
-	InitMotorTimer(microSeconds);
-	SetFlagRunSendPwmToMotor(1);
+    SetFlagRunSendPwmToMotor(0);
+    SetMotorExecutionOrder();
+    SetPwmMotor(DEFMotorALL_PWM, DEFMotorSetpointMIN, 0);
+    //Last one always initMotorTimer()
+    InitMotorTimer(microSeconds);
+    SetFlagRunSendPwmToMotor(1);
 }
 
 /*!***************************************************************
@@ -57,7 +57,7 @@ void InitMotor(int microSeconds){
  * \endinternal
  *****************************************************************/
 void SetMotorExecutionOrder(){
-	GetBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
+    GetBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
 }
 
 /*!***************************************************************
@@ -77,20 +77,20 @@ void SetMotorExecutionOrder(){
  * \endinternal
 *****************************************************************/
 void SetPwmMotor(char toSet , int pwmValue, int forceSend){
-	int i=0;
-	pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
-	pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
-	while(toSet != 0 && i < DEFMotorsCount){
+    int i=0;
+    pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
+    pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
+    while(toSet != 0 && i < DEFMotorsCount){
 
-			if(toSet%2){
-				PWMValue[i]= pwmValue;
-			}
-			toSet= toSet >>1;
-			i++;
-		}
-		if(forceSend != 0){
-			SetFlagRunSendPwmToMotor(1);
-	}
+            if(toSet%2){
+                PWMValue[i]= pwmValue;
+            }
+            toSet= toSet >>1;
+            i++;
+        }
+        if(forceSend != 0){
+            SetFlagRunSendPwmToMotor(1);
+    }
 }
 
 /*!***************************************************************
@@ -110,22 +110,22 @@ void SetPwmMotor(char toSet , int pwmValue, int forceSend){
  * \endinternal
  *****************************************************************/
 void AddPwmMotor(char toSet , int pwmValue, int forceSend){
-	int i=0;
+    int i=0;
 
-	while(toSet != 0 && i < DEFMotorsCount){
+    while(toSet != 0 && i < DEFMotorsCount){
 
-			if(toSet%2){
-				pwmValue = pwmValue+GetPwmMotor(i);
-				pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
-				pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
-				PWMValue[i]= pwmValue;
-			}
-			toSet= toSet >>1;
-			i++;
-		}
-		if(forceSend != 0){
-			SetFlagRunSendPwmToMotor(1);
-	}
+            if(toSet%2){
+                pwmValue = pwmValue+GetPwmMotor(i);
+                pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
+                pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
+                PWMValue[i]= pwmValue;
+            }
+            toSet= toSet >>1;
+            i++;
+        }
+        if(forceSend != 0){
+            SetFlagRunSendPwmToMotor(1);
+    }
 }
 
 /*!***************************************************************
@@ -145,22 +145,22 @@ void AddPwmMotor(char toSet , int pwmValue, int forceSend){
  * \endinternal
 *****************************************************************/
 void SubbPwmMotor(char toSet , int pwmValue, int forceSend){
-	int i=0;
+    int i=0;
 
-	while(toSet != 0 && i < DEFMotorsCount){
+    while(toSet != 0 && i < DEFMotorsCount){
 
-			if(toSet%2){
-				pwmValue = GetPwmMotor(i)- pwmValue;
-				pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
-				pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
-				PWMValue[i]= pwmValue;
-			}
-			toSet= toSet >>1;
-			i++;
-		}
-		if(forceSend != 0){
-			SetFlagRunSendPwmToMotor(1);
-	}
+            if(toSet%2){
+                pwmValue = GetPwmMotor(i)- pwmValue;
+                pwmValue = pwmValue >= DEFMotorSetpointMIN ? pwmValue :  DEFMotorSetpointMIN;
+                pwmValue = pwmValue <= DEFMotorSetpointMAX ?  pwmValue :  DEFMotorSetpointMAX;
+                PWMValue[i]= pwmValue;
+            }
+            toSet= toSet >>1;
+            i++;
+        }
+        if(forceSend != 0){
+            SetFlagRunSendPwmToMotor(1);
+    }
 }
 
 
@@ -181,7 +181,7 @@ void SubbPwmMotor(char toSet , int pwmValue, int forceSend){
  * \endinternal
  *****************************************************************/
 int GetPwmMotor(int motorNumber){
-	return motorNumber < DEFMotorsCount ? PWMValue[motorNumber]: 0;
+    return motorNumber < DEFMotorsCount ? PWMValue[motorNumber]: 0;
 }
 
 
@@ -201,22 +201,22 @@ int GetPwmMotor(int motorNumber){
  *****************************************************************/
 void InitMotorTimer(int microSeconds){
 
-	struct sigaction sa;
-	struct itimerval timer;
+    struct sigaction sa;
+    struct itimerval timer;
 
-	//Creates Signal, if signal Rising a_handler called
-	memset(&sa, 0 , sizeof(sa));
-	sa.sa_handler = &IsrSetFlag;
-	sigaction(SIGVTALRM, &sa, NULL);
+    //Creates Signal, if signal Rising a_handler called
+    memset(&sa, 0 , sizeof(sa));
+    sa.sa_handler = &IsrSetFlag;
+    sigaction(SIGVTALRM, &sa, NULL);
 
-	//Expire the Timer after:
-	timer.it_value.tv_sec = 0;
-	timer.it_value.tv_usec = 0;
-	//And every ... after that:
-	timer.it_interval.tv_sec = 0;
-	timer.it_interval.tv_usec = microSeconds;
-	//upon expiration the signal SIGVTALRM raised
-	setitimer(ITIMER_VIRTUAL, &timer , NULL);
+    //Expire the Timer after:
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = 0;
+    //And every ... after that:
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = microSeconds;
+    //upon expiration the signal SIGVTALRM raised
+    setitimer(ITIMER_VIRTUAL, &timer , NULL);
 }
 
 /*!***************************************************************
@@ -233,11 +233,11 @@ void InitMotorTimer(int microSeconds){
  * \endinternal
  *****************************************************************/
 void SetFlagRunSendPwmToMotor(char value){
-	if(value == 1){
-		flagRunSendPwmToMotor=value;
-	}else{
-		flagRunSendPwmToMotor=0;
-	}
+    if(value == 1){
+        flagRunSendPwmToMotor=value;
+    }else{
+        flagRunSendPwmToMotor=0;
+    }
 }
 
 /*!***************************************************************
@@ -252,7 +252,7 @@ void SetFlagRunSendPwmToMotor(char value){
  * \endinternal
 *****************************************************************/
 void IsrSetFlag(){
-	flagRunSendPwmToMotor=1;
+    flagRunSendPwmToMotor=1;
 }
 
 /*!***************************************************************
@@ -269,7 +269,7 @@ void IsrSetFlag(){
  * \endinternal
 *****************************************************************/
 char GetFlagRunSendPwmToMotor(){
-	return flagRunSendPwmToMotor;
+    return flagRunSendPwmToMotor;
 }
 
 /*!***************************************************************
@@ -284,11 +284,11 @@ char GetFlagRunSendPwmToMotor(){
  * \endinternal
 *****************************************************************/
 void sendPwmToMotor(){
-	int i;
-	for(i = 0; i < DEFMotorsCount ;i++)
-	{
-		g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[i],&PWMValue[i],1);
-	}
+    int i;
+    for(i = 0; i < DEFMotorsCount ;i++)
+    {
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[i],&PWMValue[i],1);
+    }
 }
 
 /*!***************************************************************
@@ -307,28 +307,28 @@ void sendPwmToMotor(){
 *****************************************************************/
 void GetBLCtrlADRExecuteOrder(char BLCtrlADRExecuteOrder[]){
 #if defined(Quadro_X) || defined(Quadro_Plus)
-	int BLCTRLADR[4] = {DEFMotorNo1_BLCtrlADR, DEFMotorNo2_BLCtrlADR, DEFMotorNo3_BLCtrlADR, DEFMotorNo4_BLCtrlADR};
+    int BLCTRLADR[4] = {DEFMotorNo1_BLCtrlADR, DEFMotorNo2_BLCtrlADR, DEFMotorNo3_BLCtrlADR, DEFMotorNo4_BLCtrlADR};
 
-	BLCtrlADRExecuteOrder[DEFMotorNo1_OrderIDX ]=BLCTRLADR[0];
-					BLCtrlADRExecuteOrder[DEFMotorNo2_OrderIDX]=BLCTRLADR[1];
-					BLCtrlADRExecuteOrder[DEFMotorNo3_OrderIDX]=BLCTRLADR[2];
-					BLCtrlADRExecuteOrder[DEFMotorNo4_OrderIDX]=BLCTRLADR[3];
+    BLCtrlADRExecuteOrder[DEFMotorNo1_OrderIDX ]=BLCTRLADR[0];
+                    BLCtrlADRExecuteOrder[DEFMotorNo2_OrderIDX]=BLCTRLADR[1];
+                    BLCtrlADRExecuteOrder[DEFMotorNo3_OrderIDX]=BLCTRLADR[2];
+                    BLCtrlADRExecuteOrder[DEFMotorNo4_OrderIDX]=BLCTRLADR[3];
 
 #endif
 
 #ifdef Okto_Plus
-	int BLCTRLADR[8] = {DEFMotorNo1_BLCtrlADR, DEFMotorNo2_BLCtrlADR, DEFMotorNo3_BLCtrlADR
-				DEFMotorNo4_BLCtrlADR, DEFMotorNo5_BLCtrlADR, DEFMotorNo6_BLCtrlADR,
-				DEFMotorNo7_BLCtrlADR, DEFMotorNo8_BLCtrlADR};
+    int BLCTRLADR[8] = {DEFMotorNo1_BLCtrlADR, DEFMotorNo2_BLCtrlADR, DEFMotorNo3_BLCtrlADR
+                DEFMotorNo4_BLCtrlADR, DEFMotorNo5_BLCtrlADR, DEFMotorNo6_BLCtrlADR,
+                DEFMotorNo7_BLCtrlADR, DEFMotorNo8_BLCtrlADR};
 
-	BLCtrlADRExecuteOrder[DEFMotorNo1_OrderIDX]=BLCTRLADR[0];
-	BLCtrlADRExecuteOrder[DEFMotorNo2_OrderIDX]=BLCTRLADR[1];
-	BLCtrlADRExecuteOrder[DEFMotorNo3_OrderIDX]=BLCTRLADR[2];
-	BLCtrlADRExecuteOrder[DEFMotorNo4_OrderIDX]=BLCTRLADR[3];
-	BLCtrlADRExecuteOrder[DEFMotorNo5_OrderIDX]=BLCTRLADR[4];
-	BLCtrlADRExecuteOrder[DEFMotorNo6_OrderIDX]=BLCTRLADR[5];
-	BLCtrlADRExecuteOrder[DEFMotorNo7_OrderIDX]=BLCTRLADR[6];
-	BLCtrlADRExecuteOrder[DEFMotorNo8_OrderIDX]=BLCTRLADR[7];
+    BLCtrlADRExecuteOrder[DEFMotorNo1_OrderIDX]=BLCTRLADR[0];
+    BLCtrlADRExecuteOrder[DEFMotorNo2_OrderIDX]=BLCTRLADR[1];
+    BLCtrlADRExecuteOrder[DEFMotorNo3_OrderIDX]=BLCTRLADR[2];
+    BLCtrlADRExecuteOrder[DEFMotorNo4_OrderIDX]=BLCTRLADR[3];
+    BLCtrlADRExecuteOrder[DEFMotorNo5_OrderIDX]=BLCTRLADR[4];
+    BLCtrlADRExecuteOrder[DEFMotorNo6_OrderIDX]=BLCTRLADR[5];
+    BLCtrlADRExecuteOrder[DEFMotorNo7_OrderIDX]=BLCTRLADR[6];
+    BLCtrlADRExecuteOrder[DEFMotorNo8_OrderIDX]=BLCTRLADR[7];
 
 #endif
 }

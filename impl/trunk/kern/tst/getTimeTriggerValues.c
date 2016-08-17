@@ -3,8 +3,8 @@
 
 /* structured data delivered by the kernel module timeTrigger */
 struct timedInterrupt{
-	int 		irqNum;
-	unsigned long	timer;
+    int         irqNum;
+    unsigned long    timer;
 };
 
 int main( int argc, char **argv, char **envp )
@@ -22,13 +22,13 @@ int main( int argc, char **argv, char **envp )
     while (1) {
         unsigned long recvBytes=0;
 
-	/* read will block until a new timer tigger will arrive */
+    /* read will block until a new timer tigger will arrive */
         recvBytes = read( fd, &(timerStruct), sizeof(timerStruct) );
         printf("interrupts: %d, time elapsed: %7lu us @ %10lu\n", 
-		timerStruct.irqNum, 
-		timerStruct.timer - oldTime, 
-		timerStruct.timer);
-	oldTime=timerStruct.timer;
+        timerStruct.irqNum, 
+        timerStruct.timer - oldTime, 
+        timerStruct.timer);
+    oldTime=timerStruct.timer;
     }
     return 0;
 }

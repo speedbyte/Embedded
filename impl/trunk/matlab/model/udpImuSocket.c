@@ -165,10 +165,10 @@
 #define IS_PARAM_DOUBLE(pVal) (mxIsNumeric(pVal) && !mxIsLogical(pVal) &&\
 !mxIsEmpty(pVal) && !mxIsSparse(pVal) && !mxIsComplex(pVal) && mxIsDouble(pVal))
 
-#define REMOTE_HOST_IPADDR_RG4UI8	{192,168,22,161}
-#define REMOTE_HOST_PORT_UI16		5000
+#define REMOTE_HOST_IPADDR_RG4UI8    {192,168,22,161}
+#define REMOTE_HOST_PORT_UI16        5000
 
-static int	m_simSocket_i32 = 0;
+static int    m_simSocket_i32 = 0;
 
 /*====================*
  * S-function methods *
@@ -186,23 +186,23 @@ static int	m_simSocket_i32 = 0;
      /* All parameters must match the S-function Builder Dialog */
      
 
-	 {
-	  const mxArray *pVal0 = ssGetSFcnParam(S,0);
-	  if (!IS_PARAM_DOUBLE(pVal0)) {
-	    validParam = true;
-	    paramIndex = 0;
-	    goto EXIT_POINT;
-	  }
-	 }
+     {
+      const mxArray *pVal0 = ssGetSFcnParam(S,0);
+      if (!IS_PARAM_DOUBLE(pVal0)) {
+        validParam = true;
+        paramIndex = 0;
+        goto EXIT_POINT;
+      }
+     }
 
-	 {
-	  const mxArray *pVal1 = ssGetSFcnParam(S,1);
-	  if (!IS_PARAM_DOUBLE(pVal1)) {
-	    validParam = true;
-	    paramIndex = 1;
-	    goto EXIT_POINT;
-	  }
-	 }
+     {
+      const mxArray *pVal1 = ssGetSFcnParam(S,1);
+      if (!IS_PARAM_DOUBLE(pVal1)) {
+        validParam = true;
+        paramIndex = 1;
+        goto EXIT_POINT;
+      }
+     }
       
      EXIT_POINT:
       if (validParam) {
@@ -211,9 +211,9 @@ static int	m_simSocket_i32 = 0;
                   "information specified in the S-function Builder dialog. "
                   "For non-double parameters you will need to cast them using int8, int16, "
                   "int32, uint8, uint16, uint32 or boolean.", paramIndex + 1);
-	  ssSetErrorStatus(S,parameterErrorMsg);
+      ssSetErrorStatus(S,parameterErrorMsg);
       }
-	return;
+    return;
     }
  #endif /* MDL_CHECK_PARAMETERS */
 /* Function: mdlInitializeSizes ===============================================
@@ -226,14 +226,14 @@ static void mdlInitializeSizes(SimStruct *S)
     DECL_AND_INIT_DIMSINFO(outputDimsInfo);
     ssSetNumSFcnParams(S, NPARAMS);  /* Number of expected parameters */
       #if defined(MATLAB_MEX_FILE)
-	if (ssGetNumSFcnParams(S) == ssGetSFcnParamsCount(S)) {
-	  mdlCheckParameters(S);
-	  if (ssGetErrorStatus(S) != NULL) {
-	    return;
-	  }
-	 } else {
-	   return; /* Parameter mismatch will be reported by Simulink */
-	 }
+    if (ssGetNumSFcnParams(S) == ssGetSFcnParamsCount(S)) {
+      mdlCheckParameters(S);
+      if (ssGetErrorStatus(S) != NULL) {
+        return;
+      }
+     } else {
+       return; /* Parameter mismatch will be reported by Simulink */
+     }
       #endif
 
     ssSetNumContStates(S, NUM_CONT_STATES);
@@ -272,7 +272,7 @@ static void mdlInitializeSizes(SimStruct *S)
 
     /* Take care when specifying exception free code - see sfuntmpl_doc.c */
     ssSetOptions(S, (SS_OPTION_EXCEPTION_FREE_CODE |
-		     SS_OPTION_WORKS_WITH_CODE_REUSE));
+             SS_OPTION_WORKS_WITH_CODE_REUSE));
 }
 
 /* Function: mdlInitializeSampleTimes =========================================
@@ -302,13 +302,13 @@ static void mdlInitializeSampleTimes(SimStruct *S)
    */
   static void mdlStart(SimStruct *S)
   {
-	  unsigned char l_remoteIpAddr_rg4ui8[4] = REMOTE_HOST_IPADDR_RG4UI8;
+      unsigned char l_remoteIpAddr_rg4ui8[4] = REMOTE_HOST_IPADDR_RG4UI8;
       double* l_listenPort_pf64;
     
       //get smaple time, configured in block parameters
       l_listenPort_pf64 = mxGetPr( ssGetSFcnParam(S, 1) );
       printf("Listening to port %lf\n",*l_listenPort_pf64);
-	  
+      
       m_simSocket_i32 = g_halMatlab_initConnection_i32( l_remoteIpAddr_rg4ui8 , (unsigned short)*l_listenPort_pf64);
   }
 #endif /*  MDL_START */
@@ -339,27 +339,27 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     const real_T  *sampleTime  = (const real_T *)mxGetData(PARAM_DEF0(S));
     const real_T  *ListenPort  = (const real_T *)mxGetData(PARAM_DEF1(S));
 
-    halMatlab_rtImuPayload 		l_udpPayload_st;
+    halMatlab_rtImuPayload         l_udpPayload_st;
 
-	l_udpPayload_st = g_halMatlab_recvImuState_bl( m_simSocket_i32 );
+    l_udpPayload_st = g_halMatlab_recvImuState_bl( m_simSocket_i32 );
 
     printf("Remote time: %ld.%ld\n", l_udpPayload_st.timestamp_st.tv_sec,l_udpPayload_st.timestamp_st.tv_nsec);
     
-	Accelerometer[0] = l_udpPayload_st.imuState_st.acc.x_f64;
-	Accelerometer[1] = l_udpPayload_st.imuState_st.acc.y_f64;
-	Accelerometer[2] = l_udpPayload_st.imuState_st.acc.z_f64;
+    Accelerometer[0] = l_udpPayload_st.imuState_st.acc.x_f64;
+    Accelerometer[1] = l_udpPayload_st.imuState_st.acc.y_f64;
+    Accelerometer[2] = l_udpPayload_st.imuState_st.acc.z_f64;
 
-	Gyrometer[0] = l_udpPayload_st.imuState_st.gyro.l_roll_f64;
-	Gyrometer[1] = l_udpPayload_st.imuState_st.gyro.l_pitch_f64;
-	Gyrometer[2] = l_udpPayload_st.imuState_st.gyro.l_yaw_f64;
+    Gyrometer[0] = l_udpPayload_st.imuState_st.gyro.l_roll_f64;
+    Gyrometer[1] = l_udpPayload_st.imuState_st.gyro.l_pitch_f64;
+    Gyrometer[2] = l_udpPayload_st.imuState_st.gyro.l_yaw_f64;
 
-	Compass[0] = l_udpPayload_st.imuState_st.mag.x_f64;
-	Compass[1] = l_udpPayload_st.imuState_st.mag.y_f64;
-	Compass[2] = l_udpPayload_st.imuState_st.mag.z_f64;
+    Compass[0] = l_udpPayload_st.imuState_st.mag.x_f64;
+    Compass[1] = l_udpPayload_st.imuState_st.mag.y_f64;
+    Compass[2] = l_udpPayload_st.imuState_st.mag.z_f64;
 
-	Barometer[0] = l_udpPayload_st.imuState_st.pressure_f64;
+    Barometer[0] = l_udpPayload_st.imuState_st.pressure_f64;
 
-	Temperature[0] = l_udpPayload_st.imuState_st.temperature_f64;
+    Temperature[0] = l_udpPayload_st.imuState_st.temperature_f64;
 }
 
 
