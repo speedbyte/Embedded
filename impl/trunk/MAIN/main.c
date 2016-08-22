@@ -25,7 +25,7 @@
 extern float g_halADC_get_ui16(unsigned char);
 
 #define REMOTE_PORT 5000
-#define REMOTE_ADDR "192.168.22.160"
+#define REMOTE_ADDR "192.168.178.21"
 
 typedef enum enumTestCases {
     TESTADC = 1,
@@ -60,13 +60,12 @@ static char str2[500];
 
 //necessary variables for sending via UDP
 struct sockaddr_in remoteaddress;
-char serverAddressString[20];
+char sendAddrString[20];
 socklen_t addressSize;
-struct sockaddr_in serverAddress;
-struct sockaddr_in serverAdr;
 
-long ms; // Milliseconds
-struct timespec spec;
+struct sockaddr_in sendAddr;
+struct sockaddr_in recvAdr;
+
 //UDP Socket
 
 //Necessary characters for sending SensorData
@@ -90,6 +89,8 @@ char Motor1[16];
 char Motor2[16];
 char Motor3[16];
 char Motor4[16];
+char buffer[260];
+
 //////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char *argv[]) {
@@ -99,36 +100,34 @@ int main(int argc, char *argv[]) {
         char testValue[testValueLength];
 
         //Socket to Send Data
-        //necessary data for UDP SENDING AND RECEIVUNG
-        int clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+        int send = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-        sprintf(serverAddressString, REMOTE_ADDR);
-        memset(serverAddress.sin_zero, '\0', sizeof(serverAddress.sin_zero));
-        serverAddress.sin_family = PF_INET;
-        serverAddress.sin_port = htons(REMOTE_PORT);
-        serverAddress.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
+        sprintf(sendAddrString, REMOTE_ADDR);
+        memset(sendAddr.sin_zero, '\0', sizeof(sendAddr.sin_zero));
+        sendAddr.sin_family = PF_INET;
+        sendAddr.sin_port = htons(REMOTE_PORT);
+        sendAddr.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
 
         //Socket to receive Data
-        int serverSocket = socket(PF_INET, SOCK_DGRAM, 0);
-        serverAdr.sin_family = PF_INET;
-        serverAdr.sin_port = htons(4999);
-        serverAdr.sin_addr.s_addr = htonl(INADDR_ANY);
-
-        bind(serverSocket, (struct sockaddr*) &serverAdr, sizeof(serverAdr));
+        int receive = socket(PF_INET, SOCK_DGRAM, 0);
+        recvAdr.sin_family = PF_INET;
+        recvAdr.sin_port = htons(4999);
+        recvAdr.sin_addr.s_addr = htonl(INADDR_ANY);
+        bind(receive, (struct sockaddr*) &recvAdr, sizeof(recvAdr));
 
         //////////////////////////////////////////////////////////////////////////////
 
         if (argc == 2) {
-            sprintf(serverAddressString, argv[1]);
-            printf("%s %d", serverAddressString, strlen(serverAddressString));
+            sprintf(sendAddrString, argv[1]);
+            printf("%s %d", sendAddrString, strlen(sendAddrString));
             //puts(argv[0]);
         }
 
         memset(remoteaddress.sin_zero, '\0', sizeof(remoteaddress.sin_zero));
         remoteaddress.sin_family = PF_INET;
         remoteaddress.sin_port = htons(REMOTE_PORT);
-        (void) inet_aton(serverAddressString, &remoteaddress.sin_addr); //dot to integer and then host to network byte order
-        clientSocket = socket(PF_INET, SOCK_DGRAM, 0);
+        (void) inet_aton(sendAddrString, &remoteaddress.sin_addr); //dot to integer and then host to network byte order
+        send = socket(PF_INET, SOCK_DGRAM, 0);
         /*Initialize size variable to be used later on*/
         addressSize = sizeof(remoteaddress);
 
@@ -519,8 +518,8 @@ int main(int argc, char *argv[]) {
 
                  This function is a cancellation point and therefore not marked with
                  __THROW.  */
-                sendto(clientSocket, message, sizeof(message), 0,
-                        (struct sockaddr *) &serverAddress, addressSize);
+                sendto(send, message, sizeof(message), 0,
+                        (struct sockaddr *) &sendAddr, addressSize);
                 printf("And send again....\n");
             }
             break;
@@ -611,15 +610,14 @@ int main(int argc, char *argv[]) {
                 puts(str);
 
                 //printf("Sending time %d and Temperature %f\n", l_rtCompleteSigPayload_st.timestamp_st.tv_sec, l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
-                sendto(clientSocket,
-                        (unsigned char *) &l_rtCompleteSigPayload_st,
+                sendto(send, (unsigned char *) &l_rtCompleteSigPayload_st,
                         (size_t) sizeof(l_rtCompleteSigPayload_st), 0,
                         (struct sockaddr *) &remoteaddress,
                         sizeof(remoteaddress));
                 usleep(50000); //20ms = 50Hz
             }
             // close udp connection
-            close(clientSocket);
+            close(send);
             break;
         }
         case ALLANGLES: {
@@ -636,7 +634,6 @@ int main(int argc, char *argv[]) {
             printf("Starting Transfer matlab data on all angles\n");
 
             int val = 0;
-
 
             g_sigOri_initMatrices_bl();
             g_sigOri_initImuSensors_bl();
@@ -704,8 +701,7 @@ int main(int argc, char *argv[]) {
                         l_rtRollPitchYawSigPayload_st.angleFromkalmanSigState_st.yaw_f64);
                 puts(str);
 
-                sendto(clientSocket,
-                        (unsigned char *) &l_rtRollPitchYawSigPayload_st,
+                sendto(send, (unsigned char *) &l_rtRollPitchYawSigPayload_st,
                         (size_t) sizeof(l_rtRollPitchYawSigPayload_st), 0,
                         (struct sockaddr *) &remoteaddress,
                         sizeof(remoteaddress));
@@ -713,7 +709,7 @@ int main(int argc, char *argv[]) {
                 usleep(50000); //20ms = 50Hz
             }
             // close udp connection
-            close(clientSocket);
+            close(send);
             break;
         }
 
@@ -775,13 +771,113 @@ int main(int argc, char *argv[]) {
             printf("Start Sending \n");
             //Sensor Data
 
+            //Sensor Data
             while (1) {
 
-                sendSensorData();
-            }
+                g_halImu_triggerImuReading_bl();
+                g_halImu_triggerBaroReading_bl();
+                g_halImu_triggerGyroReading_bl();
+                g_halImu_triggerAccReading_bl();
 
-            break;
+                //Get Sensor Data and Timestamp
+
+                l_imuMeasurements_st = g_halImu_getImuValues_str();
+
+                long ms; // Milliseconds
+                struct timespec spec;
+                time_t res;
+                res = time(NULL);
+                clock_gettime(CLOCK_REALTIME, &spec);
+                ms = round(spec.tv_nsec / 1.0e6); // nano -> mili
+
+                //Call SensorData an save them in floats
+
+                float ax = l_imuMeasurements_st.acc.x_f64;
+                float ay = l_imuMeasurements_st.acc.y_f64;
+                float az = l_imuMeasurements_st.acc.z_f64;
+
+                float mx = l_imuMeasurements_st.mag.x_f64;
+                float my = l_imuMeasurements_st.mag.y_f64;
+                float mz = l_imuMeasurements_st.mag.z_f64;
+
+                float y = l_imuMeasurements_st.gyro.yaw_f64;
+                float p = l_imuMeasurements_st.gyro.pitch_f64;
+                float r = l_imuMeasurements_st.gyro.roll_f64;
+
+                float t = l_imuMeasurements_st.temperature_f64;
+                float pr = l_imuMeasurements_st.pressure_f64;
+
+                //No Motor running : ZERO
+                int mot1 = 0;
+                int mot2 = 0;
+                int mot3 = 0;
+                int mot4 = 0;
+
+                clocks = sprintf(tis, "TimS%u\n", res);
+                clockms = sprintf(tims, "TimM%u\n", ms);
+                accx = sprintf(imu_x, "AccX%f\n", ax);
+                accy = sprintf(imu_y, "AccY%f\n", ay);
+                accz = sprintf(imu_z, "AccZ%f\n", az);
+
+                magx = sprintf(mag_x, "MagX%f\n", mx);
+                magy = sprintf(mag_y, "MagY%f\n", my);
+                magz = sprintf(mag_z, "MagZ%f\n", mz);
+
+                gy = sprintf(g_y, "GyrY%f\n", y);
+                gp = sprintf(g_p, "GyrP%f\n", p);
+                gr = sprintf(g_r, "GyrR%f\n", r);
+
+                temp = sprintf(tmp, "Temp%f\n", t);
+                press = sprintf(prs, "Pres%f\n", pr);
+                m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+                m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+                m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+                m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+
+                printf(flag, '\n');
+                printf(tis, '\n');
+                printf(tims, '\n');
+                printf(imu_x, '\n');
+                printf(imu_x, '\n');
+                printf(imu_z, '\n');
+                printf(mag_x, '\n');
+                printf(mag_y, '\n');
+                printf(mag_z, '\n');
+                printf(g_y, '\n');
+                printf(g_p, '\n');
+                printf(g_r, '\n');
+                printf(tmp, '\n');
+                printf(prs, '\n');
+                printf(Motor1, '\n');
+                printf(Motor2, '\n');
+                printf(Motor3, '\n');
+                printf(Motor4, '\n');
+
+                memcpy(buffer, flag, 5);
+                memcpy(buffer + 5, tis, 15);
+                memcpy(buffer + 20, tims, 15);
+                memcpy(buffer + 36, imu_x, 16);
+                memcpy(buffer + 52, imu_y, 16);
+                memcpy(buffer + 68, imu_z, 16);
+                memcpy(buffer + 84, mag_x, 16);
+                memcpy(buffer + 100, mag_y, 16);
+                memcpy(buffer + 116, mag_z, 16);
+                memcpy(buffer + 116, g_y, 16);
+                memcpy(buffer + 132, g_p, 16);
+                memcpy(buffer + 148, g_r, 16);
+                memcpy(buffer + 164, tmp, 16);
+                memcpy(buffer + 180, prs, 16);
+                memcpy(buffer + 196, Motor1, 16);
+                memcpy(buffer + 212, Motor2, 16);
+                memcpy(buffer + 228, Motor3, 16);
+                memcpy(buffer + 244, Motor4, 16);
+
+                sendto(send, buffer, sizeof(buffer), 0,
+                        (struct sockaddr *) &sendAddr, addressSize);
+                sleep(1);
+            }
         }
+            break;
 
         case PLEASEFLY: {
 
@@ -815,7 +911,6 @@ int main(int argc, char *argv[]) {
                 //First Sensor then Motor
                 while (pwmValue < MAXPWMVALUE) {
 
-                    //sendSensorData Aufruf. Zu langsam. Außerdem nc -ul empfängt immer nur einmal und muss dann neu gestartet werden.
                     sendBuffer[0] = pwmValue;
 
                     g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
@@ -826,16 +921,98 @@ int main(int argc, char *argv[]) {
                             &sendBuffer[0], 1);
                     g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
                             &sendBuffer[0], 1);
-                    usleep(100000);
+
+                    //Preparation for Sensor Calls
+
+                    g_halImu_triggerImuReading_bl();
+                    g_halImu_triggerBaroReading_bl();
+                    g_halImu_triggerGyroReading_bl();
+                    g_halImu_triggerAccReading_bl();
+
+                    //Get Sensor Data and Timestamp
+
+                    l_imuMeasurements_st = g_halImu_getImuValues_str();
+
+                    long ms; // Milliseconds
+                    struct timespec spec;
+                    time_t res;
+                    res = time(NULL);
+                    clock_gettime(CLOCK_REALTIME, &spec);
+                    ms = round(spec.tv_nsec / 1.0e6); // nano -> mili
+
+                    //Call SensorData an save them in floats
+
+                    float ax = l_imuMeasurements_st.acc.x_f64;
+                    float ay = l_imuMeasurements_st.acc.y_f64;
+                    float az = l_imuMeasurements_st.acc.z_f64;
+
+                    float mx = l_imuMeasurements_st.mag.x_f64;
+                    float my = l_imuMeasurements_st.mag.y_f64;
+                    float mz = l_imuMeasurements_st.mag.z_f64;
+
+                    float y = l_imuMeasurements_st.gyro.yaw_f64;
+                    float p = l_imuMeasurements_st.gyro.pitch_f64;
+                    float r = l_imuMeasurements_st.gyro.roll_f64;
+
+                    float t = l_imuMeasurements_st.temperature_f64;
+                    float pr = l_imuMeasurements_st.pressure_f64;
+
+                    //No Motor running : ZERO
+                    int mot1 = pwmValue;
+                    int mot2 = pwmValue;
+                    int mot3 = pwmValue;
+                    int mot4 = pwmValue;
+
+                    clocks = sprintf(tis, "TimS%u\n", res);
+                    clockms = sprintf(tims, "TimM%u\n", ms);
+                    accx = sprintf(imu_x, "AccX%f\n", ax);
+                    accy = sprintf(imu_y, "AccY%f\n", ay);
+                    accz = sprintf(imu_z, "AccZ%f\n", az);
+
+                    magx = sprintf(mag_x, "MagX%f\n", mx);
+                    magy = sprintf(mag_y, "MagY%f\n", my);
+                    magz = sprintf(mag_z, "MagZ%f\n", mz);
+
+                    gy = sprintf(g_y, "GyrY%f\n", y);
+                    gp = sprintf(g_p, "GyrP%f\n", p);
+                    gr = sprintf(g_r, "GyrR%f\n", r);
+
+                    temp = sprintf(tmp, "Temp%f\n", t);
+                    press = sprintf(prs, "Pres%f\n", pr);
+                    m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+                    m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+                    m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+                    m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+
+                    memcpy(buffer, flag, 5);
+                    memcpy(buffer + 5, tis, 15);
+                    memcpy(buffer + 20, tims, 15);
+                    memcpy(buffer + 36, imu_x, 16);
+                    memcpy(buffer + 52, imu_y, 16);
+                    memcpy(buffer + 68, imu_z, 16);
+                    memcpy(buffer + 84, mag_x, 16);
+                    memcpy(buffer + 100, mag_y, 16);
+                    memcpy(buffer + 116, mag_z, 16);
+                    memcpy(buffer + 116, g_y, 16);
+                    memcpy(buffer + 132, g_p, 16);
+                    memcpy(buffer + 148, g_r, 16);
+                    memcpy(buffer + 164, tmp, 16);
+                    memcpy(buffer + 180, prs, 16);
+                    memcpy(buffer + 196, Motor1, 16);
+                    memcpy(buffer + 212, Motor2, 16);
+                    memcpy(buffer + 228, Motor3, 16);
+                    memcpy(buffer + 244, Motor4, 16);
+
+                    sendto(send, buffer, sizeof(buffer), 0,
+                            (struct sockaddr *) &sendAddr, addressSize);
 
                     pwmValue = pwmValue + STEPSIZE;
 
+                    usleep(100000);
                 }
 
                 while (pwmValue > 5) {
 
-                    //sendSensorData Aufruf. Zu langsam. Außerdem: nc -ul empfängt immer nur einmal und muss dann neu gestartet werden.
-
                     sendBuffer[0] = pwmValue;
 
                     g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
@@ -846,11 +1023,92 @@ int main(int argc, char *argv[]) {
                             &sendBuffer[0], 1);
                     g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
                             &sendBuffer[0], 1);
+                    g_halImu_triggerImuReading_bl();
+                    g_halImu_triggerBaroReading_bl();
+                    g_halImu_triggerGyroReading_bl();
+                    g_halImu_triggerAccReading_bl();
+
+                    //Get Sensor Data and Timestamp
+
+                    l_imuMeasurements_st = g_halImu_getImuValues_str();
+
+                    long ms; // Milliseconds
+                    struct timespec spec;
+                    time_t res;
+                    res = time(NULL);
+                    clock_gettime(CLOCK_REALTIME, &spec);
+                    ms = round(spec.tv_nsec / 1.0e6); // nano -> mili
+
+                    //Call SensorData an save them in floats
+
+                    float ax = l_imuMeasurements_st.acc.x_f64;
+                    float ay = l_imuMeasurements_st.acc.y_f64;
+                    float az = l_imuMeasurements_st.acc.z_f64;
+
+                    float mx = l_imuMeasurements_st.mag.x_f64;
+                    float my = l_imuMeasurements_st.mag.y_f64;
+                    float mz = l_imuMeasurements_st.mag.z_f64;
+
+                    float y = l_imuMeasurements_st.gyro.yaw_f64;
+                    float p = l_imuMeasurements_st.gyro.pitch_f64;
+                    float r = l_imuMeasurements_st.gyro.roll_f64;
+
+                    float t = l_imuMeasurements_st.temperature_f64;
+                    float pr = l_imuMeasurements_st.pressure_f64;
+
+                    //No Motor running : ZERO
+                    int mot1 = pwmValue;
+                    int mot2 = pwmValue;
+                    int mot3 = pwmValue;
+                    int mot4 = pwmValue;
+
+                    clocks = sprintf(tis, "TimS%u\n", res);
+                    clockms = sprintf(tims, "TimM%u\n", ms);
+                    accx = sprintf(imu_x, "AccX%f\n", ax);
+                    accy = sprintf(imu_y, "AccY%f\n", ay);
+                    accz = sprintf(imu_z, "AccZ%f\n", az);
+
+                    magx = sprintf(mag_x, "MagX%f\n", mx);
+                    magy = sprintf(mag_y, "MagY%f\n", my);
+                    magz = sprintf(mag_z, "MagZ%f\n", mz);
+
+                    gy = sprintf(g_y, "GyrY%f\n", y);
+                    gp = sprintf(g_p, "GyrP%f\n", p);
+                    gr = sprintf(g_r, "GyrR%f\n", r);
+
+                    temp = sprintf(tmp, "Temp%f\n", t);
+                    press = sprintf(prs, "Pres%f\n", pr);
+                    m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+                    m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+                    m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+                    m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+
+                    memcpy(buffer, flag, 5);
+                    memcpy(buffer + 5, tis, 15);
+                    memcpy(buffer + 20, tims, 15);
+                    memcpy(buffer + 36, imu_x, 16);
+                    memcpy(buffer + 52, imu_y, 16);
+                    memcpy(buffer + 68, imu_z, 16);
+                    memcpy(buffer + 84, mag_x, 16);
+                    memcpy(buffer + 100, mag_y, 16);
+                    memcpy(buffer + 116, mag_z, 16);
+                    memcpy(buffer + 116, g_y, 16);
+                    memcpy(buffer + 132, g_p, 16);
+                    memcpy(buffer + 148, g_r, 16);
+                    memcpy(buffer + 164, tmp, 16);
+                    memcpy(buffer + 180, prs, 16);
+                    memcpy(buffer + 196, Motor1, 16);
+                    memcpy(buffer + 212, Motor2, 16);
+                    memcpy(buffer + 228, Motor3, 16);
+                    memcpy(buffer + 244, Motor4, 16);
+
+                    sendto(send, buffer, sizeof(buffer), 0,
+                            (struct sockaddr *) &sendAddr, addressSize);
+
                     usleep(100000);
 
                     pwmValue = pwmValue - STEPSIZE;
                 }
-
             }
         }
 
@@ -858,7 +1116,7 @@ int main(int argc, char *argv[]) {
 
         case RECEIVE: {
 
-            //Preparation for Sensor Calls
+//Preparation for Sensor Calls
             halImu_orientationValues l_imuMeasurements_st;
             g_halImu_initImuSensors_bl();
 
@@ -866,99 +1124,226 @@ int main(int argc, char *argv[]) {
 
             //Testfälle
 
-            char test[] = "aa";     //Testen aller 4 Motoren
+            char test[] = "aa"; //Testen aller 4 Motoren
+            char start[] = "go"; //Alle 4 Motoren laufen mit konstanter Geschwindigkeit
+            char stop[] = "st"; //Die Motoren stoppen
+            char demo[] = "dm";
+
             char mot0[] = "00";
             char mot1[] = "01";
             char mot2[] = "02";
             char mot3[] = "03";
 
             GetBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
+            char sendBuffer0[1];
+            char sendBuffer1[1];
+            char sendBuffer2[1];
+            char sendBuffer3[1];
 
-            char msg0[8];
-            char msg1[8];
-            char msg2[8];
-            char msg3[8];
+            unsigned int pwmValue0;
+            unsigned int pwmValue1;
+            unsigned int pwmValue2;
+            unsigned int pwmValue3;
+
+            char msg0[29];
 
             while (1) {
 
                 char *ind0, *ind1, *ind2, *ind3;
                 char *pwm0, *pwm1, *pwm2, *pwm3;
 
-                recv(serverSocket, msg0, sizeof(msg0), 0);
+                recv(receive, msg0, sizeof(msg0), 0);
                 printf("msg %s \n", msg0);
-                recv(serverSocket, msg1, sizeof(msg1), 0);
-                recv(serverSocket, msg2, sizeof(msg2), 0);
-                recv(serverSocket, msg3, sizeof(msg3), 0);
 
                 ind0 = strtok(msg0, ":");
-                pwm0 = strtok(NULL, ".");
-                ind1 = strtok(msg1, ":");
-                pwm1 = strtok(NULL, ":");
-                ind2 = strtok(msg2, ":");
-                pwm2 = strtok(NULL, ":");
-                ind3 = strtok(msg3, ":");
-                pwm3 = strtok(NULL, ":");
+                pwm0 = strtok(NULL, ":");
 
+                ind1 = strtok(NULL, ":");
+                pwm1 = strtok(NULL, ":");
+
+                ind2 = strtok(NULL, ":");
+                pwm2 = strtok(NULL, ":");
+
+                ind3 = strtok(NULL, ":");
+                pwm3 = strtok(NULL, ".");
+
+                //Motortest, alle Motoren laufen kurz
                 if (strcmp(test, ind0) == 0) {
-                    motortest();
+                    printf("Test\n");
+                    pwmValue0 = 10;
+                    pwmValue1 = 10;
+                    pwmValue2 = 10;
+                    pwmValue3 = 10;
+                    sendBuffer0[0] = pwmValue0;
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
+                            &sendBuffer0[0], 1);
+                    sleep(1);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
+                            &sendBuffer0[0], 1);
+                    sleep(1);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
+                            &sendBuffer0[0], 1);
+                    sleep(1);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
+                            &sendBuffer0[0], 1);
                 }
 
-                /*                              if (strcmp(mot0, ind0) == 0) {
-                 pwmValue0 = atoi(pwm0);
-                 sendBuffer0[0] = pwmValue0;
-                 g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
-                 &sendBuffer0[0], 1);
+                //Alle 4 Motoren laufen mit konstanter Geschwindigkeit
 
-                 }
+                if (strcmp(start, ind0) == 0) {
+                    printf("Starting Motors\n");
+                    pwmValue0 = 15;
+                    pwmValue1 = 15;
+                    pwmValue2 = 15;
+                    pwmValue3 = 15;
+                    sendBuffer0[0] = pwmValue0;
 
-                 if (strcmp(mot1, ind1) == 0) {
-                 pwmValue1 = atoi(pwm1);
-                 sendBuffer1[0] = pwmValue1;
-                 g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
-                 &sendBuffer1[0], 1);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
+                            &sendBuffer0[0], 1);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
+                            &sendBuffer0[0], 1);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
+                            &sendBuffer0[0], 1);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
+                            &sendBuffer0[0], 1);
+                }
 
-                 }
+                //Alle 4 Motoren stoppen
+                if (strcmp(stop, ind0) == 0) {
+                    printf("STOP\n");
+                    pwmValue0 = 0;
+                    pwmValue1 = 0;
+                    pwmValue2 = 0;
+                    pwmValue3 = 0;
+                    //Motoren halten wenn nicht angesteuert an;
+                    //Kein Code nötig
+                }
 
-                 if (strcmp(mot2, ind2) == 0) {
-                 pwmValue2 = atoi(pwm2);
-                 sendBuffer2[0] = pwmValue2;
-                 g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
-                 &sendBuffer2[0], 1);
+                //DEMO
+                if (strcmp(ind0, demo) == 0) {
+                    printf("Start DEMO\n");
+                    playDemo();
+                }
 
-                 }
+                //Steuerung
 
-                 if (strcmp(mot3, ind3) == 0) {
-                 pwmValue3 = atoi(pwm3);
-                 sendBuffer3[0] = pwmValue3;
-                 g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
-                 &sendBuffer3[0], 1);
+                if (strcmp(mot0, ind0) == 0) {
+                    pwmValue0 = atoi(pwm0);
+                    sendBuffer0[0] = pwmValue0;
+                    printf("PWM0 %u\n", pwmValue0);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
+                            &sendBuffer0[0], 1);
 
-                 }
+                }
 
-                 if (strcmp(test1, msg0) == 0) {
-                 pwmValue0 = atoi(pwm0);
-                 printf("Alle Motoren mit Wert %u\n", pwmValue0);
-                 sendBuffer0[0] = pwmValue0;
-                 sendBuffer1[0] = pwmValue0;
-                 sendBuffer2[0] = pwmValue0;
-                 sendBuffer3[0] = pwmValue0;
-                 printf("PWM0 %u\n", pwmValue0);
-                 printf("PWM1 %u\n", pwmValue0);
-                 printf("PWM2 %u\n", pwmValue0);
-                 printf("PWM3 %u\n", pwmValue0);
+                if (strcmp(mot1, ind1) == 0) {
+                    pwmValue1 = atoi(pwm1);
+                    sendBuffer1[0] = pwmValue1;
+                    printf("PWM1 %u\n", pwmValue1);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
+                            &sendBuffer1[0], 1);
 
-                 //SensorData
+                }
 
-                 g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
-                 &sendBuffer0[0], 1);
-                 g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
-                 &sendBuffer1[0], 1);
-                 g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
-                 &sendBuffer2[0], 1);
-                 g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
-                 &sendBuffer3[0], 1);
+                if (strcmp(mot2, ind2) == 0) {
+                    pwmValue2 = atoi(pwm2);
+                    sendBuffer2[0] = pwmValue2;
+                    printf("PWM2 %u\n", pwmValue2);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
+                            &sendBuffer2[0], 1);
 
-                 }*/
+                }
+
+                if (strcmp(mot3, ind3) == 0) {
+                    pwmValue3 = atoi(pwm3);
+                    sendBuffer3[0] = pwmValue3;
+                    printf("PWM3 %u\n", pwmValue3);
+                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
+                            &sendBuffer3[0], 1);
+
+                }
+
+                g_halImu_triggerImuReading_bl();
+                g_halImu_triggerBaroReading_bl();
+                g_halImu_triggerGyroReading_bl();
+                g_halImu_triggerAccReading_bl();
+
+                //Get Sensor Data and Timestamp
+
+                l_imuMeasurements_st = g_halImu_getImuValues_str();
+
+                long ms; // Milliseconds
+                struct timespec spec;
+                time_t res;
+                res = time(NULL);
+                clock_gettime(CLOCK_REALTIME, &spec);
+                ms = round(spec.tv_nsec / 1.0e6); // nano -> mili
+
+                //Call SensorData an save them in floats
+
+                float ax = l_imuMeasurements_st.acc.x_f64;
+                float ay = l_imuMeasurements_st.acc.y_f64;
+                float az = l_imuMeasurements_st.acc.z_f64;
+
+                float mx = l_imuMeasurements_st.mag.x_f64;
+                float my = l_imuMeasurements_st.mag.y_f64;
+                float mz = l_imuMeasurements_st.mag.z_f64;
+
+                float y = l_imuMeasurements_st.gyro.yaw_f64;
+                float p = l_imuMeasurements_st.gyro.pitch_f64;
+                float r = l_imuMeasurements_st.gyro.roll_f64;
+
+                float t = l_imuMeasurements_st.temperature_f64;
+                float pr = l_imuMeasurements_st.pressure_f64;
+
+                //No Motor running : ZERO
+                int mot1 = pwmValue0;
+                int mot2 = pwmValue1;
+                int mot3 = pwmValue2;
+                int mot4 = pwmValue3;
+
+                clocks = sprintf(tis, "TimS%u\n", res);
+                clockms = sprintf(tims, "TimM%u\n", ms);
+                accx = sprintf(imu_x, "AccX%f\n", ax);
+                accy = sprintf(imu_y, "AccY%f\n", ay);
+                accz = sprintf(imu_z, "AccZ%f\n", az);
+
+                magx = sprintf(mag_x, "MagX%f\n", mx);
+                magy = sprintf(mag_y, "MagY%f\n", my);
+                magz = sprintf(mag_z, "MagZ%f\n", mz);
+
+                gy = sprintf(g_y, "GyrY%f\n", y);
+                gp = sprintf(g_p, "GyrP%f\n", p);
+                gr = sprintf(g_r, "GyrR%f\n", r);
+
+                temp = sprintf(tmp, "Temp%f\n", t);
+                press = sprintf(prs, "Pres%f\n", pr);
+                m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+                m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+                m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+                m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+
+                memcpy(buffer, flag, 5);
+                memcpy(buffer + 5, tis, 15);
+                memcpy(buffer + 20, tims, 15);
+                memcpy(buffer + 36, imu_x, 16);
+                memcpy(buffer + 52, imu_y, 16);
+                memcpy(buffer + 68, imu_z, 16);
+                memcpy(buffer + 84, mag_x, 16);
+                memcpy(buffer + 100, mag_y, 16);
+                memcpy(buffer + 116, mag_z, 16);
+                memcpy(buffer + 116, g_y, 16);
+                memcpy(buffer + 132, g_p, 16);
+                memcpy(buffer + 148, g_r, 16);
+                memcpy(buffer + 164, tmp, 16);
+                memcpy(buffer + 180, prs, 16);
+                memcpy(buffer + 196, Motor1, 16);
+                memcpy(buffer + 212, Motor2, 16);
+                memcpy(buffer + 228, Motor3, 16);
+                memcpy(buffer + 244, Motor4, 16);
+
+                sendto(send, buffer, sizeof(buffer), 0,
+                        (struct sockaddr *) &sendAddr, addressSize);
 
             }
         }
@@ -994,7 +1379,7 @@ int main(int argc, char *argv[]) {
             break;
         }
         case TESTMOTORISR: {    //starts with first press of + or - than enter
-            //leave with pressing 'q'
+                                //leave with pressing 'q'
             printf("Start Testing Motors with ISR");
             InitMotor(9000);
 
@@ -1113,7 +1498,7 @@ int main(int argc, char *argv[]) {
 
             InitMotor(9000);
 
-            //Wait 1 Sec
+//Wait 1 Sec
             time(&timeStamp);
             time(&currentTime);
             if (difftime(currentTime, timeStamp) >= 1) {
@@ -1162,7 +1547,7 @@ int main(int argc, char *argv[]) {
                 int random = rand() % 1500;
                 char randomToSend[20];
                 writtencharacters = sprintf(randomToSend, "%d\n", random);
-                sendto(clientSocket, randomToSend, writtencharacters, 0,
+                sendto(send, randomToSend, writtencharacters, 0,
                         (struct sockaddr *) &remoteaddress, addressSize);
                 printf("And send again....%d\n", random);
             }
@@ -1191,7 +1576,7 @@ int main(int argc, char *argv[]) {
                 writtencharacters = sprintf(imu_x, "%f \n", k);
                 printf(imu_x, '\n'); //this prints the right number
 
-                sendto(clientSocket, imu_x, writtencharacters, 0,
+                sendto(send, imu_x, writtencharacters, 0,
                         (struct sockaddr *) &remoteaddress, addressSize);
                 printf("And send again....\n");
             }
@@ -1388,164 +1773,228 @@ int calcPwmValue(char controllChar, int motorNumber, int pwmValue) {
     return pwmValue;
 }
 
-inline void sendSensorData() {
+void playDemo() {
 
-    int clientSocket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-    //Preparation for Sensor Calls
+    //Trigger Sensors
     halImu_orientationValues l_imuMeasurements_st;
     g_halImu_initImuSensors_bl();
 
-    serverAddress.sin_family = PF_INET;
-    serverAddress.sin_port = htons(REMOTE_PORT);
-    serverAddress.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
+    //UDP
+    int send = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-    //Sensor Data
+    sprintf(sendAddrString, REMOTE_ADDR);
+    memset(sendAddr.sin_zero, '\0', sizeof(sendAddr.sin_zero));
+    sendAddr.sin_family = PF_INET;
+    sendAddr.sin_port = htons(REMOTE_PORT);
+    sendAddr.sin_addr.s_addr = inet_addr(REMOTE_ADDR);
 
-    g_halImu_triggerImuReading_bl();
-    g_halImu_triggerBaroReading_bl();
-    g_halImu_triggerGyroReading_bl();
-    g_halImu_triggerAccReading_bl();
+    //Motor
+    printf("Beschleunigungstest \n");
 
-    //Get Sensor Data and Timestamp
+    char pwm[3];
+    char step[3];
 
-    l_imuMeasurements_st = g_halImu_getImuValues_str();
-
-    double res;
-    res = time(NULL);
-    clock_gettime(CLOCK_REALTIME, &spec);
-    ms = round(spec.tv_nsec / 1.0e6); // nano -> mili
-
-    //Call SensorData an save them in floats
-
-    float ax = l_imuMeasurements_st.acc.x_f64;
-    float ay = l_imuMeasurements_st.acc.y_f64;
-    float az = l_imuMeasurements_st.acc.z_f64;
-
-    float mx = l_imuMeasurements_st.mag.x_f64;
-    float my = l_imuMeasurements_st.mag.y_f64;
-    float mz = l_imuMeasurements_st.mag.z_f64;
-
-    float y = l_imuMeasurements_st.gyro.yaw_f64;
-    float p = l_imuMeasurements_st.gyro.pitch_f64;
-    float r = l_imuMeasurements_st.gyro.roll_f64;
-
-    float t = l_imuMeasurements_st.temperature_f64;
-    float pr = l_imuMeasurements_st.pressure_f64;
-
-    //No Motor running : ZERO
-    int mot1 = 0;
-    int mot2 = 0;
-    int mot3 = 0;
-    int mot4 = 0;
-
-    clocks = sprintf(tis, "TimS%u\n", res);
-    clockms = sprintf(tims, "TimM%u\n", ms);
-    accx = sprintf(imu_x, "AccX%f\n", ax);
-    accy = sprintf(imu_y, "AccY%f\n", ay);
-    accz = sprintf(imu_z, "AccZ%f\n", az);
-
-    magx = sprintf(mag_x, "MagX%f\n", mx);
-    magy = sprintf(mag_y, "MagY%f\n", my);
-    magz = sprintf(mag_z, "MagZ%f\n", mz);
-
-    gy = sprintf(g_y, "GyrY%f\n", y);
-    gp = sprintf(g_p, "GyrP%f\n", p);
-    gr = sprintf(g_r, "GyrR%f\n", r);
-
-    temp = sprintf(tmp, "Temp%f\n", t);
-    press = sprintf(prs, "Pres%f\n", pr);
-    m1 = sprintf(Motor1, "Mot1%u\n", mot1);
-    m2 = sprintf(Motor2, "Mot2%u\n", mot2);
-    m3 = sprintf(Motor3, "Mot3%u\n", mot3);
-    m4 = sprintf(Motor4, "Mot4%u\n", mot4);
-
-    printf(flag, '\n');
-    printf(tis, '\n');
-    printf(tims, '\n');
-    printf(imu_x, '\n');
-    printf(imu_x, '\n');
-    printf(imu_z, '\n');
-    printf(mag_x, '\n');
-    printf(mag_y, '\n');
-    printf(mag_z, '\n');
-    printf(g_y, '\n');
-    printf(g_p, '\n');
-    printf(g_r, '\n');
-    printf(tmp, '\n');
-    printf(prs, '\n');
-    printf(Motor1, '\n');
-    printf(Motor2, '\n');
-    printf(Motor3, '\n');
-    printf(Motor4, '\n');
-
-    //FLAG AFAF
-
-    sendto(clientSocket, flag, sizeof(flag), 0,
-            (struct sockaddr *) &serverAddress, addressSize);
-
-    //Timestamp
-    sendto(clientSocket, tis, clocks, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, tims, clockms, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-
-    //acceleration data
-    sendto(clientSocket, imu_x, accx, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, imu_y, accy, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, imu_z, accz, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-
-    //Mag data
-    sendto(clientSocket, mag_x, magx, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, mag_y, magy, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, mag_z, magz, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-
-    //Gyro Data
-    sendto(clientSocket, g_y, gy, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, g_p, gp, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, g_r, gr, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-
-    //Temperature and Pressure
-    sendto(clientSocket, tmp, temp, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, prs, press, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-
-    // Motor Data
-    sendto(clientSocket, Motor1, m1, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, Motor2, m2, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, Motor3, m3, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    sendto(clientSocket, Motor4, m4, 0, (struct sockaddr *) &serverAddress,
-            addressSize);
-    return;
-
-}
-
-void motortest() {
     char BLCtrlADRExecuteOrder[DEFMotorsCount];
+    char sendBuffer[1];
+    unsigned int pwmValue = 1;
+    int STEPSIZE = 1;
+    int MAXPWMVALUE = 65;
 
-    unsigned int pwmValue0;
-    unsigned int pwmValue1;
-    unsigned int pwmValue2;
-    unsigned int pwmValue3;
+    GetBLCtrlADRExecuteOrder(&BLCtrlADRExecuteOrder[0]);
 
-    char sendBuffer0[1];
-    char sendBuffer1[1];
-    char sendBuffer2[1];
-    char sendBuffer3[1];
+    //First Sensor then Motor
+    while (pwmValue < MAXPWMVALUE) {
 
-    printf("Test\n");
+        sendBuffer[0] = pwmValue;
+
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3], &sendBuffer[0], 1);
+
+        //Preparation for Sensor Calls
+
+        g_halImu_triggerImuReading_bl();
+        g_halImu_triggerBaroReading_bl();
+        g_halImu_triggerGyroReading_bl();
+        g_halImu_triggerAccReading_bl();
+
+        //Get Sensor Data and Timestamp
+
+        l_imuMeasurements_st = g_halImu_getImuValues_str();
+
+        long ms; // Milliseconds
+        struct timespec spec;
+        time_t res;
+        res = time(NULL);
+        clock_gettime(CLOCK_REALTIME, &spec);
+        ms = round(spec.tv_nsec / 1.0e6); // nano -> mili
+
+        //Call SensorData an save them in floats
+
+        float ax = l_imuMeasurements_st.acc.x_f64;
+        float ay = l_imuMeasurements_st.acc.y_f64;
+        float az = l_imuMeasurements_st.acc.z_f64;
+
+        float mx = l_imuMeasurements_st.mag.x_f64;
+        float my = l_imuMeasurements_st.mag.y_f64;
+        float mz = l_imuMeasurements_st.mag.z_f64;
+
+        float y = l_imuMeasurements_st.gyro.yaw_f64;
+        float p = l_imuMeasurements_st.gyro.pitch_f64;
+        float r = l_imuMeasurements_st.gyro.roll_f64;
+
+        float t = l_imuMeasurements_st.temperature_f64;
+        float pr = l_imuMeasurements_st.pressure_f64;
+
+        //No Motor running : ZERO
+        int mot1 = pwmValue;
+        int mot2 = pwmValue;
+        int mot3 = pwmValue;
+        int mot4 = pwmValue;
+
+        clocks = sprintf(tis, "TimS%u\n", res);
+        clockms = sprintf(tims, "TimM%u\n", ms);
+        accx = sprintf(imu_x, "AccX%f\n", ax);
+        accy = sprintf(imu_y, "AccY%f\n", ay);
+        accz = sprintf(imu_z, "AccZ%f\n", az);
+
+        magx = sprintf(mag_x, "MagX%f\n", mx);
+        magy = sprintf(mag_y, "MagY%f\n", my);
+        magz = sprintf(mag_z, "MagZ%f\n", mz);
+
+        gy = sprintf(g_y, "GyrY%f\n", y);
+        gp = sprintf(g_p, "GyrP%f\n", p);
+        gr = sprintf(g_r, "GyrR%f\n", r);
+
+        temp = sprintf(tmp, "Temp%f\n", t);
+        press = sprintf(prs, "Pres%f\n", pr);
+        m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+        m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+        m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+        m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+
+        memcpy(buffer, flag, 5);
+        memcpy(buffer + 5, tis, 15);
+        memcpy(buffer + 20, tims, 15);
+        memcpy(buffer + 36, imu_x, 16);
+        memcpy(buffer + 52, imu_y, 16);
+        memcpy(buffer + 68, imu_z, 16);
+        memcpy(buffer + 84, mag_x, 16);
+        memcpy(buffer + 100, mag_y, 16);
+        memcpy(buffer + 116, mag_z, 16);
+        memcpy(buffer + 116, g_y, 16);
+        memcpy(buffer + 132, g_p, 16);
+        memcpy(buffer + 148, g_r, 16);
+        memcpy(buffer + 164, tmp, 16);
+        memcpy(buffer + 180, prs, 16);
+        memcpy(buffer + 196, Motor1, 16);
+        memcpy(buffer + 212, Motor2, 16);
+        memcpy(buffer + 228, Motor3, 16);
+        memcpy(buffer + 244, Motor4, 16);
+
+        sendto(send, buffer, sizeof(buffer), 0, (struct sockaddr *) &sendAddr,
+                addressSize);
+
+        pwmValue = pwmValue + STEPSIZE;
+
+        usleep(100000);
+    }
+
+    while (pwmValue > 5) {
+
+        sendBuffer[0] = pwmValue;
+
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3], &sendBuffer[0], 1);
+        g_halImu_triggerImuReading_bl();
+        g_halImu_triggerBaroReading_bl();
+        g_halImu_triggerGyroReading_bl();
+        g_halImu_triggerAccReading_bl();
+
+        //Get Sensor Data and Timestamp
+
+        l_imuMeasurements_st = g_halImu_getImuValues_str();
+
+        long ms; // Milliseconds
+        struct timespec spec;
+        time_t res;
+        res = time(NULL);
+        clock_gettime(CLOCK_REALTIME, &spec);
+        ms = round(spec.tv_nsec / 1.0e6); // nano -> mili
+
+        //Call SensorData an save them in floats
+
+        float ax = l_imuMeasurements_st.acc.x_f64;
+        float ay = l_imuMeasurements_st.acc.y_f64;
+        float az = l_imuMeasurements_st.acc.z_f64;
+
+        float mx = l_imuMeasurements_st.mag.x_f64;
+        float my = l_imuMeasurements_st.mag.y_f64;
+        float mz = l_imuMeasurements_st.mag.z_f64;
+
+        float y = l_imuMeasurements_st.gyro.yaw_f64;
+        float p = l_imuMeasurements_st.gyro.pitch_f64;
+        float r = l_imuMeasurements_st.gyro.roll_f64;
+
+        float t = l_imuMeasurements_st.temperature_f64;
+        float pr = l_imuMeasurements_st.pressure_f64;
+
+        //No Motor running : ZERO
+        int mot1 = pwmValue;
+        int mot2 = pwmValue;
+        int mot3 = pwmValue;
+        int mot4 = pwmValue;
+
+        clocks = sprintf(tis, "TimS%u\n", res);
+        clockms = sprintf(tims, "TimM%u\n", ms);
+        accx = sprintf(imu_x, "AccX%f\n", ax);
+        accy = sprintf(imu_y, "AccY%f\n", ay);
+        accz = sprintf(imu_z, "AccZ%f\n", az);
+
+        magx = sprintf(mag_x, "MagX%f\n", mx);
+        magy = sprintf(mag_y, "MagY%f\n", my);
+        magz = sprintf(mag_z, "MagZ%f\n", mz);
+
+        gy = sprintf(g_y, "GyrY%f\n", y);
+        gp = sprintf(g_p, "GyrP%f\n", p);
+        gr = sprintf(g_r, "GyrR%f\n", r);
+
+        temp = sprintf(tmp, "Temp%f\n", t);
+        press = sprintf(prs, "Pres%f\n", pr);
+        m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+        m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+        m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+        m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+
+        memcpy(buffer, flag, 5);
+        memcpy(buffer + 5, tis, 15);
+        memcpy(buffer + 20, tims, 15);
+        memcpy(buffer + 36, imu_x, 16);
+        memcpy(buffer + 52, imu_y, 16);
+        memcpy(buffer + 68, imu_z, 16);
+        memcpy(buffer + 84, mag_x, 16);
+        memcpy(buffer + 100, mag_y, 16);
+        memcpy(buffer + 116, mag_z, 16);
+        memcpy(buffer + 116, g_y, 16);
+        memcpy(buffer + 132, g_p, 16);
+        memcpy(buffer + 148, g_r, 16);
+        memcpy(buffer + 164, tmp, 16);
+        memcpy(buffer + 180, prs, 16);
+        memcpy(buffer + 196, Motor1, 16);
+        memcpy(buffer + 212, Motor2, 16);
+        memcpy(buffer + 228, Motor3, 16);
+        memcpy(buffer + 244, Motor4, 16);
+
+        sendto(send, buffer, sizeof(buffer), 0, (struct sockaddr *) &sendAddr,
+                addressSize);
+
+        usleep(100000);
+
+        pwmValue = pwmValue - STEPSIZE;
+    }
 
 }
+
