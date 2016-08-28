@@ -25,7 +25,7 @@
 extern float g_halADC_get_ui16(unsigned char);
 
 #define REMOTE_PORT 5000
-#define REMOTE_ADDR "192.168.178.21"
+#define REMOTE_ADDR "192.168.22.162"
 
 typedef enum enumTestCases {
     TESTADC = 1,
@@ -71,7 +71,6 @@ struct sockaddr_in recvAdr;
 //Necessary characters for sending SensorData
 int accx, accy, accz, magx, magy, magz, gy, gp, gr, temp, press, clocks,
         clockms, m1, m2, m3, m4;
-char flag[5] = "AFAF\n";
 char imu_x[16];
 char imu_y[16];
 char imu_z[16];
@@ -89,7 +88,7 @@ char Motor1[16];
 char Motor2[16];
 char Motor3[16];
 char Motor4[16];
-char buffer[260];
+char buffer[270];
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -815,26 +814,69 @@ int main(int argc, char *argv[]) {
 
                 clocks = sprintf(tis, "TimS%u\n", res);
                 clockms = sprintf(tims, "TimM%u\n", ms);
+                int sizeC = clocks+clockms;
                 accx = sprintf(imu_x, "AccX%f\n", ax);
+                int sizeAccX = sizeC+accx;
                 accy = sprintf(imu_y, "AccY%f\n", ay);
+                int sizeAccY = sizeAccX+accy;
                 accz = sprintf(imu_z, "AccZ%f\n", az);
+                int sizeAccZ = sizeAccY +accz;
 
                 magx = sprintf(mag_x, "MagX%f\n", mx);
+                int sizemagX = sizeAccZ +magx;
+
                 magy = sprintf(mag_y, "MagY%f\n", my);
+                int sizemagY = sizemagX +magy;
+
                 magz = sprintf(mag_z, "MagZ%f\n", mz);
+                int sizemagZ = sizemagY +magz;
+
 
                 gy = sprintf(g_y, "GyrY%f\n", y);
+                int sizeGy = sizemagZ+gy;
                 gp = sprintf(g_p, "GyrP%f\n", p);
+                int sizeGp = sizeGy+gp;
+
                 gr = sprintf(g_r, "GyrR%f\n", r);
+                int sizeGr = sizeGp+gr;
+
 
                 temp = sprintf(tmp, "Temp%f\n", t);
+                int sizeTemp = sizeGr + temp;
                 press = sprintf(prs, "Pres%f\n", pr);
+                int sizePress = sizeTemp + press;
                 m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+                int sizeM1 = sizePress + m1;
                 m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+                int sizeM2 = sizeM1+ m2;
                 m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+                int sizeM3 = sizeM2+m3;
                 m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+                int sizeM4 = sizeM3+m4;
 
-                printf(flag, '\n');
+
+
+                memcpy(buffer, tis, clocks);
+                memcpy(buffer + clocks, tims, clockms);
+                memcpy(buffer + sizeC, imu_x, accx);
+                memcpy(buffer + sizeAccX, imu_y, accy);
+                memcpy(buffer + sizeAccY, imu_z, accz);
+                memcpy(buffer + sizeAccZ, mag_x, magx);
+                memcpy(buffer + sizemagX, mag_y, magy);
+                memcpy(buffer + sizemagY, mag_z, magz);
+                memcpy(buffer + sizemagZ, g_y, gy);
+                memcpy(buffer + sizeGy, g_p, gp);
+                memcpy(buffer + sizeGp, g_r, gr);
+                memcpy(buffer + sizeGr, tmp, temp);
+                memcpy(buffer + sizeTemp, prs, press);
+                memcpy(buffer + sizePress, Motor1, m1);
+                memcpy(buffer + sizeM1, Motor2, m2);
+                memcpy(buffer + sizeM2, Motor3, m3);
+                memcpy(buffer + sizeM3, Motor4, m4);
+
+                sendto(send, buffer, sizeof(buffer), 0,
+                        (struct sockaddr *) &sendAddr, addressSize);
+
                 printf(tis, '\n');
                 printf(tims, '\n');
                 printf(imu_x, '\n');
@@ -853,27 +895,7 @@ int main(int argc, char *argv[]) {
                 printf(Motor3, '\n');
                 printf(Motor4, '\n');
 
-                memcpy(buffer, flag, 5);
-                memcpy(buffer + 5, tis, 15);
-                memcpy(buffer + 20, tims, 15);
-                memcpy(buffer + 36, imu_x, 16);
-                memcpy(buffer + 52, imu_y, 16);
-                memcpy(buffer + 68, imu_z, 16);
-                memcpy(buffer + 84, mag_x, 16);
-                memcpy(buffer + 100, mag_y, 16);
-                memcpy(buffer + 116, mag_z, 16);
-                memcpy(buffer + 116, g_y, 16);
-                memcpy(buffer + 132, g_p, 16);
-                memcpy(buffer + 148, g_r, 16);
-                memcpy(buffer + 164, tmp, 16);
-                memcpy(buffer + 180, prs, 16);
-                memcpy(buffer + 196, Motor1, 16);
-                memcpy(buffer + 212, Motor2, 16);
-                memcpy(buffer + 228, Motor3, 16);
-                memcpy(buffer + 244, Motor4, 16);
 
-                sendto(send, buffer, sizeof(buffer), 0,
-                        (struct sockaddr *) &sendAddr, addressSize);
                 sleep(1);
             }
         }
@@ -965,43 +987,65 @@ int main(int argc, char *argv[]) {
 
                     clocks = sprintf(tis, "TimS%u\n", res);
                     clockms = sprintf(tims, "TimM%u\n", ms);
+                    int sizeC = clocks+clockms;
                     accx = sprintf(imu_x, "AccX%f\n", ax);
+                    int sizeAccX = sizeC+accx;
                     accy = sprintf(imu_y, "AccY%f\n", ay);
+                    int sizeAccY = sizeAccX+accy;
                     accz = sprintf(imu_z, "AccZ%f\n", az);
+                    int sizeAccZ = sizeAccY +accz;
 
                     magx = sprintf(mag_x, "MagX%f\n", mx);
+                    int sizemagX = sizeAccZ +magx;
+
                     magy = sprintf(mag_y, "MagY%f\n", my);
+                    int sizemagY = sizemagX +magy;
+
                     magz = sprintf(mag_z, "MagZ%f\n", mz);
+                    int sizemagZ = sizemagY +magz;
+
 
                     gy = sprintf(g_y, "GyrY%f\n", y);
+                    int sizeGy = sizemagZ+gy;
                     gp = sprintf(g_p, "GyrP%f\n", p);
+                    int sizeGp = sizeGy+gp;
+
                     gr = sprintf(g_r, "GyrR%f\n", r);
+                    int sizeGr = sizeGp+gr;
+
 
                     temp = sprintf(tmp, "Temp%f\n", t);
+                    int sizeTemp = sizeGr + temp;
                     press = sprintf(prs, "Pres%f\n", pr);
+                    int sizePress = sizeTemp + press;
                     m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+                    int sizeM1 = sizePress + m1;
                     m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+                    int sizeM2 = sizeM1+ m2;
                     m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+                    int sizeM3 = sizeM2+m3;
                     m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+                    int sizeM4 = sizeM3+m4;
 
-                    memcpy(buffer, flag, 5);
-                    memcpy(buffer + 5, tis, 15);
-                    memcpy(buffer + 20, tims, 15);
-                    memcpy(buffer + 36, imu_x, 16);
-                    memcpy(buffer + 52, imu_y, 16);
-                    memcpy(buffer + 68, imu_z, 16);
-                    memcpy(buffer + 84, mag_x, 16);
-                    memcpy(buffer + 100, mag_y, 16);
-                    memcpy(buffer + 116, mag_z, 16);
-                    memcpy(buffer + 116, g_y, 16);
-                    memcpy(buffer + 132, g_p, 16);
-                    memcpy(buffer + 148, g_r, 16);
-                    memcpy(buffer + 164, tmp, 16);
-                    memcpy(buffer + 180, prs, 16);
-                    memcpy(buffer + 196, Motor1, 16);
-                    memcpy(buffer + 212, Motor2, 16);
-                    memcpy(buffer + 228, Motor3, 16);
-                    memcpy(buffer + 244, Motor4, 16);
+
+
+                    memcpy(buffer, tis, clocks);
+                    memcpy(buffer + clocks, tims, clockms);
+                    memcpy(buffer + sizeC, imu_x, accx);
+                    memcpy(buffer + sizeAccX, imu_y, accy);
+                    memcpy(buffer + sizeAccY, imu_z, accz);
+                    memcpy(buffer + sizeAccZ, mag_x, magx);
+                    memcpy(buffer + sizemagX, mag_y, magy);
+                    memcpy(buffer + sizemagY, mag_z, magz);
+                    memcpy(buffer + sizemagZ, g_y, gy);
+                    memcpy(buffer + sizeGy, g_p, gp);
+                    memcpy(buffer + sizeGp, g_r, gr);
+                    memcpy(buffer + sizeGr, tmp, temp);
+                    memcpy(buffer + sizeTemp, prs, press);
+                    memcpy(buffer + sizePress, Motor1, m1);
+                    memcpy(buffer + sizeM1, Motor2, m2);
+                    memcpy(buffer + sizeM2, Motor3, m3);
+                    memcpy(buffer + sizeM3, Motor4, m4);
 
                     sendto(send, buffer, sizeof(buffer), 0,
                             (struct sockaddr *) &sendAddr, addressSize);
@@ -1064,43 +1108,65 @@ int main(int argc, char *argv[]) {
 
                     clocks = sprintf(tis, "TimS%u\n", res);
                     clockms = sprintf(tims, "TimM%u\n", ms);
+                    int sizeC = clocks+clockms;
                     accx = sprintf(imu_x, "AccX%f\n", ax);
+                    int sizeAccX = sizeC+accx;
                     accy = sprintf(imu_y, "AccY%f\n", ay);
+                    int sizeAccY = sizeAccX+accy;
                     accz = sprintf(imu_z, "AccZ%f\n", az);
+                    int sizeAccZ = sizeAccY +accz;
 
                     magx = sprintf(mag_x, "MagX%f\n", mx);
+                    int sizemagX = sizeAccZ +magx;
+
                     magy = sprintf(mag_y, "MagY%f\n", my);
+                    int sizemagY = sizemagX +magy;
+
                     magz = sprintf(mag_z, "MagZ%f\n", mz);
+                    int sizemagZ = sizemagY +magz;
+
 
                     gy = sprintf(g_y, "GyrY%f\n", y);
+                    int sizeGy = sizemagZ+gy;
                     gp = sprintf(g_p, "GyrP%f\n", p);
+                    int sizeGp = sizeGy+gp;
+
                     gr = sprintf(g_r, "GyrR%f\n", r);
+                    int sizeGr = sizeGp+gr;
+
 
                     temp = sprintf(tmp, "Temp%f\n", t);
+                    int sizeTemp = sizeGr + temp;
                     press = sprintf(prs, "Pres%f\n", pr);
+                    int sizePress = sizeTemp + press;
                     m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+                    int sizeM1 = sizePress + m1;
                     m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+                    int sizeM2 = sizeM1+ m2;
                     m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+                    int sizeM3 = sizeM2+m3;
                     m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+                    int sizeM4 = sizeM3+m4;
 
-                    memcpy(buffer, flag, 5);
-                    memcpy(buffer + 5, tis, 15);
-                    memcpy(buffer + 20, tims, 15);
-                    memcpy(buffer + 36, imu_x, 16);
-                    memcpy(buffer + 52, imu_y, 16);
-                    memcpy(buffer + 68, imu_z, 16);
-                    memcpy(buffer + 84, mag_x, 16);
-                    memcpy(buffer + 100, mag_y, 16);
-                    memcpy(buffer + 116, mag_z, 16);
-                    memcpy(buffer + 116, g_y, 16);
-                    memcpy(buffer + 132, g_p, 16);
-                    memcpy(buffer + 148, g_r, 16);
-                    memcpy(buffer + 164, tmp, 16);
-                    memcpy(buffer + 180, prs, 16);
-                    memcpy(buffer + 196, Motor1, 16);
-                    memcpy(buffer + 212, Motor2, 16);
-                    memcpy(buffer + 228, Motor3, 16);
-                    memcpy(buffer + 244, Motor4, 16);
+
+
+                    memcpy(buffer, tis, clocks);
+                    memcpy(buffer + clocks, tims, clockms);
+                    memcpy(buffer + sizeC, imu_x, accx);
+                    memcpy(buffer + sizeAccX, imu_y, accy);
+                    memcpy(buffer + sizeAccY, imu_z, accz);
+                    memcpy(buffer + sizeAccZ, mag_x, magx);
+                    memcpy(buffer + sizemagX, mag_y, magy);
+                    memcpy(buffer + sizemagY, mag_z, magz);
+                    memcpy(buffer + sizemagZ, g_y, gy);
+                    memcpy(buffer + sizeGy, g_p, gp);
+                    memcpy(buffer + sizeGp, g_r, gr);
+                    memcpy(buffer + sizeGr, tmp, temp);
+                    memcpy(buffer + sizeTemp, prs, press);
+                    memcpy(buffer + sizePress, Motor1, m1);
+                    memcpy(buffer + sizeM1, Motor2, m2);
+                    memcpy(buffer + sizeM2, Motor3, m3);
+                    memcpy(buffer + sizeM3, Motor4, m4);
 
                     sendto(send, buffer, sizeof(buffer), 0,
                             (struct sockaddr *) &sendAddr, addressSize);
@@ -1152,7 +1218,9 @@ int main(int argc, char *argv[]) {
                 char *ind0, *ind1, *ind2, *ind3;
                 char *pwm0, *pwm1, *pwm2, *pwm3;
 
+                //receive from APP
                 recv(receive, msg0, sizeof(msg0), 0);
+
                 printf("msg %s \n", msg0);
 
                 ind0 = strtok(msg0, ":");
@@ -1304,43 +1372,65 @@ int main(int argc, char *argv[]) {
 
                 clocks = sprintf(tis, "TimS%u\n", res);
                 clockms = sprintf(tims, "TimM%u\n", ms);
+                int sizeC = clocks+clockms;
                 accx = sprintf(imu_x, "AccX%f\n", ax);
+                int sizeAccX = sizeC+accx;
                 accy = sprintf(imu_y, "AccY%f\n", ay);
+                int sizeAccY = sizeAccX+accy;
                 accz = sprintf(imu_z, "AccZ%f\n", az);
+                int sizeAccZ = sizeAccY +accz;
 
                 magx = sprintf(mag_x, "MagX%f\n", mx);
+                int sizemagX = sizeAccZ +magx;
+
                 magy = sprintf(mag_y, "MagY%f\n", my);
+                int sizemagY = sizemagX +magy;
+
                 magz = sprintf(mag_z, "MagZ%f\n", mz);
+                int sizemagZ = sizemagY +magz;
+
 
                 gy = sprintf(g_y, "GyrY%f\n", y);
+                int sizeGy = sizemagZ+gy;
                 gp = sprintf(g_p, "GyrP%f\n", p);
+                int sizeGp = sizeGy+gp;
+
                 gr = sprintf(g_r, "GyrR%f\n", r);
+                int sizeGr = sizeGp+gr;
+
 
                 temp = sprintf(tmp, "Temp%f\n", t);
+                int sizeTemp = sizeGr + temp;
                 press = sprintf(prs, "Pres%f\n", pr);
+                int sizePress = sizeTemp + press;
                 m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+                int sizeM1 = sizePress + m1;
                 m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+                int sizeM2 = sizeM1+ m2;
                 m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+                int sizeM3 = sizeM2+m3;
                 m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+                int sizeM4 = sizeM3+m4;
 
-                memcpy(buffer, flag, 5);
-                memcpy(buffer + 5, tis, 15);
-                memcpy(buffer + 20, tims, 15);
-                memcpy(buffer + 36, imu_x, 16);
-                memcpy(buffer + 52, imu_y, 16);
-                memcpy(buffer + 68, imu_z, 16);
-                memcpy(buffer + 84, mag_x, 16);
-                memcpy(buffer + 100, mag_y, 16);
-                memcpy(buffer + 116, mag_z, 16);
-                memcpy(buffer + 116, g_y, 16);
-                memcpy(buffer + 132, g_p, 16);
-                memcpy(buffer + 148, g_r, 16);
-                memcpy(buffer + 164, tmp, 16);
-                memcpy(buffer + 180, prs, 16);
-                memcpy(buffer + 196, Motor1, 16);
-                memcpy(buffer + 212, Motor2, 16);
-                memcpy(buffer + 228, Motor3, 16);
-                memcpy(buffer + 244, Motor4, 16);
+
+
+                memcpy(buffer, tis, clocks);
+                memcpy(buffer + clocks, tims, clockms);
+                memcpy(buffer + sizeC, imu_x, accx);
+                memcpy(buffer + sizeAccX, imu_y, accy);
+                memcpy(buffer + sizeAccY, imu_z, accz);
+                memcpy(buffer + sizeAccZ, mag_x, magx);
+                memcpy(buffer + sizemagX, mag_y, magy);
+                memcpy(buffer + sizemagY, mag_z, magz);
+                memcpy(buffer + sizemagZ, g_y, gy);
+                memcpy(buffer + sizeGy, g_p, gp);
+                memcpy(buffer + sizeGp, g_r, gr);
+                memcpy(buffer + sizeGr, tmp, temp);
+                memcpy(buffer + sizeTemp, prs, press);
+                memcpy(buffer + sizePress, Motor1, m1);
+                memcpy(buffer + sizeM1, Motor2, m2);
+                memcpy(buffer + sizeM2, Motor3, m3);
+                memcpy(buffer + sizeM3, Motor4, m4);
 
                 sendto(send, buffer, sizeof(buffer), 0,
                         (struct sockaddr *) &sendAddr, addressSize);
@@ -1791,8 +1881,7 @@ void playDemo() {
     //Motor
     printf("Beschleunigungstest \n");
 
-    char pwm[3];
-    char step[3];
+
 
     char BLCtrlADRExecuteOrder[DEFMotorsCount];
     char sendBuffer[1];
@@ -1855,44 +1944,65 @@ void playDemo() {
 
         clocks = sprintf(tis, "TimS%u\n", res);
         clockms = sprintf(tims, "TimM%u\n", ms);
+        int sizeC = clocks+clockms;
         accx = sprintf(imu_x, "AccX%f\n", ax);
+        int sizeAccX = sizeC+accx;
         accy = sprintf(imu_y, "AccY%f\n", ay);
+        int sizeAccY = sizeAccX+accy;
         accz = sprintf(imu_z, "AccZ%f\n", az);
+        int sizeAccZ = sizeAccY +accz;
 
         magx = sprintf(mag_x, "MagX%f\n", mx);
+        int sizemagX = sizeAccZ +magx;
+
         magy = sprintf(mag_y, "MagY%f\n", my);
+        int sizemagY = sizemagX +magy;
+
         magz = sprintf(mag_z, "MagZ%f\n", mz);
+        int sizemagZ = sizemagY +magz;
+
 
         gy = sprintf(g_y, "GyrY%f\n", y);
+        int sizeGy = sizemagZ+gy;
         gp = sprintf(g_p, "GyrP%f\n", p);
+        int sizeGp = sizeGy+gp;
+
         gr = sprintf(g_r, "GyrR%f\n", r);
+        int sizeGr = sizeGp+gr;
+
 
         temp = sprintf(tmp, "Temp%f\n", t);
+        int sizeTemp = sizeGr + temp;
         press = sprintf(prs, "Pres%f\n", pr);
+        int sizePress = sizeTemp + press;
         m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+        int sizeM1 = sizePress + m1;
         m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+        int sizeM2 = sizeM1+ m2;
         m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+        int sizeM3 = sizeM2+m3;
         m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+        int sizeM4 = sizeM3+m4;
 
-        memcpy(buffer, flag, 5);
-        memcpy(buffer + 5, tis, 15);
-        memcpy(buffer + 20, tims, 15);
-        memcpy(buffer + 36, imu_x, 16);
-        memcpy(buffer + 52, imu_y, 16);
-        memcpy(buffer + 68, imu_z, 16);
-        memcpy(buffer + 84, mag_x, 16);
-        memcpy(buffer + 100, mag_y, 16);
-        memcpy(buffer + 116, mag_z, 16);
-        memcpy(buffer + 116, g_y, 16);
-        memcpy(buffer + 132, g_p, 16);
-        memcpy(buffer + 148, g_r, 16);
-        memcpy(buffer + 164, tmp, 16);
-        memcpy(buffer + 180, prs, 16);
-        memcpy(buffer + 196, Motor1, 16);
-        memcpy(buffer + 212, Motor2, 16);
-        memcpy(buffer + 228, Motor3, 16);
-        memcpy(buffer + 244, Motor4, 16);
 
+
+        memcpy(buffer, tis, clocks);
+        memcpy(buffer + clocks, tims, clockms);
+        memcpy(buffer + sizeC, imu_x, accx);
+        memcpy(buffer + sizeAccX, imu_y, accy);
+        memcpy(buffer + sizeAccY, imu_z, accz);
+        memcpy(buffer + sizeAccZ, mag_x, magx);
+        memcpy(buffer + sizemagX, mag_y, magy);
+        memcpy(buffer + sizemagY, mag_z, magz);
+        memcpy(buffer + sizemagZ, g_y, gy);
+        memcpy(buffer + sizeGy, g_p, gp);
+        memcpy(buffer + sizeGp, g_r, gr);
+        memcpy(buffer + sizeGr, tmp, temp);
+        memcpy(buffer + sizeTemp, prs, press);
+        memcpy(buffer + sizePress, Motor1, m1);
+        memcpy(buffer + sizeM1, Motor2, m2);
+        memcpy(buffer + sizeM2, Motor3, m3);
+        memcpy(buffer + sizeM3, Motor4, m4);
         sendto(send, buffer, sizeof(buffer), 0, (struct sockaddr *) &sendAddr,
                 addressSize);
 
@@ -1948,48 +2058,72 @@ void playDemo() {
         int mot3 = pwmValue;
         int mot4 = pwmValue;
 
+
         clocks = sprintf(tis, "TimS%u\n", res);
         clockms = sprintf(tims, "TimM%u\n", ms);
+        int sizeC = clocks+clockms;
         accx = sprintf(imu_x, "AccX%f\n", ax);
+        int sizeAccX = sizeC+accx;
         accy = sprintf(imu_y, "AccY%f\n", ay);
+        int sizeAccY = sizeAccX+accy;
         accz = sprintf(imu_z, "AccZ%f\n", az);
+        int sizeAccZ = sizeAccY +accz;
 
         magx = sprintf(mag_x, "MagX%f\n", mx);
+        int sizemagX = sizeAccZ +magx;
+
         magy = sprintf(mag_y, "MagY%f\n", my);
+        int sizemagY = sizemagX +magy;
+
         magz = sprintf(mag_z, "MagZ%f\n", mz);
+        int sizemagZ = sizemagY +magz;
+
 
         gy = sprintf(g_y, "GyrY%f\n", y);
+        int sizeGy = sizemagZ+gy;
         gp = sprintf(g_p, "GyrP%f\n", p);
+        int sizeGp = sizeGy+gp;
+
         gr = sprintf(g_r, "GyrR%f\n", r);
+        int sizeGr = sizeGp+gr;
+
 
         temp = sprintf(tmp, "Temp%f\n", t);
+        int sizeTemp = sizeGr + temp;
         press = sprintf(prs, "Pres%f\n", pr);
+        int sizePress = sizeTemp + press;
         m1 = sprintf(Motor1, "Mot1%u\n", mot1);
+        int sizeM1 = sizePress + m1;
         m2 = sprintf(Motor2, "Mot2%u\n", mot2);
+        int sizeM2 = sizeM1+ m2;
         m3 = sprintf(Motor3, "Mot3%u\n", mot3);
+        int sizeM3 = sizeM2+m3;
         m4 = sprintf(Motor4, "Mot4%u\n", mot4);
+        int sizeM4 = sizeM3+m4;
 
-        memcpy(buffer, flag, 5);
-        memcpy(buffer + 5, tis, 15);
-        memcpy(buffer + 20, tims, 15);
-        memcpy(buffer + 36, imu_x, 16);
-        memcpy(buffer + 52, imu_y, 16);
-        memcpy(buffer + 68, imu_z, 16);
-        memcpy(buffer + 84, mag_x, 16);
-        memcpy(buffer + 100, mag_y, 16);
-        memcpy(buffer + 116, mag_z, 16);
-        memcpy(buffer + 116, g_y, 16);
-        memcpy(buffer + 132, g_p, 16);
-        memcpy(buffer + 148, g_r, 16);
-        memcpy(buffer + 164, tmp, 16);
-        memcpy(buffer + 180, prs, 16);
-        memcpy(buffer + 196, Motor1, 16);
-        memcpy(buffer + 212, Motor2, 16);
-        memcpy(buffer + 228, Motor3, 16);
-        memcpy(buffer + 244, Motor4, 16);
 
-        sendto(send, buffer, sizeof(buffer), 0, (struct sockaddr *) &sendAddr,
-                addressSize);
+
+        memcpy(buffer, tis, clocks);
+        memcpy(buffer + clocks, tims, clockms);
+        memcpy(buffer + sizeC, imu_x, accx);
+        memcpy(buffer + sizeAccX, imu_y, accy);
+        memcpy(buffer + sizeAccY, imu_z, accz);
+        memcpy(buffer + sizeAccZ, mag_x, magx);
+        memcpy(buffer + sizemagX, mag_y, magy);
+        memcpy(buffer + sizemagY, mag_z, magz);
+        memcpy(buffer + sizemagZ, g_y, gy);
+        memcpy(buffer + sizeGy, g_p, gp);
+        memcpy(buffer + sizeGp, g_r, gr);
+        memcpy(buffer + sizeGr, tmp, temp);
+        memcpy(buffer + sizeTemp, prs, press);
+        memcpy(buffer + sizePress, Motor1, m1);
+        memcpy(buffer + sizeM1, Motor2, m2);
+        memcpy(buffer + sizeM2, Motor3, m3);
+        memcpy(buffer + sizeM3, Motor4, m4);
+
+        sendto(send, buffer, sizeof(buffer), 0,
+                (struct sockaddr *) &sendAddr, addressSize);
+
 
         usleep(100000);
 
