@@ -7,3 +7,4 @@ int readTestcaseFile(char testcase[] , int length);
 
 int kbhit(void);
 int calcPwmValue(char controllChar , int motorNumber, int pwmValue);
+extern void sendSensorData();
