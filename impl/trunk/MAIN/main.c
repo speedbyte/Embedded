@@ -25,7 +25,7 @@
 extern float g_halADC_get_ui16(unsigned char);
 
 #define REMOTE_PORT 5000
-#define REMOTE_ADDR "192.168.22.160"
+#define REMOTE_ADDR "192.168.178.46"
 
 typedef enum enumTestCases {
     TESTADC = 1,
@@ -761,6 +761,16 @@ int main(int argc, char *argv[]) {
             break;
         }
 
+            /*!**********************************************************************
+             * \author  Marcel Früh
+             * \date    2016/06/5
+             *
+             *
+             * \details Sends Sensor Data to above specificated IP Adress and PORT
+             *          1s Sleep after every round
+             *
+             *
+             ***********************************************************************/
         case FINALSENDING: {
 
             //Preparation for Sensor Calls
@@ -896,10 +906,16 @@ int main(int argc, char *argv[]) {
         }
             break;
 
-            //DEMO function.
-            //Awaits pwm and stepsize in console and increases the pwm Value step by step
-            //On reaching Max, PWM lowers
-            //CAUTION: As long as there is no intelligence dont take PWM value over 100!
+            /*!**********************************************************************
+             * \author  Marcel Früh
+             * \date    2016/07/13
+             *
+             *
+             * \details Starts DEMO. Insert MAX PWM and(< 100) and stepsize.
+             * PWM is increased by stepsize each roud
+             *
+             *
+             ***********************************************************************/
         case PLEASEFLY: {
 
             //Trigger Sensors
@@ -1171,8 +1187,18 @@ int main(int argc, char *argv[]) {
 
             break;
 
-            //Receiver for the APP
-            //Port is 4999
+            /*!**********************************************************************
+             * \author  Marcel Früh
+             * \date    2016/08/15
+             *
+             *
+             * \details Receiver for the C++ APP. Receives char array and
+             *          runs different operations, depending on the indicators
+             *          in the received char.
+             *
+             *
+             ***********************************************************************/
+
         case RECEIVE: {
 
             //Preparation for Sensor Calls
@@ -1204,7 +1230,8 @@ int main(int argc, char *argv[]) {
             unsigned int pwmValue2;
             unsigned int pwmValue3;
 
-            char msg0[30];
+            char msg0[50];
+
 
             while (1) {
 
@@ -1213,22 +1240,42 @@ int main(int argc, char *argv[]) {
 
                 //receive from APP
                 recv(receive, msg0, sizeof(msg0), 0);
+                printf("Msg0 \n %s",msg0);
 
-                printf("msg %s \n", msg0);
 
-                strtok(msg0, ".");
+
+               printf("Garbage %s \n", strtok(msg0, "."));
 
                 ind0 = strtok(NULL, ":");
+                printf("Ind0 %s \n",ind0);
+
                 pwm0 = strtok(NULL, ":");
+                printf("Pwm0 %s \n",pwm0);
 
                 ind1 = strtok(NULL, ":");
+                printf("Ind1 %s \n",ind1);
+
+
                 pwm1 = strtok(NULL, ":");
+                printf("Pwm1 %s \n",pwm1);
+
 
                 ind2 = strtok(NULL, ":");
+                printf("Ind2 %s \n",ind2);
+
+
                 pwm2 = strtok(NULL, ":");
+                printf("Pwm2 %s \n",pwm2);
+
 
                 ind3 = strtok(NULL, ":");
+                printf("Ind3 %s \n",ind3);
+
+
                 pwm3 = strtok(NULL, ".");
+                printf("Pwm3 %s \n",pwm3);
+
+
 
                 //Motortest, alle Motoren laufen kurz
                 if (strcmp(test, ind0) == 0) {
@@ -1325,6 +1372,7 @@ int main(int argc, char *argv[]) {
                             &sendBuffer3[0], 1);
 
                 }
+
 
                 g_halImu_triggerImuReading_bl();
                 g_halImu_triggerBaroReading_bl();
