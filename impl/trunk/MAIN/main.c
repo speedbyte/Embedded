@@ -994,7 +994,6 @@ int main(int argc, char *argv[]) {
                     float t = l_imuMeasurements_st.temperature_f64;
                     float pr = l_imuMeasurements_st.pressure_f64;
 
-                    //No Motor running : ZERO
                     int mot1 = pwmValue;
                     int mot2 = pwmValue;
                     int mot3 = pwmValue;
@@ -1111,7 +1110,6 @@ int main(int argc, char *argv[]) {
                     float t = l_imuMeasurements_st.temperature_f64;
                     float pr = l_imuMeasurements_st.pressure_f64;
 
-                    //No Motor running : ZERO
                     int mot1 = pwmValue;
                     int mot2 = pwmValue;
                     int mot3 = pwmValue;
