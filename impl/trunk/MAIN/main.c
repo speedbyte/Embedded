@@ -778,7 +778,6 @@ int main(int argc, char *argv[]) {
             g_halImu_initImuSensors_bl();
 
             printf("Start Sending \n");
-            //Sensor Data
 
             //Sensor Data
             while (1) {
@@ -1405,7 +1404,6 @@ int main(int argc, char *argv[]) {
                 float t = l_imuMeasurements_st.temperature_f64;
                 float pr = l_imuMeasurements_st.pressure_f64;
 
-                //No Motor running : ZERO
                 int mot1 = pwmValue0;
                 int mot2 = pwmValue1;
                 int mot3 = pwmValue2;
