@@ -1,7 +1,7 @@
 [submodule "helikopter-doc"]
     path = helikopter-doc
-    url = git@atreus.informatik.uni-tuebingen.de:Programmierprojekt2016/ProgrammierProjekt2016-Docs.git
-    branch = TeamProgrammierProjekt2016
+    url = git@gitlab.hs-esslingen.de:HElikopter/Projectmanagement.git
+    branch = Masters2017 
 [submodule "helikopter-tools"]
 	path = helikopter-tools
 	url = git://github.com/raspberrypi/tools.git
