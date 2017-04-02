@@ -8,7 +8,10 @@ include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro
 include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include")
 
 option(DO_TARGET_CONNECT "If the target needs to be connected")
-set(DO_TARGET_CONNECT ON)
+set(DO_TARGET_CONNECT OFF)
+
+option(GENERATE_LIBRARIES "This method will generate individual libraries")
+set(GENERATE_LIBRARIES ON)
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 set(CMAKE_BUILD_TYPE Debug)
@@ -40,6 +43,8 @@ find_library(ARM_RT_LIBRARY NAMES librt.so HINTS "${CMAKE_SOURCE_DIR}/helikopter
 
 set(CMAKE_FIND_ROOT_PATH ${CMAKE_SOURCE_DIR})
 
+
+if ( GENERATE_LIBRARIES )
 add_subdirectory(${CMAKE_SOURCE_DIR}/impl/trunk/hal/ADC)
 add_subdirectory(${CMAKE_SOURCE_DIR}/impl/trunk/hal/BATTERY)
 add_subdirectory(${CMAKE_SOURCE_DIR}/impl/trunk/hal/GPIO)
@@ -52,12 +57,23 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/impl/trunk/hal/REMOTECONTROLLER)
 #add_subdirectory(${CMAKE_SOURCE_DIR}/impl/trunk/kern)
 add_subdirectory(${CMAKE_SOURCE_DIR}/impl/trunk/matlab)
 add_subdirectory(${CMAKE_SOURCE_DIR}/impl/trunk/sig)
-
 set (EXTRA_LIBS ${EXTRA_LIBS} ADC.lib BATTERY.lib GPIO.lib GPS.lib IMU.lib LASER.lib LLD_IF.lib MOTOR.lib REMOTECONTROLLER.lib MATLAB.lib SIG.lib)
 
 add_executable(HELIKOPTER ${CMAKE_SOURCE_DIR}/impl/trunk/MAIN/main.c)
 target_link_libraries(HELIKOPTER ${EXTRA_LIBS} ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY})
-add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING")
+add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING ${HELIKOPTER}")
+
+else()
+
+file(GLOB_RECURSE HAL_SRC ${CMAKE_SOURCE_DIR}/impl/trunk/hal/*.c)
+MESSAGE( STATUS "HAL_SRC:         " ${HAL_SRC} )
+
+add_executable(HELIKOPTER-STRIPPED ${HAL_SRC} ${CMAKE_SOURCE_DIR}/impl/trunk/MAIN/main.c)
+target_link_libraries(HELIKOPTER-STRIPPED ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY})
+add_custom_command(TARGET HELIKOPTER-STRIPPED POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING ${HELIKOPTER-STRIPPED}")
+
+endif (GENERATE_LIBRARIES)
+
 
 if (DO_TARGET_CONNECT)
 # execute_process(COMMAND ls _NPROCESSORS_ONLN OUTPUT_VARIABLE NB_PROCESSOR)
