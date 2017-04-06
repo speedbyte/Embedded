@@ -2,7 +2,3 @@
 #	path = helikopter-doc
 #	url = git@gitlab.hs-esslingen.de:HElikopter/Projectmanagement.git
 #	branch = Masters2017 
-[submodule "helikopter-tools"]
-	path = helikopter-tools
-	url = git://github.com/raspberrypi/tools.git
-	branch = 4cfaa4fda3e516e6ced869d9e88c20e3d9bffa51
