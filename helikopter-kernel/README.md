@@ -1,41 +1,49 @@
 # Kernel Compiling
 Here you can find the raspberry kernel source code and following is reported the guide about how to compile it.
 
+To differenciate the commands to be run on the computer and the ones on the raspberry, they will be differentiated as:
+    ```
+    user@host ~/linux$      Computer
+    pi@raspberry$           Raspberry
+    ```
+
 ## Download the kernel
 Clone the kernel git repository into the helikopter-kernel directory
 ```
-git clone -b rpi-4.9.y https://github.com/raspberrypi/linux/ temp
+user@host ~ git clone -b rpi-4.9.y https://github.com/raspberrypi/linux/
 ```
 
 ## Compile
 
 1. Define the path where you stored the repository (the tools and the linux folder) in the RPATH variable:
     ```
-    export RPATH_TOOLS=global_path_helikopter-tools
-    export RPATH_LINUX=global_path_helikopter-kernel/linux
+    user@host ~$ export RPATH_TOOLS=global_path_helikopter-tools
+    user@host ~$ export RPATH_LINUX=global_path_helikopter-kernel/linux
    	```
 
 2. Define then the other path and variable we would need
 	
 	if you are using a 64bit computer:
     ```
-	export CROSS_COMPILE=${RPATH_TOOLS}/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-
+	user@host ~$ export CROSS_COMPILE=${RPATH_TOOLS}/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-
 	```
 	otherwise:
 	```
-	export CROSS_COMPILE=${RPATH_TOOLS}/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf-
+	user@host ~$ export CROSS_COMPILE=${RPATH_TOOLS}/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf-
 	```
     
     ```
-	export INSTALL_MOD_PATH=${RPATH_LINUX}/../kernel`
-	export ARCH=arm
-	export KERNEL=kernel
-	cd ${RPATH_LINUX}
+	user@host ~$ export INSTALL_MOD_PATH=${RPATH_LINUX}/../kernel`
+	user@host ~$ export ARCH=arm
+	user@host ~$ export KERNEL=kernel
+	user@host ~$ cd ${RPATH_LINUX}
+	user@host ~/linux$ mkdir ../kernel
 	```
 
 3. Install the patch for the RealTime Kernel
 	```
-    user@host ~/linux$zcat patch patch-4.9.20-rt16.patch.gz | patch -p1
+	user@host ~/linux$ cp ../patch patch-4.9.20-rt16.patch.gz .
+    user@host ~/linux$ zcat patch patch-4.9.20-rt16.patch.gz | patch -p1
     ```
 
 4. Now you can decide whether take the configuration file from the kernel altrady installed in the raspberry or create a new one
@@ -87,7 +95,9 @@ In the menu of the configuration file, modify the following parameters:
 	scp kernel.tgz pi@raspberry:/tmp
 	```
 
-8. finally from the raspberry we need to decompress the tarball to install the new kernel
+8. Finally from the raspberry we need to decompress the tarball to install the new kernel
 	```
     pi@raspberry ~$ tar xzf tmp/kernel.tgz
     ```
+
+9. Reboot your raspberry and you will have the new kernel installed
