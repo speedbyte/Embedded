@@ -25,7 +25,7 @@
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-halImu_orientationValues g_sigFil_getImuValuesUnfiltered_st(void);
+HAL_SENSOR_PAYLOAD_ST g_sigFil_getsensorValuesUnfiltered_st(void);
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)

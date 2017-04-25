@@ -13,49 +13,49 @@
 #include <sys/time.h>
 #include "Orientation.h"
 #include "OrientationDefines.h"
-#include "../../hal/IMU/imu.h"
-#include "../ImuFilter/Imufilter.h"
-#include "../matrixLib/matrixLib.h"
+#include "imu.h"
+#include "Imufilter.h"
+#include "matrixLib.h"
 
 //define the complementary filter coefficient
 #define M_COMP_FILTER_FACTOR_F64    0.888 //<--100Hz // 50Hz --> 0.941 //4Hz --> 0.995    //0 --> only Acc/Mag  1 --> only Gyro
 //define the convert value from radiant to degree
-#define M_RAD_TO_DEG_F64            (180/M_SIGORI_PI_F64)
+#define M_RAD_TO_DEG_F64            (180/PI_F64)
 //define the number of values for reference value calculation
 #define M_NR_OF_VALUES_OFFSET_I32    1000
 
-static halImu_orientationValues m_sigori_imuValues_st;
-static double m_SIGORI_heightBarometerMetres_f64 =0;
-static double m_sigOri_referencePressure_f64=0;
-static double m_sigOri_referenceGravity_f64=0;
-static double m_sigOri_referenceTemperature_f64=0;
-static double m_SIGORI_heightGpsMetres_f64 =0;
-static double m_SIGORI_heightAccMetres_f64 =0;
+static HAL_SENSOR_PAYLOAD_ST sensor_values_st;
+static double heightBarometerMetres_f64 =0;
+static double referencePressure_f64=0;
+static double referenceGravity_f64=0;
+static double referenceTemperature_f64=0;
+static double heightGpsMetres_f64 =0;
+static double heightAccMetres_f64 =0;
 
-static sigOri_orientationAngles m_sigOri_arrayOutputAnglesGyroPerStep_st;
-static sigOri_orientationAngles m_sigOri_arrayOutputAnglesAccMagCalc_st;
+static HAL_ANGLE_PAYLOAD_ST arrayOutputAnglesGyroPerStep_st;
+static HAL_ANGLE_PAYLOAD_ST arrayOutputAnglesAccMagCalc_st;
 
-static sigOri_orientationAngles m_sigOri_arrayAccMagAnglesKalman_st;
-static sigOri_orientationAngles m_sigOri_arrayGyroAnglesKalman_st;
-static sigOri_orientationAngles m_sigOri_arrayOutputAnglesKalman_st;
-
-
-static sigOri_orientationAngles m_sigOri_arrayAccMagAnglesComplementary_st={0,0,0};
-static sigOri_orientationAngles m_sigOri_arrayGyroAnglesComplementary_st={0,0,0};
-static sigOri_orientationAngles m_sigOri_arrayOutputAnglesComplementary_st={0,0,0};
+static HAL_ANGLE_PAYLOAD_ST arrayAccMagAnglesKalman_st;
+static HAL_ANGLE_PAYLOAD_ST arrayGyroAnglesKalman_st;
+static HAL_ANGLE_PAYLOAD_ST arrayOutputAnglesKalman_st;
 
 
-static double m_sigOri_matrixXk_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
-static double m_sigOri_matrixXnew_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
-static double m_sigOri_matrixUk_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
+static HAL_ANGLE_PAYLOAD_ST arrayAccMagAnglesComplementary_st={0,0,0};
+static HAL_ANGLE_PAYLOAD_ST arrayGyroAnglesComplementary_st={0,0,0};
+static HAL_ANGLE_PAYLOAD_ST arrayOutputAnglesComplementary_st={0,0,0};
 
-static double m_sigOri_matrixI_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
-static double m_sigOri_matrixPk_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
-static double m_sigOri_matrixR_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
-static double m_sigOri_matrixQ_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
 
-static double m_sigOri_matrixS_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
-static double m_sigOri_matrixK_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
+static double matrixXk_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+static double matrixXnew_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+static double matrixUk_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+
+static double matrixI_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+static double matrixPk_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+static double matrixR_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+static double matrixQ_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+
+static double matrixS_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+static double matrixK_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
 
 //for integrating of Gyro
 static struct timeval gettime_old;
@@ -76,9 +76,9 @@ static struct timeval gettime_old;
  * none
  * \endinternal
  ***********************************************************************/
-sigOri_orientationAngles g_sigOri_getAnglesComplementary_bl()
+HAL_ANGLE_PAYLOAD_ST g_getAnglesComplementary_bl()
 {
-    return m_sigOri_arrayOutputAnglesComplementary_st;
+    return arrayOutputAnglesComplementary_st;
 }
 
 /*!**********************************************************************
@@ -96,9 +96,9 @@ sigOri_orientationAngles g_sigOri_getAnglesComplementary_bl()
  * none
  * \endinternal
  ***********************************************************************/
-double g_sigOri_getPitchComplementary_bl()
+double g_getPitchComplementary_bl()
 {
-    return m_sigOri_arrayOutputAnglesComplementary_st.pitch_f64;
+    return arrayOutputAnglesComplementary_st.pitch_f64;
 }
 
 /*!**********************************************************************
@@ -116,9 +116,9 @@ double g_sigOri_getPitchComplementary_bl()
  * none
  * \endinternal
  ***********************************************************************/
-double g_sigOri_getRollComplementary_bl()
+double g_getRollComplementary_bl()
 {
-    return m_sigOri_arrayOutputAnglesComplementary_st.roll_f64;
+    return arrayOutputAnglesComplementary_st.roll_f64;
 }
 
 /*!**********************************************************************
@@ -136,9 +136,9 @@ double g_sigOri_getRollComplementary_bl()
  * none
  * \endinternal
  ***********************************************************************/
-double g_sigOri_getYawComplementary_bl()
+double g_getYawComplementary_bl()
 {
-    return m_sigOri_arrayOutputAnglesComplementary_st.yaw_f64;
+    return arrayOutputAnglesComplementary_st.yaw_f64;
 }
 
 /*!**********************************************************************
@@ -157,9 +157,9 @@ double g_sigOri_getYawComplementary_bl()
  * none
  * \endinternal
  ***********************************************************************/
-sigOri_orientationAngles g_sigOri_getAnglesKalman_bl()
+HAL_ANGLE_PAYLOAD_ST g_getAnglesKalman_bl()
 {
-    return m_sigOri_arrayOutputAnglesKalman_st;
+    return arrayOutputAnglesKalman_st;
 }
 
 /*!**********************************************************************
@@ -177,9 +177,9 @@ sigOri_orientationAngles g_sigOri_getAnglesKalman_bl()
  * none
  * \endinternal
  ***********************************************************************/
-double g_sigOri_getPitchKalman_bl()
+double g_getPitchKalman_bl()
 {
-    return m_sigOri_arrayOutputAnglesKalman_st.pitch_f64;
+    return arrayOutputAnglesKalman_st.pitch_f64;
 }
 
 /*!**********************************************************************
@@ -197,9 +197,9 @@ double g_sigOri_getPitchKalman_bl()
  * none
  * \endinternal
  ***********************************************************************/
-double g_sigOri_getRollKalman_bl()
+double g_getRollKalman_bl()
 {
-    return m_sigOri_arrayOutputAnglesKalman_st.roll_f64;
+    return arrayOutputAnglesKalman_st.roll_f64;
 }
 
 /*!**********************************************************************
@@ -217,9 +217,9 @@ double g_sigOri_getRollKalman_bl()
  * none
  * \endinternal
  ***********************************************************************/
-double g_sigOri_getYawKalman_bl()
+double g_getYawKalman_bl()
 {
-    return m_sigOri_arrayOutputAnglesKalman_st.yaw_f64;
+    return arrayOutputAnglesKalman_st.yaw_f64;
 }
 
 /*!**********************************************************************
@@ -239,7 +239,7 @@ double g_sigOri_getYawKalman_bl()
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigOri_initImuSensors_bl()
+unsigned int g_initImuSensors_bl()
 {
     if( g_SigFil_initImuSensors_bl() != 0 )
     {return 1;}
@@ -264,35 +264,35 @@ unsigned int g_sigOri_initImuSensors_bl()
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigOri_initMatrices_bl()
+unsigned int g_initMatrices_bl()
 {
     //initialize Pk Matrix
-    if(g_sigMath_matrixEye_bl((double*)m_sigOri_matrixPk_rg9f64,3,3)!=0)
+    if(g_sigMath_matrixEye_bl((double*)matrixPk_rg9f64,3,3)!=0)
     {return 1;}
 
     //initialize an Identity matrix
-    if(g_sigMath_matrixEye_bl((double*)m_sigOri_matrixI_rg9f64,3,3)!=0)
+    if(g_sigMath_matrixEye_bl((double*)matrixI_rg9f64,3,3)!=0)
     {return 1;}
 
 /*    //initialize the measurement noise matrix
-    m_sigOri_matrixR_rg9f64[0][0]=0.5;
-    m_sigOri_matrixR_rg9f64[1][1]=0.5;
-    m_sigOri_matrixR_rg9f64[2][2]=0.01;
+    matrixR_rg9f64[0][0]=0.5;
+    matrixR_rg9f64[1][1]=0.5;
+    matrixR_rg9f64[2][2]=0.01;
 
     //initialize the process noise matrix
-    m_sigOri_matrixQ_rg9f64[0][0]=0.005;
-    m_sigOri_matrixQ_rg9f64[1][1]=0.005;
-    m_sigOri_matrixQ_rg9f64[2][2]=0.0001;*/
+    matrixQ_rg9f64[0][0]=0.005;
+    matrixQ_rg9f64[1][1]=0.005;
+    matrixQ_rg9f64[2][2]=0.0001;*/
 
     //initialize the measurement noise matrix
-        m_sigOri_matrixR_rg9f64[0][0]=0.06;
-        m_sigOri_matrixR_rg9f64[1][1]=0.1;
-        m_sigOri_matrixR_rg9f64[2][2]=0.07;
+        matrixR_rg9f64[0][0]=0.06;
+        matrixR_rg9f64[1][1]=0.1;
+        matrixR_rg9f64[2][2]=0.07;
 
         //initialize the process noise matrix
-        m_sigOri_matrixQ_rg9f64[0][0]=0.005;
-        m_sigOri_matrixQ_rg9f64[1][1]=0.005;
-        m_sigOri_matrixQ_rg9f64[2][2]=0.005;
+        matrixQ_rg9f64[0][0]=0.005;
+        matrixQ_rg9f64[1][1]=0.005;
+        matrixQ_rg9f64[2][2]=0.005;
 
 
     return 0;
@@ -313,26 +313,26 @@ unsigned int g_sigOri_initMatrices_bl()
  * none
  * \endinternal
  ***********************************************************************/
-void g_sigOri_initBuildReferenceValues_bl()
+void g_initBuildReferenceValues_bl()
 {
     double l_barometricValue_f64=0;
     double l_GravityValue_f64=0;
     double l_Temperature_f64=0;
     int l_countVar_i32=0;
-    halImu_orientationValues l_imuValues_st;
+    HAL_SENSOR_PAYLOAD_ST l_sensorValues_st;
 
 // create Reference pressure,Gravity and Temperature as mean value over M_NR_OF_VALUES_OFFSET_I32 values
     for(l_countVar_i32=0;l_countVar_i32<M_NR_OF_VALUES_OFFSET_I32;l_countVar_i32++)
     {
         g_sigFil_readImuData_bl();
-        l_imuValues_st=g_sigFil_getImuValuesUnfiltered_st();
-        l_barometricValue_f64+=l_imuValues_st.pressure_f64;
-        l_GravityValue_f64+=l_imuValues_st.acc.z_f64;
-        l_Temperature_f64+=l_imuValues_st.temperature_f64;
+        l_sensorValues_st=g_sigFil_getsensorValuesUnfiltered_st();
+        l_barometricValue_f64+=l_sensorValues_st.pressure_f64;
+        l_GravityValue_f64+=l_sensorValues_st.acc.z_f64;
+        l_Temperature_f64+=l_sensorValues_st.temperature_f64;
     }
-    m_sigOri_referencePressure_f64 =l_barometricValue_f64/M_NR_OF_VALUES_OFFSET_I32;
-    m_sigOri_referenceGravity_f64=l_GravityValue_f64/M_NR_OF_VALUES_OFFSET_I32;
-    m_sigOri_referenceTemperature_f64=l_Temperature_f64/M_NR_OF_VALUES_OFFSET_I32;
+    referencePressure_f64 =l_barometricValue_f64/M_NR_OF_VALUES_OFFSET_I32;
+    referenceGravity_f64=l_GravityValue_f64/M_NR_OF_VALUES_OFFSET_I32;
+    referenceTemperature_f64=l_Temperature_f64/M_NR_OF_VALUES_OFFSET_I32;
 }
 
 /*!**********************************************************************
@@ -349,10 +349,10 @@ void g_sigOri_initBuildReferenceValues_bl()
  * none
  * \endinternal
  ***********************************************************************/
-void m_sigOri_getImuData_bl()
+void getImuData_bl()
 {
     g_sigFil_readImuData_bl();
-    m_sigori_imuValues_st = g_sigFil_getImuValuesUnfiltered_st();
+    sensor_values_st = g_sigFil_getsensorValuesUnfiltered_st();
 }
 
 /*!**********************************************************************
@@ -372,48 +372,48 @@ void m_sigOri_getImuData_bl()
  * none
  * \endinternal
  ***********************************************************************/
-sigOri_orientationAngles m_sigOri_calcAccMagAngle_st()
+HAL_ANGLE_PAYLOAD_ST calcAccMagAngle_st()
 {
-    sigOri_orientationAngles l_angles_f64;
+    HAL_ANGLE_PAYLOAD_ST l_angles_f64;
     double l_roll_f64=0;
     double l_pitch_f64=0;
     double l_yaw_f64=0;
     double l_divider_f64=0;
 
-    double ll_minX_f64=M_SIGORI_MAG_MINX_F64;
-    double ll_maxX_f64=M_SIGORI_MAG_MAXX_F64;
-    double ll_minY_f64=M_SIGORI_MAG_MINY_F64;
-    double ll_maxY_f64=M_SIGORI_MAG_MAXY_F64;
-    double ll_minZ_f64=M_SIGORI_MAG_MINZ_F64;
-    double ll_maxZ_f64=M_SIGORI_MAG_MAXZ_F64;
+    double ll_minX_f64=MAG_MINX_F64;
+    double ll_maxX_f64=MAG_MAXX_F64;
+    double ll_minY_f64=MAG_MINY_F64;
+    double ll_maxY_f64=MAG_MAXY_F64;
+    double ll_minZ_f64=MAG_MINZ_F64;
+    double ll_maxZ_f64=MAG_MAXZ_F64;
 
     halAccmag_3dDoubleVector l_mag_st;
     
-    l_mag_st.x_f64=(m_sigori_imuValues_st.mag.x_f64-ll_minX_f64)/(ll_maxX_f64-ll_minX_f64)*2-1;
-    l_mag_st.y_f64=(m_sigori_imuValues_st.mag.y_f64-ll_minY_f64)/(ll_maxY_f64-ll_minY_f64)*2-1;
-    l_mag_st.z_f64=(m_sigori_imuValues_st.mag.z_f64-ll_minZ_f64)/(ll_maxZ_f64-ll_minZ_f64)*2-1;
+    l_mag_st.x_f64=(sensor_values_st.mag.x_f64-ll_minX_f64)/(ll_maxX_f64-ll_minX_f64)*2-1;
+    l_mag_st.y_f64=(sensor_values_st.mag.y_f64-ll_minY_f64)/(ll_maxY_f64-ll_minY_f64)*2-1;
+    l_mag_st.z_f64=(sensor_values_st.mag.z_f64-ll_minZ_f64)/(ll_maxZ_f64-ll_minZ_f64)*2-1;
 
     //calculate roll with accelerometer values
-    if(m_sigori_imuValues_st.acc.z_f64!=0)
+    if(sensor_values_st.acc.z_f64!=0)
     {
-        l_roll_f64=atan2(m_sigori_imuValues_st.acc.y_f64,m_sigori_imuValues_st.acc.z_f64);
+        l_roll_f64=atan2(sensor_values_st.acc.y_f64,sensor_values_st.acc.z_f64);
         l_angles_f64.roll_f64=-l_roll_f64*M_RAD_TO_DEG_F64;
     }
     //calculate pitch with accelerometer values
-    l_divider_f64=m_sigori_imuValues_st.acc.y_f64*sin(l_roll_f64)+m_sigori_imuValues_st.acc.z_f64*cos(l_roll_f64);
+    l_divider_f64=sensor_values_st.acc.y_f64*sin(l_roll_f64)+sensor_values_st.acc.z_f64*cos(l_roll_f64);
     if(l_divider_f64!=0)
     {
-        l_pitch_f64=atan(-m_sigori_imuValues_st.acc.x_f64/l_divider_f64);
+        l_pitch_f64=atan(-sensor_values_st.acc.x_f64/l_divider_f64);
         l_angles_f64.pitch_f64=-l_pitch_f64*M_RAD_TO_DEG_F64;
     }
 
     //calculate yaw and make a tilt compensation for the eCompass
-    l_divider_f64= m_sigori_imuValues_st.mag.x_f64*cos(l_pitch_f64)+
-                    m_sigori_imuValues_st.mag.y_f64*sin(l_pitch_f64)*sin(l_roll_f64)+
-                    m_sigori_imuValues_st.mag.z_f64*sin(l_pitch_f64)*cos(l_roll_f64);
+    l_divider_f64= sensor_values_st.mag.x_f64*cos(l_pitch_f64)+
+                    sensor_values_st.mag.y_f64*sin(l_pitch_f64)*sin(l_roll_f64)+
+                    sensor_values_st.mag.z_f64*sin(l_pitch_f64)*cos(l_roll_f64);
     if(l_divider_f64!=0)
     {
-        l_yaw_f64=atan2(-(-m_sigori_imuValues_st.mag.z_f64*sin(l_roll_f64)+m_sigori_imuValues_st.mag.y_f64*cos(l_roll_f64)),
+        l_yaw_f64=atan2(-(-sensor_values_st.mag.z_f64*sin(l_roll_f64)+sensor_values_st.mag.y_f64*cos(l_roll_f64)),
                     l_divider_f64);
         l_angles_f64.yaw_f64=l_yaw_f64*M_RAD_TO_DEG_F64;    
     }
@@ -429,7 +429,7 @@ sigOri_orientationAngles m_sigOri_calcAccMagAngle_st()
 
         }*/
 
-    m_sigOri_arrayOutputAnglesAccMagCalc_st = l_angles_f64;
+    arrayOutputAnglesAccMagCalc_st = l_angles_f64;
 
     return l_angles_f64;
 }
@@ -449,9 +449,9 @@ sigOri_orientationAngles m_sigOri_calcAccMagAngle_st()
  * none
  * \endinternal
  ***********************************************************************/
-sigOri_orientationAngles m_sigOri_calcGyroAnglePerStep_st()
+HAL_ANGLE_PAYLOAD_ST calcGyroAnglePerStep_st()
 {
-    sigOri_orientationAngles l_angles_f64;
+    HAL_ANGLE_PAYLOAD_ST l_angles_f64;
     
     long int time_difference;
     struct timeval gettime_now;
@@ -467,12 +467,12 @@ sigOri_orientationAngles m_sigOri_calcGyroAnglePerStep_st()
 
     l_timestep_f64=(double)(time_difference)*0.000001;
 
-    l_angles_f64.roll_f64=m_sigori_imuValues_st.gyro.roll_f64*l_timestep_f64;
-    l_angles_f64.pitch_f64=m_sigori_imuValues_st.gyro.pitch_f64*l_timestep_f64;
-    l_angles_f64.yaw_f64=m_sigori_imuValues_st.gyro.yaw_f64*l_timestep_f64;
+    l_angles_f64.roll_f64=sensor_values_st.gyro.roll_f64*l_timestep_f64;
+    l_angles_f64.pitch_f64=sensor_values_st.gyro.pitch_f64*l_timestep_f64;
+    l_angles_f64.yaw_f64=sensor_values_st.gyro.yaw_f64*l_timestep_f64;
     gettimeofday(&gettime_old,(void *)0);
 
-    m_sigOri_arrayOutputAnglesGyroPerStep_st = l_angles_f64;
+    arrayOutputAnglesGyroPerStep_st = l_angles_f64;
 
     return l_angles_f64;
 }
@@ -492,14 +492,14 @@ sigOri_orientationAngles m_sigOri_calcGyroAnglePerStep_st()
  * none
  * \endinternal
  ***********************************************************************/
-void m_sigOri_calcBarometricHeight_st()
+void calcBarometricHeight_st()
 {
     double l_densityOfAir_f64=287.05;    // [J/(Kg°K)]
     double l_Deg2Kelvin_f64=273.15;
 
-    m_SIGORI_heightBarometerMetres_f64=(l_densityOfAir_f64/m_sigOri_referenceGravity_f64)*
-            ((m_sigori_imuValues_st.temperature_f64+l_Deg2Kelvin_f64+m_sigOri_referenceTemperature_f64+l_Deg2Kelvin_f64)/2)*
-            log(m_sigOri_referencePressure_f64/m_sigori_imuValues_st.pressure_f64);
+    heightBarometerMetres_f64=(l_densityOfAir_f64/referenceGravity_f64)*
+            ((sensor_values_st.temperature_f64+l_Deg2Kelvin_f64+referenceTemperature_f64+l_Deg2Kelvin_f64)/2)*
+            log(referencePressure_f64/sensor_values_st.pressure_f64);
 }
 
 /*!**********************************************************************
@@ -517,90 +517,90 @@ void m_sigOri_calcBarometricHeight_st()
  * none
  * \endinternal
  ***********************************************************************/
-void g_sigOri_calcKalmanOrientation_bl()
+void g_calcKalmanOrientation_bl()
 {
     //create a local matrix for storage
-    double l_matrixTemp_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
-    double l_matrixTemp2_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
-    double l_matrixInnovation_rg9f64[M_SIGORI_SIZEOFARRAY_UI8][M_SIGORI_SIZEOFARRAY_UI8];
+    double l_matrixTemp_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+    double l_matrixTemp2_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
+    double l_matrixInnovation_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
 
     //read new data from the IMU
-    m_sigOri_getImuData_bl();
+    getImuData_bl();
 
     //calculate angle from Acc/Mag and Gyro
-    m_sigOri_arrayAccMagAnglesKalman_st=m_sigOri_calcAccMagAngle_st();
-    m_sigOri_arrayGyroAnglesKalman_st=m_sigOri_calcGyroAnglePerStep_st();
+    arrayAccMagAnglesKalman_st=calcAccMagAngle_st();
+    arrayGyroAnglesKalman_st=calcGyroAnglePerStep_st();
 
     //set new calculated angles from the sensors in the matrices
-    m_sigOri_matrixXnew_rg9f64[0][0]=m_sigOri_arrayAccMagAnglesKalman_st.roll_f64;
-    m_sigOri_matrixXnew_rg9f64[1][1]=m_sigOri_arrayAccMagAnglesKalman_st.pitch_f64;
-    m_sigOri_matrixXnew_rg9f64[2][2]=m_sigOri_arrayAccMagAnglesKalman_st.yaw_f64;
+    matrixXnew_rg9f64[0][0]=arrayAccMagAnglesKalman_st.roll_f64;
+    matrixXnew_rg9f64[1][1]=arrayAccMagAnglesKalman_st.pitch_f64;
+    matrixXnew_rg9f64[2][2]=arrayAccMagAnglesKalman_st.yaw_f64;
 
-    m_sigOri_matrixUk_rg9f64[0][0]=m_sigOri_arrayGyroAnglesKalman_st.roll_f64;
-    m_sigOri_matrixUk_rg9f64[1][1]=m_sigOri_arrayGyroAnglesKalman_st.pitch_f64;
-    m_sigOri_matrixUk_rg9f64[2][2]=m_sigOri_arrayGyroAnglesKalman_st.yaw_f64;
+    matrixUk_rg9f64[0][0]=arrayGyroAnglesKalman_st.roll_f64;
+    matrixUk_rg9f64[1][1]=arrayGyroAnglesKalman_st.pitch_f64;
+    matrixUk_rg9f64[2][2]=arrayGyroAnglesKalman_st.yaw_f64;
 
 //PREDICTION
     //state estimation (prediction)
     g_sigMath_matrixAddition_bl((double*) l_matrixTemp_rg9f64,
-        (double*) m_sigOri_matrixXk_rg9f64, 3,3, 
-        (double*) m_sigOri_matrixUk_rg9f64,3,3);
-    g_sigMath_matrixAssignment_bl((double*) m_sigOri_matrixXk_rg9f64,3,3,
+        (double*) matrixXk_rg9f64, 3,3, 
+        (double*) matrixUk_rg9f64,3,3);
+    g_sigMath_matrixAssignment_bl((double*) matrixXk_rg9f64,3,3,
         (double*) l_matrixTemp_rg9f64,3,3);
 
 
     //covariance estimation (prediction)
     g_sigMath_matrixAddition_bl((double*) l_matrixTemp_rg9f64,
-        (double*) m_sigOri_matrixPk_rg9f64, 3,3, 
-        (double*) m_sigOri_matrixQ_rg9f64,3,3);
-    g_sigMath_matrixAssignment_bl((double*) m_sigOri_matrixPk_rg9f64,3,3,
+        (double*) matrixPk_rg9f64, 3,3, 
+        (double*) matrixQ_rg9f64,3,3);
+    g_sigMath_matrixAssignment_bl((double*) matrixPk_rg9f64,3,3,
         (double*) l_matrixTemp_rg9f64,3,3);
 
 //UPDATE
     //Innovation (update)
     g_sigMath_matrixSubtraktion_bl((double*) l_matrixInnovation_rg9f64,
-        (double*) m_sigOri_matrixXnew_rg9f64,3,3, 
-        (double*) m_sigOri_matrixXk_rg9f64,3,3);
+        (double*) matrixXnew_rg9f64,3,3, 
+        (double*) matrixXk_rg9f64,3,3);
 
     //Innovation covariance (update)
-    g_sigMath_matrixAddition_bl((double*) m_sigOri_matrixS_rg9f64,
-        (double*) m_sigOri_matrixPk_rg9f64, 3,3, 
-        (double*) m_sigOri_matrixR_rg9f64,3,3);
+    g_sigMath_matrixAddition_bl((double*) matrixS_rg9f64,
+        (double*) matrixPk_rg9f64, 3,3, 
+        (double*) matrixR_rg9f64,3,3);
 
     //Kalman Gain calculation (update)
     g_sigMath_matrixInverse_bl((double*) l_matrixTemp_rg9f64,
-        (double*) m_sigOri_matrixS_rg9f64,3,3);
+        (double*) matrixS_rg9f64,3,3);
     g_sigMath_matrixMultiplikation_bl(
-        (double*) m_sigOri_matrixK_rg9f64, 
-        (double*) m_sigOri_matrixPk_rg9f64,3,3,
+        (double*) matrixK_rg9f64, 
+        (double*) matrixPk_rg9f64,3,3,
         (double*) l_matrixTemp_rg9f64,3,3);
 
     //State estimation (update)
     g_sigMath_matrixMultiplikation_bl(
         (double*) l_matrixTemp_rg9f64, 
-        (double*) m_sigOri_matrixK_rg9f64,3,3,
+        (double*) matrixK_rg9f64,3,3,
         (double*) l_matrixInnovation_rg9f64,3,3);
     g_sigMath_matrixAddition_bl((double*) l_matrixTemp2_rg9f64,
-        (double*) m_sigOri_matrixXk_rg9f64, 3,3, 
+        (double*) matrixXk_rg9f64, 3,3, 
         (double*) l_matrixTemp_rg9f64,3,3);
-    g_sigMath_matrixAssignment_bl((double*) m_sigOri_matrixXk_rg9f64,3,3,
+    g_sigMath_matrixAssignment_bl((double*) matrixXk_rg9f64,3,3,
         (double*) l_matrixTemp2_rg9f64,3,3);
 
     //Covariance estimation (update)
     g_sigMath_matrixSubtraktion_bl((double*) l_matrixTemp_rg9f64,
-        (double*) m_sigOri_matrixI_rg9f64,3,3, 
-        (double*) m_sigOri_matrixK_rg9f64,3,3);
+        (double*) matrixI_rg9f64,3,3, 
+        (double*) matrixK_rg9f64,3,3);
     g_sigMath_matrixMultiplikation_bl(
         (double*) l_matrixTemp2_rg9f64, 
         (double*) l_matrixTemp_rg9f64,3,3,
-        (double*) m_sigOri_matrixPk_rg9f64,3,3);
-    g_sigMath_matrixAssignment_bl((double*) m_sigOri_matrixPk_rg9f64,3,3,
+        (double*) matrixPk_rg9f64,3,3);
+    g_sigMath_matrixAssignment_bl((double*) matrixPk_rg9f64,3,3,
         (double*) l_matrixTemp2_rg9f64,3,3);
 
 //set calculate within this module global
-    m_sigOri_arrayOutputAnglesKalman_st.roll_f64=m_sigOri_matrixXk_rg9f64[0][0];
-    m_sigOri_arrayOutputAnglesKalman_st.pitch_f64=m_sigOri_matrixXk_rg9f64[1][1];
-    m_sigOri_arrayOutputAnglesKalman_st.yaw_f64=m_sigOri_matrixXk_rg9f64[2][2];
+    arrayOutputAnglesKalman_st.roll_f64=matrixXk_rg9f64[0][0];
+    arrayOutputAnglesKalman_st.pitch_f64=matrixXk_rg9f64[1][1];
+    arrayOutputAnglesKalman_st.yaw_f64=matrixXk_rg9f64[2][2];
 }
 
 /*!**********************************************************************
@@ -618,25 +618,25 @@ void g_sigOri_calcKalmanOrientation_bl()
  * none
  * \endinternal
  ***********************************************************************/
-void g_sigOri_calcComplementaryOrientation_bl()
+void g_calcComplementaryOrientation_bl()
 {
     //read new data from the IMU
-    m_sigOri_getImuData_bl();
+    getImuData_bl();
     //calculate angle from Acc/Mag and Gyro
-    m_sigOri_arrayAccMagAnglesComplementary_st=m_sigOri_calcAccMagAngle_st();
-    m_sigOri_arrayGyroAnglesComplementary_st=m_sigOri_calcGyroAnglePerStep_st();
+    arrayAccMagAnglesComplementary_st=calcAccMagAngle_st();
+    arrayGyroAnglesComplementary_st=calcGyroAnglePerStep_st();
 
-    m_sigOri_arrayOutputAnglesComplementary_st.pitch_f64=
-            M_COMP_FILTER_FACTOR_F64*(m_sigOri_arrayOutputAnglesComplementary_st.pitch_f64+m_sigOri_arrayGyroAnglesComplementary_st.pitch_f64) +
-            (1-M_COMP_FILTER_FACTOR_F64)*m_sigOri_arrayAccMagAnglesComplementary_st.pitch_f64;
+    arrayOutputAnglesComplementary_st.pitch_f64=
+            M_COMP_FILTER_FACTOR_F64*(arrayOutputAnglesComplementary_st.pitch_f64+arrayGyroAnglesComplementary_st.pitch_f64) +
+            (1-M_COMP_FILTER_FACTOR_F64)*arrayAccMagAnglesComplementary_st.pitch_f64;
 
-    m_sigOri_arrayOutputAnglesComplementary_st.roll_f64=
-            M_COMP_FILTER_FACTOR_F64*(m_sigOri_arrayOutputAnglesComplementary_st.roll_f64+m_sigOri_arrayGyroAnglesComplementary_st.roll_f64) +
-            (1-M_COMP_FILTER_FACTOR_F64)*m_sigOri_arrayAccMagAnglesComplementary_st.roll_f64;
+    arrayOutputAnglesComplementary_st.roll_f64=
+            M_COMP_FILTER_FACTOR_F64*(arrayOutputAnglesComplementary_st.roll_f64+arrayGyroAnglesComplementary_st.roll_f64) +
+            (1-M_COMP_FILTER_FACTOR_F64)*arrayAccMagAnglesComplementary_st.roll_f64;
 
-    m_sigOri_arrayOutputAnglesComplementary_st.yaw_f64=
-        M_COMP_FILTER_FACTOR_F64*(m_sigOri_arrayOutputAnglesComplementary_st.yaw_f64+m_sigOri_arrayGyroAnglesComplementary_st.yaw_f64) +
-        (1-M_COMP_FILTER_FACTOR_F64)*m_sigOri_arrayAccMagAnglesComplementary_st.yaw_f64;
+    arrayOutputAnglesComplementary_st.yaw_f64=
+        M_COMP_FILTER_FACTOR_F64*(arrayOutputAnglesComplementary_st.yaw_f64+arrayGyroAnglesComplementary_st.yaw_f64) +
+        (1-M_COMP_FILTER_FACTOR_F64)*arrayAccMagAnglesComplementary_st.yaw_f64;
 }
 
 
@@ -656,9 +656,9 @@ void g_sigOri_calcComplementaryOrientation_bl()
  * none
  * \endinternal
  ***********************************************************************/
-sigOri_orientationAngles g_sigOri_getAnglesAccMagCalc_bl()
+HAL_ANGLE_PAYLOAD_ST g_getAnglesAccMagCalc_bl()
 {
-    return m_sigOri_arrayOutputAnglesAccMagCalc_st;
+    return arrayOutputAnglesAccMagCalc_st;
 }
 
 
@@ -678,9 +678,9 @@ sigOri_orientationAngles g_sigOri_getAnglesAccMagCalc_bl()
  * none
  * \endinternal
  ***********************************************************************/
-sigOri_orientationAngles g_sigOri_getAnglesGyroPerStep_bl()
+HAL_ANGLE_PAYLOAD_ST g_getAnglesGyroPerStep_bl()
 {
-    return m_sigOri_arrayOutputAnglesGyroPerStep_st;
+    return arrayOutputAnglesGyroPerStep_st;
 }
 
 

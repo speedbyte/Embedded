@@ -13,8 +13,8 @@
 //define the number off values which are regarded for the mean value calculation
 #define M_NR_OF_VALUES_FOR_OFFSET_UI8        1000
 
-static halImu_orientationValues m_sigFil_imuValues_st;
-static sigOri_orientationAngles m_offsetGyro_st;
+static HAL_SENSOR_PAYLOAD_ST m_sigFil_sensorValues_st;
+static HAL_ANGLE_PAYLOAD_ST m_offsetGyro_st;
 
 /*!**********************************************************************
  * \author     Oliver Breuning (olbrgs00)
@@ -40,9 +40,9 @@ static sigOri_orientationAngles m_offsetGyro_st;
  * none
  * \endinternal
  ***********************************************************************/
-halImu_orientationValues g_sigFil_getImuValuesUnfiltered_st()
+HAL_SENSOR_PAYLOAD_ST g_sigFil_getsensorValuesUnfiltered_st()
 {
-    return m_sigFil_imuValues_st;
+    return m_sigFil_sensorValues_st;
 }
 
 /*!**********************************************************************
@@ -60,20 +60,20 @@ halImu_orientationValues g_sigFil_getImuValuesUnfiltered_st()
  * none
  * \endinternal
  ***********************************************************************/
-sigOri_orientationAngles m_sigFil_offsetCorrectionGyro_st()
+HAL_ANGLE_PAYLOAD_ST m_sigFil_offsetCorrectionGyro_st()
 {
     int i=0;
-    sigOri_orientationAngles l_measuredGyroValue_st={0,0,0};
-    halImu_orientationValues l_sigFil_imuValues_st;
+    HAL_ANGLE_PAYLOAD_ST l_measuredGyroValue_st={0,0,0};
+    HAL_SENSOR_PAYLOAD_ST l_sigFil_sensorValues_st;
 
     for(i=0;i<M_NR_OF_VALUES_FOR_OFFSET_UI8;i++)
     {
         g_halImu_triggerImuReading_bl();
-        l_sigFil_imuValues_st = g_halImu_getImuValues_str();
+        l_sigFil_sensorValues_st = g_halImu_getsensorValues_str();
 
-        l_measuredGyroValue_st.roll_f64+=l_sigFil_imuValues_st.gyro.roll_f64;
-        l_measuredGyroValue_st.pitch_f64+=l_sigFil_imuValues_st.gyro.pitch_f64;
-        l_measuredGyroValue_st.yaw_f64+=l_sigFil_imuValues_st.gyro.yaw_f64;
+        l_measuredGyroValue_st.roll_f64+=l_sigFil_sensorValues_st.gyro.roll_f64;
+        l_measuredGyroValue_st.pitch_f64+=l_sigFil_sensorValues_st.gyro.pitch_f64;
+        l_measuredGyroValue_st.yaw_f64+=l_sigFil_sensorValues_st.gyro.yaw_f64;
     }
 
     l_measuredGyroValue_st.roll_f64=l_measuredGyroValue_st.roll_f64/M_NR_OF_VALUES_FOR_OFFSET_UI8;
@@ -128,15 +128,15 @@ unsigned int g_SigFil_initImuSensors_bl()
 void g_sigFil_readImuData_bl()
 {
     g_halImu_triggerImuReading_bl();
-    m_sigFil_imuValues_st = g_halImu_getImuValues_str();
+    m_sigFil_sensorValues_st = g_halImu_getsensorValues_str();
 
-    m_sigFil_imuValues_st.acc.z_f64=-m_sigFil_imuValues_st.acc.z_f64;
-    m_sigFil_imuValues_st.mag.x_f64=m_sigFil_imuValues_st.mag.x_f64*1000000;
-    m_sigFil_imuValues_st.mag.y_f64=m_sigFil_imuValues_st.mag.y_f64*1000000;
-    m_sigFil_imuValues_st.mag.z_f64=-m_sigFil_imuValues_st.mag.z_f64*1000000;
-    m_sigFil_imuValues_st.gyro.roll_f64=m_sigFil_imuValues_st.gyro.roll_f64-m_offsetGyro_st.roll_f64;
-    m_sigFil_imuValues_st.gyro.pitch_f64=m_sigFil_imuValues_st.gyro.pitch_f64-m_offsetGyro_st.pitch_f64;
-    m_sigFil_imuValues_st.gyro.yaw_f64=m_sigFil_imuValues_st.gyro.yaw_f64-m_offsetGyro_st.yaw_f64;
+    m_sigFil_sensorValues_st.acc.z_f64=-m_sigFil_sensorValues_st.acc.z_f64;
+    m_sigFil_sensorValues_st.mag.x_f64=m_sigFil_sensorValues_st.mag.x_f64*1000000;
+    m_sigFil_sensorValues_st.mag.y_f64=m_sigFil_sensorValues_st.mag.y_f64*1000000;
+    m_sigFil_sensorValues_st.mag.z_f64=-m_sigFil_sensorValues_st.mag.z_f64*1000000;
+    m_sigFil_sensorValues_st.gyro.roll_f64=m_sigFil_sensorValues_st.gyro.roll_f64-m_offsetGyro_st.roll_f64;
+    m_sigFil_sensorValues_st.gyro.pitch_f64=m_sigFil_sensorValues_st.gyro.pitch_f64-m_offsetGyro_st.pitch_f64;
+    m_sigFil_sensorValues_st.gyro.yaw_f64=m_sigFil_sensorValues_st.gyro.yaw_f64-m_offsetGyro_st.yaw_f64;
 
 }
 

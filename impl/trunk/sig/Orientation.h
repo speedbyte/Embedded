@@ -12,9 +12,9 @@
 #define SIG_KALMANORIENTATION_KALMANORIENTATION_H_
 
 //define array and matrix size
-#define M_SIGORI_SIZEOFARRAY_UI8	3
+#define SIZEOFARRAY_UI8	3
 //define PI
-#define M_SIGORI_PI_F64				3.14159
+#define PI_F64				3.14159
 
 /*!**********************************************************************
  * \author 	Oliver Breuning (olbrgs00)
@@ -34,7 +34,7 @@ typedef struct{
 	double roll_f64;
 	double pitch_f64;
 	double yaw_f64;
-}sigOri_orientationAngles;
+}HAL_ANGLE_PAYLOAD_ST;
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)
@@ -46,18 +46,18 @@ typedef struct{
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-sigOri_orientationAngles g_sigOri_getAnglesComplementary_bl(void);
-double g_sigOri_getPitchComplementary_bl(void);
-double g_sigOri_getRollComplementary_bl(void);
-double g_sigOri_getYawComplementary_bl(void);
+HAL_ANGLE_PAYLOAD_ST g_getAnglesComplementary_bl(void);
+double g_getPitchComplementary_bl(void);
+double g_getRollComplementary_bl(void);
+double g_getYawComplementary_bl(void);
 
-sigOri_orientationAngles g_sigOri_getAnglesKalman_bl(void);
-double g_sigOri_getPitchKalman_bl(void);
-double g_sigOri_getRollKalman_bl(void);
-double g_sigOri_getYawKalman_bl(void);
+HAL_ANGLE_PAYLOAD_ST g_getAnglesKalman_bl(void);
+double g_getPitchKalman_bl(void);
+double g_getRollKalman_bl(void);
+double g_getYawKalman_bl(void);
 
-sigOri_orientationAngles g_sigOri_getAnglesGyroPerStep_bl(void);
-sigOri_orientationAngles g_sigOri_getAnglesAccMagCalc_bl(void);
+HAL_ANGLE_PAYLOAD_ST g_getAnglesGyroPerStep_bl(void);
+HAL_ANGLE_PAYLOAD_ST g_getAnglesAccMagCalc_bl(void);
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)
@@ -69,9 +69,9 @@ sigOri_orientationAngles g_sigOri_getAnglesAccMagCalc_bl(void);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_sigOri_initImuSensors_bl(void);
-unsigned int g_sigOri_initMatrices_bl(void);
-void g_sigOri_initBuildReferenceValues_bl();
+unsigned int g_initImuSensors_bl(void);
+unsigned int g_initMatrices_bl(void);
+void g_initBuildReferenceValues_bl();
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)
@@ -84,8 +84,8 @@ void g_sigOri_initBuildReferenceValues_bl();
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-void g_sigOri_calcKalmanOrientation_bl(void);
-void g_sigOri_calcComplementaryOrientation_bl(void);
+void g_calcKalmanOrientation_bl(void);
+void g_calcComplementaryOrientation_bl(void);
 
 
 

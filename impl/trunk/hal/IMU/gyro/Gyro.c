@@ -7,10 +7,10 @@
  *  Created on: 05.05.2015
  *      Author: user
  */
-#include "../../../sig/Orientation/Orientation.h"
+#include "Orientation.h"
 
 #include "../../LLD_IF/LLD_I2C.h"
-#include "../Lib/Hal_Lib.h"
+#include "Hal_Lib.h"
 #include "Gyro.h"
 #include <unistd.h>
 
@@ -18,7 +18,7 @@
 #define M_HAL_GYRO_TEMP_OFFSET_UI8        27
 
 // Variables which can be read later
-static sigOri_orientationAngles m_rotation_str;
+static HAL_ANGLE_PAYLOAD_ST m_rotation_str;
 static double m_halGyro_temperature_f64;
 
 /*!**********************************************************************
@@ -69,14 +69,14 @@ int g_halGyro_initGyro_i32(void)
  * \details Interface of reading rotational speed which is measured by the gyroscope.
  *
  * \param[ in ] no parameter
- * \param[ out ] struct sigOri_orientationAngles with roll, pitch, yaw
+ * \param[ out ] struct HAL_ANGLE_PAYLOAD_ST with roll, pitch, yaw
  *
  * \internal
  * CHANGELOG:
  *
  * \endinternal
  ********************************************************************** */
-sigOri_orientationAngles g_halGyro_getGyroscope_st(void)
+HAL_ANGLE_PAYLOAD_ST g_halGyro_getGyroscope_st(void)
 {
     return m_rotation_str;
 }

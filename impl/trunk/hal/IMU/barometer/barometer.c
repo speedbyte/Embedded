@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include "../../LLD_IF/LLD_I2C.h"
 #include "barometer.h"
-#include "../Lib/Hal_Lib.h"
+#include "Hal_Lib.h"
 
 // Variables which can be read later
 static double m_temperature_f64;

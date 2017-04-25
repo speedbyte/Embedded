@@ -9,18 +9,17 @@
 #include <time.h>
 #include <string.h>
 
-#include "../matlab/udpSigLib.h"
-#include "../matlab/udpImuLib.h"
-#include "../sig/matrixLib/matrixLib.h"
-#include "../hal/ADC/HAL_ADC.h"
-#include "../hal/BATTERY/batteryCheck.h"
-#include "../sig/Orientation/Orientation.h"
-#include "../hal/GPS/GPS.h"
-#include "../hal/IMU/imu.h"
-#include "../hal/IMU/barometer/barometer.h"
-#include "../hal/LASER/LIDAR.h"
-#include "../hal/LLD_IF/LLD_UART.h"
-#include "../hal/MOTOR/MOTOR.h"
+#include "udpSensorLib.h"
+#include "matrixLib.h"
+#include "HAL_ADC.h"
+#include "batteryCheck.h"
+#include "Orientation.h"
+#include "GPS.h"
+#include "imu.h"
+#include "barometer.h"
+#include "LIDAR.h"
+#include "LLD_UART.h"
+#include "MOTOR.h"
 
 extern float g_halADC_get_ui16(unsigned char);
 
@@ -223,7 +222,7 @@ int main(int argc, char *argv[]) {
             break;
         }
         case TESTIMU: {
-            halImu_orientationValues l_imuMeasurements_st;
+            HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
             printf("Starting IMU Test\n");
             g_halImu_initImuSensors_bl();
             int i = kbhit();
@@ -233,7 +232,7 @@ int main(int argc, char *argv[]) {
                 g_halImu_triggerGyroReading_bl();
                 g_halImu_triggerAccReading_bl();
 
-                l_imuMeasurements_st = g_halImu_getImuValues_str();
+                l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
                 printf("Pressure: %5.3f    ;    Temperature:  %5.3f\n",
                         l_imuMeasurements_st.pressure_f64,
@@ -296,10 +295,10 @@ int main(int argc, char *argv[]) {
             unsigned int l_sendState_bl;
 
             // open udp connection
-            l_udpSocket_i32 = g_halMatlab_initConnection_i32(
+            l_udpSocket_i32 = g_udp_initConnection_i32(
                     l_remoteHostAddr_rg4ui8, l_remoteHostPort_ui16);
 
-            halImu_orientationValues l_imuMeasurements_st;
+            HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
             g_halImu_initImuSensors_bl();
 
             int i = kbhit();
@@ -309,9 +308,9 @@ int main(int argc, char *argv[]) {
                 g_halImu_triggerGyroReading_bl();
                 g_halImu_triggerAccReading_bl();
 
-                l_imuMeasurements_st = g_halImu_getImuValues_str();
+                l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
-                l_sendState_bl = g_halMatlab_sendImuState_bl(l_udpSocket_i32,
+                l_sendState_bl = g_hal_send_sensor_raw_bool(l_udpSocket_i32,
                         l_imuMeasurements_st);
                 printf("Temp %f\n", l_imuMeasurements_st.temperature_f64);
                 if (l_sendState_bl != M_HAL_MATLAB_SUCCESS_UI8) {
@@ -320,7 +319,7 @@ int main(int argc, char *argv[]) {
                 usleep(20000); //20ms = 50Hz
             }
             // close udp connection
-            g_halMatlab_closeSocket_bl(l_udpSocket_i32);
+            g_udp_closeSocket_bl(l_udpSocket_i32);
             break;
         }
         case TESTMATLABKALMAN: {
@@ -330,30 +329,30 @@ int main(int argc, char *argv[]) {
             int l_udpSocket_i32;
             unsigned int l_sendState_bl;
 
-            sigOri_orientationAngles l_kalmanAngles_st;
-            sigOri_orientationAngles l_compAngles_st;
-            halImu_orientationValues l_imuStates_st;
+            HAL_ANGLE_PAYLOAD_ST l_kalmanAngles_st;
+            HAL_ANGLE_PAYLOAD_ST l_compAngles_st;
+            HAL_SENSOR_PAYLOAD_ST l_sensorValues_st;
 
             // open udp connection
-            l_udpSocket_i32 = g_halMatlab_initConnection_i32(
+            l_udpSocket_i32 = g_udp_initConnection_i32(
                     l_remoteHostAddr_rg4ui8, l_remoteHostPort_ui16);
 
-            g_sigOri_initMatrices_bl();
-            g_sigOri_initImuSensors_bl();
+            g_initMatrices_bl();
+            g_initImuSensors_bl();
 
             int i = kbhit();
             while (i != 'q') {
-                g_sigOri_calcKalmanOrientation_bl();
-                g_sigOri_calcComplementaryOrientation_bl();
+                g_calcKalmanOrientation_bl();
+                g_calcComplementaryOrientation_bl();
 
-                l_kalmanAngles_st = g_sigOri_getAnglesKalman_bl();
-                l_compAngles_st = g_sigOri_getAnglesComplementary_bl();
-                l_imuStates_st = g_halImu_getImuValues_str();
+                l_kalmanAngles_st = g_getAnglesKalman_bl();
+                l_compAngles_st = g_getAnglesComplementary_bl();
+                l_sensorValues_st = g_halImu_getsensorValues_str();
 
-                printf("Temp%f\nMag%f", l_imuStates_st.temperature_f64,
-                        l_imuStates_st.mag.x_f64);
-                l_sendState_bl = g_halMatlab_sendSigAllStates_bl(
-                        l_udpSocket_i32, l_imuStates_st, l_kalmanAngles_st,
+                printf("Temp%f\nMag%f", l_sensorValues_st.temperature_f64,
+                        l_sensorValues_st.mag.x_f64);
+                l_sendState_bl = g_hal_send_all_angles_calculated_bool(
+                        l_udpSocket_i32, l_sensorValues_st, l_kalmanAngles_st,
                         l_compAngles_st);
                 if (l_sendState_bl != M_HAL_MATLAB_SUCCESS_UI8) {
                     printf("UDP-Packet error\n");
@@ -363,7 +362,7 @@ int main(int argc, char *argv[]) {
                 usleep(20000); //20ms = 50Hz
             }
             // close udp connection
-            g_halMatlab_closeSocket_bl(l_udpSocket_i32);
+            g_udp_closeSocket_bl(l_udpSocket_i32);
             break;
         }
         case TESTACCMAG: {
@@ -396,7 +395,7 @@ int main(int argc, char *argv[]) {
         case TESTBARO: {
             double pressure = 0;
             double temp = 0;
-            sigOri_orientationAngles GyroValues;
+            HAL_ANGLE_PAYLOAD_ST GyroValues;
             double Gyrotemp = 0;
             g_halBaro_initBaro_i32();
             g_halGyro_initGyro_i32();
@@ -429,7 +428,7 @@ int main(int argc, char *argv[]) {
         case TESTGYRO: {
             double pressure = 0;
             double temp = 0;
-            sigOri_orientationAngles GyroValues;
+            HAL_ANGLE_PAYLOAD_ST GyroValues;
             double Gyrotemp = 0;
             printf("IMU Gyroscope test\n");
             g_halBaro_initBaro_i32();
@@ -524,27 +523,27 @@ int main(int argc, char *argv[]) {
             break;
         }
         case TESTUDPTRANSFER: {
-            sigOri_orientationAngles l_kalmanAngles_st;
-            sigOri_orientationAngles l_compAngles_st;
+            HAL_ANGLE_PAYLOAD_ST l_kalmanAngles_st;
+            HAL_ANGLE_PAYLOAD_ST l_compAngles_st;
 
-            halImu_orientationValues l_imuStates_st;
-            halMatlab_rtSigAllStatePayload l_rtCompleteSigPayload_st;
+            HAL_SENSOR_PAYLOAD_ST l_sensorValues_st;
+            HAL_RT_SENSOR_PAYLOAD_FUSION_ST l_rtCompleteSigPayload_st;
 
             struct timespec l_timestamp_st;
 
             printf("Starting Transfer matlab data on udp test\n");
 
-            g_sigOri_initMatrices_bl();
-            g_sigOri_initImuSensors_bl();
+            g_initMatrices_bl();
+            g_initImuSensors_bl();
 
             int i = kbhit();
             while (i != 'q') {
-                g_sigOri_calcKalmanOrientation_bl();
-                g_sigOri_calcComplementaryOrientation_bl();
+                g_calcKalmanOrientation_bl();
+                g_calcComplementaryOrientation_bl();
 
-                l_kalmanAngles_st = g_sigOri_getAnglesKalman_bl();
-                l_compAngles_st = g_sigOri_getAnglesComplementary_bl();
-                l_imuStates_st = g_halImu_getImuValues_str();
+                l_kalmanAngles_st = g_getAnglesKalman_bl();
+                l_compAngles_st = g_getAnglesComplementary_bl();
+                l_sensorValues_st = g_halImu_getsensorValues_str();
 
                 /*
                  * first of all: get an accurate timestamp for this data telegram
@@ -566,7 +565,7 @@ int main(int argc, char *argv[]) {
 
                 //assmeble timestamp and
                 l_rtCompleteSigPayload_st.timestamp_st = l_timestamp_st;
-                l_rtCompleteSigPayload_st.imuState_st = l_imuStates_st;
+                l_rtCompleteSigPayload_st.sensorValues_st = l_sensorValues_st;
                 l_rtCompleteSigPayload_st.kalmanSigState_st = l_kalmanAngles_st;
                 l_rtCompleteSigPayload_st.complementarySigState_st =
                         l_compAngles_st;
@@ -577,25 +576,25 @@ int main(int argc, char *argv[]) {
                         l_rtCompleteSigPayload_st.timestamp_st.tv_nsec);
                 puts(str);
                 sprintf(str, "acc = %f %f %f",
-                        l_rtCompleteSigPayload_st.imuState_st.acc.x_f64,
-                        l_rtCompleteSigPayload_st.imuState_st.acc.y_f64,
-                        l_rtCompleteSigPayload_st.imuState_st.acc.z_f64);
+                        l_rtCompleteSigPayload_st.sensorValues_st.acc.x_f64,
+                        l_rtCompleteSigPayload_st.sensorValues_st.acc.y_f64,
+                        l_rtCompleteSigPayload_st.sensorValues_st.acc.z_f64);
                 puts(str);
                 sprintf(str, "mag = %f %f %f",
-                        l_rtCompleteSigPayload_st.imuState_st.mag.x_f64,
-                        l_rtCompleteSigPayload_st.imuState_st.mag.y_f64,
-                        l_rtCompleteSigPayload_st.imuState_st.mag.z_f64);
+                        l_rtCompleteSigPayload_st.sensorValues_st.mag.x_f64,
+                        l_rtCompleteSigPayload_st.sensorValues_st.mag.y_f64,
+                        l_rtCompleteSigPayload_st.sensorValues_st.mag.z_f64);
                 puts(str);
                 sprintf(str, "roll %f, pitch %f yaw  %f",
-                        l_rtCompleteSigPayload_st.imuState_st.gyro.roll_f64,
-                        l_rtCompleteSigPayload_st.imuState_st.gyro.pitch_f64,
-                        l_rtCompleteSigPayload_st.imuState_st.gyro.yaw_f64);
+                        l_rtCompleteSigPayload_st.sensorValues_st.gyro.roll_f64,
+                        l_rtCompleteSigPayload_st.sensorValues_st.gyro.pitch_f64,
+                        l_rtCompleteSigPayload_st.sensorValues_st.gyro.yaw_f64);
                 puts(str);
                 sprintf(str, "temperature = %f",
-                        l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
+                        l_rtCompleteSigPayload_st.sensorValues_st.temperature_f64);
                 puts(str);
                 sprintf(str, "pressure = %f",
-                        l_rtCompleteSigPayload_st.imuState_st.pressure_f64);
+                        l_rtCompleteSigPayload_st.sensorValues_st.pressure_f64);
                 puts(str);
                 sprintf(str, "KALMAN yaw %f, pitch %f roll %f",
                         l_rtCompleteSigPayload_st.kalmanSigState_st.yaw_f64,
@@ -608,7 +607,7 @@ int main(int argc, char *argv[]) {
                         l_rtCompleteSigPayload_st.complementarySigState_st.roll_f64);
                 puts(str);
 
-                //printf("Sending time %d and Temperature %f\n", l_rtCompleteSigPayload_st.timestamp_st.tv_sec, l_rtCompleteSigPayload_st.imuState_st.temperature_f64);
+                //printf("Sending time %d and Temperature %f\n", l_rtCompleteSigPayload_st.timestamp_st.tv_sec, l_rtCompleteSigPayload_st.sensorValues_st.temperature_f64);
                 sendto(send, (unsigned char *) &l_rtCompleteSigPayload_st,
                         (size_t) sizeof(l_rtCompleteSigPayload_st), 0,
                         (struct sockaddr *) &remoteaddress,
@@ -620,13 +619,13 @@ int main(int argc, char *argv[]) {
             break;
         }
         case ALLANGLES: {
-            sigOri_orientationAngles l_GyroPerStepAngles_st;
-            sigOri_orientationAngles l_AccMagAngles_st;
-            sigOri_orientationAngles l_kalmanAngles_st;
-            sigOri_orientationAngles l_compAngles_st;
-            halImu_orientationValues l_imuStates_st;
+            HAL_ANGLE_PAYLOAD_ST l_GyroPerStepAngles_st;
+            HAL_ANGLE_PAYLOAD_ST l_AccMagAngles_st;
+            HAL_ANGLE_PAYLOAD_ST l_kalmanAngles_st;
+            HAL_ANGLE_PAYLOAD_ST l_compAngles_st;
+            HAL_SENSOR_PAYLOAD_ST l_sensorValues_st;
 
-            halMatlab_rtSigRollPitchYawStatePayload l_rtRollPitchYawSigPayload_st;
+            HAL_RT_ANGLE_CALCULATED_ST l_rtRollPitchYawSigPayload_st;
 
             struct timespec l_timestamp_st;
 
@@ -634,19 +633,19 @@ int main(int argc, char *argv[]) {
 
             int val = 0;
 
-            g_sigOri_initMatrices_bl();
-            g_sigOri_initImuSensors_bl();
+            g_initMatrices_bl();
+            g_initImuSensors_bl();
 
             int i = kbhit();
             while (i != 'q') {
-                g_sigOri_calcKalmanOrientation_bl();
-                g_sigOri_calcComplementaryOrientation_bl();
+                g_calcKalmanOrientation_bl();
+                g_calcComplementaryOrientation_bl();
 
-                l_imuStates_st = g_halImu_getImuValues_str();
-                l_GyroPerStepAngles_st = g_sigOri_getAnglesGyroPerStep_bl();
-                l_AccMagAngles_st = g_sigOri_getAnglesAccMagCalc_bl();
-                l_kalmanAngles_st = g_sigOri_getAnglesKalman_bl();
-                l_compAngles_st = g_sigOri_getAnglesComplementary_bl();
+                l_sensorValues_st = g_halImu_getsensorValues_str();
+                l_GyroPerStepAngles_st = g_getAnglesGyroPerStep_bl();
+                l_AccMagAngles_st = g_getAnglesAccMagCalc_bl();
+                l_kalmanAngles_st = g_getAnglesKalman_bl();
+                l_compAngles_st = g_getAnglesComplementary_bl();
 
                 if (clock_gettime(CLOCK_REALTIME,
                         &l_timestamp_st) != M_HAL_MATLAB_SUCCESS_UI8) {
@@ -658,7 +657,7 @@ int main(int argc, char *argv[]) {
                 //assmeble timestamp and
                 l_rtRollPitchYawSigPayload_st.timestamp_st = l_timestamp_st;
                 l_rtRollPitchYawSigPayload_st.angularVelocityGyroFromImu_st =
-                        l_imuStates_st.gyro;
+                        l_sensorValues_st.gyro;
                 l_rtRollPitchYawSigPayload_st.angleFromGyroStepCalculation_st =
                         l_GyroPerStepAngles_st;
                 l_rtRollPitchYawSigPayload_st.angleFromAccMagCalculation_st =
@@ -720,10 +719,10 @@ int main(int argc, char *argv[]) {
             unsigned int l_sendState_bl;
 
             // open udp connection
-            l_udpSocket_i32 = g_halMatlab_initConnection_i32(
+            l_udpSocket_i32 = g_udp_initConnection_i32(
                     l_remoteHostAddr_rg4ui8, l_remoteHostPort_ui16);
 
-            halImu_orientationValues l_imuMeasurements_st;
+            HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
             g_halImu_initImuSensors_bl();
 
             int i = kbhit();
@@ -733,9 +732,9 @@ int main(int argc, char *argv[]) {
                 g_halImu_triggerGyroReading_bl();
                 g_halImu_triggerAccReading_bl();
 
-                l_imuMeasurements_st = g_halImu_getImuValues_str();
+                l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
-                l_sendState_bl = g_halMatlab_sendImuState_bl(l_udpSocket_i32,
+                l_sendState_bl = g_hal_send_sensor_raw_bool(l_udpSocket_i32,
                         l_imuMeasurements_st);
 
                 printf("Acc X %f \n", l_imuMeasurements_st.acc.x_f64);
@@ -757,7 +756,7 @@ int main(int argc, char *argv[]) {
                 usleep(20000); //20ms = 50Hz
             }
             // close udp connection
-            g_halMatlab_closeSocket_bl(l_udpSocket_i32);
+            g_udp_closeSocket_bl(l_udpSocket_i32);
             break;
         }
 
@@ -774,7 +773,7 @@ int main(int argc, char *argv[]) {
         case FINALSENDING: {
 
             //Preparation for Sensor Calls
-            halImu_orientationValues l_imuMeasurements_st;
+            HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
             g_halImu_initImuSensors_bl();
 
             printf("Start Sending \n");
@@ -789,7 +788,7 @@ int main(int argc, char *argv[]) {
 
                 //Get Sensor Data and Timestamp
 
-                l_imuMeasurements_st = g_halImu_getImuValues_str();
+                l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
                 long ms; // Milliseconds
                 struct timespec spec;
@@ -918,7 +917,7 @@ int main(int argc, char *argv[]) {
         case PLEASEFLY: {
 
             //Trigger Sensors
-            halImu_orientationValues l_imuMeasurements_st;
+            HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
             g_halImu_initImuSensors_bl();
 
             //Motor
@@ -967,7 +966,7 @@ int main(int argc, char *argv[]) {
 
                     //Get Sensor Data and Timestamp
 
-                    l_imuMeasurements_st = g_halImu_getImuValues_str();
+                    l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
                     long ms; // Milliseconds
                     struct timespec spec;
@@ -1083,7 +1082,7 @@ int main(int argc, char *argv[]) {
 
                     //Get Sensor Data and Timestamp
 
-                    l_imuMeasurements_st = g_halImu_getImuValues_str();
+                    l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
                     long ms; // Milliseconds
                     struct timespec spec;
@@ -1199,7 +1198,7 @@ int main(int argc, char *argv[]) {
         case RECEIVE: {
 
             //Preparation for Sensor Calls
-            halImu_orientationValues l_imuMeasurements_st;
+            HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
             g_halImu_initImuSensors_bl();
 
             char BLCtrlADRExecuteOrder[DEFMotorsCount];
@@ -1378,7 +1377,7 @@ int main(int argc, char *argv[]) {
 
                 //Get Sensor Data and Timestamp
 
-                l_imuMeasurements_st = g_halImu_getImuValues_str();
+                l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
                 long ms; // Milliseconds
                 struct timespec spec;
@@ -1681,7 +1680,7 @@ int main(int argc, char *argv[]) {
         case TESTSINGLESENSOR: {
             printf("Lets send some cool data \n");
             int writtencharacters;
-            halImu_orientationValues l_imuMeasurements_st;
+            HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
             g_halImu_initImuSensors_bl();
             printf("Start Sending Messages\n");
             char imu_x[16];
@@ -1693,7 +1692,7 @@ int main(int argc, char *argv[]) {
                 g_halImu_triggerGyroReading_bl();
                 g_halImu_triggerAccReading_bl();
 
-                l_imuMeasurements_st = g_halImu_getImuValues_str();
+                l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
                 printf("Acc X %f \n", l_imuMeasurements_st.acc.x_f64);
 
@@ -1901,7 +1900,7 @@ int calcPwmValue(char controllChar, int motorNumber, int pwmValue) {
 void playDemo() {
 
     //Trigger Sensors
-    halImu_orientationValues l_imuMeasurements_st;
+    HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
     g_halImu_initImuSensors_bl();
 
     //UDP
@@ -1943,7 +1942,7 @@ void playDemo() {
 
         //Get Sensor Data and Timestamp
 
-        l_imuMeasurements_st = g_halImu_getImuValues_str();
+        l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
         long ms; // Milliseconds
         struct timespec spec;
@@ -2055,7 +2054,7 @@ void playDemo() {
 
         //Get Sensor Data and Timestamp
 
-        l_imuMeasurements_st = g_halImu_getImuValues_str();
+        l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
         long ms; // Milliseconds
         struct timespec spec;

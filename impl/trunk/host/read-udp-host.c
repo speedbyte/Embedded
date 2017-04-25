@@ -18,7 +18,7 @@
 #include <errno.h>
 #include <time.h>
 
-#include "../matlab/udpSigLib.h"
+#include "../matlab/udpSensorLib.h"
 
 #define BINDADDRESS "0.0.0.0"
 #define BINDPORT 5000
@@ -36,7 +36,7 @@ int main()
     char buffer[BUFLEN];
     char str[BUFLEN];
 
-    halMatlab_rtSigAllStatePayload l_rtSigAllPayload_st;
+    HAL_RT_SENSOR_PAYLOAD_FUSION_ST l_rtSigAllPayload_st;
 
     socketreceive = socket(PF_INET, SOCK_DGRAM, 0);
     clientaddress.sin_family = AF_INET;
@@ -63,14 +63,14 @@ int main()
         printf("data received from address and port %s:%d\n", inet_ntoa(remoteaddress.sin_addr), ntohs(remoteaddress.sin_port));
         printf("Received number of payload %d\n", recvlen);
         memcpy(&l_rtSigAllPayload_st, buffer, sizeof(l_rtSigAllPayload_st));
-        //printf("%d and temperature %f", l_rtSigAllPayload_st.timestamp_st.tv_sec,  l_rtSigAllPayload_st.imuState_st.temperature_f64);
+        //printf("%d and temperature %f", l_rtSigAllPayload_st.timestamp_st.tv_sec,  l_rtSigAllPayload_st.sensorValues_st.temperature_f64);
         sprintf(str, "sec = %d, nano = %lu\nacc = %f %f %f\nmag = %f %f %f\nyaw, pitch, roll = %f %f %f\ntemperature = %f\npressure = %f\n",
                 l_rtSigAllPayload_st.timestamp_st.tv_sec,
                 l_rtSigAllPayload_st.timestamp_st.tv_nsec,
-                l_rtSigAllPayload_st.imuState_st.acc.x_f64, l_rtSigAllPayload_st.imuState_st.acc.y_f64, l_rtSigAllPayload_st.imuState_st.acc.z_f64,
-                l_rtSigAllPayload_st.imuState_st.mag.x_f64, l_rtSigAllPayload_st.imuState_st.mag.y_f64, l_rtSigAllPayload_st.imuState_st.mag.z_f64,
-                l_rtSigAllPayload_st.imuState_st.gyro.yaw_f64, l_rtSigAllPayload_st.imuState_st.gyro.pitch_f64, l_rtSigAllPayload_st.imuState_st.gyro.roll_f64,
-                l_rtSigAllPayload_st.imuState_st.temperature_f64, l_rtSigAllPayload_st.imuState_st.pressure_f64);
+                l_rtSigAllPayload_st.sensorValues_st.acc.x_f64, l_rtSigAllPayload_st.sensorValues_st.acc.y_f64, l_rtSigAllPayload_st.sensorValues_st.acc.z_f64,
+                l_rtSigAllPayload_st.sensorValues_st.mag.x_f64, l_rtSigAllPayload_st.sensorValues_st.mag.y_f64, l_rtSigAllPayload_st.sensorValues_st.mag.z_f64,
+                l_rtSigAllPayload_st.sensorValues_st.gyro.yaw_f64, l_rtSigAllPayload_st.sensorValues_st.gyro.pitch_f64, l_rtSigAllPayload_st.sensorValues_st.gyro.roll_f64,
+                l_rtSigAllPayload_st.sensorValues_st.temperature_f64, l_rtSigAllPayload_st.sensorValues_st.pressure_f64);
         puts(str);
     }
     return 0;
@@ -88,7 +88,7 @@ int main()
 #include <winsock2.h>
 #include <time.h>
 #pragma comment(lib,"ws2_32.lib")
-#include "../matlab/udpSigLib.h"
+#include "../matlab/udpSensorLib.h"
 
 #define BUFFER_SIZE 200
 
@@ -180,7 +180,7 @@ int main(int argc, char **argv)
     }
     else if (( strcmp(readInput, "write")) == 0)
     {
-        halMatlab_rtSigRollPitchYawStatePayload allAngles_st;
+        HAL_RT_ANGLE_CALCULATED_ST allAngles_st;
         client.sin_family = PF_INET;
         client.sin_port = htons(port_number);
         client.sin_addr.S_un.S_un_b.s_b1 = (unsigned char)a1;

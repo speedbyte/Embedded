@@ -58,7 +58,7 @@ typedef struct{
 	struct sockaddr_in 	sockAddrListen_st;		//!<
 	struct sockaddr_in 	sockAddrRemote_st;		//!<
 	int 				socketHandler_i32;
-} halMatlab_socketData;
+} udp_socketData;
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Juergen Schmidt (juscgs00)
@@ -70,8 +70,8 @@ typedef struct{
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-int 	g_halMatlab_initSocket_i32(	unsigned short f_udpListenPort_ui16 );
-int 	g_halMatlab_initConnection_i32(const unsigned char* const f_destIpv4_rg4ui8, unsigned short f_udpConnectionPort_ui16 );
+int 	g_udp_initSocket_i32(	unsigned short f_udpListenPort_ui16 );
+int 	g_udp_initConnection_i32(const unsigned char* const f_destIpv4_rg4ui8, unsigned short f_udpConnectionPort_ui16 );
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Juergen Schmidt (juscgs00)
@@ -83,7 +83,7 @@ int 	g_halMatlab_initConnection_i32(const unsigned char* const f_destIpv4_rg4ui8
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_halMatlab_closeSocket_bl(int f_socketHandler_i32);
+unsigned int g_udp_closeSocket_bl(int f_socketHandler_i32);
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Juergen Schmidt (juscgs00)
@@ -95,19 +95,19 @@ unsigned int g_halMatlab_closeSocket_bl(int f_socketHandler_i32);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_halMatlab_sendPacket_bl(	int f_socketHandler_i32,
+unsigned int g_udp_sendPacket_bl(	int f_socketHandler_i32,
 										const unsigned char* const f_sendBuffer_pui8,
 										unsigned int f_sendBufferSize_ui32
 										);
-unsigned int g_halMatlab_sendRtDataPacket_bl(	int f_socketHandler_i32,
+unsigned int g_udp_sendRtDataPacket_bl(	int f_socketHandler_i32,
 										const unsigned char* const f_sendBuffer_pui8,
 										unsigned int f_sendBufferSize_ui32
 										);
-unsigned int g_halMatlab_recvPacket_ui32(	int f_socketHandler_i32,
+unsigned int g_udp_recvPacket_ui32(	int f_socketHandler_i32,
 											unsigned char* const f_recvBuffer_pui8,
 											unsigned int f_recvBufferSize_ui32
 										);
-unsigned int g_halMatlab_configSocket_bl(	int f_socketHandler_i32,
+unsigned int g_udp_configSocket_bl(	int f_socketHandler_i32,
 											const unsigned char* const f_destIpv4_rg4ui8,
 											unsigned short f_destPort_ui16
 										);

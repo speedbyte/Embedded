@@ -11,7 +11,7 @@
 #ifndef GYRO_H_
 #define GYRO_H_
 
-#include "../../../sig/Orientation/Orientation.h"
+#include "Orientation.h"
 
 
 // 7 Bit I2C Slave address
@@ -292,7 +292,7 @@ Get interfaces for Gyroscope values
 CHANGELOG:
 none
 --------------------------------------------- */
-sigOri_orientationAngles g_halGyro_getGyroscope_st(void);
+HAL_ANGLE_PAYLOAD_ST g_halGyro_getGyroscope_st(void);
 double g_halGyro_getTemperature_f64(void);
 
 

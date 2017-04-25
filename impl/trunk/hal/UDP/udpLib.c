@@ -20,7 +20,7 @@
 
 #include "udpLib.h"
 
-static halMatlab_socketData m_socketManagementBuffer_rg8st[M_HAL_MATLAB_MAX_NUM_OF_SOCKETS_UI8];
+static udp_socketData m_socketManagementBuffer_rg8st[M_HAL_MATLAB_MAX_NUM_OF_SOCKETS_UI8];
 
 /*
  * -----------------------------------------------------------------------
@@ -212,10 +212,10 @@ static signed short l_findSocket_i16(signed int f_socketHandler_i32)
  * none
  * \endinternal
  ***********************************************************************/
-int g_halMatlab_initSocket_i32(    unsigned short f_udpListenPort_ui16 )
+int g_udp_initSocket_i32(    unsigned short f_udpListenPort_ui16 )
 {
     signed short             l_socketSlotCtr_i16 = 0;
-    halMatlab_socketData*     l_freeSocketSlot_pst;
+    udp_socketData*     l_freeSocketSlot_pst;
 #ifdef _WIN32
     WSADATA wsa;
 #endif
@@ -299,12 +299,12 @@ int g_halMatlab_initSocket_i32(    unsigned short f_udpListenPort_ui16 )
  * none
  * \endinternal
  ***********************************************************************/
-int     g_halMatlab_initConnection_i32(const unsigned char* const f_destIpv4_rg4ui8, unsigned short f_udpConnectionPort_ui16 )
+int     g_udp_initConnection_i32(const unsigned char* const f_destIpv4_rg4ui8, unsigned short f_udpConnectionPort_ui16 )
 {
     int    l_socketHandler_i32;
 
     // create socket
-    if ( ( l_socketHandler_i32 = g_halMatlab_initSocket_i32(f_udpConnectionPort_ui16) ) <= 0 )
+    if ( ( l_socketHandler_i32 = g_udp_initSocket_i32(f_udpConnectionPort_ui16) ) <= 0 )
     {
         // error occurred
         return M_HAL_MATLAB_ERROR_I8;
@@ -325,7 +325,7 @@ int     g_halMatlab_initConnection_i32(const unsigned char* const f_destIpv4_rg4
      *     Local machine                               Remote machine
      *
      */
-    if ( g_halMatlab_configSocket_bl(l_socketHandler_i32, f_destIpv4_rg4ui8, f_udpConnectionPort_ui16) != M_HAL_MATLAB_SUCCESS_UI8 )
+    if ( g_udp_configSocket_bl(l_socketHandler_i32, f_destIpv4_rg4ui8, f_udpConnectionPort_ui16) != M_HAL_MATLAB_SUCCESS_UI8 )
     {
         // error occurred
         return M_HAL_MATLAB_ERROR_I8;
@@ -354,7 +354,7 @@ int     g_halMatlab_initConnection_i32(const unsigned char* const f_destIpv4_rg4
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halMatlab_closeSocket_bl(int f_socketHandler_i32)
+unsigned int g_udp_closeSocket_bl(int f_socketHandler_i32)
 {
     signed short l_socketSlotNumber_i16 = 0;
 
@@ -401,14 +401,14 @@ unsigned int g_halMatlab_closeSocket_bl(int f_socketHandler_i32)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halMatlab_sendPacket_bl(    int f_socketHandler_i32,
+unsigned int g_udp_sendPacket_bl(    int f_socketHandler_i32,
                                         const unsigned char* const f_sendBuffer_pui8,
                                         unsigned int f_sendBufferSize_ui32
                                         )
 {
     int                        l_sendSuccess_i32        = -1;
     signed short             l_socketSlotNumber_i16     = 0;
-    halMatlab_socketData*     l_socketConfig_pst        = 0;
+    udp_socketData*     l_socketConfig_pst        = 0;
     unsigned int            l_socketStructSize_ui32    = 0;
 
     // get slot number of requested socket handler
@@ -465,7 +465,7 @@ unsigned int g_halMatlab_sendPacket_bl(    int f_socketHandler_i32,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halMatlab_sendRtDataPacket_bl(    int f_socketHandler_i32,
+unsigned int g_udp_sendRtDataPacket_bl(    int f_socketHandler_i32,
                                                 const unsigned char* const f_sendBuffer_pui8,
                                                 unsigned int f_sendBufferSize_ui32)
 {
@@ -500,7 +500,7 @@ unsigned int g_halMatlab_sendRtDataPacket_bl(    int f_socketHandler_i32,
     // adjust size of telegram's payload (due to added timestamp)
     l_sizePayload_ui32 = f_sendBufferSize_ui32 + sizeof(l_timestamp_st);
 
-    return g_halMatlab_sendPacket_bl(f_socketHandler_i32, l_sendBuffer_rgXi8, l_sizePayload_ui32);
+    return g_udp_sendPacket_bl(f_socketHandler_i32, l_sendBuffer_rgXi8, l_sizePayload_ui32);
 }
 
 /*!**********************************************************************
@@ -527,12 +527,12 @@ unsigned int g_halMatlab_sendRtDataPacket_bl(    int f_socketHandler_i32,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halMatlab_recvPacket_ui32( int f_socketHandler_i32,
+unsigned int g_udp_recvPacket_ui32( int f_socketHandler_i32,
         unsigned char* const f_recvBuffer_pui8,
         unsigned int f_recvBufferSize_ui32)
 {
     signed short             l_socketSlotNumber_i16     = 0;
-    halMatlab_socketData*     l_socketConfig_pst        = 0;
+    udp_socketData*     l_socketConfig_pst        = 0;
     int                        l_recvFromFlag_i32        = 0;    // blocking behavior (standard)
     unsigned int            l_socketStructSize_ui32    = 0;
 
@@ -591,12 +591,12 @@ unsigned int g_halMatlab_recvPacket_ui32( int f_socketHandler_i32,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halMatlab_configSocket_bl(    int f_socketHandler_i32,
+unsigned int g_udp_configSocket_bl(    int f_socketHandler_i32,
         const unsigned char* const f_destIpv4_rg4ui8,
         unsigned short f_destPort_ui16)
 {
     signed short             l_socketSlotNumber_i16     = 0;
-    halMatlab_socketData*     l_socketConfig_pst        = 0;
+    udp_socketData*     l_socketConfig_pst        = 0;
     unsigned int            l_ipv4Addr_ui32            = 0;
 
     // get slot number of requested socket handler

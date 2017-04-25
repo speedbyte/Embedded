@@ -11,9 +11,9 @@
 #ifndef HAL_IMU_IMU_H_
 #define HAL_IMU_IMU_H_
 
-#include "./accMag/accMag.h"
-#include "./gyro/Gyro.h"
-#include "../../sig/Orientation/Orientation.h"
+#include "accMag.h"
+#include "Gyro.h"
+#include "Orientation.h"
 
 
 #define M_HAL_IMU_SUCCESS_BL			0
@@ -38,10 +38,10 @@ typedef struct{
 #endif
 	halAccmag_3dDoubleVector acc;
 	halAccmag_3dDoubleVector mag;
-	sigOri_orientationAngles gyro;
+	HAL_ANGLE_PAYLOAD_ST gyro;
 	double temperature_f64;
 	double pressure_f64;
-} halImu_orientationValues;
+} HAL_SENSOR_PAYLOAD_ST;
 
 
 /* -----------------------------------------------------------------------
@@ -54,7 +54,7 @@ typedef struct{
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-halImu_orientationValues g_halImu_getImuValues_str(void);
+HAL_SENSOR_PAYLOAD_ST g_halImu_getsensorValues_str(void);
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)

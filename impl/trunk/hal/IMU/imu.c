@@ -8,13 +8,13 @@
  *      Author: user
  */
 
-#include "./accMag/accMag.h"
-#include "./barometer/barometer.h"
-#include "./gyro/Gyro.h"
+#include "accMag.h"
+#include "barometer.h"
+#include "Gyro.h"
 #include "imu.h"
 
 //storage for IMU values
-static halImu_orientationValues m_halImu_imuValues_st;
+static HAL_SENSOR_PAYLOAD_ST m_halImu_sensorValues_st;
 
 
 /*!**********************************************************************
@@ -41,9 +41,9 @@ static halImu_orientationValues m_halImu_imuValues_st;
  * none
  * \endinternal
  ***********************************************************************/
-halImu_orientationValues g_halImu_getImuValues_str(void)
+HAL_SENSOR_PAYLOAD_ST g_halImu_getsensorValues_str(void)
 {
-    return m_halImu_imuValues_st;
+    return m_halImu_sensorValues_st;
 }
 
 /*!**********************************************************************
@@ -106,8 +106,8 @@ unsigned int g_halImu_triggerBaroReading_bl(void)
     if(g_halBaro_readTemperatureFromI2C_i32()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
-    m_halImu_imuValues_st.pressure_f64=g_halBaro_getPressure_f64();
-    m_halImu_imuValues_st.temperature_f64=g_halBaro_getTemperature_f64();
+    m_halImu_sensorValues_st.pressure_f64=g_halBaro_getPressure_f64();
+    m_halImu_sensorValues_st.temperature_f64=g_halBaro_getTemperature_f64();
 
     return M_HAL_IMU_SUCCESS_BL;
 }
@@ -134,7 +134,7 @@ unsigned int g_halImu_triggerGyroReading_bl(void)
     if(g_halGyro_readGyroscopeFromI2C_i32()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
-    m_halImu_imuValues_st.gyro=g_halGyro_getGyroscope_st();
+    m_halImu_sensorValues_st.gyro=g_halGyro_getGyroscope_st();
 
     return M_HAL_IMU_SUCCESS_BL;
 }
@@ -161,7 +161,7 @@ unsigned int g_halImu_triggerAccReading_bl(void)
     if(g_halAccmag_triggerAccUpdate_bl()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
-    m_halImu_imuValues_st.acc=g_halAccmag_getAccVector_st();
+    m_halImu_sensorValues_st.acc=g_halAccmag_getAccVector_st();
 
     return M_HAL_IMU_SUCCESS_BL;
 }
@@ -188,7 +188,7 @@ unsigned int g_halImu_triggerMagReading_bl(void)
     if(g_halAccmag_triggerMagUpdate_bl()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
-    m_halImu_imuValues_st.mag=g_halAccmag_getMagVector_st();
+    m_halImu_sensorValues_st.mag=g_halAccmag_getMagVector_st();
 
     return M_HAL_IMU_SUCCESS_BL;
 }
@@ -227,11 +227,11 @@ unsigned int g_halImu_triggerImuReading_bl(void)
     if(g_halAccmag_triggerMagUpdate_bl()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
-    m_halImu_imuValues_st.mag=g_halAccmag_getMagVector_st();
-    m_halImu_imuValues_st.acc=g_halAccmag_getAccVector_st();
-    m_halImu_imuValues_st.gyro=g_halGyro_getGyroscope_st();
-    m_halImu_imuValues_st.pressure_f64=g_halBaro_getPressure_f64();
-    m_halImu_imuValues_st.temperature_f64=g_halBaro_getTemperature_f64();
+    m_halImu_sensorValues_st.mag=g_halAccmag_getMagVector_st();
+    m_halImu_sensorValues_st.acc=g_halAccmag_getAccVector_st();
+    m_halImu_sensorValues_st.gyro=g_halGyro_getGyroscope_st();
+    m_halImu_sensorValues_st.pressure_f64=g_halBaro_getPressure_f64();
+    m_halImu_sensorValues_st.temperature_f64=g_halBaro_getTemperature_f64();
 
     return M_HAL_IMU_SUCCESS_BL;
 }
