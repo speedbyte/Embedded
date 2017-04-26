@@ -67,30 +67,30 @@ float g_halADC_get_ui16(unsigned char l_input_ui8){
   
   // Write l_writeBuf_rg24 to the ADS1015, the 3 specifies the number of bytes we are writing,
   // this begins a continuous conversion
-  l_checkerror_bl = g_lldI2c_WriteI2c_bl(l_address_ui8,l_writeBuf_rg24,3);
-  if (l_checkerror_bl == 1)
+  l_checkerror_bool = g_lldI2c_WriteI2c_bool(l_address_ui8,l_writeBuf_rg24,3);
+  if (l_checkerror_bool == 1)
     {
     return -1;
     }
 
   // Read the config register into readBuf
-  l_checkerror_bl = g_lldI2c_ReadI2c_bl(l_address_ui8,l_readBuf_rg16,2);
-  if (l_checkerror_bl == 1)
+  l_checkerror_bool = g_lldI2c_ReadI2c_bool(l_address_ui8,l_readBuf_rg16,2);
+  if (l_checkerror_bool == 1)
     {
     return -1;
     }    
     
   // Set pointer register to 0 to read from the conversion register
   l_writeBuf_rg24[0] = 0;            
-  l_checkerror_bl = g_lldI2c_WriteI2c_bl(l_address_ui8, l_writeBuf_rg24,1);
-  if (l_checkerror_bl == 1)
+  l_checkerror_bool = g_lldI2c_WriteI2c_bool(l_address_ui8, l_writeBuf_rg24,1);
+  if (l_checkerror_bool == 1)
     {
     return -1;
     }
 
   // Read the contents of the conversion register into readBuf        
-  l_checkerror_bl = g_lldI2c_ReadI2c_bl(l_address_ui8,l_readBuf_rg16,2);    
-  if (l_checkerror_bl == 1)
+  l_checkerror_bool = g_lldI2c_ReadI2c_bool(l_address_ui8,l_readBuf_rg16,2);    
+  if (l_checkerror_bool == 1)
     {
     return -1;
     }

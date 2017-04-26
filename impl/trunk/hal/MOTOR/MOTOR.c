@@ -287,7 +287,7 @@ void sendPwmToMotor(){
     int i;
     for(i = 0; i < DEFMotorsCount ;i++)
     {
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[i],&PWMValue[i],1);
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[i],&PWMValue[i],1);
     }
 }
 

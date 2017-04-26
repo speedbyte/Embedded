@@ -1,4 +1,0 @@
-<map id="mdlTerminate" name="mdlTerminate">
-<area shape="rect" id="node2" href="$udpLib_8c_a7637578f6230876a656d097956087ae0.html#a7637578f6230876a656d097956087ae0" title="Closes the given socket and cleans up. " alt="" coords="155,5,343,32"/>
-<area shape="rect" id="node3" href="$udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893.html#adc385b1d5891b3efc2f9c7f91018d893" title="Finds the slot number of a given socket handler. " alt="" coords="391,5,509,32"/>
-</map>

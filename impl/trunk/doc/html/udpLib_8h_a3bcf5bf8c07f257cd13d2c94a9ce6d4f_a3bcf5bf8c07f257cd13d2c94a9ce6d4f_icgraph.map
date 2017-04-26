@@ -1,7 +1,0 @@
-<map id="g_halMatlab_sendPacket_bl" name="g_halMatlab_sendPacket_bl">
-<area shape="rect" id="node2" href="$udpImuLib_8h_a5aed7fe7dfcd9ee05454d2ca222dd4f3.html#a5aed7fe7dfcd9ee05454d2ca222dd4f3" title="Sends a packet of IMU data with the current unuix&#45;timestamp via a given UDP&#45;Socket. " alt="" coords="253,5,451,32"/>
-<area shape="rect" id="node3" href="$udpLib_8h_aa92d30d310ed7c447f8323d3abe10f35.html#aa92d30d310ed7c447f8323d3abe10f35" title="Sends a packet of data with timestamp via a given UDP&#45;Socket. " alt="" coords="239,56,465,83"/>
-<area shape="rect" id="node4" href="$udpSigLib_8h_a662f398ba9844156271a729363b6b4bd.html#a662f398ba9844156271a729363b6b4bd" title="Sends a packet of IMU data with the current unuix&#45;timestamp via a given UDP&#45;Socket. " alt="" coords="255,107,449,133"/>
-<area shape="rect" id="node5" href="$udpSigLib_8h_af61d04b0beb193be3fdc57b6aad27ee4.html#af61d04b0beb193be3fdc57b6aad27ee4" title="Sends a packet of IMU data with the current unuix&#45;timestamp via a given UDP&#45;Socket. " alt="" coords="244,157,460,184"/>
-<area shape="rect" id="node6" href="$main_8c_a840291bc02cba5474a4cb46a9b9566fe.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="513,157,564,184"/>
-</map>

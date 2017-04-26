@@ -1,4 +1,0 @@
-<map id="halImu_orientationValues" name="halImu_orientationValues">
-<area shape="rect" id="node2" href="$structhalAccmag__3dDoubleVector.html" title="3D vector of floats for x,y,z axes of sensors " alt="" coords="5,5,192,112"/>
-<area shape="rect" id="node3" href="$structstrGyro.html" title="struct with Gyroscope values " alt="" coords="217,5,314,112"/>
-</map>

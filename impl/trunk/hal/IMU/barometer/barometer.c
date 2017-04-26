@@ -40,7 +40,7 @@ int g_halBaro_initBaro_i32(void)
     //RES_CONF(0x10)
     l_WriteBuffer_ui8[0]=M_HAL_BARO_SINGLE_FLAG_UI8 | M_HAL_BARO_RES_CONF_UI8;
     l_WriteBuffer_ui8[1]= M_HAL_BARO_TEMP_RES_CONF_128_UI8 | M_HAL_BARO_PRES_RES_CONF_512_UI8;
-    if(g_lldI2c_WriteI2c_bl(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_TWO_UI8)!=0)
+    if(g_lldI2c_WriteI2c_bool(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_TWO_UI8)!=0)
     {return -1;}
 
     usleep(100000);
@@ -51,7 +51,7 @@ int g_halBaro_initBaro_i32(void)
     l_WriteBuffer_ui8[0]=M_HAL_BARO_MULTIPLE_FLAG_UI8 | M_HAL_BARO_CTRL_REG1_UI8;
     l_WriteBuffer_ui8[1]=M_HAL_BARO_CTRL_REG1_PD_UI8|M_HAL_BARO_CTRL_REG1_DATARATE_P25HZ_T1HZ_UI8;
     l_WriteBuffer_ui8[2]=M_HAL_BARO_CTRL_REG2_BOOT_UI8;
-    if(g_lldI2c_WriteI2c_bl(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_THREE_UI8)!=0)
+    if(g_lldI2c_WriteI2c_bool(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_THREE_UI8)!=0)
     {return -1;}
 
     return 0;
@@ -123,12 +123,12 @@ int g_halBaro_readPressureFromI2C_i32(void)
 
     //set SUB Address to Pressure register PRESS_OUT_XL and activate multiple read
     l_WriteBuffer_ui8[0]=M_HAL_BARO_MULTIPLE_FLAG_UI8 | M_HAL_BARO_PRESS_OUT_XL_UI8;
-    if(g_lldI2c_WriteI2c_bl(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
+    if(g_lldI2c_WriteI2c_bool(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
     {return -1;}
 
 
     //Read from PRESS_OUT_XL(0x28),PRESS_OUT_L(0x29),PRESS_OUT_H(0x2A)
-    if(g_lldI2c_ReadI2c_bl(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_ReadBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_THREE_UI8)!=0)
+    if(g_lldI2c_ReadI2c_bool(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_ReadBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_THREE_UI8)!=0)
     {return -1;}
     else
     {
@@ -171,12 +171,12 @@ int g_halBaro_readTemperatureFromI2C_i32(void)
 
     //set SUB Address to Temperature register PRESS_OUT_XL and activate multiple read
     l_WriteBuffer_ui8[0]=M_HAL_BARO_MULTIPLE_FLAG_UI8 | M_HAL_BARO_TEMP_OUT_L_UI8;
-    if(g_lldI2c_WriteI2c_bl(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
+    if(g_lldI2c_WriteI2c_bool(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
     {return -1;}
 
 
     //Read from TEMP_OUT_L (2Bh), TEMP_OUT_H (2Ch)
-    if(g_lldI2c_ReadI2c_bl(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_ReadBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_TWO_UI8)!=0)
+    if(g_lldI2c_ReadI2c_bool(M_I2C_SLAVE_ADDRESS_BARO_UI8, l_ReadBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_TWO_UI8)!=0)
     {return -1;}
     else
     {

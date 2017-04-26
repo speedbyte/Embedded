@@ -60,7 +60,7 @@ int l_DistInCm_i32 =  0;
 //Trigger Measurement of Distance (DC stabnilization cycle, Signal Acquisition, DataProcessing)
 l_WriteBuffer_ui8[0]=0x00;                                 //write Reg 0x00
 l_WriteBuffer_ui8[1]=0x04;                                 //with value 0x04
-if(g_lldI2c_WriteI2c0_bl(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, l_WriteBuffer_ui8, 2)!=0)
+if(g_lldI2c_WriteI2c0_bool(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, l_WriteBuffer_ui8, 2)!=0)
 {
 return -1;
 }
@@ -72,20 +72,20 @@ usleep(20*1000);
 //Set Acquisition count cycle to 255
 l_WriteBuffer_ui8[0]=0x02;
 l_WriteBuffer_ui8[1]=0xFF;
-if(g_lldI2c_WriteI2c0_bl(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, l_WriteBuffer_ui8, 2)!=0)
+if(g_lldI2c_WriteI2c0_bool(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, l_WriteBuffer_ui8, 2)!=0)
 {
 return -1;
 }
 
 //Set Reg 0x8f as Output-Register
 l_WriteBuffer_ui8[0]=0x8f;
-if(g_lldI2c_WriteI2c0_bl(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, l_WriteBuffer_ui8, 1)!=0)
+if(g_lldI2c_WriteI2c0_bool(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, l_WriteBuffer_ui8, 1)!=0)
 {
 return -1;
 }
 
 //Read 2-Byte Distance in cm from Register 0x8f
-if(g_lldI2c_ReadI2c0_bl(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, (l_ReadBuffer_ui8), 2)!=0)
+if(g_lldI2c_ReadI2c0_bool(M_I2C_SLAVE_ADDRESS_LIDAR_UI8, (l_ReadBuffer_ui8), 2)!=0)
 {
 return -1;
 }

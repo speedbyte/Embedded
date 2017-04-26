@@ -1,6 +1,0 @@
-<map id="l_findFreeSocketSlot_i16" name="l_findFreeSocketSlot_i16">
-<area shape="rect" id="node2" href="$udpLib_8h_ae4db0dc04a7a7f7b01cf95c393701204.html#ae4db0dc04a7a7f7b01cf95c393701204" title="Create and init an UDP&#45;Socket for given incoming port. " alt="" coords="220,31,401,57"/>
-<area shape="rect" id="node3" href="$udpLib_8h_af56c173f4b3218ace62bff967eacac4d.html#af56c173f4b3218ace62bff967eacac4d" title="Creates, inits and configures an UDP&#45;Socket for a symmetric connection setup. " alt="" coords="449,31,656,57"/>
-<area shape="rect" id="node4" href="$main_8c_a840291bc02cba5474a4cb46a9b9566fe.html#a840291bc02cba5474a4cb46a9b9566fe" title="main" alt="" coords="714,5,765,32"/>
-<area shape="rect" id="node5" href="$udpImuSocket_8c_a0dd07daf338cf84d1aee4bb8b6771720.html#a0dd07daf338cf84d1aee4bb8b6771720" title="mdlStart" alt="" coords="704,56,775,83"/>
-</map>

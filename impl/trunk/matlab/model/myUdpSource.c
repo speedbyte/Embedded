@@ -336,7 +336,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
  */
 static void mdlTerminate(SimStruct *S)
 {
-       if ( g_halMatlab_closeSocket_bl(m_simSocketNumber) )
+       if ( g_halMatlab_closeSocket_bool(m_simSocketNumber) )
        {
                // true state refers to occurrence of errors
                printf("Could not close the network socket\n");

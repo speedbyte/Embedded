@@ -1,9 +1,0 @@
-<map id="main.c" name="main.c">
-<area shape="rect" id="node5" href="$Orientation_8h.html" title="sig/Orientation/Orientation.h" alt="" coords="175,155,359,181"/>
-<area shape="rect" id="node6" href="$udpSigLib_8h.html" title="matlab/udpSigLib.h" alt="" coords="329,80,462,107"/>
-<area shape="rect" id="node7" href="$udpLib_8h.html" title="udpLib.h" alt="" coords="384,155,455,181"/>
-<area shape="rect" id="node8" href="$imu_8h.html" title="../hal/IMU/imu.h" alt="" coords="479,155,595,181"/>
-<area shape="rect" id="node9" href="$accMag_8h.html" title="./accMag/accMag.h" alt="" coords="396,229,533,256"/>
-<area shape="rect" id="node11" href="$Gyro_8h.html" title="./gyro/Gyro.h" alt="" coords="558,229,657,256"/>
-<area shape="rect" id="node10" href="$accMag__registers_8h.html" title="accMag_registers.h" alt="" coords="397,304,533,331"/>
-</map>

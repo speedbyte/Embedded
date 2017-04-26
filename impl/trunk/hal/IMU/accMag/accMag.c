@@ -42,14 +42,14 @@ static inline unsigned char l_readI2cByte_ui8( unsigned char f_registerAddr_ui8 
     l_registerAddr_ui8 = f_registerAddr_ui8 & 0b01111111;
 
     //write register request to I2C
-    if ( g_lldI2c_WriteI2c_bl(M_HAL_ACCMAG_I2CADDR_UI8, &l_registerAddr_ui8, 1) != M_HAL_ACCMAG_SUCCESS_BL )
+    if ( g_lldI2c_WriteI2c_bool(M_HAL_ACCMAG_I2CADDR_UI8, &l_registerAddr_ui8, 1) != M_HAL_ACCMAG_SUCCESS_BOOL )
     {
         // error in I2C access
         return M_HAL_ACCMAG_FAILED_BL;
     }
 
     //read requested register data
-    if ( g_lldI2c_ReadI2c_bl(M_HAL_ACCMAG_I2CADDR_UI8, &l_recvDataByte_ui8, 1) != M_HAL_ACCMAG_SUCCESS_BL )
+    if ( g_lldI2c_ReadI2c_bool(M_HAL_ACCMAG_I2CADDR_UI8, &l_recvDataByte_ui8, 1) != M_HAL_ACCMAG_SUCCESS_BOOL )
     {
         // error in I2C access
         return M_HAL_ACCMAG_FAILED_BL;
@@ -85,7 +85,7 @@ static inline unsigned char l_readI2cByte_ui8( unsigned char f_registerAddr_ui8 
  * none
  * \endinternal
  ***********************************************************************/
-static inline unsigned int l_readI2cByteStream_bl( unsigned char f_startRegisterAddr_ui8, const unsigned char* f_readDestinationBuffer_pui8, unsigned int f_numOfBytesToRead_ui32 )
+static inline unsigned int l_readI2cByteStream_bool( unsigned char f_startRegisterAddr_ui8, const unsigned char* f_readDestinationBuffer_pui8, unsigned int f_numOfBytesToRead_ui32 )
 {
     unsigned char    l_registerAddr_ui8     = 0;
 
@@ -104,14 +104,14 @@ static inline unsigned int l_readI2cByteStream_bl( unsigned char f_startRegister
     l_registerAddr_ui8 = f_startRegisterAddr_ui8 | 0b10000000;
 
     //write register request to I2C
-    if ( g_lldI2c_WriteI2c_bl(M_HAL_ACCMAG_I2CADDR_UI8, &l_registerAddr_ui8, 1) != M_HAL_ACCMAG_SUCCESS_BL )
+    if ( g_lldI2c_WriteI2c_bool(M_HAL_ACCMAG_I2CADDR_UI8, &l_registerAddr_ui8, 1) != M_HAL_ACCMAG_SUCCESS_BOOL )
     {
         // error in I2C access
         return M_HAL_ACCMAG_FAILED_BL;
     }
 
     //read requested registers to I2C
-    if ( g_lldI2c_ReadI2c_bl(M_HAL_ACCMAG_I2CADDR_UI8, f_readDestinationBuffer_pui8, f_numOfBytesToRead_ui32) != M_HAL_ACCMAG_SUCCESS_BL )
+    if ( g_lldI2c_ReadI2c_bool(M_HAL_ACCMAG_I2CADDR_UI8, f_readDestinationBuffer_pui8, f_numOfBytesToRead_ui32) != M_HAL_ACCMAG_SUCCESS_BOOL )
     {
         // error in I2C access
         return M_HAL_ACCMAG_FAILED_BL;
@@ -149,9 +149,9 @@ static inline unsigned int l_readI2cByteStream_bl( unsigned char f_startRegister
 // * none
 // * \endinternal
 // ***********************************************************************/
-//static inline unsigned int l_writeI2cByte_bl( unsigned char f_registerAddr_ui8, unsigned char f_byteToWrite_ui8 )
+//static inline unsigned int l_writeI2cByte_bool( unsigned char f_registerAddr_ui8, unsigned char f_byteToWrite_ui8 )
 //{
-//    unsigned int    l_writeSucceeded_bl     = M_HAL_ACCMAG_SUCCESS_BL; // success state as default
+//    unsigned int    l_writeSucceeded_bool     = M_HAL_ACCMAG_SUCCESS_BL; // success state as default
 //    unsigned char    l_writeBuffer_rg2ui8[2];
 //
 //    /*
@@ -163,10 +163,10 @@ static inline unsigned int l_readI2cByteStream_bl( unsigned char f_startRegister
 //    l_writeBuffer_rg2ui8[1] = f_byteToWrite_ui8;
 //
 //    //write register to I2C
-//    if ( g_lldI2c_WriteI2c_bl(M_HAL_ACCMAG_I2CADDR_UI8, l_writeBuffer_rg2ui8, 2) == M_HAL_ACCMAG_FAILED_BL )
+//    if ( g_lldI2c_WriteI2c_bool(M_HAL_ACCMAG_I2CADDR_UI8, l_writeBuffer_rg2ui8, 2) == M_HAL_ACCMAG_FAILED_BOOL )
 //    {
 //        // error in I2C access
-//        l_writeSucceeded_bl = M_HAL_ACCMAG_FAILED_BL;
+//        l_writeSucceeded_bool = M_HAL_ACCMAG_FAILED_BL;
 //    }
 //
 //    return l_writeSucceeded_bl;
@@ -204,9 +204,9 @@ static inline unsigned int l_readI2cByteStream_bl( unsigned char f_startRegister
  *   size of array in header)
  * \endinternal
  ***********************************************************************/
-static inline unsigned int l_writeI2cByteStream_bl( unsigned char f_startRegisterAddr_ui8, const unsigned char* const f_byteStreamToWrite_pui8, unsigned int f_numOfBytes_ui32 )
+static inline unsigned int l_writeI2cByteStream_bool( unsigned char f_startRegisterAddr_ui8, const unsigned char* const f_byteStreamToWrite_pui8, unsigned int f_numOfBytes_ui32 )
 {
-    unsigned int    l_writeSucceeded_bl     = M_HAL_ACCMAG_SUCCESS_BL;     // success state as default
+    unsigned int    l_writeSucceeded_bool     = M_HAL_ACCMAG_SUCCESS_BL;     // success state as default
     unsigned char     l_bufCtr_ui8            = 0;                        // loop counter to assemble payload and register address
     unsigned char    l_byteStreamBuffer_rgXui8[M_HAL_ACCMAG_WRITE_BYTESTREAM_BUFFER_SIZE_UI8];
     /*
@@ -236,10 +236,10 @@ static inline unsigned int l_writeI2cByteStream_bl( unsigned char f_startRegiste
     }
 
     //write register to I2C
-    if ( g_lldI2c_WriteI2c_bl(M_HAL_ACCMAG_I2CADDR_UI8, l_byteStreamBuffer_rgXui8, f_numOfBytes_ui32 + 1) != M_HAL_ACCMAG_SUCCESS_BL )
+    if ( g_lldI2c_WriteI2c_bool(M_HAL_ACCMAG_I2CADDR_UI8, l_byteStreamBuffer_rgXui8, f_numOfBytes_ui32 + 1) != M_HAL_ACCMAG_SUCCESS_BOOL )
     {
         // error in I2C access
-        l_writeSucceeded_bl = M_HAL_ACCMAG_FAILED_BL;
+        l_writeSucceeded_bool = M_HAL_ACCMAG_FAILED_BL;
     }
 
     return l_writeSucceeded_bl;
@@ -374,7 +374,7 @@ static inline unsigned int l_updateSensorState_vd( halAccmag_sensorSelect f_sens
     halAccmag_3dDoubleVector    l_magBuffer_st;
     unsigned char                l_readBuffer_rg6ui8[6];
     signed short                l_tempComponent_i16 = 0;
-    unsigned int                l_successState_bl = M_HAL_ACCMAG_SUCCESS_BL;
+    unsigned int                l_successState_bool = M_HAL_ACCMAG_SUCCESS_BL;
 
     //init local data buffers with current values
     l_accBuffer_st = m_halAccmag_sensorState_st.acc;
@@ -393,7 +393,7 @@ static inline unsigned int l_updateSensorState_vd( halAccmag_sensorSelect f_sens
      */
     if ( (f_sensor_en == SENSOR_ACC_EN) || (f_sensor_en == SENSOR_BOTH_EN) )
     {
-        if ( l_readI2cByteStream_bl(M_HAL_ACCMAG_OUT_X_L_A_UI8,l_readBuffer_rg6ui8, 6) == M_HAL_ACCMAG_SUCCESS_BL )
+        if ( l_readI2cByteStream_bool(M_HAL_ACCMAG_OUT_X_L_A_UI8,l_readBuffer_rg6ui8, 6) == M_HAL_ACCMAG_SUCCESS_BOOL )
         {
             // x-component
             l_tempComponent_i16 = l_twoCompOf16Bit_ui16(l_readBuffer_rg6ui8[0], l_readBuffer_rg6ui8[1]);
@@ -407,7 +407,7 @@ static inline unsigned int l_updateSensorState_vd( halAccmag_sensorSelect f_sens
             l_tempComponent_i16 = l_twoCompOf16Bit_ui16(l_readBuffer_rg6ui8[4], l_readBuffer_rg6ui8[5]);
             l_accBuffer_st.z_f64 = l_convertAccRawToSIUnit_f64( l_tempComponent_i16, M_HAL_ACCMAG_ACCSCALE_UI8 );
         }else{
-            l_successState_bl = M_HAL_ACCMAG_FAILED_BL;
+            l_successState_bool = M_HAL_ACCMAG_FAILED_BL;
         }
 
     }
@@ -424,7 +424,7 @@ static inline unsigned int l_updateSensorState_vd( halAccmag_sensorSelect f_sens
      */
     if ( (f_sensor_en == SENSOR_MAG_EN) || (f_sensor_en == SENSOR_BOTH_EN) )
     {
-        if ( l_readI2cByteStream_bl(M_HAL_ACCMAG_OUT_X_L_M_UI8,l_readBuffer_rg6ui8, 6) == M_HAL_ACCMAG_SUCCESS_BL )
+        if ( l_readI2cByteStream_bool(M_HAL_ACCMAG_OUT_X_L_M_UI8,l_readBuffer_rg6ui8, 6) == M_HAL_ACCMAG_SUCCESS_BOOL )
         {
             // x-component
             l_tempComponent_i16 = l_twoCompOf16Bit_ui16(l_readBuffer_rg6ui8[0], l_readBuffer_rg6ui8[1]);
@@ -438,7 +438,7 @@ static inline unsigned int l_updateSensorState_vd( halAccmag_sensorSelect f_sens
             l_tempComponent_i16 = l_twoCompOf16Bit_ui16(l_readBuffer_rg6ui8[4], l_readBuffer_rg6ui8[5]);
             l_magBuffer_st.z_f64 = l_convertMagRawToSIUnit_f64( l_tempComponent_i16, M_HAL_ACCMAG_MAGSCALE_UI8 );
         }else{
-            l_successState_bl = M_HAL_ACCMAG_FAILED_BL;
+            l_successState_bool = M_HAL_ACCMAG_FAILED_BL;
         }
     }
 
@@ -469,7 +469,7 @@ static inline unsigned int l_updateSensorState_vd( halAccmag_sensorSelect f_sens
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halAccmag_initSensor_bl(void)
+unsigned int g_halAccmag_initSensor_bool(void)
 {
     unsigned char l_configRegisters_rg8ui8[8];    //buffer for 8 control register bytes
 
@@ -517,7 +517,7 @@ unsigned int g_halAccmag_initSensor_bl(void)
 
 
     // send config
-    if ( l_writeI2cByteStream_bl(M_HAL_ACCMAG_CTRL0_UI8, l_configRegisters_rg8ui8, sizeof(l_configRegisters_rg8ui8) ) == M_HAL_ACCMAG_FAILED_BL )
+    if ( l_writeI2cByteStream_bool(M_HAL_ACCMAG_CTRL0_UI8, l_configRegisters_rg8ui8, sizeof(l_configRegisters_rg8ui8) ) == M_HAL_ACCMAG_FAILED_BOOL )
     {
         // setting register CTRL1 failed
         return M_HAL_ACCMAG_FAILED_BL;
@@ -543,7 +543,7 @@ unsigned int g_halAccmag_initSensor_bl(void)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halAccmag_triggerAccUpdate_bl( void )
+unsigned int g_halAccmag_triggerAccUpdate_bool( void )
 {
     return l_updateSensorState_vd(SENSOR_ACC_EN);
 }
@@ -565,7 +565,7 @@ unsigned int g_halAccmag_triggerAccUpdate_bl( void )
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halAccmag_triggerMagUpdate_bl( void )
+unsigned int g_halAccmag_triggerMagUpdate_bool( void )
 {
     return l_updateSensorState_vd(SENSOR_MAG_EN);
 }
@@ -587,7 +587,7 @@ unsigned int g_halAccmag_triggerMagUpdate_bl( void )
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halAccmag_triggerFullUpdate_bl( void )
+unsigned int g_halAccmag_triggerFullUpdate_bool( void )
 {
     return l_updateSensorState_vd(SENSOR_BOTH_EN);
 }

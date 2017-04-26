@@ -8,7 +8,6 @@
  *      Author: user
  */
 
-
 #include <math.h>
 #include <sys/time.h>
 #include "Orientation.h"
@@ -25,6 +24,7 @@
 #define M_NR_OF_VALUES_OFFSET_I32    1000
 
 static HAL_SENSOR_PAYLOAD_ST sensor_values_st;
+
 static double heightBarometerMetres_f64 =0;
 static double referencePressure_f64=0;
 static double referenceGravity_f64=0;
@@ -76,70 +76,11 @@ static struct timeval gettime_old;
  * none
  * \endinternal
  ***********************************************************************/
-HAL_ANGLE_PAYLOAD_ST g_getAnglesComplementary_bl()
+HAL_ANGLE_PAYLOAD_ST g_getAnglesComplementary_bool()
 {
     return arrayOutputAnglesComplementary_st;
 }
 
-/*!**********************************************************************
- * \author     Oliver Breuning (olbrgs00)
- * \date     2015/05/31
- *
- * \brief    Get pitch angle of the IMU
- * \details    This function returns the pitch angle calculated
- *             with the Complementary-Filter
- *
- * \param[out]    returns the pitch angle calculate with the Complementary-Filter
- *
- * \internal
- * CHANGELOG:
- * none
- * \endinternal
- ***********************************************************************/
-double g_getPitchComplementary_bl()
-{
-    return arrayOutputAnglesComplementary_st.pitch_f64;
-}
-
-/*!**********************************************************************
- * \author     Oliver Breuning (olbrgs00)
- * \date     2015/05/31
- *
- * \brief    Get roll angle of the IMU
- * \details    This function returns the roll angle calculated
- *             with the Complementary-Filter
- *
- * \param[out]    returns the roll angle calculate with the Complementary-Filter
- *
- * \internal
- * CHANGELOG:
- * none
- * \endinternal
- ***********************************************************************/
-double g_getRollComplementary_bl()
-{
-    return arrayOutputAnglesComplementary_st.roll_f64;
-}
-
-/*!**********************************************************************
- * \author     Oliver Breuning (olbrgs00)
- * \date     2015/05/31
- *
- * \brief    Get yaw angle of the IMU
- * \details    This function returns the yaw angle calculated
- *             with the Complementary-Filter
- *
- * \param[out]    returns the yaw angle calculate with the Complementary-Filter
- *
- * \internal
- * CHANGELOG:
- * none
- * \endinternal
- ***********************************************************************/
-double g_getYawComplementary_bl()
-{
-    return arrayOutputAnglesComplementary_st.yaw_f64;
-}
 
 /*!**********************************************************************
  * \author     Oliver Breuning (olbrgs00)
@@ -157,70 +98,11 @@ double g_getYawComplementary_bl()
  * none
  * \endinternal
  ***********************************************************************/
-HAL_ANGLE_PAYLOAD_ST g_getAnglesKalman_bl()
+HAL_ANGLE_PAYLOAD_ST g_getAnglesKalman_bool()
 {
     return arrayOutputAnglesKalman_st;
 }
 
-/*!**********************************************************************
- * \author     Oliver Breuning (olbrgs00)
- * \date     2015/05/31
- *
- * \brief    Get pitch angle of the IMU
- * \details    This function returns the pitch angle calculated
- *             with the Kalman-Filter
- *
- * \param[out]    returns the pitch angle calculate with the Kalman-Filter
- *
- * \internal
- * CHANGELOG:
- * none
- * \endinternal
- ***********************************************************************/
-double g_getPitchKalman_bl()
-{
-    return arrayOutputAnglesKalman_st.pitch_f64;
-}
-
-/*!**********************************************************************
- * \author     Oliver Breuning (olbrgs00)
- * \date     2015/05/31
- *
- * \brief    Get roll angle of the IMU
- * \details    This function returns the roll angle calculated
- *             with the Kalman-Filter
- *
- * \param[out]    returns the roll angle calculate with the Kalman-Filter
- *
- * \internal
- * CHANGELOG:
- * none
- * \endinternal
- ***********************************************************************/
-double g_getRollKalman_bl()
-{
-    return arrayOutputAnglesKalman_st.roll_f64;
-}
-
-/*!**********************************************************************
- * \author     Oliver Breuning (olbrgs00)
- * \date     2015/05/31
- *
- * \brief    Get yaw angle of the IMU
- * \details    This function returns the yaw angle calculated
- *             with the Kalman-Filter
- *
- * \param[out]    returns the yaw angle calculate with the Kalman-Filter
- *
- * \internal
- * CHANGELOG:
- * none
- * \endinternal
- ***********************************************************************/
-double g_getYawKalman_bl()
-{
-    return arrayOutputAnglesKalman_st.yaw_f64;
-}
 
 /*!**********************************************************************
  * \author     Oliver Breuning (olbrgs00)
@@ -239,9 +121,9 @@ double g_getYawKalman_bl()
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_initImuSensors_bl()
+unsigned int g_initImuSensors_bool()
 {
-    if( g_SigFil_initImuSensors_bl() != 0 )
+    if( g_SigFil_initImuSensors_bool() != 0 )
     {return 1;}
     else
     {return 0;}
@@ -264,14 +146,14 @@ unsigned int g_initImuSensors_bl()
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_initMatrices_bl()
+unsigned int g_initMatrices_bool()
 {
     //initialize Pk Matrix
-    if(g_sigMath_matrixEye_bl((double*)matrixPk_rg9f64,3,3)!=0)
+    if(g_sigMath_matrixEye_bool((double*)matrixPk_rg9f64,3,3)!=0)
     {return 1;}
 
     //initialize an Identity matrix
-    if(g_sigMath_matrixEye_bl((double*)matrixI_rg9f64,3,3)!=0)
+    if(g_sigMath_matrixEye_bool((double*)matrixI_rg9f64,3,3)!=0)
     {return 1;}
 
 /*    //initialize the measurement noise matrix
@@ -313,7 +195,7 @@ unsigned int g_initMatrices_bl()
  * none
  * \endinternal
  ***********************************************************************/
-void g_initBuildReferenceValues_bl()
+void g_initBuildReferenceValues_bool()
 {
     double l_barometricValue_f64=0;
     double l_GravityValue_f64=0;
@@ -324,7 +206,7 @@ void g_initBuildReferenceValues_bl()
 // create Reference pressure,Gravity and Temperature as mean value over M_NR_OF_VALUES_OFFSET_I32 values
     for(l_countVar_i32=0;l_countVar_i32<M_NR_OF_VALUES_OFFSET_I32;l_countVar_i32++)
     {
-        g_sigFil_readImuData_bl();
+        g_sigFil_readImuData_bool();
         l_sensorValues_st=g_sigFil_getsensorValuesUnfiltered_st();
         l_barometricValue_f64+=l_sensorValues_st.pressure_f64;
         l_GravityValue_f64+=l_sensorValues_st.acc.z_f64;
@@ -349,9 +231,9 @@ void g_initBuildReferenceValues_bl()
  * none
  * \endinternal
  ***********************************************************************/
-void getImuData_bl()
+void getImuData_bool()
 {
-    g_sigFil_readImuData_bl();
+    g_sigFil_readImuData_bool();
     sensor_values_st = g_sigFil_getsensorValuesUnfiltered_st();
 }
 
@@ -517,7 +399,7 @@ void calcBarometricHeight_st()
  * none
  * \endinternal
  ***********************************************************************/
-void g_calcKalmanOrientation_bl()
+void g_calcKalmanOrientation_bool()
 {
     //create a local matrix for storage
     double l_matrixTemp_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
@@ -525,7 +407,7 @@ void g_calcKalmanOrientation_bl()
     double l_matrixInnovation_rg9f64[SIZEOFARRAY_UI8][SIZEOFARRAY_UI8];
 
     //read new data from the IMU
-    getImuData_bl();
+    getImuData_bool();
 
     //calculate angle from Acc/Mag and Gyro
     arrayAccMagAnglesKalman_st=calcAccMagAngle_st();
@@ -542,59 +424,59 @@ void g_calcKalmanOrientation_bl()
 
 //PREDICTION
     //state estimation (prediction)
-    g_sigMath_matrixAddition_bl((double*) l_matrixTemp_rg9f64,
+    g_sigMath_matrixAddition_bool((double*) l_matrixTemp_rg9f64,
         (double*) matrixXk_rg9f64, 3,3, 
         (double*) matrixUk_rg9f64,3,3);
-    g_sigMath_matrixAssignment_bl((double*) matrixXk_rg9f64,3,3,
+    g_sigMath_matrixAssignment_bool((double*) matrixXk_rg9f64,3,3,
         (double*) l_matrixTemp_rg9f64,3,3);
 
 
     //covariance estimation (prediction)
-    g_sigMath_matrixAddition_bl((double*) l_matrixTemp_rg9f64,
+    g_sigMath_matrixAddition_bool((double*) l_matrixTemp_rg9f64,
         (double*) matrixPk_rg9f64, 3,3, 
         (double*) matrixQ_rg9f64,3,3);
-    g_sigMath_matrixAssignment_bl((double*) matrixPk_rg9f64,3,3,
+    g_sigMath_matrixAssignment_bool((double*) matrixPk_rg9f64,3,3,
         (double*) l_matrixTemp_rg9f64,3,3);
 
 //UPDATE
     //Innovation (update)
-    g_sigMath_matrixSubtraktion_bl((double*) l_matrixInnovation_rg9f64,
+    g_sigMath_matrixSubtraktion_bool((double*) l_matrixInnovation_rg9f64,
         (double*) matrixXnew_rg9f64,3,3, 
         (double*) matrixXk_rg9f64,3,3);
 
     //Innovation covariance (update)
-    g_sigMath_matrixAddition_bl((double*) matrixS_rg9f64,
+    g_sigMath_matrixAddition_bool((double*) matrixS_rg9f64,
         (double*) matrixPk_rg9f64, 3,3, 
         (double*) matrixR_rg9f64,3,3);
 
     //Kalman Gain calculation (update)
-    g_sigMath_matrixInverse_bl((double*) l_matrixTemp_rg9f64,
+    g_sigMath_matrixInverse_bool((double*) l_matrixTemp_rg9f64,
         (double*) matrixS_rg9f64,3,3);
-    g_sigMath_matrixMultiplikation_bl(
+    g_sigMath_matrixMultiplikation_bool(
         (double*) matrixK_rg9f64, 
         (double*) matrixPk_rg9f64,3,3,
         (double*) l_matrixTemp_rg9f64,3,3);
 
     //State estimation (update)
-    g_sigMath_matrixMultiplikation_bl(
+    g_sigMath_matrixMultiplikation_bool(
         (double*) l_matrixTemp_rg9f64, 
         (double*) matrixK_rg9f64,3,3,
         (double*) l_matrixInnovation_rg9f64,3,3);
-    g_sigMath_matrixAddition_bl((double*) l_matrixTemp2_rg9f64,
+    g_sigMath_matrixAddition_bool((double*) l_matrixTemp2_rg9f64,
         (double*) matrixXk_rg9f64, 3,3, 
         (double*) l_matrixTemp_rg9f64,3,3);
-    g_sigMath_matrixAssignment_bl((double*) matrixXk_rg9f64,3,3,
+    g_sigMath_matrixAssignment_bool((double*) matrixXk_rg9f64,3,3,
         (double*) l_matrixTemp2_rg9f64,3,3);
 
     //Covariance estimation (update)
-    g_sigMath_matrixSubtraktion_bl((double*) l_matrixTemp_rg9f64,
+    g_sigMath_matrixSubtraktion_bool((double*) l_matrixTemp_rg9f64,
         (double*) matrixI_rg9f64,3,3, 
         (double*) matrixK_rg9f64,3,3);
-    g_sigMath_matrixMultiplikation_bl(
+    g_sigMath_matrixMultiplikation_bool(
         (double*) l_matrixTemp2_rg9f64, 
         (double*) l_matrixTemp_rg9f64,3,3,
         (double*) matrixPk_rg9f64,3,3);
-    g_sigMath_matrixAssignment_bl((double*) matrixPk_rg9f64,3,3,
+    g_sigMath_matrixAssignment_bool((double*) matrixPk_rg9f64,3,3,
         (double*) l_matrixTemp2_rg9f64,3,3);
 
 //set calculate within this module global
@@ -618,10 +500,10 @@ void g_calcKalmanOrientation_bl()
  * none
  * \endinternal
  ***********************************************************************/
-void g_calcComplementaryOrientation_bl()
+void g_calcComplementaryOrientation_bool()
 {
     //read new data from the IMU
-    getImuData_bl();
+    getImuData_bool();
     //calculate angle from Acc/Mag and Gyro
     arrayAccMagAnglesComplementary_st=calcAccMagAngle_st();
     arrayGyroAnglesComplementary_st=calcGyroAnglePerStep_st();
@@ -656,7 +538,7 @@ void g_calcComplementaryOrientation_bl()
  * none
  * \endinternal
  ***********************************************************************/
-HAL_ANGLE_PAYLOAD_ST g_getAnglesAccMagCalc_bl()
+HAL_ANGLE_PAYLOAD_ST g_getAnglesAccMagCalc_bool()
 {
     return arrayOutputAnglesAccMagCalc_st;
 }
@@ -678,7 +560,7 @@ HAL_ANGLE_PAYLOAD_ST g_getAnglesAccMagCalc_bl()
  * none
  * \endinternal
  ***********************************************************************/
-HAL_ANGLE_PAYLOAD_ST g_getAnglesGyroPerStep_bl()
+HAL_ANGLE_PAYLOAD_ST g_getAnglesGyroPerStep_bool()
 {
     return arrayOutputAnglesGyroPerStep_st;
 }

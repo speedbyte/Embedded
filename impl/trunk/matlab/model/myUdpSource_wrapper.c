@@ -66,7 +66,7 @@ void myUdpSource_Outputs_wrapper(real_T *acc,
     halMatlab_rtImuPayload l_udpPayload_st;
     
 		// get a new packet
-    l_udpPayload_st = g_halMatlab_recvImuState_bl( socketNum );
+    l_udpPayload_st = g_halMatlab_recvImuState_bool( socketNum );
     
 		// print remote system time for debugging purposes here
     printf("Remote time: %ld.%ld\n",

@@ -47,7 +47,7 @@ int g_halGyro_initGyro_i32(void)
     l_WriteBuffer_ui8[0]=M_HAL_GYRO_MULTIPLE_READ_FLAG_UI8 | M_HAL_GYRO_CTRL1_UI8;
     l_WriteBuffer_ui8[1]=M_HAL_GYRO_CTRL1_DR0_DR1_UI8 | M_HAL_GYRO_CTRL1_BW1_UI8 | M_HAL_GYRO_CTRL1_NORMAL_UI8;
     l_WriteBuffer_ui8[2]=M_HAL_GYRO_CTRL2_HPF_NORMAL_MODE_UI8;
-    if(g_lldI2c_WriteI2c_bl(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_THREE_UI8)!=0)
+    if(g_lldI2c_WriteI2c_bool(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_THREE_UI8)!=0)
     {return -1;}
 
     usleep(100000);
@@ -55,7 +55,7 @@ int g_halGyro_initGyro_i32(void)
     //CTRL4 (23h)= 0b00010000
     l_WriteBuffer_ui8[0]=M_HAL_GYRO_SINGLE_READ_FLAG_UI8 | M_HAL_GYRO_CTRL4_UI8;
     l_WriteBuffer_ui8[1]=M_HAL_GYRO_CTRL4_SCALE_500DPS_UI8;
-    if(g_lldI2c_WriteI2c_bl(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_TWO_UI8)!=0)
+    if(g_lldI2c_WriteI2c_bool(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_TWO_UI8)!=0)
     {return -1;}
 
     return 0;
@@ -136,11 +136,11 @@ int g_halGyro_readGyroscopeFromI2C_i32(void)
 
     //set SUB Address to X register OUT_X_L and activate multiple read
     l_WriteBuffer_ui8[0]=M_HAL_GYRO_MULTIPLE_READ_FLAG_UI8 | M_HAL_GYRO_OUT_X_L_UI8;
-    if(g_lldI2c_WriteI2c_bl(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
+    if(g_lldI2c_WriteI2c_bool(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
     {return -1;}
 
     //Read from OUT_X_L (28h), OUT_X_H (29h), OUT_Y_L (2Ah), OUT_Y_H (2Bh), OUT_Z_L (2Ch), OUT_Z_H (2Dh)
-    if(g_lldI2c_ReadI2c_bl(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_ReadBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_SIX_UI8)!=0)
+    if(g_lldI2c_ReadI2c_bool(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_ReadBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_SIX_UI8)!=0)
     {return -1;}
     else
     {
@@ -190,11 +190,11 @@ int g_halGyro_readTemperatureFromI2C_i32(void)
 
     //set SUB Address to OUT_TEMP register and activate single read
     l_WriteBuffer_ui8[0]=M_HAL_GYRO_SINGLE_READ_FLAG_UI8 | M_HAL_GYRO_OUT_TEMP_UI8;
-    if(g_lldI2c_WriteI2c_bl(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
+    if(g_lldI2c_WriteI2c_bool(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_WriteBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
     {return -1;}
 
     //Read from OUT_TEMP (26h)
-    if(g_lldI2c_ReadI2c_bl(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_ReadBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
+    if(g_lldI2c_ReadI2c_bool(M_I2C_SLAVE_ADDRESS_GYRO_UI8, l_ReadBuffer_ui8, M_HAL_BARO_NR_OF_BYTES_ONE_UI8)!=0)
     {return -1;}
     else
     {

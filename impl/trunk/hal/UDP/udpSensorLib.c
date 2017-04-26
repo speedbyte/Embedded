@@ -33,7 +33,7 @@ unsigned int g_hal_send_angles_raw_bool(    int f_socketHandler_i32,
     l_rtSigPayload_st.timestamp_st     = l_timestamp_st;
     l_rtSigPayload_st.sigState_st    = f_sigState_st;
 
-    return g_udp_sendPacket_bl(     f_socketHandler_i32,
+    return g_udp_sendPacket_bool(     f_socketHandler_i32,
                                         (unsigned char*)&l_rtSigPayload_st,
                                         sizeof( l_rtSigPayload_st ) );
 }
@@ -71,7 +71,7 @@ unsigned int g_hal_send_all_angles_calculated_bool(    int f_socketHandler_i32,
     l_rtCompleteSigPayload_st.kalmanSigState_st         = f_sigKalmanState_st;
     l_rtCompleteSigPayload_st.complementarySigState_st    = f_sigComplementaryState_st;
 
-    return g_udp_sendPacket_bl(     f_socketHandler_i32,
+    return g_udp_sendPacket_bool(     f_socketHandler_i32,
                                         (unsigned char*)&l_rtCompleteSigPayload_st,
                                         sizeof( l_rtCompleteSigPayload_st ) );
 }
@@ -178,7 +178,7 @@ unsigned int g_hal_send_sensor_raw_bool(    int f_socketHandler_i32,
     l_rtImuPayload_st.timestamp_st     = l_timestamp_st;
     l_rtImuPayload_st.sensorValues_st    = f_sensorValues_st;
 
-    return g_udp_sendPacket_bl(     f_socketHandler_i32,
+    return g_udp_sendPacket_bool(     f_socketHandler_i32,
                                         (unsigned char*)&l_rtImuPayload_st,
                                         sizeof( l_rtImuPayload_st ) );
 }

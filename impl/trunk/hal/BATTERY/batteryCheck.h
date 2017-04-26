@@ -12,8 +12,8 @@
 #define HAL_BATTERYCHECK_BATTERYCHECK_H_
 
 
-#define M_HAL_BATCHECK_SUCCESS_BL			0
-#define M_HAL_BATCHECK_FAILED_BL			1
+#define M_HAL_BATCHECK_SUCCESS_BOOL 		0
+#define M_HAL_BATCHECK_FAILED_BOOL 		1
 
 /* ---------------------------------------------
 AUTHOR: Oliver Breuning (olbrgs00)
@@ -45,7 +45,7 @@ none
 --------------------------------------------- */
 unsigned int  g_halBatCheck_readBatStatusFromI2C_i32(void);
 
-unsigned int  g_halBatCheck_readBatStatusFromI2C_bl(void);
+unsigned int  g_halBatCheck_readBatStatusFromI2C_bool(void);
 
 
 #endif /* HAL_BATTERYCHECK_BATTERYCHECK_H_ */

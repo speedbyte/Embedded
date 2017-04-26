@@ -1,4 +1,0 @@
-<map id="g_halMatlab_sendSigState_bl" name="g_halMatlab_sendSigState_bl">
-<area shape="rect" id="node2" href="$udpLib_8c_a3bcf5bf8c07f257cd13d2c94a9ce6d4f.html#a3bcf5bf8c07f257cd13d2c94a9ce6d4f" title="Sends a packet of data via a given UDP&#45;Socket. " alt="" coords="248,5,433,32"/>
-<area shape="rect" id="node3" href="$udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893.html#adc385b1d5891b3efc2f9c7f91018d893" title="Finds the slot number of a given socket handler. " alt="" coords="481,5,600,32"/>
-</map>

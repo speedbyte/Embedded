@@ -1,4 +1,0 @@
-<map id="g_LIDAR_readDistanceFromI2C_i32" name="g_LIDAR_readDistanceFromI2C_i32">
-<area shape="rect" id="node2" href="$LLD__I2C_8c_a8b130e9580447cad3fde20b915bfefec.html#a8b130e9580447cad3fde20b915bfefec" title="Write&#45;function for I2C0 Bus. " alt="" coords="244,5,391,32"/>
-<area shape="rect" id="node3" href="$LLD__I2C_8c_aeaca94687ce58a90a4d0fb44f1ea829e.html#aeaca94687ce58a90a4d0fb44f1ea829e" title="Read&#45;function for I2C0&#45;Bus. " alt="" coords="244,56,391,83"/>
-</map>

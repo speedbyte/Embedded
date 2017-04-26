@@ -1,6 +1,0 @@
-<map id="sig/ImuFilter/ImuFilter.c" name="sig/ImuFilter/ImuFilter.c">
-<area shape="rect" id="node2" href="$imu_8h.html" title="../../hal/IMU/imu.h" alt="" coords="81,80,209,107"/>
-<area shape="rect" id="node3" href="$accMag_8h.html" title="./accMag/accMag.h" alt="" coords="5,155,143,181"/>
-<area shape="rect" id="node5" href="$Gyro_8h.html" title="./gyro/Gyro.h" alt="" coords="167,155,266,181"/>
-<area shape="rect" id="node4" href="$accMag__registers_8h.html" title="accMag_registers.h" alt="" coords="6,229,142,256"/>
-</map>

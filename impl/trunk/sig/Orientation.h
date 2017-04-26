@@ -46,18 +46,18 @@ typedef struct{
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-HAL_ANGLE_PAYLOAD_ST g_getAnglesComplementary_bl(void);
-double g_getPitchComplementary_bl(void);
-double g_getRollComplementary_bl(void);
-double g_getYawComplementary_bl(void);
+HAL_ANGLE_PAYLOAD_ST g_getAnglesComplementary_bool(void);
+double g_getPitchComplementary_bool(void);
+double g_getRollComplementary_bool(void);
+double g_getYawComplementary_bool(void);
 
-HAL_ANGLE_PAYLOAD_ST g_getAnglesKalman_bl(void);
-double g_getPitchKalman_bl(void);
-double g_getRollKalman_bl(void);
-double g_getYawKalman_bl(void);
+HAL_ANGLE_PAYLOAD_ST g_getAnglesKalman_bool(void);
+double g_getPitchKalman_bool(void);
+double g_getRollKalman_bool(void);
+double g_getYawKalman_bool(void);
 
-HAL_ANGLE_PAYLOAD_ST g_getAnglesGyroPerStep_bl(void);
-HAL_ANGLE_PAYLOAD_ST g_getAnglesAccMagCalc_bl(void);
+HAL_ANGLE_PAYLOAD_ST g_getAnglesGyroPerStep_bool(void);
+HAL_ANGLE_PAYLOAD_ST g_getAnglesAccMagCalc_bool(void);
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)
@@ -69,9 +69,9 @@ HAL_ANGLE_PAYLOAD_ST g_getAnglesAccMagCalc_bl(void);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_initImuSensors_bl(void);
-unsigned int g_initMatrices_bl(void);
-void g_initBuildReferenceValues_bl();
+unsigned int g_initImuSensors_bool(void);
+unsigned int g_initMatrices_bool(void);
+void g_initBuildReferenceValues_bool();
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)
@@ -84,8 +84,8 @@ void g_initBuildReferenceValues_bl();
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-void g_calcKalmanOrientation_bl(void);
-void g_calcComplementaryOrientation_bl(void);
+void g_calcKalmanOrientation_bool(void);
+void g_calcComplementaryOrientation_bool(void);
 
 
 

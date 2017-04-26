@@ -1,5 +1,0 @@
-<map id="g_halBatCheck_readBatStatusFromI2C_bl" name="g_halBatCheck_readBatStatusFromI2C_bl">
-<area shape="rect" id="node2" href="$HAL__ADC_8c_ad4f5cd5d9c7c0a335d5c485a2fb41cb2.html#ad4f5cd5d9c7c0a335d5c485a2fb41cb2" title="Reads analog to digital converted values from ADS1015. " alt="" coords="255,31,393,57"/>
-<area shape="rect" id="node3" href="$LLD__I2C_8c_aa6892bf4aea7f232d9b0ff2dbf8a9321.html#aa6892bf4aea7f232d9b0ff2dbf8a9321" title="Write&#45;function for I2C Bus. " alt="" coords="441,5,581,32"/>
-<area shape="rect" id="node4" href="$LLD__I2C_8c_a107ee9f1e4646733ac3ef6addf0def7e.html#a107ee9f1e4646733ac3ef6addf0def7e" title="Read&#45;function for I2C&#45;Bus. " alt="" coords="441,56,581,83"/>
-</map>

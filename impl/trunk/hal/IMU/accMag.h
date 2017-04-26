@@ -7,14 +7,13 @@
 #include "accMag_registers.h"
 
 // Replacement for boolean states
-#define M_HAL_ACCMAG_TRUE_BL							1
-#define M_HAL_ACCMAG_FALSE_BL							0
+#define M_HAL_ACCMAG_TRUE_BOOL 						1
+#define M_HAL_ACCMAG_FALSE_BOOL 						0
 
-#define M_HAL_ACCMAG_SUCCESS_BL							0
-#define M_HAL_ACCMAG_FAILED_BL							1
+#define M_HAL_ACCMAG_SUCCESS_BOOL 						0
+#define M_HAL_ACCMAG_FAILED_BOOL 						1
 
-#define M_HAL_ACCMAG_WRITE_BYTESTREAM_BUFFER_SIZE_UI8	12		//!< defines the local write buffer of function l_writeI2cByteStream_bl
-
+#define M_HAL_ACCMAG_WRITE_BYTESTREAM_BUFFER_SIZE_UI8	12		//!< defines the local write buffer of function l_writeI2cByteStream_bool 
 #define M_HAL_ACCMAG_ACCSCALE_UI8						8		//!< defines the defined scale of the accelerometer [m*s^(-2)]
 #define M_HAL_ACCMAG_MAGSCALE_UI8						4		//!< defines the defined scale of the magnetometer [0.1*mT]
 #define	M_HAL_ACCMAG_I2CADDR_UI8						0x1E	//!< I2C chip address of LSM303D (Acceleration & Compass sensor)
@@ -86,7 +85,7 @@ typedef enum{
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_halAccmag_initSensor_bl(void);
+unsigned int g_halAccmag_initSensor_bool(void);
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Juergen Schmidt (juscgs00)
@@ -98,9 +97,9 @@ unsigned int g_halAccmag_initSensor_bl(void);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_halAccmag_triggerAccUpdate_bl( void );
-unsigned int g_halAccmag_triggerMagUpdate_bl( void );
-unsigned int g_halAccmag_triggerFullUpdate_bl( void );
+unsigned int g_halAccmag_triggerAccUpdate_bool( void );
+unsigned int g_halAccmag_triggerMagUpdate_bool( void );
+unsigned int g_halAccmag_triggerFullUpdate_bool( void );
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Juergen Schmidt (juscgs00)

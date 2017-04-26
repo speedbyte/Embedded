@@ -341,7 +341,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
     halMatlab_rtImuPayload         l_udpPayload_st;
 
-    l_udpPayload_st = g_halMatlab_recvImuState_bl( m_simSocket_i32 );
+    l_udpPayload_st = g_halMatlab_recvImuState_bool( m_simSocket_i32 );
 
     printf("Remote time: %ld.%ld\n", l_udpPayload_st.timestamp_st.tv_sec,l_udpPayload_st.timestamp_st.tv_nsec);
     
@@ -376,7 +376,7 @@ static void mdlTerminate(SimStruct *S)
     
     printf("Closing socket\n");
     
-    l_closeState_ui32 = g_halMatlab_closeSocket_bl(m_simSocket_i32);
+    l_closeState_ui32 = g_halMatlab_closeSocket_bool(m_simSocket_i32);
 }
 #ifdef  MATLAB_MEX_FILE    /* Is this file being compiled as a MEX-file? */
 #include "simulink.c"      /* MEX-file interface mechanism */

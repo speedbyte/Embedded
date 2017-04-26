@@ -36,10 +36,10 @@
  * 2015/04/05 phwogs00:
  * Write Changelog entry to remember correct syntax
  * -------------------------------------------------------------------- */
-unsigned int g_lldI2c_WriteI2c_bl(unsigned char, const unsigned char*, unsigned int);
-unsigned int g_lldI2c_ReadI2c_bl(unsigned char, const unsigned char*, unsigned int);
-unsigned int g_lldI2c_WriteI2c0_bl(unsigned char, const unsigned char*, unsigned int);
-unsigned int g_lldI2c_ReadI2c0_bl(unsigned char, const unsigned char*, unsigned int);
+unsigned int g_lldI2c_WriteI2c_bool(unsigned char, const unsigned char*, unsigned int);
+unsigned int g_lldI2c_ReadI2c_bool(unsigned char, const unsigned char*, unsigned int);
+unsigned int g_lldI2c_WriteI2c0_bool(unsigned char, const unsigned char*, unsigned int);
+unsigned int g_lldI2c_ReadI2c0_bool(unsigned char, const unsigned char*, unsigned int);
 
 
 #endif //LLD_I2C_H_

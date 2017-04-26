@@ -557,7 +557,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     {
         //printf("%02X", buffer[j]);
     }
-//      l_udpPayload_st = g_halMatlab_recvSigAllStates_bl( m_simSocket_i32 );
+//      l_udpPayload_st = g_halMatlab_recvSigAllStates_bool( m_simSocket_i32 );
       
       Raw_Accelerometer_xyz[0] = l_udpPayload_st.imuState_st.acc.x_f64;
       Raw_Accelerometer_xyz[1] = l_udpPayload_st.imuState_st.acc.y_f64;

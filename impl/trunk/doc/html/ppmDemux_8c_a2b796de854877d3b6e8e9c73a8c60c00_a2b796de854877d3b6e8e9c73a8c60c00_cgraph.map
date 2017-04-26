@@ -1,5 +1,0 @@
-<map id="mod_init" name="mod_init">
-<area shape="rect" id="node2" href="$ppmDemux_8c_a9cf3030cfb5ab004f5162c41b374ebdf.html#a9cf3030cfb5ab004f5162c41b374ebdf" title="config_gpio" alt="" coords="124,31,212,57"/>
-<area shape="rect" id="node3" href="$ppmDemux_8c_acc1ad62b6a9e6b56029b90b0bca07e5e.html#acc1ad62b6a9e6b56029b90b0bca07e5e" title="hard_isr" alt="" coords="270,5,338,32"/>
-<area shape="rect" id="node4" href="$ppmDemux_8c_a6442515997f7eacf82e5664408f4c1db.html#a6442515997f7eacf82e5664408f4c1db" title="rpi_gpio_isr" alt="" coords="260,56,348,83"/>
-</map>

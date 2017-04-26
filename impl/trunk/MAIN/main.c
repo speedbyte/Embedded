@@ -48,8 +48,8 @@ typedef enum enumTestCases {
     TESTMOTORTXT,
     TESTGUI,
     TESTSINGLESENSOR,
-    FINALSENDING,
-    PLEASEFLY,
+    SEND_ALL_PAYLOAD,
+    SEND_ALL_PAYLOAD_INTERACTIVE,
     RECEIVE,
     TESTEND
 } enumTestcases;
@@ -179,10 +179,10 @@ int main(int argc, char *argv[]) {
             runCommand = TESTGUI;
         else if (strcmp(testValue, "testsinglesensor") == 0)
             runCommand = TESTSINGLESENSOR;
-        else if (strcmp(testValue, "finalsending") == 0)
-            runCommand = FINALSENDING;
-        else if (strcmp(testValue, "pleasefly") == 0)
-            runCommand = PLEASEFLY;
+        else if (strcmp(testValue, "send_all_payload") == 0)
+            runCommand = SEND_ALL_PAYLOAD;
+        else if (strcmp(testValue, "send_all_payload_interactive") == 0)
+            runCommand = SEND_ALL_PAYLOAD_INTERACTIVE;
         else if (strcmp(testValue, "receive") == 0)
             runCommand = RECEIVE;
 
@@ -204,7 +204,7 @@ int main(int argc, char *argv[]) {
             printf("Starting Battery Test\n");
             int i = kbhit();
             while (i != 'q') {
-                g_halBatCheck_readBatStatusFromI2C_bl();
+                g_halBatCheck_readBatStatusFromI2C_bool();
                 l_batterLevel_f64 = g_halBatCheck_getBatteryStatus_f64();
                 printf("Measured Voltage: %5.3f\n", l_batterLevel_f64);
                 sleep(1);
@@ -224,13 +224,13 @@ int main(int argc, char *argv[]) {
         case TESTIMU: {
             HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
             printf("Starting IMU Test\n");
-            g_halImu_initImuSensors_bl();
+            g_halImu_initImuSensors_bool();
             int i = kbhit();
             while (i != 'q') {
-                g_halImu_triggerImuReading_bl();
-                g_halImu_triggerBaroReading_bl();
-                g_halImu_triggerGyroReading_bl();
-                g_halImu_triggerAccReading_bl();
+                g_halImu_triggerImuReading_bool();
+                g_halImu_triggerBaroReading_bool();
+                g_halImu_triggerGyroReading_bool();
+                g_halImu_triggerAccReading_bool();
 
                 l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
@@ -299,27 +299,27 @@ int main(int argc, char *argv[]) {
                     l_remoteHostAddr_rg4ui8, l_remoteHostPort_ui16);
 
             HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
-            g_halImu_initImuSensors_bl();
+            g_halImu_initImuSensors_bool();
 
             int i = kbhit();
             while (i != 'q') {
-                g_halImu_triggerImuReading_bl();
-                g_halImu_triggerBaroReading_bl();
-                g_halImu_triggerGyroReading_bl();
-                g_halImu_triggerAccReading_bl();
+                g_halImu_triggerImuReading_bool();
+                g_halImu_triggerBaroReading_bool();
+                g_halImu_triggerGyroReading_bool();
+                g_halImu_triggerAccReading_bool();
 
                 l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
-                l_sendState_bl = g_hal_send_sensor_raw_bool(l_udpSocket_i32,
+                l_sendState_bool = g_hal_send_sensor_raw_bool(l_udpSocket_i32,
                         l_imuMeasurements_st);
                 printf("Temp %f\n", l_imuMeasurements_st.temperature_f64);
-                if (l_sendState_bl != M_HAL_MATLAB_SUCCESS_UI8) {
+                if (l_sendState_bool != M_HAL_MATLAB_SUCCESS_UI8) {
                     printf("UDP-Packet error\n");
                 }
                 usleep(20000); //20ms = 50Hz
             }
             // close udp connection
-            g_udp_closeSocket_bl(l_udpSocket_i32);
+            g_udp_closeSocket_bool(l_udpSocket_i32);
             break;
         }
         case TESTMATLABKALMAN: {
@@ -337,24 +337,24 @@ int main(int argc, char *argv[]) {
             l_udpSocket_i32 = g_udp_initConnection_i32(
                     l_remoteHostAddr_rg4ui8, l_remoteHostPort_ui16);
 
-            g_initMatrices_bl();
-            g_initImuSensors_bl();
+            g_initMatrices_bool();
+            g_initImuSensors_bool();
 
             int i = kbhit();
             while (i != 'q') {
-                g_calcKalmanOrientation_bl();
-                g_calcComplementaryOrientation_bl();
+                g_calcKalmanOrientation_bool();
+                g_calcComplementaryOrientation_bool();
 
-                l_kalmanAngles_st = g_getAnglesKalman_bl();
-                l_compAngles_st = g_getAnglesComplementary_bl();
+                l_kalmanAngles_st = g_getAnglesKalman_bool();
+                l_compAngles_st = g_getAnglesComplementary_bool();
                 l_sensorValues_st = g_halImu_getsensorValues_str();
 
                 printf("Temp%f\nMag%f", l_sensorValues_st.temperature_f64,
                         l_sensorValues_st.mag.x_f64);
-                l_sendState_bl = g_hal_send_all_angles_calculated_bool(
+                l_sendState_bool = g_hal_send_all_angles_calculated_bool(
                         l_udpSocket_i32, l_sensorValues_st, l_kalmanAngles_st,
                         l_compAngles_st);
-                if (l_sendState_bl != M_HAL_MATLAB_SUCCESS_UI8) {
+                if (l_sendState_bool != M_HAL_MATLAB_SUCCESS_UI8) {
                     printf("UDP-Packet error\n");
                 } else {
                     printf("Sent packet\n");
@@ -362,23 +362,23 @@ int main(int argc, char *argv[]) {
                 usleep(20000); //20ms = 50Hz
             }
             // close udp connection
-            g_udp_closeSocket_bl(l_udpSocket_i32);
+            g_udp_closeSocket_bool(l_udpSocket_i32);
             break;
         }
         case TESTACCMAG: {
             halAccmag_dataContainer l_sensorData_st;
             printf("IMU Acceleration and Compass Test\n");
-            if (g_halAccmag_initSensor_bl() != M_HAL_ACCMAG_SUCCESS_BL) {
+            if (g_halAccmag_initSensor_bool() != M_HAL_ACCMAG_SUCCESS_BL) {
                 printf("Init failed!\n");
                 return 1;
             }
             int i = kbhit();
             while (i != 'q') {
-                if (g_halAccmag_triggerAccUpdate_bl() != M_HAL_ACCMAG_SUCCESS_BL) {
+                if (g_halAccmag_triggerAccUpdate_bool() != M_HAL_ACCMAG_SUCCESS_BL) {
                     printf("ACC update failed!\n");
                     return 1;
                 }
-                if (g_halAccmag_triggerMagUpdate_bl() != M_HAL_ACCMAG_SUCCESS_BL) {
+                if (g_halAccmag_triggerMagUpdate_bool() != M_HAL_ACCMAG_SUCCESS_BL) {
                     printf("MAG update failed!\n");
                     return 1;
                 }
@@ -473,30 +473,30 @@ int main(int argc, char *argv[]) {
             printf("matrix lib function test\n");
             int i = kbhit();
             while (i != 'q') {
-                g_sigMath_matrixEye_bl((double*) l_outputMatrix_f64, 3, 3);
+                g_sigMath_matrixEye_bool((double*) l_outputMatrix_f64, 3, 3);
                 sleep(1);
-                g_sigMath_matrixInitialize_bl((double*) l_outputMatrix_f64, 3,
+                g_sigMath_matrixInitialize_bool((double*) l_outputMatrix_f64, 3,
                         3, 1);
                 sleep(1);
-                g_sigMath_matrixMultiplikation_bl((double*) l_outputMatrix_f64,
+                g_sigMath_matrixMultiplikation_bool((double*) l_outputMatrix_f64,
                         (double*) l_MatrixA_f64, 3, 3, (double*) l_MatrixB_f64,
                         3, 3);
                 sleep(1);
-                g_sigMath_matrixAddition_bl((double*) l_outputMatrix_f64,
+                g_sigMath_matrixAddition_bool((double*) l_outputMatrix_f64,
                         (double*) l_MatrixA_f64, 3, 3, (double*) l_MatrixB_f64,
                         3, 3);
                 sleep(1);
-                g_sigMath_matrixSubtraktion_bl((double*) l_outputMatrix_f64,
+                g_sigMath_matrixSubtraktion_bool((double*) l_outputMatrix_f64,
                         (double*) l_MatrixA_f64, 3, 3, (double*) l_MatrixB_f64,
                         3, 3);
                 sleep(1);
-                g_sigMath_matrixAssignment_bl((double*) l_outputMatrix_f64, 3,
+                g_sigMath_matrixAssignment_bool((double*) l_outputMatrix_f64, 3,
                         3, (double*) l_MatrixA_f64, 3, 3);
                 sleep(1);
-                g_sigMath_matrixTransponiert_bl((double*) l_outputMatrix_f64,
+                g_sigMath_matrixTransponiert_bool((double*) l_outputMatrix_f64,
                         (double*) l_MatrixA_f64, 3, 3);
                 sleep(1);
-                g_sigMath_matrixInverse_bl((double*) l_outputMatrix_f64,
+                g_sigMath_matrixInverse_bool((double*) l_outputMatrix_f64,
                         (double*) l_MatrixA_f64, 3, 3);
                 sleep(1);
             }
@@ -533,16 +533,16 @@ int main(int argc, char *argv[]) {
 
             printf("Starting Transfer matlab data on udp test\n");
 
-            g_initMatrices_bl();
-            g_initImuSensors_bl();
+            g_initMatrices_bool();
+            g_initImuSensors_bool();
 
             int i = kbhit();
             while (i != 'q') {
-                g_calcKalmanOrientation_bl();
-                g_calcComplementaryOrientation_bl();
+                g_calcKalmanOrientation_bool();
+                g_calcComplementaryOrientation_bool();
 
-                l_kalmanAngles_st = g_getAnglesKalman_bl();
-                l_compAngles_st = g_getAnglesComplementary_bl();
+                l_kalmanAngles_st = g_getAnglesKalman_bool();
+                l_compAngles_st = g_getAnglesComplementary_bool();
                 l_sensorValues_st = g_halImu_getsensorValues_str();
 
                 /*
@@ -633,19 +633,19 @@ int main(int argc, char *argv[]) {
 
             int val = 0;
 
-            g_initMatrices_bl();
-            g_initImuSensors_bl();
+            g_initMatrices_bool();
+            g_initImuSensors_bool();
 
             int i = kbhit();
             while (i != 'q') {
-                g_calcKalmanOrientation_bl();
-                g_calcComplementaryOrientation_bl();
+                g_calcKalmanOrientation_bool();
+                g_calcComplementaryOrientation_bool();
 
                 l_sensorValues_st = g_halImu_getsensorValues_str();
-                l_GyroPerStepAngles_st = g_getAnglesGyroPerStep_bl();
-                l_AccMagAngles_st = g_getAnglesAccMagCalc_bl();
-                l_kalmanAngles_st = g_getAnglesKalman_bl();
-                l_compAngles_st = g_getAnglesComplementary_bl();
+                l_GyroPerStepAngles_st = g_getAnglesGyroPerStep_bool();
+                l_AccMagAngles_st = g_getAnglesAccMagCalc_bool();
+                l_kalmanAngles_st = g_getAnglesKalman_bool();
+                l_compAngles_st = g_getAnglesComplementary_bool();
 
                 if (clock_gettime(CLOCK_REALTIME,
                         &l_timestamp_st) != M_HAL_MATLAB_SUCCESS_UI8) {
@@ -723,18 +723,18 @@ int main(int argc, char *argv[]) {
                     l_remoteHostAddr_rg4ui8, l_remoteHostPort_ui16);
 
             HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
-            g_halImu_initImuSensors_bl();
+            g_halImu_initImuSensors_bool();
 
             int i = kbhit();
             while (i != 'q') {
-                g_halImu_triggerImuReading_bl();
-                g_halImu_triggerBaroReading_bl();
-                g_halImu_triggerGyroReading_bl();
-                g_halImu_triggerAccReading_bl();
+                g_halImu_triggerImuReading_bool();
+                g_halImu_triggerBaroReading_bool();
+                g_halImu_triggerGyroReading_bool();
+                g_halImu_triggerAccReading_bool();
 
                 l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
-                l_sendState_bl = g_hal_send_sensor_raw_bool(l_udpSocket_i32,
+                l_sendState_bool = g_hal_send_sensor_raw_bool(l_udpSocket_i32,
                         l_imuMeasurements_st);
 
                 printf("Acc X %f \n", l_imuMeasurements_st.acc.x_f64);
@@ -750,13 +750,13 @@ int main(int argc, char *argv[]) {
                 printf("Press %f \n", l_imuMeasurements_st.pressure_f64);
                 printf("##########################################\n");
 
-                if (l_sendState_bl != M_HAL_MATLAB_SUCCESS_UI8) {
+                if (l_sendState_bool != M_HAL_MATLAB_SUCCESS_UI8) {
                     printf("UDP-Packet error\n");
                 }
                 usleep(20000); //20ms = 50Hz
             }
             // close udp connection
-            g_udp_closeSocket_bl(l_udpSocket_i32);
+            g_udp_closeSocket_bool(l_udpSocket_i32);
             break;
         }
 
@@ -770,21 +770,21 @@ int main(int argc, char *argv[]) {
              *
              *
              ***********************************************************************/
-        case FINALSENDING: {
+        case SEND_ALL_PAYLOAD: {
 
             //Preparation for Sensor Calls
             HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
-            g_halImu_initImuSensors_bl();
+            g_halImu_initImuSensors_bool();
 
             printf("Start Sending \n");
 
             //Sensor Data
             while (1) {
 
-                g_halImu_triggerImuReading_bl();
-                g_halImu_triggerBaroReading_bl();
-                g_halImu_triggerGyroReading_bl();
-                g_halImu_triggerAccReading_bl();
+                g_halImu_triggerImuReading_bool();
+                g_halImu_triggerBaroReading_bool();
+                g_halImu_triggerGyroReading_bool();
+                g_halImu_triggerAccReading_bool();
 
                 //Get Sensor Data and Timestamp
 
@@ -914,11 +914,11 @@ int main(int argc, char *argv[]) {
              *
              *
              ***********************************************************************/
-        case PLEASEFLY: {
+        case SEND_ALL_PAYLOAD_INTERACTIVE: {
 
             //Trigger Sensors
             HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
-            g_halImu_initImuSensors_bl();
+            g_halImu_initImuSensors_bool();
 
             //Motor
             printf("Beschleunigungstest \n");
@@ -948,21 +948,21 @@ int main(int argc, char *argv[]) {
 
                     sendBuffer[0] = pwmValue;
 
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[0],
                             &sendBuffer[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[1],
                             &sendBuffer[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[2],
                             &sendBuffer[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[3],
                             &sendBuffer[0], 1);
 
                     //Preparation for Sensor Calls
 
-                    g_halImu_triggerImuReading_bl();
-                    g_halImu_triggerBaroReading_bl();
-                    g_halImu_triggerGyroReading_bl();
-                    g_halImu_triggerAccReading_bl();
+                    g_halImu_triggerImuReading_bool();
+                    g_halImu_triggerBaroReading_bool();
+                    g_halImu_triggerGyroReading_bool();
+                    g_halImu_triggerAccReading_bool();
 
                     //Get Sensor Data and Timestamp
 
@@ -1067,18 +1067,18 @@ int main(int argc, char *argv[]) {
 
                     sendBuffer[0] = pwmValue;
 
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[0],
                             &sendBuffer[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[1],
                             &sendBuffer[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[2],
                             &sendBuffer[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[3],
                             &sendBuffer[0], 1);
-                    g_halImu_triggerImuReading_bl();
-                    g_halImu_triggerBaroReading_bl();
-                    g_halImu_triggerGyroReading_bl();
-                    g_halImu_triggerAccReading_bl();
+                    g_halImu_triggerImuReading_bool();
+                    g_halImu_triggerBaroReading_bool();
+                    g_halImu_triggerGyroReading_bool();
+                    g_halImu_triggerAccReading_bool();
 
                     //Get Sensor Data and Timestamp
 
@@ -1195,11 +1195,17 @@ int main(int argc, char *argv[]) {
              *
              ***********************************************************************/
 
+
+//            char toSend[30]=".00:42:01:42:02:42:03:42." So kann jeder Motor einzeln angesteuert werden, mit dem gewünschten Wert. 00-03 sind dabei die Motoren. Nach dem Doppelpunkt folgt der PWM Wert.\\$
+//            char toSend[30]=".go:42:go:42:go:42:go:42." Alle Rotoren drehen sich mit dem PWM Wert 15\\$
+//            char toSend[30]=".aa:42:aa:42:aa:42:aa:42." Testen der Motoren\\$
+//            char toSend[30]=".dm:42:dm:42:dm:42:dm:42." Starten der Demo\\$
+
         case RECEIVE: {
 
             //Preparation for Sensor Calls
             HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
-            g_halImu_initImuSensors_bl();
+            g_halImu_initImuSensors_bool();
 
             char BLCtrlADRExecuteOrder[DEFMotorsCount];
 
@@ -1281,16 +1287,16 @@ int main(int argc, char *argv[]) {
                     pwmValue2 = 10;
                     pwmValue3 = 10;
                     sendBuffer0[0] = pwmValue0;
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[0],
                             &sendBuffer0[0], 1);
                     sleep(1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[1],
                             &sendBuffer0[0], 1);
                     sleep(1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[2],
                             &sendBuffer0[0], 1);
                     sleep(1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[3],
                             &sendBuffer0[0], 1);
                 }
 
@@ -1304,13 +1310,13 @@ int main(int argc, char *argv[]) {
                     pwmValue3 = 15;
                     sendBuffer0[0] = pwmValue0;
 
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[0],
                             &sendBuffer0[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[1],
                             &sendBuffer0[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[2],
                             &sendBuffer0[0], 1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[3],
                             &sendBuffer0[0], 1);
                 }
 
@@ -1337,7 +1343,7 @@ int main(int argc, char *argv[]) {
                     pwmValue0 = atoi(pwm0);
                     sendBuffer0[0] = pwmValue0;
                     printf("PWM0 %u\n", pwmValue0);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[0],
                             &sendBuffer0[0], 1);
 
                 }
@@ -1346,7 +1352,7 @@ int main(int argc, char *argv[]) {
                     pwmValue1 = atoi(pwm1);
                     sendBuffer1[0] = pwmValue1;
                     printf("PWM1 %u\n", pwmValue1);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[1],
                             &sendBuffer1[0], 1);
 
                 }
@@ -1355,7 +1361,7 @@ int main(int argc, char *argv[]) {
                     pwmValue2 = atoi(pwm2);
                     sendBuffer2[0] = pwmValue2;
                     printf("PWM2 %u\n", pwmValue2);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[2],
                             &sendBuffer2[0], 1);
 
                 }
@@ -1364,16 +1370,16 @@ int main(int argc, char *argv[]) {
                     pwmValue3 = atoi(pwm3);
                     sendBuffer3[0] = pwmValue3;
                     printf("PWM3 %u\n", pwmValue3);
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[3],
                             &sendBuffer3[0], 1);
 
                 }
 
 
-                g_halImu_triggerImuReading_bl();
-                g_halImu_triggerBaroReading_bl();
-                g_halImu_triggerGyroReading_bl();
-                g_halImu_triggerAccReading_bl();
+                g_halImu_triggerImuReading_bool();
+                g_halImu_triggerBaroReading_bool();
+                g_halImu_triggerGyroReading_bool();
+                g_halImu_triggerAccReading_bool();
 
                 //Get Sensor Data and Timestamp
 
@@ -1490,7 +1496,7 @@ int main(int argc, char *argv[]) {
             while (j != 1) {
                 sendBuffer[0] = pwmValue;
                 for (i = 0; i < DEFMotorsCount; i++) {
-                    g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[i],
+                    g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[i],
                             &sendBuffer[0], 1);
                     usleep(10); //10us delay for HW Driver
                 }
@@ -1681,16 +1687,16 @@ int main(int argc, char *argv[]) {
             printf("Lets send some cool data \n");
             int writtencharacters;
             HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
-            g_halImu_initImuSensors_bl();
+            g_halImu_initImuSensors_bool();
             printf("Start Sending Messages\n");
             char imu_x[16];
             int i = kbhit();
             while (i != 'q') {
                 sleep(1);
-                g_halImu_triggerImuReading_bl();
-                g_halImu_triggerBaroReading_bl();
-                g_halImu_triggerGyroReading_bl();
-                g_halImu_triggerAccReading_bl();
+                g_halImu_triggerImuReading_bool();
+                g_halImu_triggerBaroReading_bool();
+                g_halImu_triggerGyroReading_bool();
+                g_halImu_triggerAccReading_bool();
 
                 l_imuMeasurements_st = g_halImu_getsensorValues_str();
 
@@ -1901,7 +1907,7 @@ void playDemo() {
 
     //Trigger Sensors
     HAL_SENSOR_PAYLOAD_ST l_imuMeasurements_st;
-    g_halImu_initImuSensors_bl();
+    g_halImu_initImuSensors_bool();
 
     //UDP
     int send = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -1928,17 +1934,17 @@ void playDemo() {
 
         sendBuffer[0] = pwmValue;
 
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0], &sendBuffer[0], 1);
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1], &sendBuffer[0], 1);
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2], &sendBuffer[0], 1);
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[0], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[1], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[2], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[3], &sendBuffer[0], 1);
 
         //Preparation for Sensor Calls
 
-        g_halImu_triggerImuReading_bl();
-        g_halImu_triggerBaroReading_bl();
-        g_halImu_triggerGyroReading_bl();
-        g_halImu_triggerAccReading_bl();
+        g_halImu_triggerImuReading_bool();
+        g_halImu_triggerBaroReading_bool();
+        g_halImu_triggerGyroReading_bool();
+        g_halImu_triggerAccReading_bool();
 
         //Get Sensor Data and Timestamp
 
@@ -2043,14 +2049,14 @@ void playDemo() {
 
         sendBuffer[0] = pwmValue;
 
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[0], &sendBuffer[0], 1);
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[1], &sendBuffer[0], 1);
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[2], &sendBuffer[0], 1);
-        g_lldI2c_WriteI2c_bl(BLCtrlADRExecuteOrder[3], &sendBuffer[0], 1);
-        g_halImu_triggerImuReading_bl();
-        g_halImu_triggerBaroReading_bl();
-        g_halImu_triggerGyroReading_bl();
-        g_halImu_triggerAccReading_bl();
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[0], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[1], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[2], &sendBuffer[0], 1);
+        g_lldI2c_WriteI2c_bool(BLCtrlADRExecuteOrder[3], &sendBuffer[0], 1);
+        g_halImu_triggerImuReading_bool();
+        g_halImu_triggerBaroReading_bool();
+        g_halImu_triggerGyroReading_bool();
+        g_halImu_triggerAccReading_bool();
 
         //Get Sensor Data and Timestamp
 

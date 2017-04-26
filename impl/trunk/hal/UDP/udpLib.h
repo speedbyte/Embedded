@@ -83,7 +83,7 @@ int 	g_udp_initConnection_i32(const unsigned char* const f_destIpv4_rg4ui8, unsi
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_udp_closeSocket_bl(int f_socketHandler_i32);
+unsigned int g_udp_closeSocket_bool(int f_socketHandler_i32);
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Juergen Schmidt (juscgs00)
@@ -95,11 +95,11 @@ unsigned int g_udp_closeSocket_bl(int f_socketHandler_i32);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_udp_sendPacket_bl(	int f_socketHandler_i32,
+unsigned int g_udp_sendPacket_bool(	int f_socketHandler_i32,
 										const unsigned char* const f_sendBuffer_pui8,
 										unsigned int f_sendBufferSize_ui32
 										);
-unsigned int g_udp_sendRtDataPacket_bl(	int f_socketHandler_i32,
+unsigned int g_udp_sendRtDataPacket_bool(	int f_socketHandler_i32,
 										const unsigned char* const f_sendBuffer_pui8,
 										unsigned int f_sendBufferSize_ui32
 										);
@@ -107,7 +107,7 @@ unsigned int g_udp_recvPacket_ui32(	int f_socketHandler_i32,
 											unsigned char* const f_recvBuffer_pui8,
 											unsigned int f_recvBufferSize_ui32
 										);
-unsigned int g_udp_configSocket_bl(	int f_socketHandler_i32,
+unsigned int g_udp_configSocket_bool(	int f_socketHandler_i32,
 											const unsigned char* const f_destIpv4_rg4ui8,
 											unsigned short f_destPort_ui16
 										);

@@ -1,5 +1,0 @@
-<map id="mdlOutputs" name="mdlOutputs">
-<area shape="rect" id="node2" href="$udpImuLib_8c_a950c3c02f670a48965dc6d6c5130ac8b.html#a950c3c02f670a48965dc6d6c5130ac8b" title="Receives a packet of IMU data with the current via a given UDP&#45;Socket. " alt="" coords="143,5,337,32"/>
-<area shape="rect" id="node3" href="$udpLib_8c_ae2c1f15f17730f3794e20be65106a963.html#ae2c1f15f17730f3794e20be65106a963" title="Reads a packet of data via a given UDP&#45;Socket. " alt="" coords="385,5,581,32"/>
-<area shape="rect" id="node4" href="$udpLib_8c_adc385b1d5891b3efc2f9c7f91018d893.html#adc385b1d5891b3efc2f9c7f91018d893" title="Finds the slot number of a given socket handler. " alt="" coords="629,5,748,32"/>
-</map>

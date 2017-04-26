@@ -30,8 +30,8 @@ static HAL_ANGLE_PAYLOAD_ST m_offsetGyro_st;
  *                         Triggering of a new measurement of all chips
  *                         according to their update rate has to be done before
  *                         reading
- *                         1.) g_SigFil_initImuSensors_bl()
- *                         2.) g_sigFil_readImuData_bl()
+ *                         1.) g_SigFil_initImuSensors_bool()
+ *                         2.) g_sigFil_readImuData_bool()
  *
  * \param[out]    returns the requested IMU data
  *
@@ -50,7 +50,7 @@ HAL_SENSOR_PAYLOAD_ST g_sigFil_getsensorValuesUnfiltered_st()
  * \date     2015/05/31
  *
  * \brief    Offset correction of the Gyroscope
- * \details    Function gets called by g_SigFil_initImuSensors_bl()
+ * \details    Function gets called by g_SigFil_initImuSensors_bool()
  *             which then calculates the Offset of the Gyros
  *
  * \param[out]    returns the Offset of the Gyroscopes
@@ -68,7 +68,7 @@ HAL_ANGLE_PAYLOAD_ST m_sigFil_offsetCorrectionGyro_st()
 
     for(i=0;i<M_NR_OF_VALUES_FOR_OFFSET_UI8;i++)
     {
-        g_halImu_triggerImuReading_bl();
+        g_halImu_triggerImuReading_bool();
         l_sigFil_sensorValues_st = g_halImu_getsensorValues_str();
 
         l_measuredGyroValue_st.roll_f64+=l_sigFil_sensorValues_st.gyro.roll_f64;
@@ -98,11 +98,11 @@ HAL_ANGLE_PAYLOAD_ST m_sigFil_offsetCorrectionGyro_st()
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_SigFil_initImuSensors_bl()
+unsigned int g_SigFil_initImuSensors_bool()
 {
     unsigned int l_initState_bl;
 
-    l_initState_bl = g_halImu_initImuSensors_bl();
+    l_initState_bool = g_halImu_initImuSensors_bool();
     m_offsetGyro_st=m_sigFil_offsetCorrectionGyro_st();
 
     return l_initState_bl;
@@ -125,9 +125,9 @@ unsigned int g_SigFil_initImuSensors_bl()
  * none
  * \endinternal
  ***********************************************************************/
-void g_sigFil_readImuData_bl()
+void g_sigFil_readImuData_bool()
 {
-    g_halImu_triggerImuReading_bl();
+    g_halImu_triggerImuReading_bool();
     m_sigFil_sensorValues_st = g_halImu_getsensorValues_str();
 
     m_sigFil_sensorValues_st.acc.z_f64=-m_sigFil_sensorValues_st.acc.z_f64;

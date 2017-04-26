@@ -27,12 +27,12 @@ static HAL_SENSOR_PAYLOAD_ST m_halImu_sensorValues_st;
  *             Attention:     Triggering of a new measurement of all chips
  *                         according to their update rate has to be done before
  *                         reading
- *                         1.) g_halImu_triggerBaroReading_bl()
- *                         2.) g_halImu_triggerGyroReading_bl()
- *                         3.) g_halImu_triggerAccReading_bl()
- *                         4.) g_halImu_triggerMagReading_bl()
+ *                         1.) g_halImu_triggerBaroReading_bool()
+ *                         2.) g_halImu_triggerGyroReading_bool()
+ *                         3.) g_halImu_triggerAccReading_bool()
+ *                         4.) g_halImu_triggerMagReading_bool()
  *                         or
- *                         1.) g_halImu_triggerImuReading_bl()
+ *                         1.) g_halImu_triggerImuReading_bool()
  *
  * \param[out]    returns the requested IMU data
  *
@@ -64,10 +64,10 @@ HAL_SENSOR_PAYLOAD_ST g_halImu_getsensorValues_str(void)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halImu_initImuSensors_bl(void)
+unsigned int g_halImu_initImuSensors_bool(void)
 {
     // initialize Acceleration and electrical Compass chip
-    if(g_halAccmag_initSensor_bl()!=0)
+    if(g_halAccmag_initSensor_bool()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
     // initialize Barometer chip
@@ -98,7 +98,7 @@ unsigned int g_halImu_initImuSensors_bl(void)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halImu_triggerBaroReading_bl(void)
+unsigned int g_halImu_triggerBaroReading_bool(void)
 {
     if(g_halBaro_readPressureFromI2C_i32()!=0)
     {return M_HAL_IMU_FAILED_BL;}
@@ -129,7 +129,7 @@ unsigned int g_halImu_triggerBaroReading_bl(void)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halImu_triggerGyroReading_bl(void)
+unsigned int g_halImu_triggerGyroReading_bool(void)
 {
     if(g_halGyro_readGyroscopeFromI2C_i32()!=0)
     {return M_HAL_IMU_FAILED_BL;}
@@ -156,9 +156,9 @@ unsigned int g_halImu_triggerGyroReading_bl(void)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halImu_triggerAccReading_bl(void)
+unsigned int g_halImu_triggerAccReading_bool(void)
 {
-    if(g_halAccmag_triggerAccUpdate_bl()!=0)
+    if(g_halAccmag_triggerAccUpdate_bool()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
     m_halImu_sensorValues_st.acc=g_halAccmag_getAccVector_st();
@@ -183,9 +183,9 @@ unsigned int g_halImu_triggerAccReading_bl(void)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halImu_triggerMagReading_bl(void)
+unsigned int g_halImu_triggerMagReading_bool(void)
 {
-    if(g_halAccmag_triggerMagUpdate_bl()!=0)
+    if(g_halAccmag_triggerMagUpdate_bool()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
     m_halImu_sensorValues_st.mag=g_halAccmag_getMagVector_st();
@@ -210,7 +210,7 @@ unsigned int g_halImu_triggerMagReading_bl(void)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_halImu_triggerImuReading_bl(void)
+unsigned int g_halImu_triggerImuReading_bool(void)
 {
     if(g_halBaro_readPressureFromI2C_i32()!=0)
     {return M_HAL_IMU_FAILED_BL;}
@@ -221,10 +221,10 @@ unsigned int g_halImu_triggerImuReading_bl(void)
     if(g_halGyro_readGyroscopeFromI2C_i32()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
-    if(g_halAccmag_triggerAccUpdate_bl()!=0)
+    if(g_halAccmag_triggerAccUpdate_bool()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
-    if(g_halAccmag_triggerMagUpdate_bl()!=0)
+    if(g_halAccmag_triggerMagUpdate_bool()!=0)
     {return M_HAL_IMU_FAILED_BL;}
 
     m_halImu_sensorValues_st.mag=g_halAccmag_getMagVector_st();

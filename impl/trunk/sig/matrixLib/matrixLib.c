@@ -45,7 +45,7 @@ unsigned int m_getIndex_i32(unsigned int f_maxCol_ui32,unsigned int f_row_ui32,u
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigMath_matrixMultiplikation_bl(
+unsigned int g_sigMath_matrixMultiplikation_bool(
         double* f_matrixResult_pf64, double* f_matrixA_pf64,
         unsigned int f_nrOfRowsA_ui32, unsigned int f_nrOfColsA_ui32,
         double* f_matrixB_pf64, unsigned int f_nrOfRowsB_ui32,
@@ -102,7 +102,7 @@ unsigned int g_sigMath_matrixMultiplikation_bl(
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigMath_matrixAddition_bl(double* f_matrixResult_pf64,
+unsigned int g_sigMath_matrixAddition_bool(double* f_matrixResult_pf64,
         double* f_matrixA_pf64, unsigned int f_nrOfRowsA_ui32,
         unsigned int f_nrOfColsA_ui32, double* f_matrixB_pf64,
         unsigned int f_nrOfRowsB_ui32, unsigned int f_nrOfColsB_ui32)
@@ -152,7 +152,7 @@ unsigned int g_sigMath_matrixAddition_bl(double* f_matrixResult_pf64,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigMath_matrixSubtraktion_bl(double* f_matrixResult_pf64,
+unsigned int g_sigMath_matrixSubtraktion_bool(double* f_matrixResult_pf64,
         double* f_matrixA_pf64, unsigned int f_nrOfRowsA_ui32,
         unsigned int f_nrOfColsA_ui32, double* f_matrixB_pf64,
         unsigned int f_nrOfRowsB_ui32, unsigned int f_nrOfColsB_ui32)
@@ -199,7 +199,7 @@ unsigned int g_sigMath_matrixSubtraktion_bl(double* f_matrixResult_pf64,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigMath_matrixTransponiert_bl(
+unsigned int g_sigMath_matrixTransponiert_bool(
         double* f_matrixResult_pf64, double* f_matrix_pf64,
         unsigned int f_nrOfRows_ui32, unsigned int f_nrOfCols_ui32)
 {
@@ -239,7 +239,7 @@ unsigned int g_sigMath_matrixTransponiert_bl(
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigMath_matrixInverse_bl(double* f_matrixResult_pf64,
+unsigned int g_sigMath_matrixInverse_bool(double* f_matrixResult_pf64,
         double* f_matrixA_pf64, unsigned int f_nrOfRowsA_ui32,
         unsigned int f_nrOfColsA_ui32)
 {
@@ -304,7 +304,7 @@ unsigned int g_sigMath_matrixInverse_bl(double* f_matrixResult_pf64,
 
 //solve linear system
 
-    if(g_sigMath_matrixEye_bl(l_eyeMatrix_f64[0],f_nrOfRowsA_ui32,f_nrOfColsA_ui32)!=0)
+    if(g_sigMath_matrixEye_bool(l_eyeMatrix_f64[0],f_nrOfRowsA_ui32,f_nrOfColsA_ui32)!=0)
     {return M_SIG_MATRIXLIB_FAILED_BL;}
     l_tempValue_f64=0;
 
@@ -324,11 +324,11 @@ unsigned int g_sigMath_matrixInverse_bl(double* f_matrixResult_pf64,
         }
     }
 
-    if(g_sigMath_matrixTransponiert_bl((double*)l_lowerTriangularMatrix_f64,(double*)l_lowerInverseTriangularMatrix_f64,
+    if(g_sigMath_matrixTransponiert_bool((double*)l_lowerTriangularMatrix_f64,(double*)l_lowerInverseTriangularMatrix_f64,
                 f_nrOfRowsA_ui32,f_nrOfColsA_ui32)!=0)
     {return M_SIG_MATRIXLIB_FAILED_BL;}
 
-    if(g_sigMath_matrixMultiplikation_bl((double*)f_matrixResult_pf64,(double*)l_lowerTriangularMatrix_f64 ,
+    if(g_sigMath_matrixMultiplikation_bool((double*)f_matrixResult_pf64,(double*)l_lowerTriangularMatrix_f64 ,
             f_nrOfRowsA_ui32,f_nrOfColsA_ui32,(double*)l_lowerInverseTriangularMatrix_f64,f_nrOfRowsA_ui32,f_nrOfColsA_ui32)!=0)
     {return M_SIG_MATRIXLIB_FAILED_BL;}
 
@@ -356,7 +356,7 @@ unsigned int g_sigMath_matrixInverse_bl(double* f_matrixResult_pf64,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigMath_matrixAssignment_bl(double* f_matrixResult_pf64,
+unsigned int g_sigMath_matrixAssignment_bool(double* f_matrixResult_pf64,
         unsigned int f_nrOfRowsResult_ui32,unsigned int f_nrOfColsResult_ui32,
         double* f_matrix_pf64, unsigned int f_nrOfRows_ui32,
         unsigned int f_nrOfCols_ui32)
@@ -403,7 +403,7 @@ unsigned int g_sigMath_matrixAssignment_bl(double* f_matrixResult_pf64,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigMath_matrixInitialize_bl(double* f_matrixResult_pf64,
+unsigned int g_sigMath_matrixInitialize_bool(double* f_matrixResult_pf64,
         unsigned int f_nrOfRows_ui32, unsigned int f_nrOfCols_ui32,
         double f_setValue_f64)
 {
@@ -441,7 +441,7 @@ unsigned int g_sigMath_matrixInitialize_bl(double* f_matrixResult_pf64,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_sigMath_matrixEye_bl(double* f_matrixResult_pf64,
+unsigned int g_sigMath_matrixEye_bool(double* f_matrixResult_pf64,
         unsigned int f_nrOfRows_ui32, unsigned int f_nrOfCols_ui32)
 {
     unsigned int l_rowCounter_ui32=0;

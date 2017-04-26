@@ -57,7 +57,7 @@ double g_halBatCheck_getBatteryStatus_f64(void)
  *
  * \endinternal
  ********************************************************************** */
-unsigned int  g_halBatCheck_readBatStatusFromI2C_bl(void)
+unsigned int  g_halBatCheck_readBatStatusFromI2C_bool(void)
 {
     double l_batteryLevel_f64;
 

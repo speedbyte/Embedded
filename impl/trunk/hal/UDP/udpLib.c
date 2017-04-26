@@ -325,7 +325,7 @@ int     g_udp_initConnection_i32(const unsigned char* const f_destIpv4_rg4ui8, u
      *     Local machine                               Remote machine
      *
      */
-    if ( g_udp_configSocket_bl(l_socketHandler_i32, f_destIpv4_rg4ui8, f_udpConnectionPort_ui16) != M_HAL_MATLAB_SUCCESS_UI8 )
+    if ( g_udp_configSocket_bool(l_socketHandler_i32, f_destIpv4_rg4ui8, f_udpConnectionPort_ui16) != M_HAL_MATLAB_SUCCESS_UI8 )
     {
         // error occurred
         return M_HAL_MATLAB_ERROR_I8;
@@ -354,7 +354,7 @@ int     g_udp_initConnection_i32(const unsigned char* const f_destIpv4_rg4ui8, u
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_udp_closeSocket_bl(int f_socketHandler_i32)
+unsigned int g_udp_closeSocket_bool(int f_socketHandler_i32)
 {
     signed short l_socketSlotNumber_i16 = 0;
 
@@ -401,7 +401,7 @@ unsigned int g_udp_closeSocket_bl(int f_socketHandler_i32)
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_udp_sendPacket_bl(    int f_socketHandler_i32,
+unsigned int g_udp_sendPacket_bool(    int f_socketHandler_i32,
                                         const unsigned char* const f_sendBuffer_pui8,
                                         unsigned int f_sendBufferSize_ui32
                                         )
@@ -465,7 +465,7 @@ unsigned int g_udp_sendPacket_bl(    int f_socketHandler_i32,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_udp_sendRtDataPacket_bl(    int f_socketHandler_i32,
+unsigned int g_udp_sendRtDataPacket_bool(    int f_socketHandler_i32,
                                                 const unsigned char* const f_sendBuffer_pui8,
                                                 unsigned int f_sendBufferSize_ui32)
 {
@@ -500,7 +500,7 @@ unsigned int g_udp_sendRtDataPacket_bl(    int f_socketHandler_i32,
     // adjust size of telegram's payload (due to added timestamp)
     l_sizePayload_ui32 = f_sendBufferSize_ui32 + sizeof(l_timestamp_st);
 
-    return g_udp_sendPacket_bl(f_socketHandler_i32, l_sendBuffer_rgXi8, l_sizePayload_ui32);
+    return g_udp_sendPacket_bool(f_socketHandler_i32, l_sendBuffer_rgXi8, l_sizePayload_ui32);
 }
 
 /*!**********************************************************************
@@ -515,7 +515,7 @@ unsigned int g_udp_sendRtDataPacket_bl(    int f_socketHandler_i32,
  *     \param[in]    f_sendBuffer_pui8 is a pointer to the receiving buffer
  *     \param[in]    f_sendBufferSize_ui32 size (in bytes) of the receiving
  *                 buffer
- *  \param[in]    f_blocking_bl defines the blocking behavior of the
+ *  \param[in]    f_blocking_bool defines the blocking behavior of the
  *              UDP packet reading.\n
  *              == 0 ... function blocks until packet received (default)
  *              != 0 ... function is non-blocking
@@ -546,7 +546,7 @@ unsigned int g_udp_recvPacket_ui32( int f_socketHandler_i32,
     l_socketConfig_pst = &(m_socketManagementBuffer_rg8st[l_socketSlotNumber_i16]);
 
 //    // define blocking behavior of receive-function
-//    if ( f_blocking_bl != 0 )
+//    if ( f_blocking_bool != 0 )
 //    {
 //        // non-blocking behavior
 //        l_recvFromFlag_i32 = MSG_DONTWAIT;
@@ -591,7 +591,7 @@ unsigned int g_udp_recvPacket_ui32( int f_socketHandler_i32,
  * none
  * \endinternal
  ***********************************************************************/
-unsigned int g_udp_configSocket_bl(    int f_socketHandler_i32,
+unsigned int g_udp_configSocket_bool(    int f_socketHandler_i32,
         const unsigned char* const f_destIpv4_rg4ui8,
         unsigned short f_destPort_ui16)
 {

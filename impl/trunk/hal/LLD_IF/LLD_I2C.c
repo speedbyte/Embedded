@@ -41,7 +41,7 @@
  * Changed variable and function names in order to guideline
  * \endinternal
  ***********************************************************************/
-unsigned int g_lldI2c_WriteI2c_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_i2cWriteBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
+unsigned int g_lldI2c_WriteI2c_bool(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_i2cWriteBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
 {
     unsigned char     l_returnOfWrittenBytes_ui8     = 0;
     unsigned char     l_WriteRetryCounter_ui8     = 0;
@@ -120,7 +120,7 @@ unsigned int g_lldI2c_WriteI2c_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, co
  *   *
  * \endinternal
  ***********************************************************************/ 
-unsigned int g_lldI2c_ReadI2c_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_lldI2c_i2cReadBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
+unsigned int g_lldI2c_ReadI2c_bool(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_lldI2c_i2cReadBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
 {
     unsigned char     l_ReturnOfReadBytes_ui8 = 0;
     unsigned char     l_ReadRetryCounter_ui8     = 0;
@@ -191,7 +191,7 @@ unsigned int g_lldI2c_ReadI2c_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, con
  * 
  * \endinternal
  ***********************************************************************/
-unsigned int g_lldI2c_WriteI2c0_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_i2cWriteBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
+unsigned int g_lldI2c_WriteI2c0_bool(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_i2cWriteBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
 {
     unsigned char     l_returnOfWrittenBytes_ui8     = 0;
     unsigned char     l_WriteRetryCounter_ui8     = 0;
@@ -261,7 +261,7 @@ unsigned int g_lldI2c_WriteI2c0_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, c
  * 
  *  * \endinternal
  ***********************************************************************/ 
-unsigned int g_lldI2c_ReadI2c0_bl(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_lldI2c_i2cReadBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
+unsigned int g_lldI2c_ReadI2c0_bool(unsigned char f_lldI2c_i2cSlaveAddress_ui8, const unsigned char* f_lldI2c_i2cReadBuffer_pui8, unsigned int f_i2cNumOfDataBytes_ui32)
 {
     unsigned char     l_ReturnOfReadBytes_ui8 = 0;
     unsigned char     l_ReadRetryCounter_ui8     = 0;

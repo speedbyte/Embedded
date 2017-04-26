@@ -37,7 +37,7 @@ HAL_SENSOR_PAYLOAD_ST g_sigFil_getsensorValuesUnfiltered_st(void);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_SigFil_initImuSensors_bl(void);
+unsigned int g_SigFil_initImuSensors_bool(void);
 
 /* -----------------------------------------------------------------------
  * AUTHOR: Oliver Breuning (olbrgs00)
@@ -50,6 +50,6 @@ unsigned int g_SigFil_initImuSensors_bl(void);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-void g_sigFil_readImuData_bl(void);
+void g_sigFil_readImuData_bool(void);
 
 #endif /* SIG_IMUFILTER_IMUFILTER_H_ */

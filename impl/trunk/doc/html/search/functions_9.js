@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['title',['title',['../analyseIMUData_8m_a2237ab44dbcc72d1a9ee8bfd89faed71.html#a2237ab44dbcc72d1a9ee8bfd89faed71',1,'title(&apos;Complementary filter&apos;) xlabel(&apos;time[s]&apos;)%x-axis label ylabel(&apos;pitch[degree]&apos;)%y-axis label subplot(3:&#160;analyseIMUData.m'],['../analyseIMUData_8m_a74156cc2c2a3ef8c0944951d63cf0fc7.html#a74156cc2c2a3ef8c0944951d63cf0fc7',1,'title(&apos;Kalman filter&apos;) xlabel(&apos;time[s]&apos;)%x-axis label ylabel(&apos;pitch[degree]&apos;)%y-axis label subplot(3:&#160;analyseIMUData.m'],['../analyseIMUData_8m_a6f62131082c3a710ad599e90858731e1.html#a6f62131082c3a710ad599e90858731e1',1,'title(&apos;Magnetic sensor&apos;) xlabel(&apos;time[s]&apos;)%x-axis label ylabel(&apos;mag.field[Tesla]&apos;)%y-axis label subplot(3:&#160;analyseIMUData.m']]]
-];

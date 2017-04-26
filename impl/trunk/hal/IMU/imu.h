@@ -16,8 +16,8 @@
 #include "Orientation.h"
 
 
-#define M_HAL_IMU_SUCCESS_BL			0
-#define M_HAL_IMU_FAILED_BL				1
+#define M_HAL_IMU_SUCCESS_BOOL 		0
+#define M_HAL_IMU_FAILED_BOOL 			1
 
 /*!**********************************************************************
  * \author 	Oliver Breuning (olbrgs00)
@@ -66,7 +66,7 @@ HAL_SENSOR_PAYLOAD_ST g_halImu_getsensorValues_str(void);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_halImu_initImuSensors_bl(void);
+unsigned int g_halImu_initImuSensors_bool(void);
 
 
 /* -----------------------------------------------------------------------
@@ -79,11 +79,11 @@ unsigned int g_halImu_initImuSensors_bl(void);
  * CHANGELOG:
  * none
  * -------------------------------------------------------------------- */
-unsigned int g_halImu_triggerImuReading_bl(void);
-unsigned int g_halImu_triggerBaroReading_bl(void);
-unsigned int g_halImu_triggerGyroReading_bl(void);
-unsigned int g_halImu_triggerAccReading_bl(void);
-unsigned int g_halImu_triggerMagReading_bl(void);
+unsigned int g_halImu_triggerImuReading_bool(void);
+unsigned int g_halImu_triggerBaroReading_bool(void);
+unsigned int g_halImu_triggerGyroReading_bool(void);
+unsigned int g_halImu_triggerAccReading_bool(void);
+unsigned int g_halImu_triggerMagReading_bool(void);
 
 
 
