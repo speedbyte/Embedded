@@ -1,2 +1,0 @@
-set (LIBRARY_SOURCES GPS.c)
-add_library(GPS.lib ${LIBRARY_SOURCES})

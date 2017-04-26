@@ -1,2 +1,0 @@
-set (LIBRARY_SOURCES LLD_I2C.c LLD_UART.c)
-add_library(LLD_IF.lib ${LIBRARY_SOURCES})

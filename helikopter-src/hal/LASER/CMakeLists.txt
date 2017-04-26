@@ -1,2 +1,0 @@
-set (LIBRARY_SOURCES LIDAR.c)
-add_library(LASER.lib ${LIBRARY_SOURCES})

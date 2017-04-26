@@ -54,18 +54,14 @@ find_library(ARM_RT_LIBRARY NAMES librt.so HINTS "${CMAKE_SOURCE_DIR}/helikopter
 set(CMAKE_FIND_ROOT_PATH ${CMAKE_SOURCE_DIR})
 
 if ( GENERATE_LIBRARIES )
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/hal/ADC)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/hal/BATTERY)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/hal/GPIO)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/hal/GPS)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/hal/IMU)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/hal/LASER)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/hal/UDP)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/hal/MOTOR)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/remotecontroller)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/matlab)
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/sig)
+
+# The below 2 lines needs to be written in further CMakeLists.txt
+set (LIBRARY_SOURCES HAL_ADC.c)
+add_library(ADC.lib ${LIBRARY_SOURCES})
+
+# The below line adds the subdirectory where furtther CMakeLists.txt can be found
 add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/lld)
+
 set (EXTRA_LIBS ${EXTRA_LIBS} ADC.lib BATTERY.lib GPIO.lib GPS.lib IMU.lib LASER.lib MOTOR.lib UDP.lib REMOTECONTROLLER.lib MATLAB.lib SIG.lib LLD.lib)
 
 add_executable(HELIKOPTER ${CMAKE_SOURCE_DIR}/helikopter-src/main/main.c)

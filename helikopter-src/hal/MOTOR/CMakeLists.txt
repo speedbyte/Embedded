@@ -1,2 +1,0 @@
-set (LIBRARY_SOURCES MOTOR.c)
-add_library(MOTOR.lib ${LIBRARY_SOURCES})
