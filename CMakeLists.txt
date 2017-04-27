@@ -6,15 +6,10 @@ include_directories("${CMAKE_BINARY_DIR}")
 include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include/c++/4.8.3")
 include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/include")
 include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include")
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/ADC)
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/BATTERY)
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/GPIO)
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/GPS)
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/IMU)
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/LASER)
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/UDP)
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/MOTOR)
-include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/sig/)
+include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/SENSOR/inc)
+include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/HAL_LIB/inc)
+include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/MOTOR/inc)
+include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/sig/inc)
 include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/lld/)
 include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/remotecontroller)
 
@@ -55,18 +50,6 @@ set(CMAKE_FIND_ROOT_PATH ${CMAKE_SOURCE_DIR})
 
 if ( GENERATE_LIBRARIES )
 
-# The below 2 lines needs to be written in further CMakeLists.txt
-set (LIBRARY_SOURCES HAL_ADC.c)
-add_library(ADC.lib ${LIBRARY_SOURCES})
-
-# The below line adds the subdirectory where furtther CMakeLists.txt can be found
-add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/lld)
-
-set (EXTRA_LIBS ${EXTRA_LIBS} ADC.lib BATTERY.lib GPIO.lib GPS.lib IMU.lib LASER.lib MOTOR.lib UDP.lib REMOTECONTROLLER.lib MATLAB.lib SIG.lib LLD.lib)
-
-add_executable(HELIKOPTER ${CMAKE_SOURCE_DIR}/helikopter-src/main/main.c)
-target_link_libraries(HELIKOPTER ${EXTRA_LIBS} ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY})
-add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING ${HELIKOPTER}")
 
 else()
 
@@ -250,4 +233,21 @@ message(STATUS "the path of ARM_C_LIBRARY: " ${ARM_C_LIBRARY})
 #
 #MESSAGE( STATUS ": " ${} )
 
-# ------------------------- End of Generic CMake Variable Logging ------------------
+# ------------------------- End of Generic CMake Variable Logging -----------------
+
+
+# Legacy code for learning -------------------------
+
+## The below 2 lines needs to be written in further CMakeLists.txt
+#set (LIBRARY_SOURCES HAL_ADC.c)
+#add_library(ADC.lib ${LIBRARY_SOURCES})
+
+## The below line adds the subdirectory where further CMakeLists.txt can be found
+#add_subdirectory(${CMAKE_SOURCE_DIR}/helikopter-src/lld)
+
+#set (EXTRA_LIBS ${EXTRA_LIBS} ADC.lib BATTERY.lib GPIO.lib GPS.lib IMU.lib LASER.lib MOTOR.lib UDP.lib REMOTECONTROLLER.lib MATLAB.lib SIG.lib LLD.lib)
+
+#add_executable(HELIKOPTER ${CMAKE_SOURCE_DIR}/helikopter-src/main/main.c)
+#target_link_libraries(HELIKOPTER ${EXTRA_LIBS} ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY})
+#add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING ${HELIKOPTER}")
+

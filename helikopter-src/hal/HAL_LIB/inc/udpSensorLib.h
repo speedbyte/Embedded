@@ -6,7 +6,7 @@
 
 #include "udpLib.h"
 #include "Orientation.h"
-#include "../hal/IMU/imu.h"
+#include "imu.h"
 
 typedef struct{
 	struct timespec				timestamp_st;

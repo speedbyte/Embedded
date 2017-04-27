@@ -8,7 +8,7 @@
  *      Author: user
  */
 
-#include "../../hal/IMU/imu.h"
+#include "imu.h"
 
 //define the number off values which are regarded for the mean value calculation
 #define M_NR_OF_VALUES_FOR_OFFSET_UI8        1000

@@ -10,7 +10,7 @@
 #include "Orientation.h"
 
 #include "LLD_I2C.h"
-#include "Hal_Lib.h"
+#include "Sensor_Lib.h"
 #include "Gyro.h"
 #include <unistd.h>
 
@@ -109,12 +109,6 @@ double g_halGyro_getTemperature_f64(void)
  * \brief Trigger I2C transfer
  * \details Trigger rotational speed transfer from gyroscope to HAL.
  *          Angular rate is sent
- *          7.10
- * X-axis angular rate data. The value is expressed as two’s complement.
- * OUT_Y_L (2Ah), OUT_Y_H (2Bh)
- * Y-axis angular rate data. The value is expressed as two’s complement.
- * OUT_Z_L (2Ch), OUT_Z_H (2Dh)
- * Z-axis angular rate data. The value is expressed as two’s complement.
  *
  * \param[ in ] no parameter
  * \param[ out ] succeeded

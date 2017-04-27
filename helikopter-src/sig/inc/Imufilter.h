@@ -12,7 +12,7 @@
 #define SIG_IMUFILTER_IMUFILTER_H_
 
 
-#include "../../hal/IMU/imu.h"
+#include "imu.h"
 
 
 /* -----------------------------------------------------------------------

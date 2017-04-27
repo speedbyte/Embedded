@@ -8,7 +8,7 @@
  *      Author: user
  */
 
-#include "Hal_Lib.h"
+#include "Sensor_Lib.h"
 
 int g_halLib_twoComplement2Int(unsigned char* f_buffer_ui8,unsigned int f_nrOfBytes_ui32)
 {
