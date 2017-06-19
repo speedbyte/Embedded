@@ -1,0 +1,8 @@
+/home/robin/workspace/Project_Hochschule/Embedded/CMakeFiles/edit_cache.dir
+/home/robin/workspace/Project_Hochschule/Embedded/CMakeFiles/rebuild_cache.dir
+/home/robin/workspace/Project_Hochschule/Embedded/CMakeFiles/HELIKOPTER.dir
+/home/robin/workspace/Project_Hochschule/Embedded/CMakeFiles/communication.dir
+/home/robin/workspace/Project_Hochschule/Embedded/CMakeFiles/sensor.dir
+/home/robin/workspace/Project_Hochschule/Embedded/CMakeFiles/motor.dir
+/home/robin/workspace/Project_Hochschule/Embedded/CMakeFiles/lld.dir
+/home/robin/workspace/Project_Hochschule/Embedded/CMakeFiles/sig.dir

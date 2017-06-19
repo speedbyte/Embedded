@@ -1,0 +1,1 @@
+/home/robin/workspace/Project_Hochschule/Embedded/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc  -fPIC -O0  -Wall -I. -fmessage-length=0 -g3 -g -shared -Wl,-soname,libcomminication.so -o libcomminication.so  
