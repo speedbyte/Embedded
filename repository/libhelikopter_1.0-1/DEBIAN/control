@@ -1,0 +1,10 @@
+Package: libhelikopter
+Version: 1.0-1
+Section: base
+Priority: optional
+Architecture: armhf
+#Depends: libsomethingorrather (>= 1.2.13), anotherDependency (>= 1.2.6)
+Maintainer: Robin Lieb <roligs00@hs-esslingen.de>
+Description: Libraries for the HElikopter project
+ Included libraries: libcommunication.so, liblld.so, libmotor.so, libsensor.so, libsig.so
+ These libraries are installed in the /usr/local/lib/helicopter directory
