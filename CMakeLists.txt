@@ -82,7 +82,8 @@ MESSAGE( STATUS "SIG_SRC             " ${SIG_SRC} )
 file(GLOB_RECURSE LLD_SRC ${CMAKE_SOURCE_DIR}/helikopter-src/lld/*.c)
 MESSAGE( STATUS "LLD_SRC             " ${LLD_SRC} )
 
-add_executable(HELIKOPTER ${HAL_SRC} ${MATLAB_SRC} ${SIG_SRC} ${LLD_SRC} ${CMAKE_SOURCE_DIR}/helikopter-src/main/main.c)
+# ...${HAL_SRC} ${MATLAB_SRC} ${SIG_SRC} ...
+add_executable(HELIKOPTER ${HAL_SRC} ${SIG_SRC} ${LLD_SRC} ${CMAKE_SOURCE_DIR}/helikopter-src/main/main.c)
 target_link_libraries(HELIKOPTER ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY})
 add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING ${HELIKOPTER}")
 target_compile_definitions(HELIKOPTER PRIVATE Quadro_Plus=1)
