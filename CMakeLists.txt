@@ -12,12 +12,14 @@ include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/MOTOR/inc)
 include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/sig/inc)
 include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/lld/)
 include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/remotecontroller)
-
 option(DO_TARGET_CONNECT "If the target needs to be connected")
 set(DO_TARGET_CONNECT OFF)
 
 option(GENERATE_LIBRARIES "This method will generate individual libraries")
-set(GENERATE_LIBRARIES OFF)
+set(GENERATE_LIBRARIES ON)
+
+option(HATSENSE "This method will generate hat sense libraries nd executables")
+set(HATSENSE ON)
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 set(CMAKE_BUILD_TYPE Debug)
@@ -48,8 +50,23 @@ find_library(ARM_RT_LIBRARY NAMES librt.so HINTS "${CMAKE_SOURCE_DIR}/helikopter
 
 set(CMAKE_FIND_ROOT_PATH ${CMAKE_SOURCE_DIR})
 
-if ( GENERATE_LIBRARIES )
 
+if ( HATSENSE ) 
+
+include_directories("${CMAKE_SOURCE_DIR}/senseHat-src/RTIMULib/")
+set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/senseHat-install")
+
+add_subdirectory(${CMAKE_SOURCE_DIR}/senseHat-src/RTIMULib)
+#add_library(RTIMULib NAMES RTIMULib.o")
+
+# HATSens - Massimiliano Botticelli - 2017.06.19
+#find_library(RTIMUGeneratedLib NAMES libRTIMULib.so HINTS "${CMAKE_SOURCE_DIR}/senseHat-src/lib") 
+ADD_EXECUTABLE(HATSENSE ${CMAKE_SOURCE_DIR}/helikopter-src/main/readSens.cpp)
+target_link_libraries(HATSENSE RTIMULib)
+
+else()
+
+if ( GENERATE_LIBRARIES )
 
 else()
 
@@ -68,10 +85,10 @@ MESSAGE( STATUS "LLD_SRC             " ${LLD_SRC} )
 add_executable(HELIKOPTER ${HAL_SRC} ${MATLAB_SRC} ${SIG_SRC} ${LLD_SRC} ${CMAKE_SOURCE_DIR}/helikopter-src/main/main.c)
 target_link_libraries(HELIKOPTER ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY})
 add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING ${HELIKOPTER}")
+target_compile_definitions(HELIKOPTER PRIVATE Quadro_Plus=1)
 
 endif (GENERATE_LIBRARIES)
-
-target_compile_definitions(HELIKOPTER PRIVATE Quadro_Plus=1)
+endif (HATSENSE)
 
 if (DO_TARGET_CONNECT)
 # execute_process(COMMAND ls _NPROCESSORS_ONLN OUTPUT_VARIABLE NB_PROCESSOR)
@@ -136,8 +153,7 @@ MESSAGE( STATUS "CMAKE_INCLUDE_PATH: " ${CMAKE_INCLUDE_PATH} )
 # this is used when searching for libraries e.g. using the FIND_LIBRARY() command.
 MESSAGE( STATUS "CMAKE_LIBRARY_PATH: " ${CMAKE_LIBRARY_PATH} )
 
-# the complete system name, e.g. "Linux-2.4.22", "FreeBSD-5.4-RELEASE" or "Windows 5.1" 
-MESSAGE( STATUS "CMAKE_SYSTEM: " ${CMAKE_SYSTEM} )
+# the complete system name, e.g. "Linux-2.4.22", "FreeBSD-5.4-RELEASE" or "Windows 5.1" MESSAGE( STATUS "CMAKE_SYSTEM: " ${CMAKE_SYSTEM} )
 
 # the short system name, e.g. "Linux", "FreeBSD" or "Windows"
 MESSAGE( STATUS "CMAKE_SYSTEM_NAME: " ${CMAKE_SYSTEM_NAME} )
