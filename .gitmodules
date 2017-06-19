@@ -6,3 +6,7 @@
 	path = helikopter-tools
 	url = https://github.com/raspberrypi/tools.git
 	branch = master
+[submodule "RTIMULib"]
+	path = senseHat-src
+	url = https://github.com/RPi-Distro/RTIMULib.git
+	branch = master
