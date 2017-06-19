@@ -16,14 +16,12 @@ option(DO_TARGET_CONNECT "If the target needs to be connected")
 set(DO_TARGET_CONNECT OFF)
 
 option(GENERATE_LIBRARIES "This method will generate individual libraries")
-<<<<<<< HEAD
-set(GENERATE_LIBRARIES on)
-=======
+
 set(GENERATE_LIBRARIES ON)
 
 option(HATSENSE "This method will generate hat sense libraries nd executables")
 set(HATSENSE ON)
->>>>>>> 5c842a8f3ab53db151e0b14e4d0daa3501a3d956
+
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 set(CMAKE_BUILD_TYPE Debug)
@@ -36,7 +34,6 @@ set(CMAKE_OBJDUMP ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-ar
 set(CMAKE_SIZE ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-size)
 set(CMAKE_NM ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-nm)
 set(CMAKE_READELF ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-readelf)
-#set(CMAKE_C_LINK_EXECUTABLE ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ld)
 
 set(${CFLAGSNOERROR} -Wno-error=unused-but-set-variable -Wno-error=unused-variable)
 set(${CFLAGSERROR} CFLAGSERROR=-Werror)
@@ -56,7 +53,23 @@ find_library(ARM_RT_LIBRARY NAMES librt.so HINTS "${CMAKE_SOURCE_DIR}/helikopter
 set(CMAKE_FIND_ROOT_PATH ${CMAKE_SOURCE_DIR})
 
 
-<<<<<<< HEAD
+if ( HATSENSE ) 
+
+include_directories("${CMAKE_SOURCE_DIR}/senseHat-src/RTIMULib/")
+set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/senseHat-install")
+
+add_subdirectory(${CMAKE_SOURCE_DIR}/senseHat-src/RTIMULib)
+#add_library(RTIMULib NAMES RTIMULib.o")
+
+# HATSens - Massimiliano Botticelli - 2017.06.19
+#find_library(RTIMUGeneratedLib NAMES libRTIMULib.so HINTS "${CMAKE_SOURCE_DIR}/senseHat-src/lib") 
+ADD_EXECUTABLE(HATSENSE ${CMAKE_SOURCE_DIR}/helikopter-src/main/readSens.cpp)
+target_link_libraries(HATSENSE RTIMULib)
+
+else()
+
+if ( GENERATE_LIBRARIES )
+
 file(GLOB_RECURSE SRC_COMMUNICATION ${CMAKE_SOURCE_DIR}/helikopter-src/hal/HAL_LIB/*.c)
 file(GLOB_RECURSE SRC_LLD ${CMAKE_SOURCE_DIR}/helikopter-src/lld/*.c)
 file(GLOB_RECURSE SRC_SENSOR ${CMAKE_SOURCE_DIR}/helikopter-src/hal/SENSOR/*.c)
@@ -83,26 +96,6 @@ add_executable(HELIKOPTER ${CMAKE_SOURCE_DIR}/helikopter-src/main/main.c)       
 target_link_libraries(HELIKOPTER ${ARM_RT_LIBRARY} ${ARM_MATH_LIBRARY} ${ARM_C_LIBRARY}  communication lld sensor sig motor)      # link our previously created shared libraries to the exectable "HELIKOPTER"
 
 add_custom_command(TARGET HELIKOPTER POST_BUILD COMMAND echo "WE HAVE FINISHED COMPILING ${HELIKOPTER} WITH SHARED LIBRARIES")
-
-
-=======
-if ( HATSENSE ) 
-
-include_directories("${CMAKE_SOURCE_DIR}/senseHat-src/RTIMULib/")
-set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/senseHat-install")
-
-add_subdirectory(${CMAKE_SOURCE_DIR}/senseHat-src/RTIMULib)
-#add_library(RTIMULib NAMES RTIMULib.o")
-
-# HATSens - Massimiliano Botticelli - 2017.06.19
-#find_library(RTIMUGeneratedLib NAMES libRTIMULib.so HINTS "${CMAKE_SOURCE_DIR}/senseHat-src/lib") 
-ADD_EXECUTABLE(HATSENSE ${CMAKE_SOURCE_DIR}/helikopter-src/main/readSens.cpp)
-target_link_libraries(HATSENSE RTIMULib)
-
-else()
-
-if ( GENERATE_LIBRARIES )
->>>>>>> 5c842a8f3ab53db151e0b14e4d0daa3501a3d956
 
 else()
 
