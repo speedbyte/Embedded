@@ -21,3 +21,4 @@ impl/trunk/slprj/*
 slprj
 Debug/
 build/
+cmake-build-debug/

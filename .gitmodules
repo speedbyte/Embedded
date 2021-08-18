@@ -1,12 +1,16 @@
-#[submodule "helikopter-doc"]
-#	path = helikopter-doc
-#	url = git@gitlab.hs-esslingen.de:HElikopter/Projectmanagement.git
-#	branch = Masters2017 
+[submodule "helikopter-doc"]
+	path = helikopter-doc
+	url = https://github.com/speedbyte/ProjectManagement.git
+	branch = Masters2017 
 [submodule "helikopter-tools"]
-	path = helikopter-tools
+	path = submodules/helikopter-tools
 	url = https://github.com/raspberrypi/tools.git
 	branch = master
 [submodule "RTIMULib"]
-	path = senseHat-src/senseHat-rep
+	path = submodules/senseHat-src
 	url = https://github.com/RPi-Distro/RTIMULib.git
 	branch = master
+[submodule "linux"]
+	path = submodules/linux
+	url = https://github.com/raspberrypi/linux.git
+	branch = rpi-3.18.y
