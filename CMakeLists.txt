@@ -3,9 +3,9 @@ project(helikopter-raspberry)
 
 include_directories("${CMAKE_BINARY_DIR}")
 
-include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include/c++/4.8.3")
-include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/include")
-include_directories("${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include")
+include_directories("${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include/c++/4.8.3")
+include_directories("${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/include")
+include_directories("${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/include")
 include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/SENSOR/inc)
 include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/HAL_LIB/inc)
 include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/hal/MOTOR/inc)
@@ -15,15 +15,15 @@ include_directories(${CMAKE_SOURCE_DIR}/helikopter-src/remotecontroller)
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_C_COMPILER ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc)
-set(CMAKE_AR ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ar)
-set(CMAKE_RANLIB ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ranlib)
-set(CMAKE_CXX_COMPILER ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-g++)
-set(OBJCOPY ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objcopy)
-set(CMAKE_OBJDUMP ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objdump)
-set(CMAKE_SIZE ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-size)
-set(CMAKE_NM ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-nm)
-set(CMAKE_READELF ${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-readelf)
+set(CMAKE_C_COMPILER ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-gcc)
+set(CMAKE_AR ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ar)
+set(CMAKE_RANLIB ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-ranlib)
+set(CMAKE_CXX_COMPILER ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-g++)
+set(OBJCOPY ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objcopy)
+set(CMAKE_OBJDUMP ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-objdump)
+set(CMAKE_SIZE ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-size)
+set(CMAKE_NM ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-nm)
+set(CMAKE_READELF ${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-readelf)
 
 set(${CFLAGSNOERROR} -Wno-error=unused-but-set-variable -Wno-error=unused-variable)
 set(${CFLAGSERROR} CFLAGSERROR=-Werror)
@@ -36,9 +36,9 @@ set(CMAKE_SHARED_LINKER_FLAGS "-g")
 #LDFLAGS=-g -z -c -x
 #Dependancy : -MMD -MP
 
-find_library(ARM_MATH_LIBRARY NAMES libm.so HINTS "${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf")
-find_library(ARM_C_LIBRARY NAMES libc.so HINTS "${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf")
-find_library(ARM_RT_LIBRARY NAMES librt.so HINTS "${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf")
+find_library(ARM_MATH_LIBRARY NAMES libm.so HINTS "${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf")
+find_library(ARM_C_LIBRARY NAMES libc.so HINTS "${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf")
+find_library(ARM_RT_LIBRARY NAMES librt.so HINTS "${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf")
 
 set(CMAKE_FIND_ROOT_PATH ${CMAKE_SOURCE_DIR})
 
@@ -217,10 +217,10 @@ option(HATSENSE "This method will generate hat sense libraries and executables")
 set(HATSENSE ON)
 
 if(HATSENSE)
-include_directories("${CMAKE_SOURCE_DIR}/senseHat-src/")
-include_directories("${CMAKE_SOURCE_DIR}/senseHat-src/senseHat-rep/RTIMULib/")
-set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/senseHat-src/senseHat-install")
-add_subdirectory(${CMAKE_SOURCE_DIR}/senseHat-src/)
+include_directories("${CMAKE_SOURCE_DIR}/submodules/senseHat-src/")
+include_directories("${CMAKE_SOURCE_DIR}/submodules/senseHat-src/senseHat-rep/RTIMULib/")
+set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/submodules/senseHat-src/senseHat-install")
+add_subdirectory(${CMAKE_SOURCE_DIR}/submodules/senseHat-src/)
 ADD_EXECUTABLE(HATSENSE ${CMAKE_SOURCE_DIR}/helikopter-src/main/readSens.cpp)
 target_link_libraries(HATSENSE RTIMULib)
 endif(HATSENSE)
@@ -288,9 +288,9 @@ if (DO_LINUX_COMPILE)
     #export ARCH=arm
     set(ENV{ARCH} "arm")
     #export CROSS_COMPILE=../tools/tools/arm−bcm2708/gcc−linaro−arm−linux−gnueabihf−raspbian−x64/bin/arm−linux−gnueabi−
-    set(ENV{CROSS_COMPILE} "${CMAKE_SOURCE_DIR}/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-")
+    set(ENV{CROSS_COMPILE} "${CMAKE_SOURCE_DIR}/submodules/helikopter-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-")
     #export INSTALL_MOD_PATH=/linux/outputLib
-    set(ENV{INSTALL_MOD_PATH} "${CMAKE_SOURCE_DIR}/linux/outputLib")
+    set(ENV{INSTALL_MOD_PATH} "${CMAKE_SOURCE_DIR}/submodules/linux/outputLib")
     #make bcmrpi_defconfig
     #make -j 4
     #make modules_install
